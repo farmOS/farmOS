@@ -4,8 +4,11 @@ FROM farmos/farmos:3.x
 # Set the farmOS and composer project repository URLs and versions.
 ARG FARMOS_REPO=https://github.com/farmOS/farmOS.git
 ARG FARMOS_VERSION=3.x
-ARG PROJECT_REPO=https://github.com/farmOS/composer-project.git
 ARG PROJECT_VERSION=3.x
+ARG PROJECT_REPO=https://github.com/farmOS/composer-project/raw/${PROJECT_VERSION}/composer.json
+
+# Define common paths.
+ENV FARMOS_PATH=/var/farmOS
 
 # Install and enable XDebug extension.
 RUN yes | pecl install xdebug \
@@ -27,14 +30,22 @@ RUN usermod -u ${WWW_DATA_ID} www-data && groupmod -g ${WWW_DATA_ID} www-data
 # Create a fresh /var/farmOS directory owned by www-data.
 # We do this in two steps because of a known issue with Moby.
 # @see https://github.com/farmOS/farmOS/pull/440
-RUN rm -r /var/farmOS
+RUN rm -rf /var/farmOS
 RUN mkdir /var/farmOS && chown www-data:www-data /var/farmOS
+
+# Install apt dependencies.
+RUN apt-get update && apt-get install -y \
+    # Install git and unzip (needed by Composer).
+    git unzip
 
 # Change to the www-data user.
 USER www-data
 
+WORKDIR ${FARMOS_PATH}
+
 # Build the farmOS codebase in /var/farmOS.
-RUN /usr/local/bin/build-farmOS.sh
+RUN /usr/local/bin/build-farmOS.sh && composer install
+RUN sed -i "s|version: 3.x|version: ${FARMOS_VERSION}|g" ${FARMOS_PATH}/web/profiles/farm/farm.info.yml
 
 # Add Configurartions for PHP CodeSniffer, PHPStan.
 COPY --chown=www-data ./files/ /var/farmOS/

@@ -32,45 +32,74 @@ RUN apt-get update && apt-get install -y libgeos-dev \
 RUN docker-php-ext-install bcmath
 
 ##
-# Build final image.
-FROM baseimage
+# Setup dependencies and sources for composer installations.
+FROM baseimage as composer-file
+
+# Set the COMPOSER_MEMORY_LIMIT environment variable to unlimited.
+ENV COMPOSER_MEMORY_LIMIT=-1
+
+# Install apt dependencies.
+RUN apt-get update && apt-get install -y \
+    # Install git and unzip (needed by Composer).
+    git unzip
+
+# Add the build-farmOS.sh script.
+COPY build-farmOS.sh /usr/local/bin/
+
+WORKDIR ${FARMOS_PATH}
+# Setup composer file for non interactive installation.
+RUN build-farmOS.sh
+
+##
+# Create layer with farmOS sources.
+FROM composer-file as farmos-sources
+
+# Install sources.
+RUN composer install --no-dev
+
+# Set the version in farm.info.yml.
+RUN sed -i "s|version: 3.x|version: ${FARMOS_VERSION}|g" ${FARMOS_PATH}/web/profiles/farm/farm.info.yml
+
+##
+# Add final image dependencies and configurations.
+FROM baseimage as farmos-baseimage
 
 # Set Apache ServerName directive globally to suppress AH00558 message.
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-# Install and enable geos.
+# Enable PHP dependencies.
 COPY --from=php-dependencies /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
 RUN docker-php-ext-enable geos bcmath
 
 # Add custom PHP configurations.
 COPY conf.d/ /usr/local/etc/php/conf.d
 
-# Install apt dependencies.
+# Install apt dependencies and clean up.
 RUN apt-get update && apt-get install -y \
-    # Install git and unzip (needed by Composer).
-    git unzip \
     # Install postgresql-client so Drush can connect to the database.
     postgresql-client \
     # Install libgeos-c1v5 so geos php extension can use libgeos_c.so.1.
     libgeos-c1v5 \
   && rm -rf /var/lib/apt/lists/* \
-  && apt-get clean
-
-# Set the COMPOSER_MEMORY_LIMIT environment variable to unlimited.
-ENV COMPOSER_MEMORY_LIMIT=-1
-
-# Add the build-farmOS.sh script.
-COPY build-farmOS.sh /usr/local/bin/
-RUN chmod a+x /usr/local/bin/build-farmOS.sh
-
-# Build the farmOS codebase in /var/farmoS with the --no-dev flag.
-# Change the ownership of the sites directory and copy the farmOS codebase into /opt/drupal.
-RUN mkdir /var/farmOS \
-  && /usr/local/bin/build-farmOS.sh --no-dev \
-  && chown -R www-data:www-data /var/farmOS/web/sites \
-  && rm -r /opt/drupal && cp -rp /var/farmOS /opt/drupal
+  && apt-get clean \
+  # Clean up ${DRUPAL_PATH}.
+  && rm -r ${DRUPAL_PATH}
 
 # Set the entrypoint.
-COPY docker-entrypoint.sh /usr/local/bin/
+COPY --chown=www-data docker-entrypoint.sh /usr/local/bin/
+
+# Set the working directory, entrypoint and command.
+WORKDIR ${DRUPAL_PATH}
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["apache2-foreground"]
+
+
+##
+# Final image.
+FROM farmos-baseimage
+
+# Add farmOS sources.
+COPY --from=farmos-sources --chown=www-data:www-data ${FARMOS_PATH} ${DRUPAL_PATH}
+
+# Add the build-farmOS.sh script to keep compatibility with dev image.
+COPY build-farmOS.sh /usr/local/bin/
