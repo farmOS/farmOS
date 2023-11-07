@@ -61,6 +61,16 @@ RUN composer install --no-dev
 RUN sed -i "s|version: 3.x|version: ${FARMOS_VERSION}|g" ${FARMOS_PATH}/web/profiles/farm/farm.info.yml
 
 ##
+# Create layer with farmOS dev sources.
+FROM composer-file as farmos-dev-sources
+
+# Install sources.
+RUN composer install
+
+# Set the version in farm.info.yml.
+RUN sed -i "s|version: 3.x|version: ${FARMOS_VERSION}|g" ${FARMOS_PATH}/web/profiles/farm/farm.info.yml
+
+##
 # Add final image dependencies and configurations.
 FROM baseimage as farmos-baseimage
 
@@ -83,7 +93,8 @@ RUN apt-get update && apt-get install -y \
   && rm -rf /var/lib/apt/lists/* \
   && apt-get clean \
   # Clean up ${DRUPAL_PATH}.
-  && rm -r ${DRUPAL_PATH}
+  && rm -r ${DRUPAL_PATH} \
+  && mkdir ${DRUPAL_PATH}
 
 # Set the entrypoint.
 COPY --chown=www-data docker-entrypoint.sh /usr/local/bin/
@@ -93,6 +104,39 @@ WORKDIR ${DRUPAL_PATH}
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["apache2-foreground"]
 
+##
+# Development image.
+FROM farmos-baseimage as farmos-dev
+
+# Change the user/group IDs of www-data inside the image to match the ID of the
+# developer's user on the host machine. This allows Composer to create files
+# owned by www-data inside the container, while keeping those files editable by
+# the developer outside of the container.
+# This defaults to 1000, based on the assumption that the developer is running
+# as UID 1000 on the host machine. It can be overridden at image build time with:
+# --build-arg WWW_DATA_ID=$(id -u)
+ARG WWW_DATA_ID=1000
+RUN usermod -u ${WWW_DATA_ID} www-data && groupmod -g ${WWW_DATA_ID} www-data
+
+# Add farmOS sources
+COPY --from=composer-file --chown=www-data:www-data ${FARMOS_PATH} ${FARMOS_PATH}
+
+# Install and configure XDebug.
+RUN yes | pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
+# Add opcache revalidation frequency configuration.
+COPY dev/conf.d/ /usr/local/etc/php/conf.d
+
+# Add Configurations for PHP CodeSniffer, PHPStan
+COPY --chown=www-data:www-data ./dev/files/ ${FARMOS_PATH}
+
+# Add farmOS dev sources.
+COPY --from=farmos-dev-sources --chown=www-data:www-data ${FARMOS_PATH} ${FARMOS_PATH}
+
+# Configure PHPunit.
+RUN ${FARMOS_PATH}/phpunit.sh
+
 
 ##
 # Final image.
@@ -100,6 +144,3 @@ FROM farmos-baseimage
 
 # Add farmOS sources.
 COPY --from=farmos-sources --chown=www-data:www-data ${FARMOS_PATH} ${DRUPAL_PATH}
-
-# Add the build-farmOS.sh script to keep compatibility with dev image.
-COPY build-farmOS.sh /usr/local/bin/
