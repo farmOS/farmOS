@@ -72,13 +72,11 @@ jobs:
       - name: Load farmos/farmos:3.x-dev image
         run: docker load < /tmp/farmos-dev.tar
       - name: Run PHP CodeSniffer
-        run: docker run farmos/farmos:3.x-dev phpcs /opt/drupal/web/profiles/farm
+        run: docker run farmos/farmos:3.x-dev make phpcs
       - name: Run PHPStan
-        run: docker run farmos/farmos:3.x-dev phpstan analyze --memory-limit 1G /opt/drupal/web/profiles/farm
+        run: docker run farmos/farmos:3.x-dev make phpstan
       - name: Check PHP compatibility of contrib modules and themes (ignore warnings).
-        run: |
-          docker run farmos/farmos:3.x-dev phpcs --standard=PHPCompatibility --runtime-set testVersion 8.2- --warning-severity=0 /opt/drupal/web/modules
-          docker run farmos/farmos:3.x-dev phpcs --standard=PHPCompatibility --runtime-set testVersion 8.2- --warning-severity=0 /opt/drupal/web/themes
+        run: docker run farmos/farmos:3.x-dev make php-compatibility
   test:
     name: Run PHPUnit tests
     runs-on: ubuntu-latest
@@ -123,9 +121,9 @@ jobs:
       # so waiting for that lets us know it is safe to start the tests
         run: until [ -f ./www/www-container-fs-ready ]; do sleep 0.1; done
       - name: Run PHPUnit tests
-        run: docker compose exec -u www-data -T www phpunit --verbose /opt/drupal/web/profiles/farm
+        run: docker compose exec -u www-data -T www make phpunit-tests
       - name: Test Drush site install with all modules
-        run: docker compose exec -u www-data -T www drush site-install --db-url=${{ matrix.DB_URL }} farm farm.modules='all'
+        run: docker compose exec -u www-data -T www make drush u=${{ matrix.DB_URL }}
   release:
     name: Create GitHub release
     if: github.event_name == 'push' && github.ref_type == 'tag'
