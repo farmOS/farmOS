@@ -20,6 +20,7 @@ use Drupal\Core\Entity\EntityStorageInterface;
  *   ),
  *   handlers = {
  *     "list_builder" = "Drupal\plan\PlanTypeListBuilder",
+ *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "form" = {
  *       "add" = "Drupal\plan\Form\PlanTypeForm",
  *       "edit" = "Drupal\plan\Form\PlanTypeForm",
