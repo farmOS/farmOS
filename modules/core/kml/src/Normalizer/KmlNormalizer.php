@@ -22,7 +22,7 @@ class KmlNormalizer implements NormalizerInterface, DenormalizerInterface {
   /**
    * The supported type to denormalize to.
    */
-  const TYPE = 'geometry_wrapper';
+  const TYPE = GeometryWrapper::class;
 
   /**
    * The GeoPHP service.
@@ -84,22 +84,7 @@ class KmlNormalizer implements NormalizerInterface, DenormalizerInterface {
    * {@inheritdoc}
    */
   public function supportsNormalization($data, $format = NULL) {
-
-    // First check if the format is supported.
-    if ($format !== static::FORMAT) {
-      return FALSE;
-    }
-
-    // Change data to an array.
-    if (!is_array($data)) {
-      $data = [$data];
-    }
-
-    // Ensure all items are GeometryWrappers.
-    $invalid_count = count(array_filter($data, function ($object) {
-      return !$object instanceof GeometryWrapper;
-    }));
-    return $invalid_count === 0;
+    return $data instanceof GeometryWrapper && $format == static::FORMAT;
   }
 
   /**
@@ -168,7 +153,7 @@ class KmlNormalizer implements NormalizerInterface, DenormalizerInterface {
    */
   public function getSupportedTypes(?string $format): array {
     return [
-      GeometryWrapper::class => TRUE,
+      static::TYPE => TRUE,
     ];
   }
 

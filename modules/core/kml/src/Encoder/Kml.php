@@ -32,7 +32,7 @@ class Kml extends XmlEncoder {
     $xml = [
       '@xmlns' => 'http://earth.google.com/kml/2.1',
       'Document' => [
-        'Placemark' => $data,
+        'Placemark' => array_filter(array_values($data)),
       ],
     ];
 

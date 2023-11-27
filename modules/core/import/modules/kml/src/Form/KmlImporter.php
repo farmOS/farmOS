@@ -7,6 +7,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\farm_geo\GeometryWrapper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -148,7 +149,7 @@ class KmlImporter extends FormBase {
 
     // Deserialize the KML placemarks into WKT geometry.
     /** @var \Drupal\farm_geo\GeometryWrapper[] $geometries */
-    $geometries = $this->serializer->deserialize($data, 'geometry_wrapper', 'geometry_kml');
+    $geometries = $this->serializer->deserialize($data, GeometryWrapper::class, 'geometry_kml');
 
     // Bail if no geometries were found.
     if (empty($geometries)) {
