@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - [Correct alter hook to add password grant to static scopes #755](https://github.com/farmOS/farmOS/pull/755)
+- [Use strict identical operator when checking geometry format #756](https://github.com/farmOS/farmOS/pull/756)
 
 ## [3.0.0-beta3] 2023-11-27
 
