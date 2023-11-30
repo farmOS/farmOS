@@ -18,7 +18,7 @@ function farm_role_roles_oauth2_scope_info_alter(array &$scopes) {
       'farm_viewer',
     ];
     foreach ($target_scopes as $scope_id) {
-      if (isset($target_scopes[$scope_id])) {
+      if (isset($scopes[$scope_id])) {
         $scopes[$scope_id]['grant_types']['password'] = [
           'status' => TRUE,
         ];
