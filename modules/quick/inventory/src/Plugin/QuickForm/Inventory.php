@@ -165,6 +165,26 @@ class Inventory extends QuickFormBase implements QuickFormInterface {
       '#required' => TRUE,
     ];
 
+    // Build list of log type options.
+    // Limit to log types the user has access to create.
+    $log_access_control_handler = $this->entityTypeManager->getAccessControlHandler('log');
+    $log_types = array_filter($this->entityTypeManager->getStorage('log_type')->loadMultiple(), function ($log_type) use ($log_access_control_handler) {
+      return $log_access_control_handler->createAccess($log_type->id(), $this->currentUser);
+    });
+    $log_type_options = array_map(function ($log_type) {
+      return $log_type->label();
+    }, $log_types);
+
+    // Log type.
+    $form['log_type'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Log type'),
+      '#description' => $this->t('Select the type of log to create.'),
+      '#options' => $log_type_options,
+      '#default_value' => 'observation',
+      '#required' => TRUE,
+    ];
+
     // Notes.
     $form['notes'] = [
       '#type' => 'details',
@@ -214,7 +234,7 @@ class Inventory extends QuickFormBase implements QuickFormInterface {
     $timestamp = $form_state->getValue('date')->getTimestamp();
     $status = $form_state->getValue('done') ? 'done' : 'pending';
     $log = [
-      'type' => 'observation',
+      'type' => $form_state->getValue('log_type'),
       'timestamp' => $timestamp,
       'quantity' => [$quantity],
       'notes' => $form_state->getValue('notes'),

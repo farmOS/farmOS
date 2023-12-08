@@ -25,6 +25,7 @@ class QuickInventoryTest extends QuickFormTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
+    'farm_activity',
     'farm_equipment',
     'farm_inventory',
     'farm_observation',
@@ -39,6 +40,7 @@ class QuickInventoryTest extends QuickFormTestBase {
   protected function setUp(): void {
     parent::setUp();
     $this->installConfig([
+      'farm_activity',
       'farm_equipment',
       'farm_observation',
       'farm_quantity_standard',
@@ -81,6 +83,7 @@ class QuickInventoryTest extends QuickFormTestBase {
         'value' => 'Lorem ipsum',
         'format' => 'default',
       ],
+      'log_type' => 'observation',
       'done' => TRUE,
     ];
     $this->submitQuickForm($form_values);
@@ -111,7 +114,8 @@ class QuickInventoryTest extends QuickFormTestBase {
     $this->assertEquals('', $inventory[0]['units']);
     $this->assertEquals('', $inventory[0]['measure']);
 
-    // Programmatically submit the inventory quick form (increment by 1).
+    // Programmatically submit the inventory quick form (increment by 1 with an
+    // activity log).
     $form_values = [
       'date' => [
         'date' => $today->format('Y-m-d'),
@@ -126,6 +130,7 @@ class QuickInventoryTest extends QuickFormTestBase {
         'measure' => '',
       ],
       'inventory_adjustment' => 'increment',
+      'log_type' => 'activity',
       'done' => TRUE,
     ];
     $this->submitQuickForm($form_values);
@@ -134,8 +139,10 @@ class QuickInventoryTest extends QuickFormTestBase {
     $logs = $this->logStorage->loadMultiple();
     $this->assertCount(2, $logs);
 
-    // Check that the log name was populated correctly.
+    // Check that the log is an activity and that the name was populated
+    // correctly.
     $log = $logs[2];
+    $this->assertEquals('activity', $log->bundle());
     $this->assertEquals('Increment inventory of Tractor by 1', $log->label());
 
     // Check that the asset has a single inventory of 2.
@@ -160,6 +167,7 @@ class QuickInventoryTest extends QuickFormTestBase {
         'measure' => '',
       ],
       'inventory_adjustment' => 'decrement',
+      'log_type' => 'observation',
       'done' => TRUE,
     ];
     $this->submitQuickForm($form_values);
@@ -203,6 +211,7 @@ class QuickInventoryTest extends QuickFormTestBase {
         'measure' => 'volume',
       ],
       'inventory_adjustment' => 'reset',
+      'log_type' => 'observation',
       'done' => TRUE,
     ];
     $this->submitQuickForm($form_values);
