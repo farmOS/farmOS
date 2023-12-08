@@ -13,6 +13,7 @@ use Drupal\farm_quick\Plugin\QuickForm\QuickFormBase;
 use Drupal\farm_quick\Plugin\QuickForm\QuickFormInterface;
 use Drupal\farm_quick\Traits\QuickFormElementsTrait;
 use Drupal\farm_quick\Traits\QuickLogTrait;
+use Drupal\log\Entity\Log;
 use Psr\Container\ContainerInterface;
 
 /**
@@ -205,6 +206,23 @@ class Inventory extends QuickFormBase implements QuickFormInterface {
     ];
 
     return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+
+    // Mock a minimal log of the selected type to ensure that it validates. This
+    // protects against creating log types that have required fields that this
+    // form is not able to populate.
+    $log = Log::create([
+      'type' => $form_state->getValue('log_type'),
+    ]);
+    $violations = $log->validate();
+    if ($violations->count()) {
+      $form_state->setError($form['log_type'], $this->t('The selected log type cannot be created. It may have required fields that this form is unable to populate.'));
+    }
   }
 
   /**
