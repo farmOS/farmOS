@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- [Increase weight of Asset and Log tasks on canonical user route #757](https://github.com/farmOS/farmOS/pull/757)
+
 ### Fixed
 
 - [Correct alter hook to add password grant to static scopes #755](https://github.com/farmOS/farmOS/pull/755)

@@ -1786,7 +1786,7 @@ display:
         type: tab
         title: Assets
         description: ''
-        weight: 0
+        weight: 40
         expanded: false
         menu_name: account
         parent: ''
