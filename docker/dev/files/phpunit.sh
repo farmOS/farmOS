@@ -12,4 +12,8 @@ sed -i 's|\./|\./web/core/|g' ${FARMOS_PATH}/phpunit.xml
 sed -i 's|\.\./web/core/|\./web/|g' ${FARMOS_PATH}/phpunit.xml
 sed -i 's|  </php>|    <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>'"\n"'  </php>|g' ${FARMOS_PATH}/phpunit.xml
 
+# Create output directory for phpunit tests and permissions for testing user.
+mkdir -p ${FARMOS_PATH}/web/sites/simpletest/browser_output
+chown -R www-data:www-data ${FARMOS_PATH}/web/sites/simpletest
+
 rm ${FARMOS_PATH}/phpunit.sh

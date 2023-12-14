@@ -53,7 +53,3 @@ allowedPlugins=(
 for plugin in ${allowedPlugins[@]}; do
   composer config --no-plugins allow-plugins.$plugin true
 done
-
-# Create folder for composer installations.
-mkdir -p ${FARMOS_PATH}/web/sites
-mkdir -p ${FARMOS_PATH}/vendor
