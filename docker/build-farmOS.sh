@@ -8,21 +8,12 @@ set -e
 
 # If ${FARMOS_PATH} is not empty, bail.
 if [ "$(ls -A ${FARMOS_PATH})" ]; then
+  echo "The ${FARMOS_PATH} is not empty, terminate."
   exit 1
 fi
 
-# Make ${FARMOS_PATH} the working directory.
-cd ${FARMOS_PATH}
-
-# Generate an empty Composer project project and checkout a specific version.
-git clone ${PROJECT_REPO} project
-mv project/.git ./.git
-rm -rf project
-git checkout ${PROJECT_VERSION}
-git reset --hard
-
-# Create a temporary Composer cache directory.
-export COMPOSER_HOME="$(mktemp -d)"
+# Fetch composer template
+curl -L ${PROJECT_REPO} -o composer.json
 
 # If FARMOS_VERSION is a valid semantic versioning string, we assume that it is
 # a tagged version.
@@ -63,15 +54,6 @@ for plugin in ${allowedPlugins[@]}; do
   composer config --no-plugins allow-plugins.$plugin true
 done
 
-# Run composer install with optional arguments passed into this script.
-if [ $# -eq 0 ]; then
-  composer install
-else
-  composer install "$*"
-fi
-
-# Set the version in farm.info.yml.
-sed -i "s|version: 3.x|version: ${FARMOS_VERSION}|g" ${FARMOS_PATH}/web/profiles/farm/farm.info.yml
-
-# Remove the Composer cache directory.
-rm -rf "$COMPOSER_HOME"
+# Create folder for composer installations.
+mkdir -p ${FARMOS_PATH}/web/sites
+mkdir -p ${FARMOS_PATH}/vendor
