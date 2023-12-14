@@ -8,15 +8,15 @@ set -e
 ###
 
 # If the Drupal directory is empty, populate it from pre-built files.
-if [ -d /opt/drupal ] && ! [ "$(ls -A /opt/drupal/)" ]; then
+if [ -d ${DRUPAL_PATH} ] && ! [ "$(ls -A ${DRUPAL_PATH}/)" ]; then
   echo "farmOS codebase not detected. Copying from pre-built files in the Docker image."
-  cp -rp /var/farmOS/. /opt/drupal
+  cp -rp ${FARMOS_PATH}/. ${DRUPAL_PATH}
 fi
 
 # If the sites directory is empty, populate it from pre-built files.
-if [ -d /opt/drupal/web/sites ] && ! [ "$(ls -A /opt/drupal/web/sites/)" ]; then
+if [ -d ${DRUPAL_PATH}/web/sites ] && ! [ "$(ls -A ${DRUPAL_PATH}/web/sites/)" ]; then
   echo "farmOS sites directory not detected. Copying from pre-built files in the Docker image."
-  cp -rp /var/farmOS/web/sites/. /opt/drupal/web/sites
+  cp -rp ${FARMOS_PATH}/web/sites/. ${DRUPAL_PATH}/web/sites
 fi
 
 if [ -n "$FARMOS_FS_READY_SENTINEL_FILENAME" ]; then

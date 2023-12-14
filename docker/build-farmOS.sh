@@ -2,16 +2,17 @@
 set -e
 
 ###
-# This script will build the farmOS codebase in /var/farmOS.
+# This script will build the farmOS codebase in ${FARMOS_PATH},
+# by default it is /var/farmOS.
 ###
 
-# If /var/farmOS is not empty, bail.
-if [ "$(ls -A /var/farmOS/)" ]; then
+# If ${FARMOS_PATH} is not empty, bail.
+if [ "$(ls -A ${FARMOS_PATH})" ]; then
   exit 1
 fi
 
-# Make /var/farmOS the working directory.
-cd /var/farmOS
+# Make ${FARMOS_PATH} the working directory.
+cd ${FARMOS_PATH}
 
 # Generate an empty Composer project project and checkout a specific version.
 git clone ${PROJECT_REPO} project
@@ -70,7 +71,7 @@ else
 fi
 
 # Set the version in farm.info.yml.
-sed -i "s|version: 3.x|version: ${FARMOS_VERSION}|g" /var/farmOS/web/profiles/farm/farm.info.yml
+sed -i "s|version: 3.x|version: ${FARMOS_VERSION}|g" ${FARMOS_PATH}/web/profiles/farm/farm.info.yml
 
 # Remove the Composer cache directory.
 rm -rf "$COMPOSER_HOME"

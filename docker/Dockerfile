@@ -38,7 +38,7 @@ FROM baseimage
 # Set Apache ServerName directive globally to suppress AH00558 message.
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-# Install and enable geos.
+# Enable PHP dependencies.
 COPY --from=php-dependencies /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
 RUN docker-php-ext-enable geos bcmath
 
@@ -63,12 +63,12 @@ ENV COMPOSER_MEMORY_LIMIT=-1
 COPY build-farmOS.sh /usr/local/bin/
 RUN chmod a+x /usr/local/bin/build-farmOS.sh
 
-# Build the farmOS codebase in /var/farmoS with the --no-dev flag.
-# Change the ownership of the sites directory and copy the farmOS codebase into /opt/drupal.
-RUN mkdir /var/farmOS \
+# Build the farmOS codebase in ${FARMOS_PATH} with the --no-dev flag.
+# Change the ownership of the sites directory and copy the farmOS codebase into /${DRUPAL_PATH}.
+RUN mkdir ${FARMOS_PATH} \
   && /usr/local/bin/build-farmOS.sh --no-dev \
-  && chown -R www-data:www-data /var/farmOS/web/sites \
-  && rm -r /opt/drupal && cp -rp /var/farmOS /opt/drupal
+  && chown -R www-data:www-data ${FARMOS_PATH}/web/sites \
+  && rm -r ${DRUPAL_PATH} && cp -rp ${FARMOS_PATH} ${DRUPAL_PATH}
 
 # Set the entrypoint.
 COPY docker-entrypoint.sh /usr/local/bin/
