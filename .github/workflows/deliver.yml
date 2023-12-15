@@ -34,10 +34,22 @@ jobs:
         run: |
           echo "FARMOS_VERSION=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
           echo "FARMOS_REPO=${{ github.event.pull_request.head.repo.full_name }}" >> $GITHUB_ENV
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
       - name: Build and save farmOS Docker image
-        run: |
-          docker build --build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION} -t farmos/farmos:3.x docker
-          docker save farmos/farmos:3.x > /tmp/farmos.tar
+        uses: docker/build-push-action@v5
+        with:
+          push: false
+          context: docker
+          build-args: |
+            FARMOS_REPO=https://github.com/${{ env.FARMOS_REPO }}
+            FARMOS_VERSION=${{ env.FARMOS_VERSION }}
+          tags: farmos/farmos:3.x
+          cache-from: type=gha,scope=prod
+          cache-to: type=gha,scope=prod
+          outputs: type=docker,dest=/tmp/farmos.tar
       - name: Cache farmOS Docker image
         uses: actions/cache@v3
         with:
@@ -47,9 +59,20 @@ jobs:
       # but notably it does NOT override the default PROJECT_VERSION, so the
       # farmOS Composer project 3.x branch is always used.
       - name: Build and save farmOS dev Docker image
-        run: |
-          docker build --build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION} -t farmos/farmos:3.x-dev  --target dev docker
-          docker save farmos/farmos:3.x-dev > /tmp/farmos-dev.tar
+        uses: docker/build-push-action@v5
+        with:
+          push: false
+          context: docker
+          target: dev
+          build-args: |
+            FARMOS_REPO=https://github.com/${{ env.FARMOS_REPO }}
+            FARMOS_VERSION=${{ env.FARMOS_VERSION }}
+          tags: farmos/farmos:3.x-dev
+          cache-from: |
+            type=gha,scope=prod
+            type=gha,scope=dev
+          cache-to: type=gha,scope=dev
+          outputs: type=docker,dest=/tmp/farmos-dev.tar
       - name: Cache farmOS dev Docker image
         uses: actions/cache@v3
         with:
