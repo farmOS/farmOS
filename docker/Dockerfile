@@ -55,6 +55,10 @@ RUN build-farmOS.sh
 # Create layer with farmOS sources.
 FROM composer-file as farmos-sources
 
+# Declare the git commit hash argument used for build cache invalidation between
+# different commits on the same branch in GitHub actions.
+ARG GIT_COMMIT=unknown
+
 # Install sources.
 RUN composer install --no-dev
 
