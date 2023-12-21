@@ -22,4 +22,5 @@ services:
 
   www:
     depends_on:
-      - db
+      db:
+        condition: service_healthy
