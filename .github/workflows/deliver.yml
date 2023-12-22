@@ -125,6 +125,10 @@ jobs:
       # The www-container-fs-ready file is only created once we expect the containers to be online
       # so waiting for that lets us know it is safe to start the tests
         run: until [ -f ./www/www-container-fs-ready ]; do sleep 0.1; done
+      - name: Install pg_trgm PostgreSQL extension
+      # This avoids race conditions when trying to automatically install it in concurrently run tests.
+        if: matrix.dbms == 'pgsql'
+        run: docker compose exec -T db psql -U farm -c 'CREATE EXTENSION IF NOT EXISTS pg_trgm;'
       - name: Run PHPUnit tests
         run: docker compose exec -u www-data -T www paratest -vv --processes=${{ matrix.processes }} /opt/drupal/web/profiles/farm
       - name: Test Drush site install with all modules
