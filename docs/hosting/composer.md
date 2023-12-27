@@ -81,7 +81,7 @@ code repository with [Git](https://git-scm.com/):
 ```shell
 git init
 git add composer.json
-git commit -m 'Intitial commit of my farmOS project.'
+git commit -m 'Initial commit of my farmOS project.'
 ```
 
 It is helpful to understand that your project is *not* farmOS, but rather
