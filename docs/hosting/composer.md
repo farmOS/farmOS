@@ -70,7 +70,7 @@ next section.
 To start your own project based on the farmOS project template, open a new
 directory and run the following command:
 
-    composer create-project farmos/project
+    composer create-project farmos/project:3.x-dev
 
 This will create a `composer.json` file in your directory, copied directly from
 the [farmOS project template](https://packagist.org/packages/farmos/project).
