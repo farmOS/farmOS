@@ -77,8 +77,7 @@ jobs:
         run: docker run farmos/farmos:3.x-dev phpstan analyze --memory-limit 1G /opt/drupal/web/profiles/farm
       - name: Check PHP compatibility of contrib modules and themes (ignore warnings).
         run: |
-          docker run farmos/farmos:3.x-dev phpcs --parallel=$(nproc) --standard=PHPCompatibility --runtime-set testVersion 8.2- --warning-severity=0 /opt/drupal/web/modules
-          docker run farmos/farmos:3.x-dev phpcs --parallel=$(nproc) --standard=PHPCompatibility --runtime-set testVersion 8.2- --warning-severity=0 /opt/drupal/web/themes
+          docker run farmos/farmos:3.x-dev phpcs --parallel=$(nproc) --standard=PHPCompatibility --runtime-set testVersion 8.2- --warning-severity=0 /opt/drupal/web/modules /opt/drupal/web/themes
   test:
     name: Run PHPUnit tests
     runs-on: ubuntu-latest
