@@ -109,8 +109,8 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["apache2-foreground"]
 
 ##
-# Development image.
-FROM farmos-baseimage as dev
+# Development base image.
+FROM farmos-baseimage as farmos-dev-baseimage
 
 # Change the user/group IDs of www-data inside the image to match the ID of the
 # developer's user on the host machine. This allows Composer to create files
@@ -132,6 +132,10 @@ COPY dev/conf.d/ /usr/local/etc/php/conf.d
 # Add Configurations for PHP CodeSniffer, PHPStan
 COPY --chown=www-data:www-data ./dev/files/ ${FARMOS_PATH}
 
+##
+# Development image.
+FROM farmos-dev-baseimage as dev
+
 # Add farmOS dev sources.
 COPY --from=farmos-dev-sources --chown=www-data:www-data ${FARMOS_PATH} ${FARMOS_PATH}
 
@@ -139,7 +143,7 @@ COPY --from=farmos-dev-sources --chown=www-data:www-data ${FARMOS_PATH} ${FARMOS
 RUN ${FARMOS_PATH}/phpunit.sh
 
 ##
-# Final image.
+# Production image.
 FROM farmos-baseimage
 
 # Add farmOS sources.
