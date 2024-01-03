@@ -235,6 +235,36 @@ class QuickInventoryTest extends QuickFormTestBase {
     $this->assertEquals('volume', $inventory[0]['measure']);
     $this->assertEquals('liters', $inventory[0]['units']);
     $this->assertEquals('10', $inventory[0]['value']);
+
+    // Test customizing the log name.
+    $form_values = [
+      'date' => [
+        'date' => $today->format('Y-m-d'),
+        'time' => $today->format('H:i:s'),
+      ],
+      'asset' => [
+        ['target_id' => $equipment->id()],
+      ],
+      'quantity' => [
+        'value' => '1',
+        'units' => '',
+        'measure' => '',
+      ],
+      'inventory_adjustment' => 'reset',
+      'log_type' => 'observation',
+      'done' => TRUE,
+      'custom_name' => TRUE,
+      'name' => 'Test custom log name',
+    ];
+    $this->submitQuickForm($form_values);
+
+    // Confirm that five logs exists.
+    $logs = $this->logStorage->loadMultiple();
+    $this->assertCount(5, $logs);
+
+    // Check that the log name was populated correctly.
+    $log = $logs[5];
+    $this->assertEquals('Test custom log name', $log->label());
   }
 
 }

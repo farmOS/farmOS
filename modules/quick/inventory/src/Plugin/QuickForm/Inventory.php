@@ -2,6 +2,7 @@
 
 namespace Drupal\farm_quick_inventory\Plugin\QuickForm;
 
+use Drupal\asset\Entity\AssetInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -205,7 +206,85 @@ class Inventory extends QuickFormBase implements QuickFormInterface {
       '#default_value' => TRUE,
     ];
 
+    // Log name.
+    // Provide a checkbox to allow customizing this. Otherwise, it will be
+    // automatically generated on submission.
+    $form['custom_name'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Customize log name'),
+      '#description' => $this->t('This allows the log name to be customized. Otherwise, a default name will be generated.'),
+      '#default_value' => FALSE,
+      '#ajax' => [
+        'callback' => [$this, 'logNameCallback'],
+        'wrapper' => 'log-name',
+      ],
+    ];
+    $form['name_wrapper'] = [
+      '#type' => 'container',
+      '#attributes' => ['id' => 'log-name'],
+    ];
+    if ($form_state->getValue('custom_name', FALSE)) {
+      $form['name_wrapper']['name'] = [
+        '#type' => 'textfield',
+        '#title' => $this->t('Log name'),
+        '#maxlength' => 255,
+        '#default_value' => $this->generateLogName($form_state),
+        '#required' => TRUE,
+      ];
+    }
+
     return $form;
+  }
+
+  /**
+   * Generate log name.
+   *
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state object.
+   *
+   * @return string
+   *   Returns a log name string.
+   */
+  protected function generateLogName(FormStateInterface $form_state) {
+    $log_name = '';
+
+    // Get the asset name. If an asset has not been selected, bail.
+    $asset = $form_state->getValue('asset');
+    if (is_numeric($asset)) {
+      $asset = $this->entityTypeManager->getStorage('asset')->load($asset);
+    }
+    if (!($asset instanceof AssetInterface)) {
+      return $log_name;
+    }
+
+    // Create a summary of the quantity.
+    $quantity_summary = $form_state->getValue(['quantity', 'value']);
+    if ($form_state->getValue(['quantity', 'units'])) {
+      $units = $this->entityTypeManager->getStorage('taxonomy_term')->load($form_state->getValue(['quantity', 'units']));
+      if (!empty($units)) {
+        $quantity_summary .= ' ' . $units->label();
+      }
+    }
+    if ($form_state->getValue(['quantity', 'measure'])) {
+      $quantity_summary .= ' (' . $form_state->getValue(['quantity', 'measure']) . ')';
+    }
+
+    // Generate the log name based on the inventory adjustment type.
+    switch ($form_state->getValue('inventory_adjustment')) {
+      case 'increment':
+        $log_name = $this->t('Increment inventory of @asset by @quantity', ['@asset' => Markup::create($asset->label()), '@quantity' => $quantity_summary]);
+        break;
+
+      case 'decrement':
+        $log_name = $this->t('Decrement inventory of @asset by @quantity', ['@asset' => Markup::create($asset->label()), '@quantity' => $quantity_summary]);
+        break;
+
+      case 'reset':
+        $log_name = $this->t('Reset inventory of @asset to @quantity', ['@asset' => Markup::create($asset->label()), '@quantity' => $quantity_summary]);
+        break;
+    }
+
+    return $log_name;
   }
 
   /**
@@ -260,29 +339,21 @@ class Inventory extends QuickFormBase implements QuickFormInterface {
     ];
 
     // Generate a name for the log.
-    $quantity_summary = $quantity['value'];
-    if (!is_null($units)) {
-      $quantity_summary .= ' ' . $units->label();
-    }
-    if (!empty($quantity['measure'])) {
-      $quantity_summary .= ' (' . $quantity['measure'] . ')';
-    }
-    switch ($quantity['inventory_adjustment']) {
-      case 'increment':
-        $log['name'] = $this->t('Increment inventory of @asset by @quantity', ['@asset' => Markup::create($asset->label()), '@quantity' => $quantity_summary]);
-        break;
-
-      case 'decrement':
-        $log['name'] = $this->t('Decrement inventory of @asset by @quantity', ['@asset' => Markup::create($asset->label()), '@quantity' => $quantity_summary]);
-        break;
-
-      case 'reset':
-        $log['name'] = $this->t('Reset inventory of @asset to @quantity', ['@asset' => Markup::create($asset->label()), '@quantity' => $quantity_summary]);
-        break;
+    // If a custom plant name was provided, use that. Otherwise, generate one.
+    $log['name'] = $this->generateLogName($form_state);
+    if (!empty($form_state->getValue('custom_name', FALSE)) && $form_state->hasValue('name')) {
+      $log['name'] = $form_state->getValue('name');
     }
 
     // Create the log.
     $this->createLog($log);
+  }
+
+  /**
+   * Ajax callback for log name field.
+   */
+  public function logNameCallback(array $form, FormStateInterface $form_state) {
+    return $form['name_wrapper'];
   }
 
 }
