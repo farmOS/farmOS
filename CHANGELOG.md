@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - [Increase weight of Asset and Log tasks on canonical user route #757](https://github.com/farmOS/farmOS/pull/757)
+- Update Drupal core to 10.2.0.
 
 ### Deprecated
 
