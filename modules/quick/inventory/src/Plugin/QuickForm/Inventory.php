@@ -10,8 +10,9 @@ use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\farm_inventory\AssetInventoryInterface;
+use Drupal\farm_quick\Plugin\QuickForm\ConfigurableQuickFormInterface;
 use Drupal\farm_quick\Plugin\QuickForm\QuickFormBase;
-use Drupal\farm_quick\Plugin\QuickForm\QuickFormInterface;
+use Drupal\farm_quick\Traits\ConfigurableQuickFormTrait;
 use Drupal\farm_quick\Traits\QuickFormElementsTrait;
 use Drupal\farm_quick\Traits\QuickLogTrait;
 use Drupal\log\Entity\Log;
@@ -31,8 +32,9 @@ use Psr\Container\ContainerInterface;
  *   }
  * )
  */
-class Inventory extends QuickFormBase implements QuickFormInterface {
+class Inventory extends QuickFormBase implements ConfigurableQuickFormInterface {
 
+  use ConfigurableQuickFormTrait;
   use QuickLogTrait;
   use QuickFormElementsTrait;
 
@@ -101,6 +103,19 @@ class Inventory extends QuickFormBase implements QuickFormInterface {
   /**
    * {@inheritdoc}
    */
+  public function defaultConfiguration() {
+    return [
+      'asset' => NULL,
+      'measure' => NULL,
+      'units' => NULL,
+      'inventory_adjustment' => 'reset',
+      'log_type' => 'observation',
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function buildForm(array $form, FormStateInterface $form_state, string $id = NULL) {
 
     // Date.
@@ -126,6 +141,9 @@ class Inventory extends QuickFormBase implements QuickFormInterface {
       '#maxlength' => 1024,
       '#required' => TRUE,
     ];
+    if (!empty($this->configuration['asset'])) {
+      $form['asset']['#default_value'] = $this->entityTypeManager->getStorage('asset')->load($this->configuration['asset']);
+    }
 
     // Quantity.
     $form['quantity'] = $this->buildInlineContainer();
@@ -148,10 +166,14 @@ class Inventory extends QuickFormBase implements QuickFormInterface {
       ],
       '#size' => 16,
     ];
+    if (!empty($this->configuration['units'])) {
+      $form['quantity']['units']['#default_value'] = $this->entityTypeManager->getStorage('taxonomy_term')->load($this->configuration['units']);
+    }
     $form['quantity']['measure'] = [
       '#type' => 'select',
       '#title' => $this->t('Measure'),
       '#options' => array_merge(['' => ''], quantity_measure_options()),
+      '#default_value' => $this->configuration['measure'],
     ];
 
     // Inventory adjustment.
@@ -164,28 +186,18 @@ class Inventory extends QuickFormBase implements QuickFormInterface {
         'decrement' => $this->t('Decrement'),
         'reset' => $this->t('Reset'),
       ],
-      '#default_value' => 'reset',
       '#required' => TRUE,
+      '#default_value' => $this->configuration['inventory_adjustment'],
     ];
-
-    // Build list of log type options.
-    // Limit to log types the user has access to create.
-    $log_access_control_handler = $this->entityTypeManager->getAccessControlHandler('log');
-    $log_types = array_filter($this->entityTypeManager->getStorage('log_type')->loadMultiple(), function ($log_type) use ($log_access_control_handler) {
-      return $log_access_control_handler->createAccess($log_type->id(), $this->currentUser);
-    });
-    $log_type_options = array_map(function ($log_type) {
-      return $log_type->label();
-    }, $log_types);
 
     // Log type.
     $form['log_type'] = [
       '#type' => 'select',
       '#title' => $this->t('Log type'),
       '#description' => $this->t('Select the type of log to create.'),
-      '#options' => $log_type_options,
-      '#default_value' => 'observation',
+      '#options' => $this->logTypeOptions(),
       '#required' => TRUE,
+      '#default_value' => $this->configuration['log_type'],
     ];
 
     // Notes.
@@ -235,6 +247,23 @@ class Inventory extends QuickFormBase implements QuickFormInterface {
     }
 
     return $form;
+  }
+
+  /**
+   * Build a list of log type options.
+   *
+   * @return array
+   *   Returns an array of log type labels, keyed by machine name.
+   *   Only log types that the user has access to create will be included.
+   */
+  protected function logTypeOptions() {
+    $log_access_control_handler = $this->entityTypeManager->getAccessControlHandler('log');
+    $log_types = array_filter($this->entityTypeManager->getStorage('log_type')->loadMultiple(), function ($log_type) use ($log_access_control_handler) {
+      return $log_access_control_handler->createAccess($log_type->id(), $this->currentUser);
+    });
+    return array_map(function ($log_type) {
+      return $log_type->label();
+    }, $log_types);
   }
 
   /**
@@ -365,6 +394,90 @@ class Inventory extends QuickFormBase implements QuickFormInterface {
    */
   public function logNameCallback(array $form, FormStateInterface $form_state) {
     return $form['name_wrapper'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+
+    // Asset.
+    $form['asset'] = [
+      '#type' => 'entity_autocomplete',
+      '#title' => $this->t('Asset'),
+      '#description' => $this->t("Which asset's inventory is being adjusted?"),
+      '#target_type' => 'asset',
+      '#selection_settings' => [
+        'sort' => [
+          'field' => 'status',
+          'direction' => 'ASC',
+        ],
+      ],
+      '#maxlength' => 1024,
+    ];
+    if (!empty($this->configuration['asset'])) {
+      $form['asset']['#default_value'] = $this->entityTypeManager->getStorage('asset')->load($this->configuration['asset']);
+    }
+
+    // Units.
+    $form['units'] = [
+      '#type' => 'entity_autocomplete',
+      '#title' => $this->t('Units'),
+      '#target_type' => 'taxonomy_term',
+      '#selection_settings' => [
+        'target_bundles' => ['unit'],
+      ],
+      '#autocreate' => [
+        'bundle' => 'unit',
+      ],
+      '#size' => 16,
+    ];
+    if (!empty($this->configuration['units'])) {
+      $form['units']['#default_value'] = $this->entityTypeManager->getStorage('taxonomy_term')->load($this->configuration['units']);
+    }
+
+    // Measure.
+    $form['measure'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Measure'),
+      '#options' => array_merge(['' => ''], quantity_measure_options()),
+      '#default_value' => $this->configuration['measure'],
+    ];
+
+    // Inventory adjustment.
+    $form['inventory_adjustment'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Adjustment type'),
+      '#description' => $this->t('What type of inventory adjustment is this?'),
+      '#options' => [
+        'increment' => $this->t('Increment'),
+        'decrement' => $this->t('Decrement'),
+        'reset' => $this->t('Reset'),
+      ],
+      '#default_value' => $this->configuration['inventory_adjustment'],
+    ];
+
+    // Log type.
+    $form['log_type'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Log type'),
+      '#description' => $this->t('Select the type of log to create.'),
+      '#options' => $this->logTypeOptions(),
+      '#default_value' => $this->configuration['log_type'],
+    ];
+
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
+    $this->configuration['asset'] = $form_state->getValue('asset');
+    $this->configuration['units'] = $form_state->getValue('units');
+    $this->configuration['measure'] = $form_state->getValue('measure');
+    $this->configuration['inventory_adjustment'] = $form_state->getValue('inventory_adjustment');
+    $this->configuration['log_type'] = $form_state->getValue('log_type');
   }
 
 }
