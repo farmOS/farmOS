@@ -3,6 +3,7 @@
 namespace Drupal\farm_quick_inventory\Plugin\QuickForm;
 
 use Drupal\asset\Entity\AssetInterface;
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -27,9 +28,7 @@ use Psr\Container\ContainerInterface;
  *   label = @Translation("Inventory"),
  *   description = @Translation("Record asset inventory adjustments."),
  *   helpText = @Translation("Use this form to increment, decrement, or reset the inventory of an asset. A new log will be created to record the adjustment."),
- *   permissions = {
- *     "create observation log",
- *   }
+ *   permissions = {}
  * )
  */
 class Inventory extends QuickFormBase implements ConfigurableQuickFormInterface {
@@ -98,6 +97,21 @@ class Inventory extends QuickFormBase implements ConfigurableQuickFormInterface 
       $container->get('asset.inventory'),
       $container->get('current_user'),
     );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function access(AccountInterface $account) {
+
+    // Check to ensure the user has permission to create the configured log type
+    // and view the configured asset.
+    $result = AccessResult::allowedIf($this->entityTypeManager->getAccessControlHandler('log')->createAccess($this->configuration['log_type'], $account));
+    if (!empty($this->configuration['asset'])) {
+      $asset = $this->entityTypeManager->getStorage('asset')->load($this->configuration['asset']);
+      $result = $result->andIf(AccessResult::allowedIf($asset->access('view')));
+    }
+    return $result;
   }
 
   /**
