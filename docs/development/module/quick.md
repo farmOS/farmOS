@@ -244,9 +244,11 @@ To make an existing quick form configurable:
    assigns configuration to `$this->configuration`.
 6. Add a `config/schema/[mymodule].schema.yml` file that describes the
    [configuration schema/metatdata](https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata).
+7. Add `'#default_value' => $this->configuration['...']` lines to the form
+   elements that are configurable in the `buildForm()` method.
 
-The following is the same "Harvest" example as above, with the new interface
-and methods, followed by the schema file that describes the settings.
+The following is the same "Harvest" example as above, with the changes described
+above, followed by the schema file that describes the settings.
 
 ```php
 <?php
