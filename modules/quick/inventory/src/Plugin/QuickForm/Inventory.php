@@ -15,6 +15,7 @@ use Drupal\farm_quick\Plugin\QuickForm\QuickFormInterface;
 use Drupal\farm_quick\Traits\QuickFormElementsTrait;
 use Drupal\farm_quick\Traits\QuickLogTrait;
 use Drupal\log\Entity\Log;
+use Drupal\taxonomy\TermInterface;
 use Psr\Container\ContainerInterface;
 
 /**
@@ -259,14 +260,21 @@ class Inventory extends QuickFormBase implements QuickFormInterface {
 
     // Create a summary of the quantity.
     $quantity_summary = $form_state->getValue(['quantity', 'value']);
-    if ($form_state->getValue(['quantity', 'units'])) {
-      $units = $this->entityTypeManager->getStorage('taxonomy_term')->load($form_state->getValue(['quantity', 'units']));
-      if (!empty($units)) {
+    $units = $form_state->getValue(['quantity', 'units']);
+    $measure = $form_state->getValue(['quantity', 'measure']);
+    if (!empty($units)) {
+      if (is_numeric($units)) {
+        $units = $this->entityTypeManager->getStorage('taxonomy_term')->load($units);
+      }
+      elseif (is_array($units) && !empty($units['entity'])) {
+        $units = $units['entity'];
+      }
+      if ($units instanceof TermInterface) {
         $quantity_summary .= ' ' . $units->label();
       }
     }
-    if ($form_state->getValue(['quantity', 'measure'])) {
-      $quantity_summary .= ' (' . $form_state->getValue(['quantity', 'measure']) . ')';
+    if (!empty($measure)) {
+      $quantity_summary .= ' (' . $measure . ')';
     }
 
     // Generate the log name based on the inventory adjustment type.
@@ -313,9 +321,12 @@ class Inventory extends QuickFormBase implements QuickFormInterface {
     $asset = $this->entityTypeManager->getStorage('asset')->load($form_state->getValue('asset'));
 
     // Load units term (if specified).
-    $units = NULL;
-    if ($form_state->getValue(['quantity', 'units'])) {
+    $units = $form_state->getValue(['quantity', 'units']);
+    if (is_numeric($units)) {
       $units = $this->entityTypeManager->getStorage('taxonomy_term')->load($form_state->getValue(['quantity', 'units']));
+    }
+    elseif (is_array($units) && !empty($units['entity'])) {
+      $units = $units['entity'];
     }
 
     // Create a quantity for the inventory adjustment.
