@@ -190,16 +190,6 @@ class Inventory extends QuickFormBase implements ConfigurableQuickFormInterface 
       '#default_value' => $this->configuration['inventory_adjustment'],
     ];
 
-    // Log type.
-    $form['log_type'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Log type'),
-      '#description' => $this->t('Select the type of log to create.'),
-      '#options' => $this->logTypeOptions(),
-      '#required' => TRUE,
-      '#default_value' => $this->configuration['log_type'],
-    ];
-
     // Notes.
     $form['notes'] = [
       '#type' => 'details',
@@ -212,17 +202,26 @@ class Inventory extends QuickFormBase implements ConfigurableQuickFormInterface 
       '#format' => 'default',
     ];
 
-    // Done.
-    $form['done'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Completed'),
-      '#default_value' => TRUE,
+    // Advanced.
+    $form['advanced'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Advanced'),
+    ];
+
+    // Log type.
+    $form['advanced']['log_type'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Log type'),
+      '#description' => $this->t('Select the type of log to create.'),
+      '#options' => $this->logTypeOptions(),
+      '#required' => TRUE,
+      '#default_value' => $this->configuration['log_type'],
     ];
 
     // Log name.
     // Provide a checkbox to allow customizing this. Otherwise, it will be
     // automatically generated on submission.
-    $form['custom_name'] = [
+    $form['advanced']['custom_name'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Customize log name'),
       '#description' => $this->t('This allows the log name to be customized. Otherwise, a default name will be generated.'),
@@ -232,12 +231,12 @@ class Inventory extends QuickFormBase implements ConfigurableQuickFormInterface 
         'wrapper' => 'log-name',
       ],
     ];
-    $form['name_wrapper'] = [
+    $form['advanced']['name_wrapper'] = [
       '#type' => 'container',
       '#attributes' => ['id' => 'log-name'],
     ];
     if ($form_state->getValue('custom_name', FALSE)) {
-      $form['name_wrapper']['name'] = [
+      $form['advanced']['name_wrapper']['name'] = [
         '#type' => 'textfield',
         '#title' => $this->t('Log name'),
         '#maxlength' => 255,
@@ -245,6 +244,13 @@ class Inventory extends QuickFormBase implements ConfigurableQuickFormInterface 
         '#required' => TRUE,
       ];
     }
+
+    // Done.
+    $form['done'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Completed'),
+      '#default_value' => TRUE,
+    ];
 
     return $form;
   }
@@ -393,7 +399,7 @@ class Inventory extends QuickFormBase implements ConfigurableQuickFormInterface 
    * Ajax callback for log name field.
    */
   public function logNameCallback(array $form, FormStateInterface $form_state) {
-    return $form['name_wrapper'];
+    return $form['advanced']['name_wrapper'];
   }
 
   /**
