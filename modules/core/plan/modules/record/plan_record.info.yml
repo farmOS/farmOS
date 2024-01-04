@@ -1,0 +1,5 @@
+name: Plan record relationship
+description: Provides an entity to store the relationship between a plan and a record along with additional metadata.
+type: module
+package: farmOS
+core_version_requirement: ^10
