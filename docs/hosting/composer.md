@@ -70,7 +70,7 @@ next section.
 To start your own project based on the farmOS project template, open a new
 directory and run the following command:
 
-    composer create-project farmos/project
+    composer create-project farmos/project:3.x-dev
 
 This will create a `composer.json` file in your directory, copied directly from
 the [farmOS project template](https://packagist.org/packages/farmos/project).
@@ -81,7 +81,7 @@ code repository with [Git](https://git-scm.com/):
 ```shell
 git init
 git add composer.json
-git commit -m 'Intitial commit of my farmOS project.'
+git commit -m 'Initial commit of my farmOS project.'
 ```
 
 It is helpful to understand that your project is *not* farmOS, but rather
