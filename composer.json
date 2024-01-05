@@ -18,7 +18,7 @@
     "require": {
         "cweagans/composer-patches": "^1.6",
         "drupal/admin_toolbar": "^3.3",
-        "drupal/core": "10.2.0",
+        "drupal/core": "10.2.1",
         "drupal/config_update": "^2.0@alpha",
         "drupal/consumers": "^1.15",
         "drupal/csv_serialization": "^4.0",
@@ -59,7 +59,7 @@
         "patches": {
             "drupal/core": {
                 "Issue #2429699: Add Views EntityReference filter to be available for all entity reference fields.": "https://www.drupal.org/files/issues/2021-12-02/2429699-453-9.3.x.patch",
-                "Issue #2339235: Remove taxonomy hard dependency on node module": "https://www.drupal.org/files/issues/2024-01-03/2339235-10.2.0-81.patch",
+                "Issue #2339235: Remove taxonomy hard dependency on node module": "https://www.drupal.org/files/issues/2024-01-03/2339235-10.2.x-82.patch",
                 "Issue #1874838: Allow exposed blocks to use 'Link display' settings": "https://www.drupal.org/files/issues/2021-11-11/1874838-26.patch",
                 "Issue #2909128: Autocomplete not working on Chrome Android": "https://www.drupal.org/files/issues/2023-07-11/2909128-92.patch"
             },
