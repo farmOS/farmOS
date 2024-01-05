@@ -3,10 +3,7 @@
 namespace Drupal\farm_field\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Datetime\DrupalDateTime;
-use Drupal\Core\Datetime\Element\Datetime;
-use Drupal\Core\Datetime\Entity\DateFormat;
 use Drupal\Core\Datetime\Plugin\Field\FieldWidget\TimestampDatetimeWidget;
-use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -25,17 +22,6 @@ use Drupal\Core\Form\FormStateInterface;
  * )
  */
 class TimestampDatetimeOptionalWidget extends TimestampDatetimeWidget {
-
-  /**
-   * {@inheritdoc}
-   */
-  public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
-    $element = parent::formElement($items, $delta, $element, $form, $form_state);
-    $date_format = DateFormat::load('html_date')->getPattern();
-    $time_format = DateFormat::load('html_time')->getPattern();
-    $element['value']['#description'] = $this->t('Format: %format.', ['%format' => Datetime::formatExample($date_format . ' ' . $time_format)]);
-    return $element;
-  }
 
   /**
    * {@inheritdoc}
