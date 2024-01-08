@@ -63,7 +63,7 @@ registered username to participate.
 
 **[#farmOS room on Matrix.org](https://app.element.io/#/room/#farmOS:matrix.org)**
 
-**[#farmOS IRC channel on Freenode](http://webchat.freenode.net/?channels=#farmOS)**
+**[#farmOS IRC channel on OFTC](https://webchat.oftc.net/?channels=#farmOS)**
 
 ## Documentation, Tutorials, Presentations, etc
 
