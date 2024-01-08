@@ -3,6 +3,8 @@
 namespace Drupal\plan_record\Entity;
 
 use Drupal\Core\Entity\ContentEntityBase;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
 
 /**
  * Defines the Plan record relationship entity.
@@ -41,6 +43,28 @@ class PlanRecord extends ContentEntityBase implements PlanRecordInterface {
       ->getStorage('plan_record_type')
       ->load($this->bundle());
     return $type->label();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
+    $fields = parent::baseFieldDefinitions($entity_type);
+
+    $fields['plan'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Plan'))
+      ->setDescription(t('Associate this plan record relationship with a plan entity.'))
+      ->setTranslatable(FALSE)
+      ->setCardinality(1)
+      ->setSetting('target_type', 'plan')
+      ->setDisplayOptions('form', [
+        'type' => 'entity_reference',
+        'weight' => 12,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    return $fields;
   }
 
 }
