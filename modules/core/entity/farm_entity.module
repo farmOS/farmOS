@@ -46,7 +46,7 @@ function farm_entity_entity_type_build(array &$entity_types) {
   }
 
   // Enable the use of bundle plugins on specific entity types.
-  foreach (['asset', 'log', 'plan', 'quantity'] as $entity_type) {
+  foreach (['asset', 'log', 'plan', 'plan_record', 'quantity'] as $entity_type) {
     if (!empty($entity_types[$entity_type])) {
       $entity_types[$entity_type]->set('bundle_plugin_type', $entity_type . '_type');
       $entity_types[$entity_type]->setHandlerClass('bundle_plugin', FarmEntityBundlePluginHandler::class);

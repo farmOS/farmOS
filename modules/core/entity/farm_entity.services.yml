@@ -12,6 +12,9 @@ services:
   plugin.manager.plan_type:
     class: Drupal\farm_entity\PlanTypeManager
     parent: default_plugin_manager
+  plugin.manager.plan_record_type:
+    class: Drupal\farm_entity\PlanRecordTypeManager
+    parent: default_plugin_manager
   plugin.manager.quantity_type:
     class: Drupal\farm_entity\QuantityTypeManager
     parent: default_plugin_manager
