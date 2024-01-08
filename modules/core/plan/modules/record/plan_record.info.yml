@@ -3,3 +3,5 @@ description: Provides an entity to store the relationship between a plan and a r
 type: module
 package: farmOS
 core_version_requirement: ^10
+dependencies:
+  - entity:entity
