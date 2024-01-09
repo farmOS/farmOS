@@ -142,6 +142,8 @@ Both methods expect an array of field definition options. These include:
     - `integer` - Integer number. Additional options:
         - `size` (optional) - The integer database column size (`tiny`,
           `small`, `medium`, `normal`, or `big`). Defaults to `normal`.
+        - `min` (optional) - The minimum value.
+        - `max` (optional) - The maximum value.
     - `list_string` - Select list with allowed values. Additional options:
         - `allowed_values` - An associative array of allowed values.
         - `allowed_values_function` - The name of a function that returns an

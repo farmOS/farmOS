@@ -781,6 +781,14 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
       $field->setSetting('size', $options['size']);
     }
 
+    // Set the min/max constraints, if specified.
+    if (isset($options['min'])) {
+      $field->setSetting('min', $options['min']);
+    }
+    if (isset($options['max'])) {
+      $field->setSetting('max', $options['max']);
+    }
+
     // Build form and view display settings.
     $field->setDisplayOptions('form', [
       'type' => 'number',

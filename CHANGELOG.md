@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- [Add min/max options to integer fields in farm_field.factory #768](https://github.com/farmOS/farmOS/pull/768)
+
 ## [3.0.0] 2024-01-05
 
 This is the first "stable" release of farmOS v3. See the release notes for
