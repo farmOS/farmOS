@@ -31,7 +31,7 @@
         "drupal/exif_orientation": "^1.2",
         "drupal/fraction": "^2.3.1",
         "drupal/geofield": "^1.40",
-        "drupal/gin": "^3.0@rc",
+        "drupal/gin": "3.0-rc8",
         "drupal/inline_entity_form": "^1.0@RC",
         "drupal/inspire_tree": "^1.0",
         "drupal/jsonapi_extras": "^3.22",
@@ -69,6 +69,9 @@
             },
             "drupal/entity_reference_revisions": {
                 "Issue #3267304: Infer target_revision_id to be Latest Revision when Only a target_id is Provided": "https://www.drupal.org/files/issues/2022-05-13/3267304-9.patch"
+            },
+            "drupal/gin": {
+                "Issue #334216: Remove implicit dependency on node module for gin content form.": "https://www.drupal.org/files/issues/2024-01-15/3342164-6.patch"
             },
             "drupal/jsonapi_schema": {
                 "Issue #3256795: Float fields have a null schema": "https://www.drupal.org/files/issues/2022-01-03/3256795-4.patch",
