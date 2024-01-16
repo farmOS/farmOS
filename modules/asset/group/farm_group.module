@@ -71,3 +71,34 @@ function farm_group_farm_ui_theme_region_items(string $entity_type) {
   }
   return $region_items;
 }
+
+/**
+ * Implements hook_farm_ui_theme_field_groups().
+ */
+function farm_group_farm_ui_theme_field_groups(string $entity_type, string $bundle) {
+
+  // Add a field group for group membership fields on logs.
+  if ($entity_type == 'log') {
+    return [
+      'group' => [
+        'location' => 'main',
+        'title' => t('Group'),
+        'weight' => 60,
+      ],
+    ];
+  }
+  return [];
+}
+
+/**
+ * Implements hook_farm_ui_theme_field_group_items().
+ */
+function farm_group_farm_ui_theme_field_group_items(string $entity_type, string $bundle) {
+  if ($entity_type == 'log') {
+    return [
+      'group' => 'group',
+      'is_group_assignment' => 'group',
+    ];
+  }
+  return [];
+}
