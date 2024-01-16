@@ -7,6 +7,7 @@ use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element\RenderCallbackInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -24,6 +25,13 @@ class GinContentFormBase extends ContentEntityForm implements RenderCallbackInte
   protected $dateFormatter;
 
   /**
+   * The module handler.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
    * Constructs a ContentEntityForm object.
    *
    * @param \Drupal\Core\Entity\EntityRepositoryInterface $entity_repository
@@ -34,10 +42,13 @@ class GinContentFormBase extends ContentEntityForm implements RenderCallbackInte
    *   The time service.
    * @param \Drupal\Core\Datetime\DateFormatterInterface $date_formatter
    *   The date formatter service.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler.
    */
-  public function __construct(EntityRepositoryInterface $entity_repository, EntityTypeBundleInfoInterface $entity_type_bundle_info, TimeInterface $time, DateFormatterInterface $date_formatter) {
+  public function __construct(EntityRepositoryInterface $entity_repository, EntityTypeBundleInfoInterface $entity_type_bundle_info, TimeInterface $time, DateFormatterInterface $date_formatter, ModuleHandlerInterface $module_handler) {
     parent::__construct($entity_repository, $entity_type_bundle_info, $time);
     $this->dateFormatter = $date_formatter;
+    $this->moduleHandler = $module_handler;
   }
 
   /**
@@ -49,6 +60,7 @@ class GinContentFormBase extends ContentEntityForm implements RenderCallbackInte
       $container->get('entity_type.bundle.info'),
       $container->get('datetime.time'),
       $container->get('date.formatter'),
+      $container->get('module_handler'),
     );
   }
 
@@ -67,7 +79,9 @@ class GinContentFormBase extends ContentEntityForm implements RenderCallbackInte
    *   provide a location, title and weight.
    */
   protected function getFieldGroups() {
-    return [
+    $entity_type = $this->entity->getEntityTypeId();
+    $bundle = $this->entity->bundle();
+    $field_groups = [
       'default' => [
         'location' => 'main',
         'title' => 'Default',
@@ -93,7 +107,8 @@ class GinContentFormBase extends ContentEntityForm implements RenderCallbackInte
         'title' => $this->t('Revision information'),
         'weight' => 200,
       ],
-    ];
+    ] + $this->moduleHandler->invokeAll('farm_ui_theme_field_groups', [$entity_type, $bundle]);
+    return $field_groups;
   }
 
   /**
@@ -116,7 +131,7 @@ class GinContentFormBase extends ContentEntityForm implements RenderCallbackInte
     // Attach content form styles.
     $form['#attached']['library'][] = 'farm_ui_theme/content_form';
 
-    // Add field groups.
+    // Add field groups, and allow modules to alter them.
     $field_groups = $this->getFieldGroups();
     if (!empty($field_groups)) {
 

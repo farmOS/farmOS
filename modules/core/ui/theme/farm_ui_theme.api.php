@@ -15,6 +15,27 @@
  */
 
 /**
+ * Add entity form field groups.
+ *
+ * @param string $entity_type
+ *   The entity type.
+ * @param string $bundle
+ *   The bundle.
+ */
+function hook_farm_ui_theme_field_groups(string $entity_type, string $bundle) {
+  if ($entity_type == 'asset' && $bundle == 'animal') {
+    return [
+      'custom' => [
+        'location' => 'main',
+        'title' => t('Custom'),
+        'weight' => 50,
+      ],
+    ];
+  }
+  return [];
+}
+
+/**
  * Specify the field groups to place entity fields in.
  *
  * @param string $entity_type
