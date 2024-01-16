@@ -79,6 +79,12 @@ function farm_ui_menu_entity_type_build(array &$entity_types) {
  */
 function farm_ui_menu_local_tasks_alter(&$local_tasks) {
 
+  // Disable Drupal core revisions local tasks.
+  $target_entity_types = ['asset', 'data_stream', 'log', 'plan', 'taxonomy_term'];
+  foreach ($target_entity_types as $entity_type) {
+    unset($local_tasks['entity.version_history:' . $entity_type . '.version_history']);
+  }
+
   // Remove local tasks provided by core taxonomy module.
   $taxonomy_term_tasks = [
     'entity.taxonomy_term.canonical',
