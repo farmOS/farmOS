@@ -5,13 +5,10 @@ dependencies:
     - system.menu.admin
     - taxonomy.vocabulary.log_category
   module:
-    - csv_serialization
     - entity_reference_revisions
     - farm_ui_views
     - log
     - options
-    - rest
-    - serialization
     - state_machine
     - taxonomy
     - user
@@ -2299,71 +2296,6 @@ display:
         - url.query_args
         - user.permissions
       tags: {  }
-  csv:
-    id: csv
-    display_title: 'CSV export (rest)'
-    display_plugin: rest_export
-    position: 7
-    display_options:
-      pager:
-        type: none
-        options:
-          offset: 0
-      style:
-        type: serializer
-        options:
-          uses_fields: false
-          formats:
-            csv: csv
-      row:
-        type: data_field
-        options:
-          field_options:
-            log_bulk_form:
-              alias: ''
-              raw_output: false
-            status:
-              alias: ''
-              raw_output: false
-            id:
-              alias: ''
-              raw_output: false
-            timestamp:
-              alias: ''
-              raw_output: false
-            name:
-              alias: ''
-              raw_output: false
-            type:
-              alias: ''
-              raw_output: false
-            asset_target_id:
-              alias: ''
-              raw_output: false
-            flag_value:
-              alias: ''
-              raw_output: false
-            category_target_id:
-              alias: ''
-              raw_output: false
-            owner_target_id:
-              alias: ''
-              raw_output: false
-      display_description: ''
-      display_extenders: {  }
-      path: logs.csv
-      auth:
-        - cookie
-    cache_metadata:
-      max-age: 0
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - request_format
-        - url
-        - user
-        - user.permissions
-      tags: {  }
   page:
     id: page
     display_title: 'All logs (page)'
@@ -2384,17 +2316,6 @@ display:
           plugin_id: result
           empty: false
           content: 'Displaying @start - @end of @total'
-        display_link:
-          id: display_link
-          table: views
-          field: display_link
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: display_link
-          label: 'Export CSV'
-          empty: false
-          display_id: csv
       display_extenders:
         collapsible_filter:
           collapsible: true
@@ -2702,17 +2623,6 @@ display:
           plugin_id: result
           empty: false
           content: 'Displaying @start - @end of @total'
-        display_link:
-          id: display_link
-          table: views
-          field: display_link
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: display_link
-          label: 'Export CSV'
-          empty: false
-          display_id: csv
       display_extenders:
         collapsible_filter:
           collapsible: true

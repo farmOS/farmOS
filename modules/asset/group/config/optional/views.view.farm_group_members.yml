@@ -6,13 +6,10 @@ dependencies:
     - image.style.thumbnail
   module:
     - asset
-    - csv_serialization
     - farm_group
     - farm_location
     - image
     - options
-    - rest
-    - serialization
     - state_machine
     - user
 id: farm_group_members
@@ -1052,17 +1049,6 @@ display:
           plugin_id: result
           empty: false
           content: 'Displaying @start - @end of @total'
-        display_link:
-          id: display_link
-          table: views
-          field: display_link
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: display_link
-          label: 'Export CSV'
-          empty: false
-          display_id: csv
       display_extenders: {  }
     cache_metadata:
       max-age: 0
@@ -1071,61 +1057,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.permissions
-      tags: {  }
-  csv:
-    id: csv
-    display_title: 'CSV export (rest)'
-    display_plugin: rest_export
-    position: 2
-    display_options:
-      pager:
-        type: none
-        options:
-          offset: 0
-      style:
-        type: serializer
-        options:
-          uses_fields: false
-          formats:
-            csv: csv
-      row:
-        type: data_field
-        options:
-          field_options:
-            asset_bulk_form:
-              alias: ''
-              raw_output: false
-            image_target_id:
-              alias: ''
-              raw_output: false
-            id:
-              alias: ''
-              raw_output: false
-            name:
-              alias: ''
-              raw_output: false
-            type:
-              alias: ''
-              raw_output: false
-            flag_value:
-              alias: ''
-              raw_output: false
-            status:
-              alias: ''
-              raw_output: false
-      display_description: ''
-      display_extenders: {  }
-      path: assets.csv
-      auth:
-        - cookie
-    cache_metadata:
-      max-age: 0
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - request_format
-        - url
         - user.permissions
       tags: {  }
   page:
