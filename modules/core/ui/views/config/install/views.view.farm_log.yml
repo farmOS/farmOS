@@ -757,7 +757,7 @@ display:
             items_per_page: true
             items_per_page_label: 'Items per page'
             items_per_page_options: '25, 50, 100, 250, 500'
-            items_per_page_options_all: true
+            items_per_page_options_all: false
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset

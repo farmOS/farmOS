@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Recommend running composer update twice #653](https://github.com/farmOS/farmOS/pull/786)
 - [Edit form UI improvements #770](https://github.com/farmOS/farmOS/pull/770)
 - [Improve asset and log CSV exports #783](https://github.com/farmOS/farmOS/pull/783)
+- [Remove "All" from "Items per page" options in Views #776](https://github.com/farmOS/farmOS/pull/776)
 
 ## [3.0.1] 2024-01-18
 
