@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Add min/max options to integer fields in farm_field.factory #768](https://github.com/farmOS/farmOS/pull/768)
 
+### Fixed
+
+- [Patch drupal/core to fix Issue #3414883: datetime_timestamp widget does not use default field value #771](https://github.com/farmOS/farmOS/pull/771)
+
 ## [3.0.0] 2024-01-05
 
 This is the first "stable" release of farmOS v3. See the release notes for
