@@ -269,11 +269,21 @@ class LocationHierarchyForm extends FormBase {
     // Maintain a list of assets that need to be saved.
     $save_assets = [];
 
+    // Maintain a list of assets that were not editable by the user.
+    $restricted_assets = [];
+
     // Iterate through the changes.
     foreach ($changes as $change) {
 
       // Load the asset.
       $asset = $storage->load($change['asset_id']);
+
+      // If the user does not have permission to edit the asset, count it so
+      // that we can add a warning message later, and skip it.
+      if (!$asset->access('edit')) {
+        $restricted_assets[] = $asset;
+        continue;
+      }
 
       // Remove the original parent.
       if (!empty($asset->get('parent'))) {
@@ -317,6 +327,12 @@ class LocationHierarchyForm extends FormBase {
     // Show a summary of the results.
     $message = $this->formatPlural(count($save_assets), 'Updated the parent hierarchy of %count asset.', 'Updated the parent hierarchy of %count assets.', ['%count' => count($save_assets)]);
     $this->messenger()->addStatus($message);
+
+    // If any edits were restricted, show a warning.
+    if ($restricted_assets) {
+      $message = $this->formatPlural(count($restricted_assets), '%count asset could not be changed because you do not have permission.', '%count assets could not be changed because you do not have permission.', ['%count' => count($restricted_assets)]);
+      $this->messenger()->addWarning($message);
+    }
   }
 
 }
