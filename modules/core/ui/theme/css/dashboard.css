@@ -18,7 +18,7 @@
   .layout--twocol .layout__region--first,
   .layout--twocol .layout__region--second {
     flex-basis: 50%;
-    max-width: calc(50% - var(--dashboard-spacing)*.5);
+    max-width: calc(50% - var(--dashboard-spacing) * 0.5);
   }
 }
 
@@ -30,6 +30,12 @@
   border: 1px solid var(--gin-border-color-layer);
   box-shadow: var(--gin-shadow-l1);
   border-radius: var(--gin-border-l);
+  transition: box-shadow 0.3s ease; /* New feature: Hover effect transition */
+}
+
+/* Hover effect on dashboard fieldsets */
+.layout__region > fieldset.dashboard-pane:hover {
+  box-shadow: var(--gin-shadow-l2); /* New feature: Change box-shadow on hover */
 }
 
 /* Reduce spacing within dashboard fieldsets. */
