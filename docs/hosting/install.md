@@ -66,16 +66,14 @@ These resources may be helpful:
   Nginx reverse proxy with self-signed certificates for local farmOS
   development with HTTPS.
 
-### API Keys
+### Satellite map layers
 
-Optional modules are available for adding satellite imagery layers to maps (eg:
-Mapbox, Google Maps, etc). However, because these layers are hosted by
-third-party providers, API keys are required to use them. Instructions for
-obtaining API keys are available via the links below. API keys can be entered
-into farmOS by going to Settings > Map.
-
-- [Mapbox](https://docs.mapbox.com/help/how-mapbox-works/access-tokens)
-- [Google Maps](https://developers.google.com/maps/documentation/javascript/get-api-key)
+farmOS includes an optional [Mapbox](https://www.mapbox.com) module that can be
+enabled to add satellite imagery layers to the map. A Mapbox API key is
+required. For more information, see Mapbox's official documentation:
+[Access tokens](https://docs.mapbox.com/help/how-mapbox-works/access-tokens).
+Enable the Mapbox module at Setup > Modules, and then add the API key at
+Setup > Settings > Map > Mapbox.
 
 ## farmOS Codebase
 
