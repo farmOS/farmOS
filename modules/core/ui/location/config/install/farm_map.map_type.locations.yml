@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_ui_location
+id: locations
+label: Locations
+description: 'The farmOS locations map.'
+behaviors:
+  - locations
+options: { }

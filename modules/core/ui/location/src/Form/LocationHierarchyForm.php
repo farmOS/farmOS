@@ -112,6 +112,14 @@ class LocationHierarchyForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state, AssetInterface $asset = NULL) {
 
+    // If no asset was specified, show a map of all locations.
+    if (is_null($asset)) {
+      $form['map'] = [
+        '#type' => 'farm_map',
+        '#map_type' => 'locations',
+      ];
+    }
+
     // Add a DIV for the JavaScript content.
     $form['content'] = [
       '#type' => 'html_tag',
