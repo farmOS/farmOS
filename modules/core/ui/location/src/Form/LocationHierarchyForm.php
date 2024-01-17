@@ -238,6 +238,11 @@ class LocationHierarchyForm extends FormBase {
     /** @var \Drupal\asset\Entity\AssetInterface[] $assets */
     $assets = $storage->loadMultiple($asset_ids);
 
+    // Filter out assets that the user cannot view.
+    $assets = array_filter($assets, function ($asset) {
+      return $asset->access('view');
+    });
+
     // Sort assets by name, using natural sort algorithm.
     usort($assets, function ($a, $b) {
       return strnatcmp($a->label(), $b->label());

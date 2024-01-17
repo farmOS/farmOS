@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Patch drupal/core to fix Issue #3414883: datetime_timestamp widget does not use default field value #771](https://github.com/farmOS/farmOS/pull/771)
 - [Fix duplicated revision tab on entities #773](https://github.com/farmOS/farmOS/pull/773)
+- Improve access checking on location hierarchy forms.
 
 ## [3.0.0] 2024-01-05
 
