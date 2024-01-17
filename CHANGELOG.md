@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Add min/max options to integer fields in farm_field.factory #768](https://github.com/farmOS/farmOS/pull/768)
 
+### Changed
+
+- [Override the lab_test log timestamp label and description #774](https://github.com/farmOS/farmOS/pull/774)
+
 ### Fixed
 
 - [Patch drupal/core to fix Issue #3414883: datetime_timestamp widget does not use default field value #771](https://github.com/farmOS/farmOS/pull/771)
