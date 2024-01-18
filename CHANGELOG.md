@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Add min/max options to integer fields in farm_field.factory #768](https://github.com/farmOS/farmOS/pull/768)
 
+### Changed
+
+- Allow users with asset view access to see /asset/%id/locations.
+
 ### Fixed
 
 - [Patch drupal/core to fix Issue #3414883: datetime_timestamp widget does not use default field value #771](https://github.com/farmOS/farmOS/pull/771)

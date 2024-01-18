@@ -12,7 +12,6 @@ farm.asset.locations:
     _title_callback: '\Drupal\farm_ui_location\Form\LocationHierarchyForm::getTitle'
     _form: '\Drupal\farm_ui_location\Form\LocationHierarchyForm'
   requirements:
-    _entity_access: 'asset.edit'
     _custom_access: '\Drupal\farm_ui_location\Form\LocationHierarchyForm::access'
     _module_dependencies: 'asset'
     asset: \d+

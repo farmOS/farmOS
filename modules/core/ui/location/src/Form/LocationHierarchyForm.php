@@ -82,8 +82,13 @@ class LocationHierarchyForm extends FormBase {
       return AccessResult::forbidden();
     }
 
+    // If the asset does not have child locations, forbid access.
+    if (empty($this->getLocations($asset))) {
+      return AccessResult::forbidden();
+    }
+
     // Allow access if the asset has child locations.
-    return AccessResult::allowedIf(!empty($this->getLocations($asset)));
+    return AccessResult::allowedIf($asset->access('view', $account));
   }
 
   /**
