@@ -7,5 +7,4 @@ dependencies:
   - farm:asset
   - farm:farm_location
   - farm:farm_map
-  - farm:farm_ui_dashboard
   - farm:farm_ui_views
