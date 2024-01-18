@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.1] 2024-01-18
+
 ### Added
 
 - [Add min/max options to integer fields in farm_field.factory #768](https://github.com/farmOS/farmOS/pull/768)
@@ -676,7 +678,8 @@ moving forward.
     Drupal 7, which required a complete refactor of the codebase. By comparison,
     updating from Drupal 9 to 10 will simply involve updating deprecated code.
 
-[Unreleased]: https://github.com/farmOS/farmOS/compare/3.0.0...HEAD
+[Unreleased]: https://github.com/farmOS/farmOS/compare/3.0.1...HEAD
+[3.0.1]: https://github.com/farmOS/farmOS/releases/tag/3.0.1
 [3.0.0]: https://github.com/farmOS/farmOS/releases/tag/3.0.0
 [3.0.0-beta3]: https://github.com/farmOS/farmOS/releases/tag/3.0.0-beta3
 [3.0.0-beta2]: https://github.com/farmOS/farmOS/releases/tag/3.0.0-beta2
