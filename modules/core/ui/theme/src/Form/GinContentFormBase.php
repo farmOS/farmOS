@@ -180,29 +180,51 @@ class GinContentFormBase extends ContentEntityForm implements RenderCallbackInte
    *
    * @param array $form
    *   The form array to alter.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
    *
    * @return array
    *   The form array.
    *
    * @see \Drupal\gin\GinContentFormHelper
    */
-  public function processContentForm(array $form): array {
+  public function processContentForm(array $form, FormStateInterface $form_state): array {
 
     // Disable the default meta group provided by Gin.
     unset($form['meta']);
 
-    // Bail if the status field is not included.
-    if (!isset($form['status'])) {
-      return $form;
-    }
-
     // Assign correct status group after GinContentFormHelper.
-    if (isset($form['meta_field_group'])) {
+    if (isset($form['status']) && isset($form['meta_field_group'])) {
       $form['status']['#group'] = 'meta_field_group';
     }
     // Else unset the status group that is set by GinContentFormHelper.
     else {
       unset($form['status']['#group']);
+    }
+
+    // Remove the sidebar if the display is not using field groups.
+    /** @var \Drupal\Core\Entity\Display\EntityFormDisplayInterface $form_display */
+    $form_display = $form_state->get('form_display');
+    if (!$form_display || !$form_display->getThirdPartySetting('farm_ui_theme', 'use_field_group', $form_display->isNew())) {
+
+      // Revert Gin changes to advanced and revision information.
+      $form['advanced']['#type'] = 'vertical_tabs';
+      $form['revision_information']['#type'] = 'details';
+      $form['revision_information']['#group'] = 'advanced';
+
+      // Do not use the node_edit_form theme.
+      // The template includes elements for the sidebar.
+      unset($form['#theme']);
+      unset($form['gin_actions']);
+      unset($form['gin_sidebar']);
+
+      // Remove gin sidebar and edit_form libraries.
+      if (($index = array_search('gin/sidebar', $form['#attached']['library'])) !== FALSE) {
+        unset($form['#attached']['library'][$index]);
+      }
+      if (($index = array_search('gin/edit_form', $form['#attached']['library'])) !== FALSE) {
+        unset($form['#attached']['library'][$index]);
+      }
     }
 
     return $form;
