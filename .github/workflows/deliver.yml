@@ -222,8 +222,8 @@ jobs:
           fi
     outputs:
       announce: ${{ env.ANNOUNCE_RELEASE }}
-  announce:
-    name: Announce new release
+  announce-microblog:
+    name: Announce new release on farmOS-microblog
     if: needs.publish.outputs.announce
     needs:
       - build
@@ -234,3 +234,25 @@ jobs:
       message: '#farmOS ${{ needs.build.outputs.farmos_version }} has been released! https://github.com/farmOS/farmOS/releases/${{ needs.build.outputs.farmos_version }}'
     secrets:
       MICROBLOG_DEPLOY_KEY: ${{ secrets.MICROBLOG_DEPLOY_KEY }}
+  announce-discourse:
+    name: Announce new release on farmOS.discourse.group
+    if: needs.publish.outputs.announce
+    runs-on: ubuntu-latest
+    needs:
+      - build
+      - release
+      - publish
+    steps:
+      - name: Discourse API request
+        env:
+          DISCOURSE_API_KEY: ${{ secrets.DISCOURSE_API_KEY }}
+        run: |
+          curl --fail-with-body -X POST "https://farmos.discourse.group/posts/" \
+            -H "Content-Type: application/json" \
+            -H "Api-Key: ${DISCOURSE_API_KEY}" \
+            -H "Api-Username: mstenta" \
+            -d '{
+              "title": "farmOS ${{ needs.build.outputs.farmos_version }} has been released",
+              "raw": "farmOS [${{ needs.build.outputs.farmos_version }}](https://github.com/farmOS/farmOS/releases/${{ needs.build.outputs.farmos_version }}) has been released.\n\nFor the full release notes, see [CHANGELOG.md](https://github.com/farmOS/farmOS/blob/${{ needs.build.outputs.farmos_version }}/CHANGELOG.md).",
+              "category": 7
+            }'
