@@ -123,7 +123,7 @@ class MapBlock extends BlockBase implements ContainerFactoryPluginInterface {
     return [
       '#type' => 'farm_map',
       '#map_type' => $this->configuration['map_type'] ?? 'default',
-      '#behaviors' => array_keys($this->configuration['map_behaviors']) ?? [],
+      '#behaviors' => $this->configuration['map_behaviors'] ?? [],
     ];
   }
 
