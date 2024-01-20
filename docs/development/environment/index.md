@@ -2,8 +2,7 @@
 
 Follow these instructions to set up a local farmOS development environment.
 
-The only requirements are [Docker](https://www.docker.com) and
-[Docker Compose](https://docs.docker.com/compose).
+The only requirement is [Docker](https://www.docker.com).
 
 ## 1. Set up Docker containers
 
