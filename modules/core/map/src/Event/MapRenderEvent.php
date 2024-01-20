@@ -92,8 +92,10 @@ class MapRenderEvent extends Event {
     /** @var \Drupal\farm_map\Entity\MapBehaviorInterface $behavior */
     $behavior = $this->entityTypeManager->getStorage('map_behavior')->load($behavior_name);
 
-    // Attach the library.
-    $this->element['#attached']['library'][] = $behavior->getLibrary();
+    // If the behavior has a library, attach it.
+    if (!empty($behavior->getLibrary())) {
+      $this->element['#attached']['library'][] = $behavior->getLibrary();
+    }
 
     // Add behavior settings if supplied.
     if (!empty($settings)) {
