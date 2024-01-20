@@ -60,11 +60,9 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
    */
   public function onMapRender(MapRenderEvent $event) {
 
-    // Get the map ID.
-    $map_id = $event->getmapType()->id();
-
-    // Add land type layers to dashboard map.
-    if ($map_id == 'dashboard') {
+    // If the "locations" behavior is added to the map, add layers for each
+    // land type.
+    if (in_array('locations', $event->getMapBehaviors())) {
       $layers = [];
 
       // Define the parent group.

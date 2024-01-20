@@ -61,11 +61,8 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
    */
   public function onMapRender(MapRenderEvent $event) {
 
-    // Get the map ID.
-    $map_id = $event->getmapType()->id();
-
     // Add behaviors/settings to default and geofield maps.
-    if (in_array($map_id, ['default', 'geofield'])) {
+    if (in_array($event->getmapType()->id(), ['default', 'geofield'])) {
 
       // Add "All locations" layers.
       $event->addBehavior('asset_type_layers');
@@ -86,8 +83,9 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
       }
     }
 
-    // Add asset layers to dashboard map.
-    elseif ($map_id == 'dashboard') {
+    // If the "locations" behavior is added to the map, add layers for each
+    // location asset type.
+    if (in_array('locations', $event->getMapBehaviors())) {
 
       $layers = [];
 

@@ -7,5 +7,6 @@ dependencies:
 id: dashboard
 label: Dashboard
 description: 'The farmOS dashboard map.'
-behaviors: { }
+behaviors:
+  - locations
 options: { }
