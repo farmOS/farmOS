@@ -190,8 +190,10 @@ class GinContentFormBase extends ContentEntityForm implements RenderCallbackInte
    */
   public function processContentForm(array $form, FormStateInterface $form_state): array {
 
-    // Disable the default meta group provided by Gin.
-    unset($form['meta']);
+    // Increase weight of Gin's meta group to bottom of the sidebar.
+    // This group has special styling and includes additional action
+    // buttons like Delete that should be included on the page.
+    $form['meta']['#weight'] = 500;
 
     // Assign correct status group after GinContentFormHelper.
     if (isset($form['status']) && isset($form['meta_field_group'])) {
