@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * The farmOS Export CSV module.
+ */
+
+use Drupal\farm_export_csv\Form\EntityCsvActionForm;
+use Drupal\farm_export_csv\Routing\EntityCsvActionRouteProvider;
+
+/**
+ * Implements hook_entity_type_build().
+ */
+function farm_export_csv_entity_type_build(array &$entity_types) {
+  /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
+
+  // Enable the entity CSV export action on assets and logs.
+  foreach (['asset', 'log'] as $entity_type) {
+    if (!empty($entity_types[$entity_type])) {
+      $route_providers = $entity_types[$entity_type]->getRouteProviderClasses();
+      $route_providers['csv'] = EntityCsvActionRouteProvider::class;
+      $entity_types[$entity_type]->setHandlerClass('route_provider', $route_providers);
+      $entity_types[$entity_type]->setLinkTemplate('csv-action-form', '/' . $entity_type . '/csv');
+      $entity_types[$entity_type]->setFormClass('csv-action-form', EntityCsvActionForm::class);
+    }
+  }
+}

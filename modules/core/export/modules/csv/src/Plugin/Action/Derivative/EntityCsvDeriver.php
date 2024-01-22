@@ -22,6 +22,7 @@ class EntityCsvDeriver extends EntityActionDeriverBase {
         $definition = $base_plugin_definition;
         $definition['type'] = $entity_type_id;
         $definition['label'] = $this->t('Export @entity_type CSV', ['@entity_type' => $entity_type->getSingularLabel()]);
+        $definition['confirm_form_route_name'] = 'entity.' . $entity_type->id() . '.csv_form';
         $definitions[$entity_type_id] = $definition;
       }
       $this->derivatives = $definitions;
