@@ -73,6 +73,23 @@ class MapRenderEvent extends Event {
   }
 
   /**
+   * Getter method for map behaviors.
+   *
+   * This returns a merged list of map behaviors from both the map type
+   * configuration and the map element's #behaviors property.
+   *
+   * @return string[]
+   *   An array of map behavior IDs.
+   */
+  public function getMapBehaviors() {
+    $behaviors = $this->getMapType()->getMapBehaviors();
+    if (!empty($this->element['#behaviors'])) {
+      $behaviors = array_merge($behaviors, $this->element['#behaviors']);
+    }
+    return $behaviors;
+  }
+
+  /**
    * Add behavior to the map.
    *
    * @param string $behavior_name
