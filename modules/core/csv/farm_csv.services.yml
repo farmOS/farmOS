@@ -1,0 +1,6 @@
+services:
+  farm_csv.normalizer.content_entity_normalizer:
+    class: Drupal\farm_csv\Normalizer\ContentEntityNormalizer
+    tags:
+      - { name: normalizer, priority: 10 }
+    arguments: ['@entity_type.manager', '@entity_type.repository', '@entity_field.manager']
