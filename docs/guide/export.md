@@ -7,6 +7,11 @@ All [Asset](/guide/assets), [Log](/guide/logs), and
 the bottom that will generate and download a CSV file. Any sorts or filters
 that are applied to the list will be represented in the CSV output.
 
+**Warning: CSV exports do not include all data.**
+
+The [farmOS API](/development/api) is the best way to get access to all raw data
+in a farmOS instance.
+
 ## KML
 
 The *farmOS KML* module provides an option for exporting the geometry of one or
