@@ -3,6 +3,7 @@
 namespace Drupal\farm_export_csv\Form;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\File\FileUrlGeneratorInterface;
@@ -37,6 +38,13 @@ class EntityCsvActionForm extends ConfirmFormBase {
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
+
+  /**
+   * The entity field manager.
+   *
+   * @var \Drupal\Core\Entity\EntityFieldManagerInterface
+   */
+  protected $entityFieldManager;
 
   /**
    * The serializer service.
@@ -101,6 +109,8 @@ class EntityCsvActionForm extends ConfirmFormBase {
    *   The tempstore factory.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
+   * @param \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager
+   *   The entity field manager.
    * @param \Symfony\Component\Serializer\SerializerInterface $serializer
    *   The serializer service.
    * @param \Drupal\Core\File\FileSystemInterface $file_system
@@ -114,9 +124,10 @@ class EntityCsvActionForm extends ConfirmFormBase {
    * @param \Drupal\Core\Session\AccountInterface $user
    *   The current user.
    */
-  public function __construct(PrivateTempStoreFactory $temp_store_factory, EntityTypeManagerInterface $entity_type_manager, SerializerInterface $serializer, FileSystemInterface $file_system, ConfigFactoryInterface $config_factory, FileRepositoryInterface $file_repository, FileUrlGeneratorInterface $file_url_generator, AccountInterface $user) {
+  public function __construct(PrivateTempStoreFactory $temp_store_factory, EntityTypeManagerInterface $entity_type_manager, EntityFieldManagerInterface $entity_field_manager, SerializerInterface $serializer, FileSystemInterface $file_system, ConfigFactoryInterface $config_factory, FileRepositoryInterface $file_repository, FileUrlGeneratorInterface $file_url_generator, AccountInterface $user) {
     $this->tempStore = $temp_store_factory->get('entity_csv_confirm');
     $this->entityTypeManager = $entity_type_manager;
+    $this->entityFieldManager = $entity_field_manager;
     $this->serializer = $serializer;
     $this->fileSystem = $file_system;
     $this->defaultFileScheme = $config_factory->get('system.file')->get('default_scheme') ?? 'public';
@@ -132,6 +143,7 @@ class EntityCsvActionForm extends ConfirmFormBase {
     return new static(
       $container->get('tempstore.private'),
       $container->get('entity_type.manager'),
+      $container->get('entity_field.manager'),
       $container->get('serializer'),
       $container->get('file_system'),
       $container->get('config.factory'),
@@ -229,7 +241,12 @@ class EntityCsvActionForm extends ConfirmFormBase {
     }
 
     // Serialize the entities with the csv format.
-    $output = $this->serializer->serialize($accessible_entities, 'csv');
+    $context = [
+
+      // Define the columns to include.
+      'include_columns' => $this->getIncludeColumns(),
+    ];
+    $output = $this->serializer->serialize($accessible_entities, 'csv', $context);
 
     // Prepare the file directory.
     $directory = $this->defaultFileScheme . '://csv';
@@ -278,6 +295,68 @@ class EntityCsvActionForm extends ConfirmFormBase {
 
     $this->tempStore->delete($this->currentUser()->id() . ':' . $this->entityType->id());
     $form_state->setRedirectUrl($this->getCancelUrl());
+  }
+
+  /**
+   * Get a list of columns to include in CSV exports.
+   *
+   * @return string[]
+   *   An array of column names.
+   */
+  protected function getIncludeColumns() {
+
+    // Start with ID and UUID.
+    $columns = [
+      'id',
+      'uuid',
+    ];
+
+    // Define which field types are supported.
+    $supported_field_types = [
+      'boolean',
+      'created',
+      'changed',
+      'entity_reference',
+      'list_string',
+      'state',
+      'string',
+      'text_long',
+      'timestamp',
+    ];
+
+    // Add base field for supported field types.
+    $base_field_definitions = $this->entityFieldManager->getBaseFieldDefinitions($this->entityType->id());
+    foreach ($base_field_definitions as $field_name => $field_definition) {
+      if (!in_array($field_name, $columns) && in_array($field_definition->getType(), $supported_field_types)) {
+        $columns[] = $field_name;
+      }
+    }
+
+    // Add bundle fields for supported field types.
+    $bundles = $this->entityTypeManager->getStorage($this->entityType->getBundleEntityType())->loadMultiple();
+    foreach ($bundles as $bundle) {
+      if ($this->entityTypeManager->hasHandler($this->entityType->id(), 'bundle_plugin')) {
+        $bundle_fields = $this->entityTypeManager->getHandler($this->entityType->id(), 'bundle_plugin')->getFieldDefinitions($bundle->id());
+        foreach ($bundle_fields as $field_name => $field_definition) {
+          if (!in_array($field_name, $columns) && in_array($field_definition->getType(), $supported_field_types)) {
+            $columns[] = $field_name;
+          }
+        }
+      }
+    }
+
+    // Remove revision and language columns.
+    $remove_columns = [
+      'default_langcode',
+      'revision_translation_affected',
+      'revision_created',
+      'revision_user',
+    ];
+    $columns = array_filter($columns, function ($name) use ($remove_columns) {
+      return !in_array($name, $remove_columns);
+    });
+
+    return $columns;
   }
 
 }
