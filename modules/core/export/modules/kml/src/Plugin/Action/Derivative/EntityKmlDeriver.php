@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_kml\Plugin\Action\Derivative;
+namespace Drupal\farm_export_kml\Plugin\Action\Derivative;
 
 use Drupal\Core\Action\Plugin\Action\Derivative\EntityActionDeriverBase;
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -8,7 +8,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
 /**
  * Provides an action deriver for the KML action.
  *
- * @see \Drupal\farm_kml\Plugin\Action\EntityKml
+ * @see \Drupal\farm_export_kml\Plugin\Action\EntityKml
  */
 class EntityKmlDeriver extends EntityActionDeriverBase {
 

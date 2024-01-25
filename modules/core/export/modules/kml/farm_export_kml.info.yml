@@ -1,0 +1,8 @@
+name: farmOS Export KML
+description: Provides a KML export action for farmOS.
+type: module
+package: farmOS
+core_version_requirement: ^10
+dependencies:
+  - farm:farm_export
+  - farm:farm_kml
