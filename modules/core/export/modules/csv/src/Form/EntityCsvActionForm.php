@@ -245,6 +245,16 @@ class EntityCsvActionForm extends ConfirmFormBase {
 
       // Define the columns to include.
       'include_columns' => $this->getIncludeColumns(),
+
+      // Return processed text from long text fields.
+      'processed_text' => TRUE,
+
+      // Return content entity labels and config entity IDs.
+      'content_entity_labels' => TRUE,
+      'config_entity_ids' => TRUE,
+
+      // Return RFC3339 dates.
+      'rfc3339_dates' => TRUE,
     ];
     $output = $this->serializer->serialize($accessible_entities, 'csv', $context);
 
