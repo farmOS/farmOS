@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Announce new releases on farmOS.discourse.group #780](https://github.com/farmOS/farmOS/pull/780)
 
+### Changed
+
+- [Make "done" the default log status #782](https://github.com/farmOS/farmOS/pull/782)
+
 ## [3.0.1] 2024-01-18
 
 ### Added

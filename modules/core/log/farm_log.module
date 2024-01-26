@@ -6,7 +6,19 @@
  */
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_entity_base_field_info_alter().
+ */
+function farm_log_entity_base_field_info_alter(&$fields, EntityTypeInterface $entity_type) {
+
+  // Make "done" the default log status.
+  if ($entity_type->id() == 'log') {
+    $fields['status']->setDefaultValue('done');
+  }
+}
 
 /**
  * Implements hook_entity_prepare_form().
