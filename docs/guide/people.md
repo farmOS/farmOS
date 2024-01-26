@@ -8,7 +8,7 @@ Roles can be "managed" or "unmanaged." The permissions of managed roles are
 controlled by modules and cannot be modified through the UI. Unmanaged roles
 can be added/edited through the UI.
 
-Three managed roles are provided with farmOS:
+Three default managed roles are provided with farmOS:
 
 - **Manager** - Has access to everything in farmOS. They can create, edit, and
   delete records, and they can change configuration settings.
@@ -21,6 +21,12 @@ Three managed roles are provided with farmOS:
   Certifying Agent, you can give them a user account with the Viewer role.
 
 These roles can be disabled by uninstalling the "Default Roles" module.
+
+The "farmOS Account Admin Role" module provides another optional managed role
+called **Account Admin**, which has permission to add/edit/remove other users.
+This is useful in situations where an instance administrator wants to give
+someone the ability to set up other accounts, without giving them full admin
+access.
 
 Permissions for managed roles cannot be modified through the UI. This is not
 generally an issue since the provided roles have been carefully tailored to
