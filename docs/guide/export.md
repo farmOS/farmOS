@@ -2,10 +2,19 @@
 
 ## CSV
 
-All [Asset](/guide/assets), [Log](/guide/logs), and
-[Quantity](/guide/quantities) lists in farmOS include an "Export CSV" link at
-the bottom that will generate and download a CSV file. Any sorts or filters
-that are applied to the list will be represented in the CSV output.
+All [Asset](/guide/assets) and [Log](/guide/logs) lists in farmOS provide an
+"Export CSV" action that will generate a CSV of selected records. These include
+most of the record's information, including columns that are not visible in the
+list pages themselves.
+
+[Quantity](/guide/quantities) lists provide an "Export CSV" link at the bottom of the page
+that serve a similar purpose. These exports include all of the columns that are
+visible on the Quantity list page, including information about the Quantity
+itself, as well as some information about the Log records that the Quantity
+is attached to.
+
+Any sorts or filters that are applied to the list will be represented in the
+CSV output.
 
 **Warning: CSV exports do not include all data.**
 
