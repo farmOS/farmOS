@@ -13,3 +13,7 @@ services:
     tags:
       - { name: normalizer, priority: 10 }
     arguments: ['@entity.repository']
+  farm_csv.normalizer.timestamp_item:
+    class: Drupal\farm_csv\Normalizer\TimestampItemNormalizer
+    tags:
+      - { name: normalizer, priority: 10 }
