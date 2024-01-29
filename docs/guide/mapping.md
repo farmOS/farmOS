@@ -20,6 +20,15 @@ designated as a location.
 When you're done modifying your area, remember to click the Save button at the
 bottom of the page to save your changes.
 
+## Farm Assets
+
+In some situations, it may be useful to organize Land Assets under one or more
+Farm Assets, which represent different locations or operations that are
+managed independently. farmOS includes a Farm Asset type in an optional module
+that can be turned on in those scenarios. Land Assets (and other locations) can
+be organized under Farm Assets in the location hierarchy to make their
+relationship clear.
+
 ## Map controls
 
 ### Zooming

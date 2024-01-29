@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- [Add a Farm asset type #784](https://github.com/farmOS/farmOS/pull/784)
+
 ## [3.1.0] 2024-02-02
 
 ### Added
