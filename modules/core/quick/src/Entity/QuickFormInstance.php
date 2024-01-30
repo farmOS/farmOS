@@ -25,6 +25,7 @@ use Drupal\farm_quick\QuickFormPluginCollection;
  *     "permission_provider" = "\Drupal\entity\EntityPermissionProvider",
  *     "list_builder" = "Drupal\farm_quick\QuickFormListBuilder",
  *     "form" = {
+ *       "edit" = "Drupal\farm_quick\Form\QuickFormEntityForm",
  *       "configure" = "Drupal\farm_quick\Form\ConfigureQuickForm",
  *       "delete" = "\Drupal\Core\Entity\EntityDeleteForm",
  *     },
@@ -39,6 +40,7 @@ use Drupal\farm_quick\QuickFormPluginCollection;
  *     "label" = "label",
  *   },
  *   links = {
+ *      "edit-form" = "/setup/quick/{quick_form}/edit",
  *      "delete-form" = "/setup/quick/{quick_form}/delete",
  *      "collection" = "/setup/quick"
  *   },
