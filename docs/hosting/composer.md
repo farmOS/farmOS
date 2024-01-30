@@ -171,6 +171,11 @@ farmOS instance via the web UI or by running `drush en mymodule`.
 Composer provides a simple way to update project dependencies:
 
     composer update --no-dev
+    composer update --no-dev
+
+**Note: It is necessary to run this command twice to ensure all dependencies
+are properly updated.** We have an issue open to figure out a better solution:
+[Composer merge plugin dependencies are not correctly updated #653](https://github.com/farmOS/farmOS/issues/653).
 
 This will check for newer versions of all your project's dependencies (based
 on the version constraints in your `composer.json` file), install them, and
