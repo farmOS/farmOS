@@ -15,9 +15,3 @@
   margin-right: 0 !important;
 }
 
-/* Decrease top margin from elements below page title. */
-.layout-container .page-content > .help,
-.layout-container .page-content > .region-highlighted,
-.layout-container .page-content > .region-content {
-  margin-top: var(--gin-spacing-s);
-}
