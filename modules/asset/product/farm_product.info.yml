@@ -1,0 +1,9 @@
+name: Product asset
+description: Adds an Product asset type.
+type: module
+package: farmOS Assets
+core_version_requirement: ^10
+dependencies:
+  - farm:asset
+  - farm:farm_entity
+  - farm:farm_product_type

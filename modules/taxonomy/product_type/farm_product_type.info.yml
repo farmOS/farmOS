@@ -1,0 +1,7 @@
+name: Product type vocabulary
+description: Provides an Product type vocabulary.
+type: module
+package: farmOS Taxonomies
+core_version_requirement: ^10
+dependencies:
+  - drupal:taxonomy

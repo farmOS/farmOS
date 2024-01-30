@@ -20,6 +20,7 @@ is enabled. The modules included with farmOS define the following vocabularies:
 - Log category
 - Material type
 - Plant type
+- Product type
 - Season
 - Unit
 

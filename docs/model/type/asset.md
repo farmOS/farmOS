@@ -25,6 +25,7 @@ included with farmOS define the following Asset types:
 - Sensor
 - Water
 - Material
+- Product
 - Group&ast;
 
 &ast;Group Assets are unique in that they can "contain" other Assets as "group
@@ -271,6 +272,12 @@ Plant Assets have the following additional relationships:
 
 - Plant type (references a Term in the "Plant type" vocabulary)
 - Season (references a Term in the "Season" vocabulary)
+
+#### Product Assets
+
+Product Assets have the following additional relationships:
+
+- Product type (references a Term in the "Product type" vocabulary)
 
 #### Sensor Assets
 

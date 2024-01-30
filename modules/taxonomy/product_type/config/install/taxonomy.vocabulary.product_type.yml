@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_product_type
+name: Product type
+vid: product_type
+description: 'A list of product types.'
+weight: 0
