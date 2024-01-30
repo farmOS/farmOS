@@ -157,6 +157,10 @@ class QuickFormTest extends KernelTestBase {
     $form->setModuleHandler(\Drupal::moduleHandler());
     $form->setEntity($quick_form);
     $form_state = (new FormState())->setValues([
+      // Set the ID and label because no default value is provided for these
+      // in the form unless the override query param is set.
+      'id' => $quick_form->id(),
+      'label' => (string) $quick_form->label(),
       'settings' => [
         'test_default' => '101',
       ],

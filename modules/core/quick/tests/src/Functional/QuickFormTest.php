@@ -91,21 +91,10 @@ class QuickFormTest extends FarmBrowserTestBase {
     $this->assertSession()->statusCodeEquals(200);
     $this->assertSession()->responseContains('value="100"');
 
-    // Go to the test configuration form and confirm that access is denied.
-    $this->drupalGet('quick/configurable_test/configure');
-    $this->assertSession()->statusCodeEquals(403);
-
-    // Create and login a test user with permission to create test logs and
-    // permission to update quick forms.
-    $user = $this->createUser(['view quick_form', 'create test log', 'update quick_form']);
-    $this->drupalLogin($user);
-
-    // Go to the default configurable_test quick form and confirm that the
-    // default value field is visible and the default value is 100.
-    $this->drupalGet('quick/configurable_test/configure');
-    $this->assertSession()->statusCodeEquals(200);
-    $this->assertSession()->pageTextContains($this->t('Default value'));
-    $this->assertSession()->responseContains('value="100"');
+    // Attempt to load the edit form for the unsaved configurable_test quick
+    // form and confirm 404 not found.
+    $this->drupalGet('setup/quick/foo/configurable_test');
+    $this->assertSession()->statusCodeEquals(404);
 
     // Go to the configurable_test2 quick form and confirm access is granted and
     // the default value is 500.
@@ -113,9 +102,19 @@ class QuickFormTest extends FarmBrowserTestBase {
     $this->assertSession()->statusCodeEquals(200);
     $this->assertSession()->responseContains('value="500"');
 
+    // Attempt to load the edit form for saved configurable_test2 quick
+    // form and confirm 403.
+    $this->drupalGet('setup/quick/configurable_test2/edit');
+    $this->assertSession()->statusCodeEquals(403);
+
+    // Create and login a test user with permission to create test logs and
+    // permission to update quick forms.
+    $user = $this->createUser(['view quick_form', 'create test log', 'update quick_form']);
+    $this->drupalLogin($user);
+
     // Go to the configurable_test2 quick form and confirm that the default
     // value field is visible and the default value is 500.
-    $this->drupalGet('quick/configurable_test2/configure');
+    $this->drupalGet('setup/quick/configurable_test2/edit');
     $this->assertSession()->statusCodeEquals(200);
     $this->assertSession()->pageTextContains($this->t('Default value'));
     $this->assertSession()->responseContains('value="500"');
@@ -127,12 +126,12 @@ class QuickFormTest extends FarmBrowserTestBase {
     $config_entity->save();
     $this->drupalGet('quick/configurable_test2');
     $this->assertSession()->responseContains('value="600"');
-    $this->drupalGet('quick/configurable_test2/configure');
+    $this->drupalGet('setup/quick/configurable_test2/edit');
     $this->assertSession()->responseContains('value="600"');
 
-    // Attempt to load a configuration form for a non-existent quick form and
+    // Attempt to load an edit form for a non-existent quick form and
     // confirm 404 not found.
-    $this->drupalGet('quick/foo/configure');
+    $this->drupalGet('setup/quick/foo/edit');
     $this->assertSession()->statusCodeEquals(404);
 
     // Go to the requires_entity_test quick form and confirm 404 not found.
