@@ -6,18 +6,6 @@ farm.quick:
   requirements:
     _permission: 'view quick_form'
 
-farm_quick.configure:
-  path: /quick/{quick_form}/configure
-  defaults:
-    _entity_form: quick_form.configure
-    _title_callback: \Drupal\farm_quick\Form\ConfigureQuickForm::getTitle
-  requirements:
-    _custom_access: \Drupal\farm_quick\Form\ConfigureQuickForm::access
-  options:
-    parameters:
-      quick_form:
-        type: string
-
 farm_quick.add_page:
   path: 'setup/quick/add'
   defaults:

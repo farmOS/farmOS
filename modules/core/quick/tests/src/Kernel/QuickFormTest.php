@@ -3,7 +3,7 @@
 namespace Drupal\Tests\farm_quick\Kernel;
 
 use Drupal\Core\Form\FormState;
-use Drupal\farm_quick\Form\ConfigureQuickForm;
+use Drupal\farm_quick\Form\QuickFormEntityForm;
 use Drupal\KernelTests\KernelTestBase;
 
 /**
@@ -152,8 +152,8 @@ class QuickFormTest extends KernelTestBase {
     // Confirm that the config entity for this quick form has not been saved.
     $this->assertTrue($quick_form->isNew());
 
-    // Programmatically submit the configurable_test config form.
-    $form = ConfigureQuickForm::create(\Drupal::getContainer());
+    // Programmatically submit the quick form entity form.
+    $form = QuickFormEntityForm::create(\Drupal::getContainer());
     $form->setModuleHandler(\Drupal::moduleHandler());
     $form->setEntity($quick_form);
     $form_state = (new FormState())->setValues([
