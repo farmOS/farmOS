@@ -6,6 +6,7 @@ use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -128,6 +129,29 @@ class QuickFormListBuilder extends ConfigEntityListBuilder {
       '#markup' => $quick_form->getDescription(),
     ];
     return $row + parent::buildRow($entity);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDefaultOperations(EntityInterface $entity) {
+    $operations = parent::getDefaultOperations($entity);
+
+    // Override operations for default quick form instances.
+    if ($entity->isNew()) {
+
+      // Remove edit operation.
+      unset($operations['edit']);
+
+      // Add override operation.
+      $operations['override'] = [
+        'title' => $this->t('Override'),
+        'weight' => 0,
+        'url' => $this->ensureDestination(Url::fromRoute('farm_quick.add_form', ['plugin' => $entity->getPluginId()], ['query' => ['override' => TRUE]])),
+      ];
+    }
+
+    return $operations;
   }
 
 }

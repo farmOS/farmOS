@@ -18,5 +18,24 @@ farm_quick.configure:
       quick_form:
         type: string
 
+farm_quick.add_page:
+  path: 'setup/quick/add'
+  defaults:
+    _controller: \Drupal\farm_quick\Controller\QuickFormAddPage::addPage
+    _title: 'Add quick form'
+  requirements:
+    _permission: 'create quick_form'
+
+farm_quick.add_form:
+  path: '/setup/quick/add/{plugin}'
+  defaults:
+    _entity_form: quick_form.add
+  requirements:
+    _permission: 'create quick_form'
+  options:
+    parameters:
+      plugin:
+        type: string
+
 route_callbacks:
   - '\Drupal\farm_quick\Routing\QuickFormRoutes::routes'

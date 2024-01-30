@@ -5,6 +5,11 @@ namespace Drupal\farm_quick\Form;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\SubformState;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\farm_quick\Entity\QuickFormInstance;
+use Drupal\farm_quick\QuickFormPluginManager;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Form that renders quick form configuration forms.
@@ -17,6 +22,32 @@ class QuickFormEntityForm extends EntityForm {
    * @var \Drupal\farm_quick\Entity\QuickFormInstanceInterface
    */
   protected $entity;
+
+  /**
+   * The quick form plugin manager.
+   *
+   * @var \Drupal\farm_quick\QuickFormPluginManager
+   */
+  protected $quickFormPluginManager;
+
+  /**
+   * Constructs a new QuickFormEntityForm object.
+   *
+   * @param \Drupal\farm_quick\QuickFormPluginManager $quick_form_plugin_manager
+   *   The quick form plugin manager.
+   */
+  public function __construct(QuickFormPluginManager $quick_form_plugin_manager) {
+    $this->quickFormPluginManager = $quick_form_plugin_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('plugin.manager.quick_form'),
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -55,7 +86,6 @@ class QuickFormEntityForm extends EntityForm {
     $form['label'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Label'),
-      '#default_value' => $this->entity->label(),
       '#maxlength' => 255,
       '#required' => TRUE,
       '#group' => $tab_group,
@@ -63,13 +93,30 @@ class QuickFormEntityForm extends EntityForm {
 
     $form['id'] = [
       '#type' => 'machine_name',
-      '#default_value' => $this->entity->id(),
       '#machine_name' => [
         'exists' => '\Drupal\farm_quick\Entity\QuickFormInstance::load',
       ],
-      '#disabled' => !$this->entity->isNew(),
+      '#disabled' => !$this->entity->isNew() || $this->getRequest()->get('override'),
       '#group' => $tab_group,
     ];
+
+    // Provide default label and ID for existing config entities
+    // or if the override parameter is set.
+    if (!$this->entity->isNew() || $this->getRequest()->get('override')) {
+      $form['label']['#default_value'] = $this->entity->label();
+      $form['id']['#default_value'] = $this->entity->id();
+    }
+
+    // Adjust form title.
+    if ($this->entity->isNew()) {
+      $form['#title'] = $this->t('Add quick form: @label', ['@label' => $this->entity->getPlugin()->getLabel()]);
+      if ($this->getRequest()->get('override')) {
+        $form['#title'] = $this->t('Override quick form: @label', ['@label' => $this->entity->getPlugin()->getLabel()]);
+      }
+    }
+    else {
+      $form['#title'] = $this->t('Edit quick form: @label', ['@label' => $this->entity->label()]);
+    }
 
     $form['description'] = [
       '#type' => 'textfield',
@@ -120,6 +167,32 @@ class QuickFormEntityForm extends EntityForm {
     if ($this->entity->getPlugin()->isConfigurable()) {
       $this->entity->getPlugin()->submitConfigurationForm($form['settings'], SubformState::createForSubform($form['settings'], $form, $form_state));
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getEntityFromRouteMatch(RouteMatchInterface $route_match, $entity_type_id) {
+
+    // Get existing quick form entity from route parameter.
+    if ($route_match->getRawParameter($entity_type_id) !== NULL) {
+      $entity = $route_match->getParameter($entity_type_id);
+    }
+    // Else create a new quick form entity, the plugin must be specified.
+    else {
+      if (($plugin = $route_match->getRawParameter('plugin')) && $this->quickFormPluginManager->hasDefinition($plugin)) {
+        $entity = QuickFormInstance::create(['plugin' => $plugin]);
+        if ($this->getRequest()->get('override')) {
+          $entity->set('id', $plugin);
+        }
+      }
+    }
+
+    if (empty($entity)) {
+      throw new NotFoundHttpException();
+    }
+
+    return $entity;
   }
 
 }

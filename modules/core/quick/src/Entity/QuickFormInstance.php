@@ -25,6 +25,7 @@ use Drupal\farm_quick\QuickFormPluginCollection;
  *     "permission_provider" = "\Drupal\entity\EntityPermissionProvider",
  *     "list_builder" = "Drupal\farm_quick\QuickFormListBuilder",
  *     "form" = {
+ *       "add" = "Drupal\farm_quick\Form\QuickFormEntityForm",
  *       "edit" = "Drupal\farm_quick\Form\QuickFormEntityForm",
  *       "configure" = "Drupal\farm_quick\Form\ConfigureQuickForm",
  *       "delete" = "\Drupal\Core\Entity\EntityDeleteForm",
