@@ -117,16 +117,16 @@ class QuickFormListBuilder extends ConfigEntityListBuilder {
       ],
     ];
     $row['type'] = [
-      '#markup' => $quick_form->getPlugin()->getLabel(),
+      '#plain_text' => $quick_form->getPlugin()->getLabel(),
     ];
     $row['label'] = [
-      '#markup' => $quick_form->getLabel(),
+      '#plain_text' => $quick_form->getLabel(),
     ];
     $row['id'] = [
-      '#markup' => $quick_form->id(),
+      '#plain_text' => $quick_form->id(),
     ];
     $row['description'] = [
-      '#markup' => $quick_form->getDescription(),
+      '#plain_text' => $quick_form->getDescription(),
     ];
     return $row + parent::buildRow($entity);
   }

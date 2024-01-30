@@ -5,6 +5,7 @@
  * The farmOS Quick Form module.
  */
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 
@@ -25,11 +26,10 @@ function farm_quick_help($route_name, RouteMatchInterface $route_match) {
     if ($route_name == 'farm.quick.' . $quick_form_id) {
       /** @var \Drupal\farm_quick\Entity\QuickFormInstanceInterface $quick_form */
       $quick_form = \Drupal::service('quick_form.instance_manager')->getInstance($quick_form_id);
-      $help_text = $quick_form->getHelpText();
       $output = [
         '#type' => 'html_tag',
         '#tag' => 'p',
-        '#value' => $help_text,
+        '#value' => Html::escape($quick_form->getHelpText()),
         '#cache' => [
           'tags' => $quick_form->getCacheTags(),
         ],

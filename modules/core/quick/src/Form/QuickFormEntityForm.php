@@ -2,6 +2,7 @@
 
 namespace Drupal\farm_quick\Form;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\SubformState;
@@ -71,7 +72,7 @@ class QuickFormEntityForm extends EntityForm {
       // Render the plugin form in settings tab.
       $form['settings_tab'] = [
         '#type' => 'details',
-        '#title' => $this->entity->getPlugin()->getLabel(),
+        '#title' => Html::escape($this->entity->getPlugin()->getLabel()),
         '#group' => 'tabs',
         '#weight' => 50,
       ];

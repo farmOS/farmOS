@@ -2,6 +2,7 @@
 
 namespace Drupal\farm_quick\Controller;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Link;
 use Drupal\farm_quick\QuickFormPluginManager;
@@ -66,8 +67,8 @@ class QuickFormAddPage extends ControllerBase {
     // Add link for each configurable plugin.
     foreach ($plugins as $plugin_id => $plugin) {
       $render['#bundles'][$plugin_id] = [
-        'label' => $plugin['label'],
-        'description' => $plugin['description'] ?? '',
+        'label' => Html::escape($plugin['label']),
+        'description' => Html::escape($plugin['description']) ?? '',
         'add_link' => Link::createFromRoute($plugin['label'], 'farm_quick.add_form', ['plugin' => $plugin_id]),
       ];
     }
