@@ -52,6 +52,11 @@ class QuickFormRoutes implements ContainerInjectionInterface {
     $quick_forms = $this->quickFormInstanceManager->getInstances();
     foreach ($quick_forms as $id => $quick_form) {
 
+      // Skip quick forms that are disabled.
+      if (!$quick_form->status()) {
+        continue;
+      }
+
       // Build a route for the quick form.
       $route = new Route(
         "/quick/$id",

@@ -59,6 +59,13 @@ class QuickFormMenuLink extends DeriverBase implements ContainerDeriverInterface
 
     // Add a link for each quick form.
     foreach ($quick_forms as $id => $quick_form) {
+
+      // Skip disabled quick forms.
+      if (!$quick_form->status()) {
+        continue;
+      }
+
+      // Create link.
       $route_id = 'farm.quick.' . $id;
       $links[$route_id] = [
         'title' => $quick_form->getLabel(),
