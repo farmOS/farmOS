@@ -59,6 +59,10 @@ class QuickFormAddPage extends ControllerBase {
       return FALSE;
     });
 
+    if (empty($plugins)) {
+      $render['#add_bundle_message'] = $this->t('No quick forms are available. Enable a module that provides quick forms.');
+    }
+
     // Add link for each configurable plugin.
     foreach ($plugins as $plugin_id => $plugin) {
       $render['#bundles'][$plugin_id] = [
