@@ -173,6 +173,17 @@ class QuickFormEntityForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
+  public function save(array $form, FormStateInterface $form_state) {
+    $status = parent::save($form, $form_state);
+    $entity_type_label = $this->entity->getEntityType()->getSingularLabel();
+    $this->messenger()->addMessage($this->t('Saved @entity_type_label: %label', ['@entity_type_label' => $entity_type_label, '%label' => $this->entity->label()]));
+    $form_state->setRedirect('entity.quick_form.collection');
+    return $status;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getEntityFromRouteMatch(RouteMatchInterface $route_match, $entity_type_id) {
 
     // Get existing quick form entity from route parameter.
