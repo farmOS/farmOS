@@ -6,3 +6,4 @@ core_version_requirement: ^10
 dependencies:
   - farm:farm_inventory
   - farm:farm_observation
+  - farm:farm_quick
