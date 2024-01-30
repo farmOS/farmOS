@@ -29,7 +29,8 @@ use Drupal\farm_quick\QuickFormPluginCollection;
  *   },
  *   entity_keys = {
  *     "id" = "id",
- *     "status" = "status"
+ *     "status" = "status",
+ *     "label" = "label",
  *   },
  *   config_export = {
  *     "id",
