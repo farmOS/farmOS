@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\plan_record\Entity;
+namespace Drupal\plan\Entity;
 
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -8,6 +8,9 @@ use Drupal\Core\Field\BaseFieldDefinition;
 
 /**
  * Defines the Plan record relationship entity.
+ *
+ * This entity type can be used to create relationships between a plan and other
+ * record(s) along with additional metadata fields to describe the relationship.
  *
  * @ContentEntityType(
  *   id = "plan_record",
@@ -38,7 +41,7 @@ class PlanRecord extends ContentEntityBase implements PlanRecordInterface {
    * {@inheritdoc}
    */
   public function getBundleLabel() {
-    /** @var \Drupal\plan_record\Entity\PlanRecordTypeInterface $type */
+    /** @var \Drupal\plan\Entity\PlanRecordTypeInterface $type */
     $type = \Drupal::entityTypeManager()
       ->getStorage('plan_record_type')
       ->load($this->bundle());

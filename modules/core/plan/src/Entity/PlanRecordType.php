@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\plan_record\Entity;
+namespace Drupal\plan\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
 
@@ -20,7 +20,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *   handlers = {
  *     "access" = "\Drupal\entity\BundleEntityAccessControlHandler",
  *   },
- *   config_prefix = "type",
+ *   config_prefix = "record.type",
  *   bundle_of = "plan_record",
  *   entity_keys = {
  *     "id" = "id",

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\plan_record\Entity;
+namespace Drupal\plan\Entity;
 
 use Drupal\Core\Entity\ContentEntityInterface;
 
