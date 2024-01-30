@@ -26,6 +26,7 @@ use Drupal\farm_quick\QuickFormPluginCollection;
  *     "list_builder" = "Drupal\farm_quick\QuickFormListBuilder",
  *     "form" = {
  *       "configure" = "Drupal\farm_quick\Form\ConfigureQuickForm",
+ *       "delete" = "\Drupal\Core\Entity\EntityDeleteForm",
  *     },
  *     "route_provider" = {
  *        "default" = "Drupal\entity\Routing\DefaultHtmlRouteProvider",
@@ -38,6 +39,7 @@ use Drupal\farm_quick\QuickFormPluginCollection;
  *     "label" = "label",
  *   },
  *   links = {
+ *      "delete-form" = "/setup/quick/{quick_form}/delete",
  *      "collection" = "/setup/quick"
  *   },
  *   config_export = {
