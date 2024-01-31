@@ -25,6 +25,12 @@ use Drupal\Core\Field\BaseFieldDefinition;
  *   ),
  *   handlers = {
  *     "access" = "Drupal\plan\Access\PlanRecordAccess",
+ *     "form" = {
+ *        "edit" = "Drupal\Core\Entity\ContentEntityForm",
+ *      },
+ *     "route_provider" = {
+ *        "default" = "Drupal\Core\Entity\Routing\AdminHtmlRouteProvider",
+ *      },
  *   },
  *   base_table = "plan_record",
  *   data_table = "plan_record_data",
@@ -36,6 +42,9 @@ use Drupal\Core\Field\BaseFieldDefinition;
  *   },
  *   bundle_entity_type = "plan_record_type",
  *   common_reference_target = TRUE,
+ *   links = {
+ *      "edit-form" = "/plan/record/{plan_record}/edit",
+ *    },
  * )
  */
 class PlanRecord extends ContentEntityBase implements PlanRecordInterface {
