@@ -17,4 +17,12 @@ interface PlanRecordInterface extends ContentEntityInterface {
    */
   public function getBundleLabel();
 
+  /**
+   * Returns the Plan entity the plan record is assigned to.
+   *
+   * @return \Drupal\plan\Entity\PlanInterface|null
+   *   The plant entity or NULL if not assigned.
+   */
+  public function getPlan(): ?PlanInterface;
+
 }
