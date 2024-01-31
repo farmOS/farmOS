@@ -23,6 +23,9 @@ use Drupal\Core\Field\BaseFieldDefinition;
  *     singular = "@count plan record relationship",
  *     plural = "@count plan record relationships",
  *   ),
+ *   handlers = {
+ *     "access" = "Drupal\plan\Access\PlanRecordAccess",
+ *   },
  *   base_table = "plan_record",
  *   data_table = "plan_record_data",
  *   entity_keys = {
