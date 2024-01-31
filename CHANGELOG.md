@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - [Recommend running composer update twice #653](https://github.com/farmOS/farmOS/pull/786)
+- [Edit form UI improvements #770](https://github.com/farmOS/farmOS/pull/770)
 
 ## [3.0.1] 2024-01-18
 
