@@ -16,6 +16,7 @@ use Drupal\farm_quick\Plugin\QuickForm\QuickFormBase;
 use Drupal\farm_quick\Traits\ConfigurableQuickFormTrait;
 use Drupal\farm_quick\Traits\QuickFormElementsTrait;
 use Drupal\farm_quick\Traits\QuickLogTrait;
+use Drupal\farm_quick\Traits\QuickTermTrait;
 use Drupal\log\Entity\Log;
 use Drupal\taxonomy\TermInterface;
 use Psr\Container\ContainerInterface;
@@ -36,6 +37,7 @@ class Inventory extends QuickFormBase implements ConfigurableQuickFormInterface 
   use ConfigurableQuickFormTrait;
   use QuickLogTrait;
   use QuickFormElementsTrait;
+  use QuickTermTrait;
 
   /**
    * The entity type manager service.
@@ -181,7 +183,7 @@ class Inventory extends QuickFormBase implements ConfigurableQuickFormInterface 
       '#size' => 16,
     ];
     if (!empty($this->configuration['units'])) {
-      $form['quantity']['units']['#default_value'] = $this->entityTypeManager->getStorage('taxonomy_term')->load($this->configuration['units']);
+      $form['quantity']['units']['#default_value'] = $this->createOrLoadTerm($this->configuration['units'], 'unit');
     }
     $form['quantity']['measure'] = [
       '#type' => 'select',
@@ -453,7 +455,7 @@ class Inventory extends QuickFormBase implements ConfigurableQuickFormInterface 
       '#size' => 16,
     ];
     if (!empty($this->configuration['units'])) {
-      $form['units']['#default_value'] = $this->entityTypeManager->getStorage('taxonomy_term')->load($this->configuration['units']);
+      $form['units']['#default_value'] = $this->createOrLoadTerm($this->configuration['units'], 'unit');
     }
 
     // Measure.
@@ -494,7 +496,10 @@ class Inventory extends QuickFormBase implements ConfigurableQuickFormInterface 
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
     $this->configuration['asset'] = $form_state->getValue('asset');
-    $this->configuration['units'] = $form_state->getValue('units');
+    $this->configuration['units'] = NULL;
+    if (!empty($form_state->getValue('units'))) {
+      $this->configuration['units'] = $form_state->getValue('units')['entity']->label();
+    }
     $this->configuration['measure'] = $form_state->getValue('measure');
     $this->configuration['inventory_adjustment'] = $form_state->getValue('inventory_adjustment');
     $this->configuration['log_type'] = $form_state->getValue('log_type');

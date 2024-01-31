@@ -6,8 +6,8 @@ farm_quick.settings.inventory:
       type: integer
       label: 'Default asset ID'
     units:
-      type: integer
-      label: 'Default quantity units term ID'
+      type: string
+      label: 'Default quantity units'
     measure:
       type: string
       label: 'Default quantity measure'
