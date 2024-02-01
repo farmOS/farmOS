@@ -204,13 +204,6 @@ class EntityCsvActionForm extends ConfirmFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state, $entity_type_id = NULL) {
 
-    // Make it clear that CSV exports are limited.
-    $form['warning'] = [
-      '#type' => 'html_tag',
-      '#tag' => 'strong',
-      '#value' => $this->t('Warning: CSV exports do not include all data.'),
-    ];
-
     // If we don't have an entity type or list of entities, redirect.
     $this->entityType = $this->entityTypeManager->getDefinition($entity_type_id);
     $this->entities = $this->tempStore->get($this->user->id() . ':' . $entity_type_id);
@@ -219,6 +212,14 @@ class EntityCsvActionForm extends ConfirmFormBase {
         ->setAbsolute()
         ->toString());
     }
+
+    // Make it clear that CSV exports are limited.
+    $message = $this->t('Note: CSV exports do not include all @item data.', ['@item' => $this->entityType->getSingularLabel()]);
+    $form['warning'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'strong',
+      '#value' => $message,
+    ];
 
     // Delegate to the parent method.
     return parent::buildForm($form, $form_state);
