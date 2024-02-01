@@ -167,7 +167,7 @@ class EntityCsvActionForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function getQuestion() {
-    return $this->formatPlural(count($this->entities), 'Are you sure you want to export a CSV of this @item?', 'Are you sure you want to export a CSV of these @items?', [
+    return $this->formatPlural(count($this->entities), 'Export a CSV of @count @item?', 'Export a CSV of @count @items?', [
       '@item' => $this->entityType->getSingularLabel(),
       '@items' => $this->entityType->getPluralLabel(),
     ]);
