@@ -7,6 +7,7 @@ use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\File\FileUrlGeneratorInterface;
+use Drupal\Core\Form\BaseFormIdInterface;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
@@ -23,7 +24,7 @@ use Symfony\Component\Serializer\SerializerInterface;
  * @see \Drupal\farm_export_csv\Plugin\Action\EntityCsv
  * @see \Drupal\Core\Entity\Form\DeleteMultipleForm
  */
-class EntityCsvActionForm extends ConfirmFormBase {
+class EntityCsvActionForm extends ConfirmFormBase implements BaseFormIdInterface {
 
   /**
    * The tempstore factory.
@@ -156,11 +157,18 @@ class EntityCsvActionForm extends ConfirmFormBase {
   /**
    * {@inheritdoc}
    */
+  public function getBaseFormId() {
+    return 'entity_export_csv_action_form';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getFormId() {
     // Get entity type ID from the route because ::buildForm has not yet been
     // called.
     $entity_type_id = $this->getRouteMatch()->getParameter('entity_type_id');
-    return $entity_type_id . '_csv_action_confirm_form';
+    return $entity_type_id . '_export_csv_action_form';
   }
 
   /**
