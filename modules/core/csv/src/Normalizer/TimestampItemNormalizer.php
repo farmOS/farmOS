@@ -21,7 +21,7 @@ class TimestampItemNormalizer extends CoreTimestampItemNormalizer {
     $data = parent::normalize($object, $format, $context);
 
     // Return the RFC3339 formatted date, if desired.
-    if (!empty($context['rfc3339_dates'])) {
+    if (isset($context['rfc3339_dates']) && $context['rfc3339_dates'] === TRUE) {
       return $data['value'];
     }
 

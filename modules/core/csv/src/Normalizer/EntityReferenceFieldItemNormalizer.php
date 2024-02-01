@@ -27,12 +27,12 @@ class EntityReferenceFieldItemNormalizer extends CoreEntityReferenceFieldItemNor
     if ($entity = $field_item->get('entity')->getValue()) {
 
       // Return content entity labels, if desired.
-      if ($entity instanceof ContentEntityInterface && !empty($context['content_entity_labels'])) {
+      if ($entity instanceof ContentEntityInterface && isset($context['content_entity_labels']) && $context['content_entity_labels'] === TRUE) {
         return $entity->label();
       }
 
       // Return config entity IDs, if desired.
-      if ($entity instanceof ConfigEntityInterface && !empty($context['config_entity_ids'])) {
+      if ($entity instanceof ConfigEntityInterface && isset($context['config_entity_ids']) && $context['config_entity_ids'] === TRUE) {
         return $entity->id();
       }
     }

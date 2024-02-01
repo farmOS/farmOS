@@ -22,7 +22,7 @@ class TextLongFieldItemNormalizer extends FieldItemNormalizer {
     /** @var \Drupal\text\Plugin\Field\FieldType\TextLongItem $field_item */
 
     // Return processed text, if desired.
-    if (!empty($context['processed_text'])) {
+    if (isset($context['processed_text']) && $context['processed_text'] === TRUE) {
       return $field_item->get('processed')->getValue();
     }
 
