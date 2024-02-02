@@ -38,9 +38,17 @@ class DashboardTest extends FarmBrowserTestBase {
   }
 
   /**
+   * Run all tests.
+   */
+  public function testAll() {
+    $this->doTestDashboardBlock();
+    $this->doTestDashboardView();
+  }
+
+  /**
    * Test that custom blocks are added to the dashboard.
    */
-  public function testDashboardBlock() {
+  public function doTestDashboardBlock() {
     $this->drupalGet('/dashboard');
     $this->assertSession()->statusCodeEquals(200);
 
@@ -51,7 +59,7 @@ class DashboardTest extends FarmBrowserTestBase {
   /**
    * Test that custom views are added to the dashboard.
    */
-  public function testDashboardView() {
+  public function doTestDashboardView() {
     $this->drupalGet('/dashboard');
     $this->assertSession()->statusCodeEquals(200);
 

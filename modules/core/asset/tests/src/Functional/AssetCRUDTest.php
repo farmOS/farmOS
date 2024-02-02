@@ -15,9 +15,22 @@ class AssetCRUDTest extends AssetTestBase {
   use StringTranslationTrait;
 
   /**
+   * Run all tests.
+   */
+  public function testAll() {
+    $this->doTestFieldsVisibility();
+    $this->doTestCreateAsset();
+    $this->doTestViewAsset();
+    $this->doTestEditAsset();
+    $this->doTestDeleteAsset();
+    $this->doTestArchiveAsset();
+    $this->doTestArchiveAssetViaTimestamp();
+  }
+
+  /**
    * Fields are displayed correctly.
    */
-  public function testFieldsVisibility() {
+  public function doTestFieldsVisibility() {
     $this->drupalGet('asset/add/default');
     $assert_session = $this->assertSession();
     $assert_session->statusCodeEquals(200);
@@ -32,7 +45,7 @@ class AssetCRUDTest extends AssetTestBase {
   /**
    * Create asset entity.
    */
-  public function testCreateAsset() {
+  public function doTestCreateAsset() {
     $assert_session = $this->assertSession();
     $name = $this->randomMachineName();
     $edit = [
@@ -59,7 +72,7 @@ class AssetCRUDTest extends AssetTestBase {
   /**
    * Display asset entity.
    */
-  public function testViewAsset() {
+  public function doTestViewAsset() {
     $edit = [
       'name' => $this->randomMachineName(),
       'created' => \Drupal::time()->getRequestTime(),
@@ -77,7 +90,7 @@ class AssetCRUDTest extends AssetTestBase {
   /**
    * Edit asset entity.
    */
-  public function testEditAsset() {
+  public function doTestEditAsset() {
     $asset = $this->createAssetEntity();
     $asset->save();
 
@@ -92,7 +105,7 @@ class AssetCRUDTest extends AssetTestBase {
   /**
    * Delete asset entity.
    */
-  public function testDeleteAsset() {
+  public function doTestDeleteAsset() {
     $asset = $this->createAssetEntity();
     $asset->save();
 
@@ -111,7 +124,7 @@ class AssetCRUDTest extends AssetTestBase {
   /**
    * Asset archiving.
    */
-  public function testArchiveAsset() {
+  public function doTestArchiveAsset() {
     $asset = $this->createAssetEntity();
     $asset->save();
 
@@ -141,7 +154,7 @@ class AssetCRUDTest extends AssetTestBase {
   /**
    * Asset archiving/unarchiving via timestamp.
    */
-  public function testArchiveAssetViaTimestamp() {
+  public function doTestArchiveAssetViaTimestamp() {
     $asset = $this->createAssetEntity();
     $asset->save();
 

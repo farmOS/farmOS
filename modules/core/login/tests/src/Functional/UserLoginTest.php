@@ -30,9 +30,17 @@ class UserLoginTest extends FarmBrowserTestBase {
   ];
 
   /**
+   * Run all tests.
+   */
+  public function testAll() {
+    $this->doTestValidLoginWithDestination();
+    $this->doTestPerUserLoginFloodControl();
+  }
+
+  /**
    * Tests login with destination.
    */
-  public function testValidLoginWithDestination() {
+  public function doTestValidLoginWithDestination() {
 
     // 1. Test for correct text in the login form.
     $this->drupalGet('user/login');
@@ -79,7 +87,7 @@ class UserLoginTest extends FarmBrowserTestBase {
    *
    * @see UserLoginTest::testPerUserLoginFloodControl()
    */
-  public function testPerUserLoginFloodControl() {
+  public function doTestPerUserLoginFloodControl() {
     $this->config('user.flood')
       // Set a high global limit out so that it is not relevant in the test.
       ->set('ip_limit', 4000)

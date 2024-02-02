@@ -88,9 +88,17 @@ class TaxonomyTermTasksTest extends FarmBrowserTestBase {
   }
 
   /**
+   * Run all tests.
+   */
+  public function testAll() {
+    $this->doTestTaxonomyTermAssetTaskTabsAppear();
+    $this->doTestTaxonomyTermAssetViews();
+  }
+
+  /**
    * Test that the asset view task links appear on taxonomy term pages.
    */
-  public function testTaxonomyTermAssetTaskTabsAppear() {
+  public function doTestTaxonomyTermAssetTaskTabsAppear() {
     $fava_term_url = 'taxonomy/term/' . $this->favaPlantType->id();
 
     $this->drupalGet($fava_term_url);
@@ -131,7 +139,7 @@ class TaxonomyTermTasksTest extends FarmBrowserTestBase {
   /**
    * Test that the views of assets for terms show the correct assets.
    */
-  public function testTaxonomyTermAssetViews() {
+  public function doTestTaxonomyTermAssetViews() {
     $fava_term_url = 'taxonomy/term/' . $this->favaPlantType->id();
 
     $this->drupalGet("$fava_term_url/assets/all");
