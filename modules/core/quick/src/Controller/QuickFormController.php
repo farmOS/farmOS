@@ -2,8 +2,10 @@
 
 namespace Drupal\farm_quick\Controller;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
 use Drupal\farm_quick\QuickFormInstanceManagerInterface;
@@ -63,8 +65,15 @@ class QuickFormController extends ControllerBase {
       $url = Url::fromRoute('farm.quick.' . $id);
       if ($url->access()) {
         $items[] = [
-          'title' => $quick_form->getLabel(),
-          'description' => $quick_form->getDescription(),
+          // Wrap the title in Markup::create() because the template preprocess
+          // function for admin_block_content uses Link::fromTextAndUrl(), which
+          // sanitizes strings automatically. This avoids double-sanitization,
+          // but also ensures we are sanitizing consistently in this code, in
+          // case anything changes later.
+          // @see template_preprocess_admin_block_content()
+          // @see \Drupal\Core\Link::fromTextAndUrl()
+          'title' => Markup::create(Html::escape($quick_form->getLabel())),
+          'description' => Html::escape($quick_form->getDescription()),
           'url' => $url,
         ];
       }

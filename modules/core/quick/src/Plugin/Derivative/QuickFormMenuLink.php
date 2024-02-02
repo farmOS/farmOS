@@ -3,6 +3,7 @@
 namespace Drupal\farm_quick\Plugin\Derivative;
 
 use Drupal\Component\Plugin\Derivative\DeriverBase;
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;
 use Drupal\farm_quick\QuickFormInstanceManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -59,9 +60,16 @@ class QuickFormMenuLink extends DeriverBase implements ContainerDeriverInterface
 
     // Add a link for each quick form.
     foreach ($quick_forms as $id => $quick_form) {
+
+      // Skip disabled quick forms.
+      if (!$quick_form->status()) {
+        continue;
+      }
+
+      // Create link.
       $route_id = 'farm.quick.' . $id;
       $links[$route_id] = [
-        'title' => $quick_form->getLabel(),
+        'title' => Html::escape($quick_form->getLabel()),
         'parent' => 'farm.quick:farm.quick',
         'route_name' => $route_id,
       ] + $base_plugin_definition;

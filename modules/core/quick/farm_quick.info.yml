@@ -8,5 +8,6 @@ dependencies:
   - drupal:taxonomy
   - farm:asset
   - farm:farm_log_quantity
+  - farm:farm_setup
   - farm:quantity
   - log:log

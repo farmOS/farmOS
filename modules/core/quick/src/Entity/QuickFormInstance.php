@@ -23,13 +23,27 @@ use Drupal\farm_quick\QuickFormPluginCollection;
  *   handlers = {
  *     "access" = "\Drupal\entity\EntityAccessControlHandler",
  *     "permission_provider" = "\Drupal\entity\EntityPermissionProvider",
+ *     "list_builder" = "Drupal\farm_quick\QuickFormListBuilder",
  *     "form" = {
+ *       "add" = "Drupal\farm_quick\Form\QuickFormEntityForm",
+ *       "edit" = "Drupal\farm_quick\Form\QuickFormEntityForm",
  *       "configure" = "Drupal\farm_quick\Form\ConfigureQuickForm",
+ *       "delete" = "\Drupal\Core\Entity\EntityDeleteForm",
+ *     },
+ *     "route_provider" = {
+ *        "default" = "Drupal\entity\Routing\DefaultHtmlRouteProvider",
  *     },
  *   },
+ *   admin_permission = "administer quick_form",
  *   entity_keys = {
  *     "id" = "id",
- *     "status" = "status"
+ *     "status" = "status",
+ *     "label" = "label",
+ *   },
+ *   links = {
+ *      "edit-form" = "/setup/quick/{quick_form}/edit",
+ *      "delete-form" = "/setup/quick/{quick_form}/delete",
+ *      "collection" = "/setup/quick"
  *   },
  *   config_export = {
  *     "id",

@@ -1,0 +1,5 @@
+farm_quick.add_page:
+  title: 'Add quick form'
+  route_name: farm_quick.add_page
+  appears_on:
+   - entity.quick_form.collection

@@ -1,3 +1,8 @@
 farm.quick:
   class: Drupal\Core\Menu\MenuLinkDefault
   deriver: Drupal\farm_quick\Plugin\Derivative\QuickFormMenuLink
+farm.quick_setup:
+  title: Quick Forms
+  description: Quick forms make it easy to record common activities.
+  parent: farm.setup
+  route_name: entity.quick_form.collection
