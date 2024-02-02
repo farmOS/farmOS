@@ -118,7 +118,7 @@ class Quantity extends RevisionableContentEntityBase implements QuantityInterfac
    */
   public function getBundleLabel() {
     /** @var \Drupal\quantity\Entity\QuantityTypeInterface $type */
-    $type = \Drupal::entityTypeManager()
+    $type = $this->entityTypeManager()
       ->getStorage('quantity_type')
       ->load($this->bundle());
     return $type->label();

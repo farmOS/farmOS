@@ -148,7 +148,7 @@ class Asset extends RevisionableContentEntityBase implements AssetInterface {
    */
   public function getBundleLabel() {
     /** @var \Drupal\asset\Entity\AssetTypeInterface $type */
-    $type = \Drupal::entityTypeManager()
+    $type = $this->entityTypeManager()
       ->getStorage('asset_type')
       ->load($this->bundle());
     return $type->label();

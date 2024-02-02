@@ -113,7 +113,7 @@ class AssetType extends ConfigEntityBundleBase implements AssetTypeInterface {
 
     // If the asset type id changed, update all existing assets of that type.
     if ($update && $this->getOriginalId() != $this->id()) {
-      $update_count = \Drupal::entityTypeManager()->getStorage('asset')->updateType($this->getOriginalId(), $this->id());
+      $update_count = $this->entityTypeManager()->getStorage('asset')->updateType($this->getOriginalId(), $this->id());
       if ($update_count) {
         \Drupal::messenger()->addMessage(\Drupal::translation()->formatPlural($update_count,
           'Changed the asset type of 1 post from %old-type to %type.',
@@ -127,7 +127,7 @@ class AssetType extends ConfigEntityBundleBase implements AssetTypeInterface {
     if ($update) {
       // Clear the cached field definitions as some settings affect the field
       // definitions.
-      \Drupal::entityTypeManager()->clearCachedDefinitions();
+      $this->entityTypeManager()->clearCachedDefinitions();
       \Drupal::service('entity_field.manager')->clearCachedFieldDefinitions();
     }
   }

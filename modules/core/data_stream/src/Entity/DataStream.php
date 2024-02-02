@@ -134,7 +134,7 @@ class DataStream extends ContentEntityBase implements DataStreamInterface {
    */
   public function getBundleLabel() {
     /** @var \Drupal\data_stream\Entity\DataStreamTypeInterface $type */
-    $type = \Drupal::entityTypeManager()
+    $type = $this->entityTypeManager()
       ->getStorage('data_stream_type')
       ->load($this->bundle());
     return $type->label();

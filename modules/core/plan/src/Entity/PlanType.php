@@ -113,7 +113,7 @@ class PlanType extends ConfigEntityBundleBase implements PlanTypeInterface {
 
     // If the plan type id changed, update all existing plans of that type.
     if ($update && $this->getOriginalId() != $this->id()) {
-      $update_count = \Drupal::entityTypeManager()->getStorage('plan')->updateType($this->getOriginalId(), $this->id());
+      $update_count = $this->entityTypeManager()->getStorage('plan')->updateType($this->getOriginalId(), $this->id());
       if ($update_count) {
         \Drupal::messenger()->addMessage(\Drupal::translation()->formatPlural($update_count,
           'Changed the plan type of 1 post from %old-type to %type.',
@@ -127,7 +127,7 @@ class PlanType extends ConfigEntityBundleBase implements PlanTypeInterface {
     if ($update) {
       // Clear the cached field definitions as some settings affect the field
       // definitions.
-      \Drupal::entityTypeManager()->clearCachedDefinitions();
+      $this->entityTypeManager()->clearCachedDefinitions();
       \Drupal::service('entity_field.manager')->clearCachedFieldDefinitions();
     }
   }

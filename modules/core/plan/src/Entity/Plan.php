@@ -148,7 +148,7 @@ class Plan extends RevisionableContentEntityBase implements PlanInterface {
    */
   public function getBundleLabel() {
     /** @var \Drupal\plan\Entity\PlanTypeInterface $type */
-    $type = \Drupal::entityTypeManager()
+    $type = $this->entityTypeManager()
       ->getStorage('plan_type')
       ->load($this->bundle());
     return $type->label();

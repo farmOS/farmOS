@@ -54,7 +54,7 @@ class PlanRecord extends ContentEntityBase implements PlanRecordInterface {
    */
   public function getBundleLabel() {
     /** @var \Drupal\plan\Entity\PlanRecordTypeInterface $type */
-    $type = \Drupal::entityTypeManager()
+    $type = $this->entityTypeManager()
       ->getStorage('plan_record_type')
       ->load($this->bundle());
     return $type->label();
