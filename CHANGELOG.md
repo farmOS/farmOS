@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Announce new releases on farmOS.discourse.group #780](https://github.com/farmOS/farmOS/pull/780)
 - [Add a Product asset type and Product type taxonomy #787](https://github.com/farmOS/farmOS/pull/787)
+- [Inventory quick form #766](https://github.com/farmOS/farmOS/pull/766)
 
 ### Changed
 

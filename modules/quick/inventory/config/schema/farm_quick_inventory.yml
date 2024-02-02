@@ -1,0 +1,19 @@
+farm_quick.settings.inventory:
+  type: quick_form_settings
+  label: 'Inventory quick form settings'
+  mapping:
+    asset:
+      type: integer
+      label: 'Default asset ID'
+    units:
+      type: string
+      label: 'Default quantity units'
+    measure:
+      type: string
+      label: 'Default quantity measure'
+    inventory_adjustment:
+      type: string
+      label: 'Default inventory adjustment type'
+    log_type:
+      type: string
+      label: 'Default log type'
