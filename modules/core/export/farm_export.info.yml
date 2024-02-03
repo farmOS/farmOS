@@ -1,0 +1,5 @@
+name: farmOS Export
+description: Features for exporting records.
+type: module
+package: farmOS
+core_version_requirement: ^10

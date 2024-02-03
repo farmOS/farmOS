@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_kml\Plugin\Action;
+namespace Drupal\farm_export_kml\Plugin\Action;
 
 use Drupal\Core\Action\Plugin\Action\EntityActionBase;
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -18,7 +18,7 @@ use Symfony\Component\Serializer\SerializerInterface;
  * @Action(
  *   id = "entity:kml_action",
  *   action_label = @Translation("Export entity geometry as KML"),
- *   deriver = "Drupal\farm_kml\Plugin\Action\Derivative\EntityKmlDeriver",
+ *   deriver = "Drupal\farm_export_kml\Plugin\Action\Derivative\EntityKmlDeriver",
  * )
  */
 class EntityKml extends EntityActionBase {

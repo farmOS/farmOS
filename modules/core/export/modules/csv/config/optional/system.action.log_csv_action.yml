@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - farm_export_csv
+    - log
+id: log_csv_action
+label: 'Export CSV'
+type: log
+plugin: entity:csv_action:log
+configuration: {  }

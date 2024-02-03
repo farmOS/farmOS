@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   module:
-    - asset
-    - farm_kml
-id: asset_kml_action
+    - farm_export_kml
+    - log
+id: log_kml_action
 label: 'Export KML'
-type: asset
-plugin: entity:kml_action:asset
+type: log
+plugin: entity:kml_action:log
 configuration:
   geofield: geometry

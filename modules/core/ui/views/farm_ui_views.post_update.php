@@ -21,3 +21,12 @@ function farm_ui_views_post_update_enable_collapsible_filter(&$sandbox = NULL) {
 
   $views_settings->set('display_extenders', $display_extenders)->save();
 }
+
+/**
+ * Install the farmOS CSV Export module.
+ */
+function farm_ui_views_post_update_install_farm_export_csv(&$sandbox) {
+  if (!\Drupal::service('module_handler')->moduleExists('farm_export_csv')) {
+    \Drupal::service('module_installer')->install(['farm_export_csv']);
+  }
+}
