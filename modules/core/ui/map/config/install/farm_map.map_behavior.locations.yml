@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_ui_map
+id: locations
+label: Location asset layers
+description: 'Displays location asset geometries in layers by asset type.'
+library: ''
+settings: { }

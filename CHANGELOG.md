@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Add a Product asset type and Product type taxonomy #787](https://github.com/farmOS/farmOS/pull/787)
 - [Inventory quick form #766](https://github.com/farmOS/farmOS/pull/766)
 - [Add UI for creating instances of quick forms #785](https://github.com/farmOS/farmOS/pull/785)
+- [Show map on /locations #779](https://github.com/farmOS/farmOS/pull/779)
 
 ### Changed
 

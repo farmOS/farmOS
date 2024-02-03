@@ -3,10 +3,10 @@ status: true
 dependencies:
   enforced:
     module:
-      - farm_ui_dashboard
-id: dashboard
-label: Dashboard
-description: 'The farmOS dashboard map.'
+      - farm_ui_location
+id: locations
+label: Locations
+description: 'The farmOS locations map.'
 behaviors:
   - locations
 options: { }

@@ -6,5 +6,6 @@ core_version_requirement: ^10
 dependencies:
   - farm:farm_entity
   - farm:farm_location
+  - farm:farm_ui_map
   - farm:farm_ui_menu
   - inspire_tree:inspire_tree

@@ -73,6 +73,23 @@ class MapRenderEvent extends Event {
   }
 
   /**
+   * Getter method for map behaviors.
+   *
+   * This returns a merged list of map behaviors from both the map type
+   * configuration and the map element's #behaviors property.
+   *
+   * @return string[]
+   *   An array of map behavior IDs.
+   */
+  public function getMapBehaviors() {
+    $behaviors = $this->getMapType()->getMapBehaviors();
+    if (!empty($this->element['#behaviors'])) {
+      $behaviors = array_merge($behaviors, $this->element['#behaviors']);
+    }
+    return $behaviors;
+  }
+
+  /**
    * Add behavior to the map.
    *
    * @param string $behavior_name
@@ -92,8 +109,10 @@ class MapRenderEvent extends Event {
     /** @var \Drupal\farm_map\Entity\MapBehaviorInterface $behavior */
     $behavior = $this->entityTypeManager->getStorage('map_behavior')->load($behavior_name);
 
-    // Attach the library.
-    $this->element['#attached']['library'][] = $behavior->getLibrary();
+    // If the behavior has a library, attach it.
+    if (!empty($behavior->getLibrary())) {
+      $this->element['#attached']['library'][] = $behavior->getLibrary();
+    }
 
     // Add behavior settings if supplied.
     if (!empty($settings)) {
