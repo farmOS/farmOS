@@ -52,6 +52,7 @@ function farm_modules() {
       'farm_sensor' => t('Sensor assets'),
       'farm_compost' => t('Compost assets'),
       'farm_group' => t('Group assets'),
+      'farm_farm' => t('Farm assets'),
       'farm_transplanting' => t('Transplanting logs'),
       'farm_lab_test' => t('Lab test logs'),
       'farm_birth' => t('Birth logs'),

@@ -1,0 +1,8 @@
+name: Farm asset
+description: Adds a Farm asset type.
+type: module
+package: farmOS Assets
+core_version_requirement: ^10
+dependencies:
+  - farm:asset
+  - farm:farm_entity

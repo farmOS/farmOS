@@ -27,6 +27,7 @@ included with farmOS define the following Asset types:
 - Material
 - Product
 - Group&ast;
+- Farm&ast;
 
 &ast;Group Assets are unique in that they can "contain" other Assets as "group
 members". This is a flexible feature that can be used for many purposes. One
@@ -35,6 +36,11 @@ changes are recorded via Logs (similar to location changes), so it is possible
 to see all the Groups that an Asset was a member of in the past, when/why they
 were moved, etc. See [farmOS Group Membership Logic](/model/logic/group) for
 more information.
+
+&ast;Farm Assets can be used to model multiple "farms" within a single farmOS
+instance/dataset. This can be useful in situations where there are multiple
+different locations with their own Land Assets, Equipment Assets, etc, or as a
+place to store farm-level data that may not fit nicely in more granular records.
 
 ## ID
 
