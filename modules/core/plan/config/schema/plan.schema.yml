@@ -19,6 +19,20 @@ plan.type.*:
       type: boolean
       label: 'Create new revision'
 
+plan.record.type.*:
+  type: config_entity
+  label: 'Plan record relationship type'
+  mapping:
+    id:
+      type: string
+      label: 'Machine-readable name'
+    label:
+      type: label
+      label: 'Type'
+    description:
+      type: text
+      label: 'Description'
+
 condition.plugin.plan_type:
   type: condition.plugin
   mapping:

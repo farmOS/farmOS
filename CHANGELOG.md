@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Inventory quick form #766](https://github.com/farmOS/farmOS/pull/766)
 - [Add UI for creating instances of quick forms #785](https://github.com/farmOS/farmOS/pull/785)
 - [Show map on /locations #779](https://github.com/farmOS/farmOS/pull/779)
+- [Provide a plan_record entity type for plan record relationships with metadata #781](https://github.com/farmOS/farmOS/pull/781)
 
 ### Changed
 
