@@ -6,7 +6,11 @@
  */
 
 use Drupal\Core\Block\BlockPluginInterface;
+use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\farm_ui_theme\Form\AssetForm;
+use Drupal\farm_ui_theme\Form\LogForm;
+use Drupal\farm_ui_theme\Form\PlanForm;
 
 /**
  * Implements hook_theme().
@@ -24,6 +28,11 @@ function farm_ui_theme_theme($existing, $type, $theme, $path) {
     ],
     'page__asset__map_popup' => [
       'base hook' => 'page',
+    ],
+    // Implement the node edit form theme hook.
+    // See https://www.drupal.org/project/gin/issues/3342164
+    'node_edit_form' => [
+      'render element' => 'form',
     ],
   ];
 }
@@ -45,6 +54,108 @@ function farm_ui_theme_theme_suggestions_menu_local_task(array $variables) {
  */
 function farm_ui_theme_theme_suggestions_menu_local_tasks(array $variables) {
   return ['menu_local_tasks__farm'];
+}
+
+/**
+ * Implements hook_entity_form_display_alter().
+ */
+function farm_ui_theme_entity_form_display_alter(EntityFormDisplayInterface $form_display, array $context) {
+
+  // Only alter farm entity types.
+  $entity_types = ['asset', 'log', 'plan'];
+  if (!in_array($context['entity_type'], $entity_types)) {
+    return;
+  }
+
+  // Ask modules for a list of field group items.
+  $field_map = \Drupal::moduleHandler()->invokeAll(
+    'farm_ui_theme_field_group_items',
+    [$context['entity_type'], $context['bundle']],
+  );
+
+  // Apply the field group mapping if not already specified on the form display.
+  foreach ($field_map as $field_id => $field_group) {
+    if (($renderer = $form_display->getRenderer($field_id)) && !$renderer->getThirdPartySetting('farm_ui_theme', 'field_group', FALSE)) {
+      $renderer->setThirdPartySetting('farm_ui_theme', 'field_group', $field_group);
+    }
+  }
+}
+
+/**
+ * Implements hook_farm_ui_theme_field_group_items().
+ */
+function farm_ui_theme_farm_ui_theme_field_group_items(string $entity_type, string $bundle) {
+
+  // Define base fields for asset, log, and plans on behalf of core modules.
+  $fields = [
+    'name' => 'default',
+    'status' => 'meta',
+    'flag' => 'meta',
+    'file' => 'file',
+    'image' => 'file',
+    'revision' => 'revision',
+    'revision_log_message' => 'revision',
+  ];
+  switch ($entity_type) {
+    case 'asset':
+      $fields['owner'] = 'meta';
+      $fields['parent'] = 'parent';
+      $fields['intrinsic_geometry'] = 'location';
+      $fields['is_location'] = 'location';
+      $fields['is_fixed'] = 'location';
+      $fields['id_tag'] = 'id_tag';
+      break;
+
+    case 'log':
+      $fields['timestamp'] = 'default';
+      $fields['category'] = 'meta';
+      $fields['owner'] = 'meta';
+      $fields['asset'] = 'asset';
+      $fields['geometry'] = 'location';
+      $fields['location'] = 'location';
+      $fields['is_movement'] = 'location';
+      $fields['quantity'] = 'quantity';
+      break;
+
+    case 'plan':
+      break;
+
+    default:
+      $fields = [];
+  }
+  return $fields;
+}
+
+/**
+ * Implements hook_gin_content_form_routes().
+ */
+function farm_ui_theme_gin_content_form_routes() {
+  $routes = [];
+  $entity_types = ['asset', 'log', 'plan'];
+  foreach ($entity_types as $entity_type) {
+    $routes[] = "entity.$entity_type.add_form";
+    $routes[] = "entity.$entity_type.edit_form";
+  }
+  return $routes;
+}
+
+/**
+ * Implements hook_entity_type_build().
+ */
+function farm_ui_theme_entity_type_build(array &$entity_types) {
+
+  // Override the default add and edit form class.
+  $target_entity_types = [
+    'asset' => AssetForm::class,
+    'log' => LogForm::class,
+    'plan' => PlanForm::class,
+  ];
+  foreach ($target_entity_types as $entity_type => $form_class) {
+    if (isset($entity_types[$entity_type])) {
+      $entity_types[$entity_type]->setFormClass('add', $form_class);
+      $entity_types[$entity_type]->setFormClass('edit', $form_class);
+    }
+  }
 }
 
 /**

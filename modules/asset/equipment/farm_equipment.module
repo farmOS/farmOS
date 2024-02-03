@@ -32,3 +32,15 @@ function farm_equipment_farm_entity_bundle_field_info(EntityTypeInterface $entit
 
   return $fields;
 }
+
+/**
+ * Implements hook_farm_ui_theme_field_group_items().
+ */
+function farm_equipment_farm_ui_theme_field_group_items(string $entity_type, string $bundle) {
+  if ($entity_type == 'log') {
+    return [
+      'equipment' => 'asset',
+    ];
+  }
+  return [];
+}

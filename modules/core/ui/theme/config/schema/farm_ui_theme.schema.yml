@@ -1,0 +1,8 @@
+# Schema for form display third party settings.
+core.entity_form_display.*.*.*.third_party.farm_ui_theme:
+  type: mapping
+  label: 'Farm Theme Settings'
+  mapping:
+    use_field_group:
+      type: boolean
+      label: 'Use field group'

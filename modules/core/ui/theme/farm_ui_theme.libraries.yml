@@ -2,6 +2,10 @@ asset_map_popup:
   css:
     theme:
       css/asset_map_popup.css: { }
+content_form:
+  css:
+    theme:
+      css/content-form.css: { }
 dashboard:
   css:
     theme:
