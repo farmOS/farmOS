@@ -1,5 +1,6 @@
 farm_quick:
   config_permissions:
+    - create quick_form
     - update quick_form
     - administer quick_form
   default_permissions:

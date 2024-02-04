@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- [Grant config permissions create quick_form permission #791](https://github.com/farmOS/farmOS/pull/791)
+
 ## [3.1.0] 2024-02-02
 
 ### Added
