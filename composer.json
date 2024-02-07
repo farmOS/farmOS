@@ -74,7 +74,7 @@
                 "Issue #3267304: Infer target_revision_id to be Latest Revision when Only a target_id is Provided": "https://www.drupal.org/files/issues/2022-05-13/3267304-9.patch"
             },
             "drupal/gin": {
-                "Issue #334216: Remove implicit dependency on node module for gin content form.": "https://www.drupal.org/files/issues/2024-01-15/3342164-6.patch",
+                "Issue #3342164: Remove implicit dependency on node module for gin content form.": "https://www.drupal.org/files/issues/2024-01-15/3342164-6.patch",
                 "Issue #3419904: Help text is cutoff at xsmall breakpoint.": "https://www.drupal.org/files/issues/2024-02-07/3419904-4.patch"
             },
             "drupal/jsonapi_schema": {
