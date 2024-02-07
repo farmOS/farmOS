@@ -40,7 +40,7 @@
         "drupal/migrate_plus": "^6.0",
         "drupal/migrate_source_csv": "^3.5",
         "drupal/migrate_source_ui": "^1.0",
-        "drupal/migrate_tools": "^6.0.2",
+        "drupal/migrate_tools": "^6.0.3",
         "drupal/role_delegation": "^1.2",
         "drupal/simple_oauth": "6.0.0-beta5",
         "drupal/simple_oauth_password_grant": "^1.0@RC",

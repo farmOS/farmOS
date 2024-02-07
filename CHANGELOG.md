@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Grant config permissions create quick_form permission #791](https://github.com/farmOS/farmOS/pull/791)
 
+### Security
+
+- Update Migrate Tools to 6.0.3 for [SA-CONTRIB-2024-008](https://www.drupal.org/sa-contrib-2024-008)
+
 ## [3.1.0] 2024-02-02
 
 ### Added
