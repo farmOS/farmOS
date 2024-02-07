@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - [Grant config permissions create quick_form permission #791](https://github.com/farmOS/farmOS/pull/791)
+- Patch Gin to fix [Issue #3419904: Help text is cutoff at xsmall breakpoint](https://www.drupal.org/node/3419904)
 
 ### Security
 
