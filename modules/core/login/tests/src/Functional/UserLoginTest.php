@@ -141,7 +141,7 @@ class UserLoginTest extends FarmBrowserTestBase {
     $this->submitForm([
       'name' => $account->getEmail(),
       'pass' => $account->passRaw,
-    ], $this->t('Log in'));
+    ], 'Log in');
     if (isset($flood_trigger)) {
       $this->assertSession()->statusCodeEquals(403);
       $this->assertSession()->fieldNotExists('pass');
@@ -187,7 +187,7 @@ class UserLoginTest extends FarmBrowserTestBase {
     $this->submitForm([
       'name' => $account->getEmail(),
       'pass' => $account->passRaw,
-    ], $this->t('Log in'));
+    ], 'Log in');
 
     // @see ::drupalUserIsLoggedIn()
     $account->sessionId = $this->getSession()->getCookie(\Drupal::service('session_configuration')->getOptions(\Drupal::request())['name']);

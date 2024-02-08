@@ -40,7 +40,7 @@ class AssetCRUDTest extends AssetTestBase {
     ];
 
     $this->drupalGet('asset/add/default');
-    $this->submitForm($edit, $this->t('Save'));
+    $this->submitForm($edit, 'Save');
 
     $result = \Drupal::entityTypeManager()
       ->getStorage('asset')
@@ -85,7 +85,7 @@ class AssetCRUDTest extends AssetTestBase {
       'name[0][value]' => $this->randomMachineName(),
     ];
     $this->drupalGet($asset->toUrl('edit-form'));
-    $this->submitForm($edit, $this->t('Save'));
+    $this->submitForm($edit, 'Save');
     $this->assertSession()->pageTextContains($edit['name[0][value]']);
   }
 
@@ -100,7 +100,7 @@ class AssetCRUDTest extends AssetTestBase {
     $asset_id = $asset->id();
 
     $this->drupalGet($asset->toUrl('delete-form'));
-    $this->submitForm([], $this->t('Delete'));
+    $this->submitForm([], 'Delete');
     $this->assertSession()->responseContains($this->t('The @entity-type %label has been deleted.', [
       '@entity-type' => $asset->getEntityType()->getSingularLabel(),
       '%label' => $label,
