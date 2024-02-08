@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- [Add "Days of harvest" field to Plant type terms #794](https://github.com/farmOS/farmOS/pull/794)
+
 ### Changed
 
 - [Set plant_type fields form/view display settings via alter hook instead of config #806](https://github.com/farmOS/farmOS/pull/806)

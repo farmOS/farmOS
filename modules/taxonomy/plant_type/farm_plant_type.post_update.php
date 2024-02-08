@@ -8,6 +8,7 @@
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
 
 /**
  * Delete default form/view display config for plant type fields.
@@ -27,7 +28,6 @@ function farm_plant_type_post_update_delete_display_config(&$sandbox) {
  * Set the minimum value of maturity_days and transplant_days to 1.
  */
 function farm_plant_type_post_update_min_1_day(&$sandbox) {
-
   // Set the min setting of both fields to 1.
   $field_names = [
     'maturity_days',
@@ -49,6 +49,69 @@ function farm_plant_type_post_update_min_1_day(&$sandbox) {
     'taxonomy_term_revision__transplant_days' => 'transplant_days_value',
   ];
   foreach ($tables as $table => $column) {
-    \Drupal::database()->query('DELETE FROM {' . $table . '} WHERE ' . $column . ' = 0');
+    \Drupal::database()
+      ->query('DELETE FROM {' . $table . '} WHERE ' . $column . ' = 0');
   }
+}
+
+/**
+ * Add harvest_days field to plant_type terms.
+ */
+function farm_plant_type_post_update_add_harvest_days(&$sandbox) {
+  $field_storage = FieldStorageConfig::create([
+    'id' => 'taxonomy_term.harvest_days',
+    'field_name' => 'harvest_days',
+    'entity_type' => 'taxonomy_term',
+    'type' => 'integer',
+    'settings' => [
+      'unsigned' => TRUE,
+      'size' => 'normal',
+    ],
+    'module' => 'core',
+    'locked' => FALSE,
+    'cardinality' => 1,
+    'indexes' => [],
+    'persist_with_no_fields' => FALSE,
+    'custom_storage' => FALSE,
+    'dependencies' => [
+      'enforced' => [
+        'module' => [
+          'farm_plant_type',
+        ],
+      ],
+      'module' => [
+        'taxonomy',
+      ],
+    ],
+  ]);
+  $field_storage->save();
+  $field = FieldConfig::create([
+    'id' => 'taxonomy_term.plant_type.harvest_days',
+    'field_name' => 'harvest_days',
+    'entity_type' => 'taxonomy_term',
+    'bundle' => 'plant_type',
+    'label' => 'Days of harvest',
+    'description' => '',
+    'required' => FALSE,
+    'default_value' => [],
+    'default_value_callback' => '',
+    'settings' => [
+      'min' => 1,
+      'max' => NULL,
+      'prefix' => '',
+      'suffix' => ' day| days',
+    ],
+    'field_type' => 'integer',
+    'dependencies' => [
+      'enforced' => [
+        'module' => [
+          'farm_plant_type',
+        ],
+      ],
+      'module' => [
+        'taxonomy',
+      ],
+    ],
+  ]);
+  $field->save();
 }

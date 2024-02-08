@@ -88,6 +88,7 @@ Terms in the "Plant type" vocabulary have the following additional attributes:
 
 - Days to maturity (Integer)
 - Days to transplant (Integer)
+- Days of harvest (Integer)
 
 And the following additional relationships:
 
