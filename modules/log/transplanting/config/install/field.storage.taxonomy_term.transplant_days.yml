@@ -3,7 +3,7 @@ status: true
 dependencies:
   enforced:
     module:
-      - farm_plant_type
+      - farm_transplanting
   module:
     - taxonomy
 id: taxonomy_term.transplant_days

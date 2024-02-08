@@ -87,7 +87,7 @@ above, some types add additional type-specific fields. These include:
 Terms in the "Plant type" vocabulary have the following additional attributes:
 
 - Days to maturity (Integer)
-- Days to transplant (Integer)
+- Days to transplant (Integer) (Added by the optional Transplanting module)
 - Days of harvest (Integer)
 
 And the following additional relationships:

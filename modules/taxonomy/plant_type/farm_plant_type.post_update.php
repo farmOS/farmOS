@@ -115,3 +115,37 @@ function farm_plant_type_post_update_add_harvest_days(&$sandbox) {
   ]);
   $field->save();
 }
+
+/**
+ * Move transplant_days field to farm_transplant module.
+ */
+function farm_plant_type_post_update_move_transplant_days() {
+
+  // The transplant_days field was previously part of this module. It has moved
+  // to the farm_transplanting module, so that it is only made available in
+  // instances that deal with transplants. If there is transplant_days data in
+  // the database, but the farm_transplant module is not installed, we should
+  // install it so that module can be responsible for the data moving forward.
+  $data_count = \Drupal::database()->query('SELECT COUNT(*) FROM {taxonomy_term__transplant_days}')->fetchField();
+  if (!empty($data_count)) {
+    if (!\Drupal::service('module_handler')->moduleExists('farm_transplanting')) {
+      \Drupal::configFactory()->getEditable('field.field.taxonomy_term.plant_type.transplant_days')->delete();
+      \Drupal::configFactory()->getEditable('field.storage.taxonomy_term.transplant_days')->delete();
+      \Drupal::service('module_installer')->install(['farm_transplanting']);
+    }
+  }
+
+  // Otherwise, we can delete the transplant_days field.
+  // Using FieldConfig::load() and FieldStorageConfig::load() and their
+  // associated delete() methods will delete the config and database tables.
+  else {
+    $field = FieldConfig::load('taxonomy_term.plant_type.transplant_days');
+    if (!empty($field)) {
+      $field->delete();
+    }
+    $field_storage = FieldStorageConfig::load('taxonomy_term.transplant_days');
+    if (!empty($field_storage)) {
+      $field_storage->delete();
+    }
+  }
+}
