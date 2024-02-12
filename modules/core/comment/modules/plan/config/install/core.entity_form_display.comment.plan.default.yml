@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.plan
+    - field.field.comment.plan.comment_body
+  enforced:
+    module:
+      - farm_comment_plan
+  module:
+    - text
+id: comment.plan.default
+targetEntityType: comment
+bundle: plan
+mode: default
+content:
+  author:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  comment_body:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  subject: true
