@@ -2,6 +2,6 @@ name: farmOS Comment
 description: Adds support for comments on farmOS entities.
 type: module
 package: farmOS
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - drupal:comment
