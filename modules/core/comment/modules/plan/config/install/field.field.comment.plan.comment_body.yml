@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.plan
+    - field.storage.comment.comment_body
+  enforced:
+    module:
+      - farm_comment_plan
+  module:
+    - text
+id: comment.plan.comment_body
+field_name: comment_body
+entity_type: comment
+bundle: plan
+label: Comment
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
