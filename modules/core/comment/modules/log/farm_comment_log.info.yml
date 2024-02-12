@@ -2,7 +2,7 @@ name: Log comments
 description: Enables comments on farmOS logs.
 type: module
 package: farmOS
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - farm:farm_comment
   - log:log
