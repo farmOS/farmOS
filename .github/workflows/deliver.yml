@@ -48,7 +48,7 @@ jobs:
       # farmOS Composer project 3.x branch is always used.
       - name: Build and save farmOS dev Docker image
         run: |
-          docker build --build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION} -t farmos/farmos:3.x-dev docker/dev
+          docker build --build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION} -t farmos/farmos:3.x-dev  --target dev docker
           docker save farmos/farmos:3.x-dev > /tmp/farmos-dev.tar
       - name: Cache farmOS dev Docker image
         uses: actions/cache@v3
