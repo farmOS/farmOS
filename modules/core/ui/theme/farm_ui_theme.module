@@ -192,6 +192,15 @@ function farm_ui_theme_preprocess_block(&$variables) {
 /**
  * Implements hook_preprocess_HOOK().
  */
+function farm_ui_theme_preprocess_field(&$variables) {
+  if ($variables['field_type'] == 'comment') {
+    $variables['attributes']['class'][] = 'gin-layer-wrapper';
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
 function farm_ui_theme_preprocess_toolbar(&$variables) {
   $variables['#attached']['library'][] = 'farm_ui_theme/toolbar';
 }
