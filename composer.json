@@ -50,7 +50,7 @@
         "drupal/views_geojson": "^1.2",
         "drush/drush": "^12.4.3",
         "ext-simplexml": "*",
-        "itamair/geophp": "1.3"
+        "itamair/geophp": "1.6"
     },
     "extra": {
         "patchLevel": {
