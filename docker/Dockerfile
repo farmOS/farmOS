@@ -50,6 +50,9 @@ RUN apt-get update && apt-get install -y \
 # Set the COMPOSER_MEMORY_LIMIT environment variable to unlimited.
 ENV COMPOSER_MEMORY_LIMIT=-1
 
+# Set COMPOSER_ALLOW_SUPERUSER=1 to allow plugins to run as root/super user.
+ENV COMPOSER_ALLOW_SUPERUSER=1
+
 # Add the build-farmOS.sh script.
 COPY build-farmOS.sh /usr/local/bin/
 RUN chmod a+x /usr/local/bin/build-farmOS.sh
