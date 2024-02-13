@@ -1,6 +1,3 @@
 farm_comment:
-  default_permissions:
-    - access comments
-    - post comments
-    - skip comment approval
-    - edit own comments
+  permission_callbacks:
+    - Drupal\farm_comment\CommentPermissions::permissions
