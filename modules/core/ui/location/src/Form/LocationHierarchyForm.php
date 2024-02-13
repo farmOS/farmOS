@@ -296,9 +296,9 @@ class LocationHierarchyForm extends FormBase {
       // Load the asset.
       $asset = $storage->load($change['asset_id']);
 
-      // If the user does not have permission to edit the asset, count it so
+      // If the user does not have permission to update the asset, count it so
       // that we can add a warning message later, and skip it.
-      if (!$asset->access('edit')) {
+      if (!$asset->access('update')) {
         $restricted_assets[] = $asset;
         continue;
       }
