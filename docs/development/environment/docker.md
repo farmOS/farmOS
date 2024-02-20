@@ -17,7 +17,9 @@ Available arguments and their default values are described below:
   check out.
     - Default: `3.x`
 
-The `3.x-dev` image also provides the following:
+## Development image
+
+The `3.x-dev` image also provides the following build arguments:
 
 - `WWW_DATA_ID` - The ID to use for the `www-data` user and group inside the
    image. Setting this to the ID of the developer's user on the host machine
@@ -26,3 +28,8 @@ The `3.x-dev` image also provides the following:
    container. If your user ID is not `1000`, build the image with:
    `--build-arg WWW_DATA_ID=$(id -u)`
     - Default: `1000`
+
+To build the development image, you will have to define the target dev,
+for example:
+
+`docker build --build-arg WWW_DATA_ID=$(id -u)  -t farmos/farmos:3.x-dev --target dev docker`

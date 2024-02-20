@@ -1,7 +1,14 @@
-# Use the official Drupal 10 image to build GEOS PHP extension.
-FROM drupal:10.1 as php-dependencies
+# Use the official Drupal 10 as base image.
+FROM drupal:10.1 as baseimage
 
-# Build and install the GEOS PHP extension.
+# Define common paths.
+ENV FARMOS_PATH=/var/farmOS
+ENV DRUPAL_PATH=/opt/drupal
+
+##
+# Build PHP extensions, GEOS and bcmath.
+FROM baseimage as php-dependencies
+
 # See https://git.osgeo.org/gitea/geos/php-geos
 ARG PHP_GEOS_VERSION=e77d5a16abbf89a59d947d1fe49381a944762c9d
 ADD https://github.com/libgeos/php-geos/archive/${PHP_GEOS_VERSION}.tar.gz /opt/php-geos.tar.gz
@@ -17,51 +24,127 @@ RUN apt-get update && apt-get install -y libgeos-dev \
 # Install the BCMath PHP extension.
 RUN docker-php-ext-install bcmath
 
-# Inherit from the official Drupal 10 image.
-FROM drupal:10.1
+# Setup dependencies and sources for composer installations.
+FROM baseimage as composer-file
 
 # Set the farmOS and composer project repository URLs and versions.
 ARG FARMOS_REPO=https://github.com/farmOS/farmOS.git
 ARG FARMOS_VERSION=3.x
-ARG PROJECT_REPO=https://github.com/farmOS/composer-project.git
 ARG PROJECT_VERSION=3.x
+ARG PROJECT_REPO=https://github.com/farmOS/composer-project/raw/${PROJECT_VERSION}/composer.json
+
+# Set the COMPOSER_MEMORY_LIMIT environment variable to unlimited.
+ENV COMPOSER_MEMORY_LIMIT=-1
+# Allow root to install plugins.
+ENV COMPOSER_ALLOW_SUPERUSER=1
+ENV COMPOSER_NO_INTERACTION=1
+
+# Install apt dependencies.
+RUN apt-get update && apt-get install -y --no-install-recommends\
+    # Install git and unzip (needed by Composer).
+    git unzip
+
+# Add the build-farmOS.sh script.
+COPY build-farmOS.sh /usr/local/bin/
+
+# Setup composer file for non interactive installation.
+WORKDIR ${FARMOS_PATH}
+RUN build-farmOS.sh
+
+##
+# Create layer with farmOS sources.
+FROM composer-file as farmos-sources
+
+# Declare the git commit hash argument used for build cache invalidation between
+# different commits on the same branch in GitHub actions.
+ARG GIT_COMMIT=unknown
+
+# Install sources.
+RUN composer install --no-dev
+
+# Set the version in farm.info.yml.
+RUN sed -i "s|version: 3.x|version: ${FARMOS_VERSION}|g" ${FARMOS_PATH}/web/profiles/farm/farm.info.yml
+
+##
+# Create layer with farmOS dev sources.
+FROM farmos-sources as farmos-dev-sources
+
+# Install sources.
+RUN composer update
+
+##
+# Dependencies layer.
+FROM baseimage as farmos-baseimage
 
 # Set Apache ServerName directive globally to suppress AH00558 message.
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-# Install and enable geos.
+# Enable PHP dependencies.
 COPY --from=php-dependencies /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
 RUN docker-php-ext-enable geos bcmath
 
 # Add custom PHP configurations.
 COPY conf.d/ /usr/local/etc/php/conf.d
 
-# Install apt dependencies.
-RUN apt-get update && apt-get install -y \
-    # Install git and unzip (needed by Composer).
-    git unzip \
+# Install apt dependencies and clean up.
+RUN apt-get update && apt-get install -y --no-install-recommends\
     # Install postgresql-client so Drush can connect to the database.
     postgresql-client \
     # Install libgeos-c1v5 so geos php extension can use libgeos_c.so.1.
     libgeos-c1v5 \
-  && rm -rf /var/lib/apt/lists/* \
-  && apt-get clean
-
-# Set the COMPOSER_MEMORY_LIMIT environment variable to unlimited.
-ENV COMPOSER_MEMORY_LIMIT=-1
-
-# Add the build-farmOS.sh script.
-COPY build-farmOS.sh /usr/local/bin/
-RUN chmod a+x /usr/local/bin/build-farmOS.sh
-
-# Build the farmOS codebase in /var/farmoS with the --no-dev flag.
-# Change the ownership of the sites directory and copy the farmOS codebase into /opt/drupal.
-RUN mkdir /var/farmOS \
-  && /usr/local/bin/build-farmOS.sh --no-dev \
-  && chown -R www-data:www-data /var/farmOS/web/sites \
-  && rm -r /opt/drupal && cp -rp /var/farmOS /opt/drupal
+    # Install git and unzip (needed by Composer).
+    git unzip \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean \
+    # Clean up ${DRUPAL_PATH}.
+    && rm -r ${DRUPAL_PATH} \
+    && mkdir ${DRUPAL_PATH}
 
 # Set the entrypoint.
-COPY docker-entrypoint.sh /usr/local/bin/
+COPY --chown=www-data docker-entrypoint.sh /usr/local/bin/
+
+# Set the working directory, entrypoint and command.
+WORKDIR ${DRUPAL_PATH}
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["apache2-foreground"]
+
+##
+# Development base image.
+FROM farmos-baseimage as farmos-dev-baseimage
+
+# Change the user/group IDs of www-data inside the image to match the ID of the
+# developer's user on the host machine. This allows Composer to create files
+# owned by www-data inside the container, while keeping those files editable by
+# the developer outside of the container.
+# This defaults to 1000, based on the assumption that the developer is running
+# as UID 1000 on the host machine. It can be overridden at image build time with:
+# --build-arg WWW_DATA_ID=$(id -u)
+ARG WWW_DATA_ID=1000
+RUN usermod -u ${WWW_DATA_ID} www-data && groupmod -g ${WWW_DATA_ID} www-data
+
+# Install and configure XDebug.
+RUN yes | pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
+# Add opcache revalidation frequency configuration.
+COPY dev/conf.d/ /usr/local/etc/php/conf.d
+
+# Add Configurations for PHP CodeSniffer, PHPStan
+COPY --chown=www-data:www-data ./dev/files/ ${FARMOS_PATH}
+
+##
+# Development image.
+FROM farmos-dev-baseimage as dev
+
+# Add farmOS dev sources.
+COPY --from=farmos-dev-sources --chown=www-data:www-data ${FARMOS_PATH} ${FARMOS_PATH}
+
+# Configure PHPUnit.
+RUN ${FARMOS_PATH}/phpunit.sh
+
+##
+# Production image.
+FROM farmos-baseimage
+
+# Add farmOS sources.
+COPY --from=farmos-sources --chown=www-data:www-data ${FARMOS_PATH} ${DRUPAL_PATH}
