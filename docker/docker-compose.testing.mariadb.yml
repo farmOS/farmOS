@@ -2,7 +2,7 @@
 version: '3'
 services:
   db:
-    image: mariadb:latest
+    image: mariadb:10
     volumes:
       - './db:/var/lib/mysql'
     ports:
