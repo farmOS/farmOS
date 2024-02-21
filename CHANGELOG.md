@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - [Check for correct update operation access in location hierarchy form #800](https://github.com/farmOS/farmOS/pull/800)
+- [Update to itamair/geophp 1.6 #801](https://github.com/farmOS/farmOS/pull/801) to fix deprecated function warnings.
 
 ## [3.1.1] 2024-02-07
 
