@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - [Set plant_type fields form/view display settings via alter hook instead of config #806](https://github.com/farmOS/farmOS/pull/806)
+- [Set the minimum value of maturity_days and transplant_days to 1 #794](https://github.com/farmOS/farmOS/pull/794)
 
 ## [3.1.2] 2024-02-26
 
