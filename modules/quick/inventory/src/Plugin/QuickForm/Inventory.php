@@ -498,7 +498,19 @@ class Inventory extends QuickFormBase implements ConfigurableQuickFormInterface 
     $this->configuration['asset'] = $form_state->getValue('asset');
     $this->configuration['units'] = NULL;
     if (!empty($form_state->getValue('units'))) {
-      $this->configuration['units'] = $form_state->getValue('units')['entity']->label();
+
+      // Existing terms will be represented as a numeric term ID.
+      if (is_numeric($form_state->getValue('units'))) {
+        $term = $this->entityTypeManager->getStorage('taxonomy_term')->load($form_state->getValue('units'));
+        if (!empty($term)) {
+          $this->configuration['units'] = $term->label();
+        }
+      }
+
+      // New terms will be represented as a term entity object.
+      elseif (!empty($form_state->getValue('units')['entity'])) {
+        $this->configuration['units'] = $form_state->getValue('units')['entity']->label();
+      }
     }
     $this->configuration['measure'] = $form_state->getValue('measure');
     $this->configuration['inventory_adjustment'] = $form_state->getValue('inventory_adjustment');
