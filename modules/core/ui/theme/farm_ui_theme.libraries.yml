@@ -2,6 +2,10 @@ asset_map_popup:
   css:
     theme:
       css/asset_map_popup.css: { }
+comment:
+  css:
+    theme:
+      css/comment.css: { }
 content_form:
   css:
     theme:
