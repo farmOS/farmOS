@@ -124,7 +124,6 @@ farm_role:
     - access user profiles
     - change own username
   config_permissions:
-    - access administration pages
     - access taxonomy overview
 ```
 
