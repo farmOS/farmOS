@@ -4,11 +4,8 @@ dependencies:
   config:
     - system.menu.admin
   module:
-    - csv_serialization
     - options
     - plan
-    - rest
-    - serialization
     - state_machine
     - user
   enforced:
@@ -717,17 +714,6 @@ display:
           plugin_id: result
           empty: false
           content: 'Displaying @start - @end of @total'
-        display_link:
-          id: display_link
-          table: views
-          field: display_link
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: display_link
-          label: 'Export CSV'
-          empty: false
-          display_id: csv
       display_extenders: {  }
     cache_metadata:
       max-age: 0
@@ -1139,61 +1125,6 @@ display:
         - url.query_args
         - user.permissions
       tags: {  }
-  csv:
-    id: csv
-    display_title: 'CSV export (rest)'
-    display_plugin: rest_export
-    position: 4
-    display_options:
-      pager:
-        type: none
-        options:
-          offset: 0
-      style:
-        type: serializer
-        options:
-          uses_fields: false
-          formats:
-            csv: csv
-      row:
-        type: data_field
-        options:
-          field_options:
-            plan_bulk_form:
-              alias: ''
-              raw_output: false
-            image_target_id:
-              alias: ''
-              raw_output: false
-            id:
-              alias: ''
-              raw_output: false
-            name:
-              alias: ''
-              raw_output: false
-            type:
-              alias: ''
-              raw_output: false
-            flag_value:
-              alias: ''
-              raw_output: false
-            status:
-              alias: ''
-              raw_output: false
-      display_description: ''
-      display_extenders: {  }
-      path: plans.csv
-      auth:
-        - cookie
-    cache_metadata:
-      max-age: 0
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - request_format
-        - url
-        - user.permissions
-      tags: {  }
   page:
     id: page
     display_title: 'All plans (page)'
@@ -1250,7 +1181,6 @@ display:
           default_argument_type: fixed
           default_argument_options:
             argument: ''
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
