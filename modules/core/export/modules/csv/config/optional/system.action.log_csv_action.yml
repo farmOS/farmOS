@@ -4,6 +4,9 @@ dependencies:
   module:
     - farm_export_csv
     - log
+  enforced:
+    module:
+      - farm_export_csv
 id: log_csv_action
 label: 'Export CSV'
 type: log
