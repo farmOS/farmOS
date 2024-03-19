@@ -34,6 +34,9 @@ function farm_comment_base_field_definition(string $entity_type) {
   // We assume that the comment type matches the entity type.
   $field->setSetting('comment_type', $entity_type);
 
+  // Disable previews.
+  $field->setSetting('preview', 0);
+
   // A default value must be set for comment fields.
   // Enable comments on entities by default.
   $default_value = [
