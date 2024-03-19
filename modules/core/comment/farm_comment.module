@@ -6,6 +6,8 @@
  */
 
 use Drupal\comment\Plugin\Field\FieldType\CommentItemInterface;
+use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\entity\BundleFieldDefinition;
 
 /**
@@ -67,6 +69,49 @@ function farm_comment_base_field_definition(string $entity_type) {
   ]);
 
   return $field;
+}
+
+/**
+ * Implements hook_entity_form_display_alter().
+ */
+function farm_comment_entity_form_display_alter(EntityFormDisplayInterface $form_display, array $context) {
+  if ($form_display->getTargetEntityTypeId() == 'comment' && $form_display->getMode() == 'default' && $form_display->isNew()) {
+    $form_display->setComponent('author', [
+      'region' => 'content',
+      'settings' => [],
+      'weight' => 0,
+    ]);
+    $form_display->setComponent('comment_body', [
+      'type' => 'text_textarea',
+      'region' => 'content',
+      'settings' => [
+        'rows' => 5,
+        'placeholder' => '',
+      ],
+      'weight' => 1,
+    ]);
+    $form_display->removeComponent('subject');
+  }
+}
+
+/**
+ * Implements hook_entity_view_display_alter().
+ */
+function farm_comment_entity_view_display_alter(EntityViewDisplayInterface $display, array $context) {
+  if ($context['entity_type'] == 'comment' && $display->getMode() == 'default' && $display->isNew()) {
+    $display->setComponent('comment_body', [
+      'type' => 'text_default',
+      'label' => 'hidden',
+      'region' => 'content',
+      'settings' => [],
+      'weight' => 0,
+    ]);
+    $display->setComponent('links', [
+      'region' => 'content',
+      'settings' => [],
+      'weight' => 1,
+    ]);
+  }
 }
 
 /**
