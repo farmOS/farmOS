@@ -229,7 +229,7 @@ module.
 
 #### Images
 
-Image can be attached to Logs. This provides a place to store photos associated
+Images can be attached to Logs. This provides a place to store photos associated
 with the task.
 
 #### Files
