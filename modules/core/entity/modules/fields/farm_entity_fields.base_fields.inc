@@ -170,10 +170,25 @@ function farm_entity_fields_taxonomy_term_base_fields() {
         'view' => 89,
       ],
     ],
+    'ontology_uri' => [
+      'type' => 'uri',
+      'label' => t('Ontology URI'),
+      'description' => t('Link this term to one or more external ontology item URIs.'),
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => 80,
+        'view' => 80,
+      ],
+    ],
   ];
+  /** @var \Drupal\Core\Field\BaseFieldDefinition[] $fields */
   $fields = [];
   foreach ($field_info as $name => $info) {
     $fields[$name] = \Drupal::service('farm_field.factory')->baseFieldDefinition($info);
   }
+
+  // Add URI validation constraint to the ontology_uri field.
+  $fields['ontology_uri']->addConstraint('OntologyUri');
+
   return $fields;
 }
