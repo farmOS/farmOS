@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - [Add file and image base fields to all taxonomy terms #807](https://github.com/farmOS/farmOS/pull/807)
+- [Issue #3390486: Add an Ontology URI field to all taxonomy terms](https://www.drupal.org/project/farm/issues/3390486)
 
 ### Changed
 

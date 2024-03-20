@@ -119,6 +119,7 @@ class FarmEntityFieldTest extends KernelTestBase {
     $field_names = [
       'file',
       'image',
+      'ontology_uri',
     ];
     foreach ($field_names as $field_name) {
       $this->assertArrayHasKey($field_name, $fields, "The taxonomy term $field_name field exists.");

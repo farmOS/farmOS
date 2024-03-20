@@ -46,6 +46,7 @@ Attributes that are common to all Term types include:
 
 - Name
 - Description
+- Ontology URI
 - Weight
 
 #### Name
@@ -55,6 +56,10 @@ Terms must have a name.
 #### Description
 
 Optionally, Terms may have a description.
+
+#### Ontology URI
+
+Terms may link to one or more external ontology URIs.
 
 #### Weight
 
