@@ -144,3 +144,36 @@ function farm_entity_fields_plan_base_fields() {
   }
   return $fields;
 }
+
+/**
+ * Define common taxonomy term base fields.
+ */
+function farm_entity_fields_taxonomy_term_base_fields() {
+  $field_info = [
+    'file' => [
+      'type' => 'file',
+      'label' => t('Files'),
+      'file_directory' => 'farm/term/[date:custom:Y]-[date:custom:m]',
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => 90,
+        'view' => 90,
+      ],
+    ],
+    'image' => [
+      'type' => 'image',
+      'label' => t('Images'),
+      'file_directory' => 'farm/term/[date:custom:Y]-[date:custom:m]',
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => 89,
+        'view' => 89,
+      ],
+    ],
+  ];
+  $fields = [];
+  foreach ($field_info as $name => $info) {
+    $fields[$name] = \Drupal::service('farm_field.factory')->baseFieldDefinition($info);
+  }
+  return $fields;
+}

@@ -71,11 +71,23 @@ additional relationships.
 Relationships that are common to all Term types include:
 
 - Parent
+- Images
+- Files
 
 #### Parent
 
 Terms can specify "Parent" Terms to create a hierarchy. See related "Weight"
 attribute above for ordering Terms within the hierarchy.
+
+#### Images
+
+Images can be attached to Terms. This provides a place to store associated
+photos.
+
+#### Files
+
+Files can be attached to Terms. This provides a place to put documents such as
+Shapefiles, PDFs, CSVs, or other associated files.
 
 ## Type-specific fields
 
@@ -93,4 +105,3 @@ And the following additional relationships:
 
 - Companions (references other Terms in the "Plant type" vocabulary)
 - Crop family (references a Term in the "Crop Family" vocabulary)
-- Images (references uploaded image files)
