@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- [Issue #3352183: Comments on farmOS records](https://www.drupal.org/project/farm/issues/3352183)
+
 ### Changed
 
 - [Set plant_type fields form/view display settings via alter hook instead of config #806](https://github.com/farmOS/farmOS/pull/806)
