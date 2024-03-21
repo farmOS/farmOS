@@ -29,6 +29,13 @@ function farm_entity_fields_entity_base_field_info(EntityTypeInterface $entity_t
   elseif ($entity_type->id() == 'plan') {
     return farm_entity_fields_plan_base_fields();
   }
+
+  // Add common base fields to all taxonomy terms.
+  elseif ($entity_type->id() == 'taxonomy_term') {
+    return farm_entity_fields_taxonomy_term_base_fields();
+  }
+
+  return [];
 }
 
 /**
