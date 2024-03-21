@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Set plant_type fields form/view display settings via alter hook instead of config #806](https://github.com/farmOS/farmOS/pull/806)
 
+### Removed
+
+- [Remove CSV export display from farm_plan View #809](https://github.com/farmOS/farmOS/pull/809)
+
 ## [3.1.2] 2024-02-26
 
 ### Fixed
