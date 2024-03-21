@@ -1,0 +1,8 @@
+name: Plan comments
+description: Enables comments on farmOS plans.
+type: module
+package: farmOS
+core_version_requirement: ^10
+dependencies:
+  - farm:farm_comment
+  - farm:plan

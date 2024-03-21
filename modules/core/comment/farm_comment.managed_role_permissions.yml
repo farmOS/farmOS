@@ -1,0 +1,3 @@
+farm_comment:
+  permission_callbacks:
+    - Drupal\farm_comment\CommentPermissions::permissions

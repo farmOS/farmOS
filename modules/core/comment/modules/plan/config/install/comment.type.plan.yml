@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_comment_plan
+id: plan
+label: 'Plan comment'
+target_entity_type_id: plan
+description: ''

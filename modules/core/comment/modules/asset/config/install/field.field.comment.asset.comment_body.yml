@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.asset
+    - field.storage.comment.comment_body
+  enforced:
+    module:
+      - farm_comment_asset
+  module:
+    - text
+id: comment.asset.comment_body
+field_name: comment_body
+entity_type: comment
+bundle: asset
+label: Comment
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

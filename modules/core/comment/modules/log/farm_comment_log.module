@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Contains farm_comment_log.module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function farm_comment_log_entity_base_field_info(EntityTypeInterface $entity_type) {
+  $fields = [];
+
+  // Add comment base field to logs.
+  if ($entity_type->id() == 'log') {
+    $fields['comment'] = farm_comment_base_field_definition('log');
+  }
+
+  return $fields;
+}

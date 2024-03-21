@@ -1,0 +1,129 @@
+<?php
+
+/**
+ * @file
+ * Contains farm_comment.module.
+ */
+
+use Drupal\comment\Plugin\Field\FieldType\CommentItemInterface;
+use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\entity\BundleFieldDefinition;
+
+/**
+ * Helper function for generating a standard comment base field definition.
+ *
+ * @param string $entity_type
+ *   The entity type.
+ *
+ * @return \Drupal\Core\Field\BaseFieldDefinition
+ *   Returns a comment base field definition.
+ */
+function farm_comment_base_field_definition(string $entity_type) {
+
+  // Create a new comment field definition.
+  // We use BundleFieldDefinition instead of BaseFieldDefinition to force Drupal
+  // to create a separate database table for this field. Otherwise, if it is
+  // added to the base table then the comment field default value is always 0
+  // (CommentItemInterface::HIDDEN) instead of 2 (CommentItemInterface::OPEN),
+  // because the Drupal\comment\Plugin\Field\FieldType\CommentItem::schema()
+  // default is 0.
+  $field = BundleFieldDefinition::create('comment');
+
+  // Set the field label.
+  $field->setLabel(t('Comments'));
+
+  // We assume that the comment type matches the entity type.
+  $field->setSetting('comment_type', $entity_type);
+
+  // Disable previews.
+  $field->setSetting('preview', 0);
+
+  // A default value must be set for comment fields.
+  // Enable comments on entities by default.
+  $default_value = [
+    [
+      'status' => CommentItemInterface::OPEN,
+      'cid' => 0,
+      'last_comment_timestamp' => 0,
+      'last_comment_name' => '',
+      'last_comment_uid' => 0,
+      'comment_count' => 0,
+    ],
+  ];
+  $field->setDefaultValue($default_value);
+
+  // Build form display settings.
+  $field->setDisplayOptions('form', [
+    'type' => 'comment_default',
+    'weight' => 1000,
+  ]);
+
+  // Build view display settings.
+  // Display comments on the bottom of entity view displays by default, with the
+  // field label above them.
+  $field->setDisplayOptions('view', [
+    'label' => 'above',
+    'type' => 'comment_default',
+    'weight' => 1000,
+  ]);
+
+  return $field;
+}
+
+/**
+ * Implements hook_entity_form_display_alter().
+ */
+function farm_comment_entity_form_display_alter(EntityFormDisplayInterface $form_display, array $context) {
+  $comment_bundles = ['asset', 'log', 'plan'];
+  if ($form_display->getTargetEntityTypeId() == 'comment' && in_array($context['bundle'], $comment_bundles) && $form_display->getMode() == 'default' && $form_display->isNew()) {
+    $form_display->setComponent('author', [
+      'region' => 'content',
+      'settings' => [],
+      'weight' => 0,
+    ]);
+    $form_display->setComponent('comment_body', [
+      'type' => 'text_textarea',
+      'region' => 'content',
+      'settings' => [
+        'rows' => 5,
+        'placeholder' => '',
+      ],
+      'weight' => 1,
+    ]);
+    $form_display->removeComponent('subject');
+  }
+}
+
+/**
+ * Implements hook_entity_view_display_alter().
+ */
+function farm_comment_entity_view_display_alter(EntityViewDisplayInterface $display, array $context) {
+  $comment_bundles = ['asset', 'log', 'plan'];
+  $display_modes = ['default', 'full'];
+  if ($context['entity_type'] == 'comment' && in_array($context['bundle'], $comment_bundles) && in_array($display->getMode(), $display_modes) && $display->isNew()) {
+    $display->setComponent('comment_body', [
+      'type' => 'text_default',
+      'label' => 'hidden',
+      'region' => 'content',
+      'settings' => [],
+      'weight' => 0,
+    ]);
+    $display->setComponent('links', [
+      'region' => 'content',
+      'settings' => [],
+      'weight' => 1,
+    ]);
+  }
+}
+
+/**
+ * Implements hook_farm_ui_theme_region_items().
+ */
+function farm_comment_farm_ui_theme_region_items(string $entity_type) {
+  return [
+    'bottom' => [
+      'comment',
+    ],
+  ];
+}

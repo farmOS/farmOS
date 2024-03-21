@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_comment_asset
+id: asset
+label: 'Asset comment'
+target_entity_type_id: asset
+description: ''

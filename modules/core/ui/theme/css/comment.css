@@ -1,0 +1,37 @@
+/*
+  Improve styling of comments. This includes the comment on
+  the entity and comment reply page.
+ */
+article.comment {
+  background: var(--gin-bg-layer);
+  border: 1px solid var(--gin-border-color-layer);
+  border-radius: var(--gin-border-m);
+  padding: var(--space-m);
+  margin-top: var(--space-m);
+  margin-bottom: var(--space-m);
+}
+article.comment p {
+  margin: 0 0 var(--space-xs);
+}
+article.comment p.comment__submitted {
+  font-size: var(--gin-font-size-s);
+  color: var(--gin-color-text-light);
+}
+article.comment ul.links.inline {
+  margin-inline: 0;
+}
+article.comment ul.links.inline li:first-child {
+  padding: 0;
+}
+
+/* Decrease size of comments when rendered on entity page. */
+section.comment-wrapper {
+  padding: 0 var(--space-m);
+}
+section.comment-wrapper article.comment {
+  padding: 0 0 0 var(--space-s);
+  margin: 0 0 var(--space-s);
+  border: none;
+  border-radius: 0;
+  border-left: 5px solid var(--gin-border-color-secondary);
+}
