@@ -18,7 +18,7 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  min: null
+  min: 1
   max: null
   prefix: ''
   suffix: ' day| days'
