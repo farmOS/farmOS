@@ -2,16 +2,16 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.taxonomy_term.maturity_days
+    - field.storage.taxonomy_term.transplant_days
     - taxonomy.vocabulary.plant_type
   enforced:
     module:
-      - farm_plant_type
-id: taxonomy_term.plant_type.maturity_days
-field_name: maturity_days
+      - farm_transplanting
+id: taxonomy_term.plant_type.transplant_days
+field_name: transplant_days
 entity_type: taxonomy_term
 bundle: plant_type
-label: 'Days to maturity'
+label: 'Days to transplant'
 description: ''
 required: false
 translatable: false

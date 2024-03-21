@@ -7,9 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- [Add "Days of harvest" field to Plant type terms #794](https://github.com/farmOS/farmOS/pull/794)
+
 ### Changed
 
 - [Set plant_type fields form/view display settings via alter hook instead of config #806](https://github.com/farmOS/farmOS/pull/806)
+- [Set the minimum value of maturity_days and transplant_days to 1 #794](https://github.com/farmOS/farmOS/pull/794)
+- [Move transplant_days field to farm_transplant module #795](https://github.com/farmOS/farmOS/pull/795)
 
 ## [3.1.2] 2024-02-26
 

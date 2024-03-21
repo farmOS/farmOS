@@ -32,13 +32,13 @@ function farm_plant_type_entity_form_display_alter(EntityFormDisplayInterface $f
       'region' => 'content',
       'weight' => 20,
     ]);
-    $form_display->setComponent('transplant_days', [
+    $form_display->setComponent('harvest_days', [
       'type' => 'number',
       'settings' => [
         'placeholder' => '',
       ],
       'region' => 'content',
-      'weight' => 15,
+      'weight' => 30,
     ]);
     $form_display->setComponent('companions', [
       'type' => 'entity_reference_autocomplete',
@@ -87,7 +87,7 @@ function farm_plant_type_entity_view_display_alter(EntityViewDisplayInterface $d
       'region' => 'content',
       'weight' => 20,
     ]);
-    $display->setComponent('transplant_days', [
+    $display->setComponent('harvest_days', [
       'type' => 'number_integer',
       'label' => 'inline',
       'settings' => [
@@ -95,7 +95,7 @@ function farm_plant_type_entity_view_display_alter(EntityViewDisplayInterface $d
         'prefix_suffix' => TRUE,
       ],
       'region' => 'content',
-      'weight' => 15,
+      'weight' => 30,
     ]);
     $display->setComponent('companions', [
       'type' => 'entity_reference_label',

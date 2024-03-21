@@ -24,6 +24,7 @@ class QuickPlantingTest extends QuickFormTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
+    'entity_reference_validators',
     'farm_harvest',
     'farm_land',
     'farm_plant',
@@ -34,6 +35,7 @@ class QuickPlantingTest extends QuickFormTestBase {
     'farm_seeding',
     'farm_transplanting',
     'farm_unit',
+    'field',
   ];
 
   /**
@@ -45,6 +47,7 @@ class QuickPlantingTest extends QuickFormTestBase {
       'farm_harvest',
       'farm_land',
       'farm_plant',
+      'farm_plant_type',
       'farm_quantity_standard',
       'farm_seeding',
       'farm_transplanting',
