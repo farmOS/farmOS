@@ -174,6 +174,10 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
         $this->modifyTimestampField($field, $options);
         break;
 
+      case 'uri':
+        $this->modifyUriField($field, $options);
+        break;
+
       default:
         throw new FieldException('Unsupported field type.');
 
@@ -931,6 +935,32 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
         'custom_date_format' => '',
         'timezone' => '',
       ],
+      'weight' => $options['weight']['view'] ?? 0,
+    ]);
+  }
+
+  /**
+   * URI field modifier.
+   *
+   * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+   *   A base field definition object.
+   * @param array $options
+   *   An array of options.
+   */
+  protected function modifyUriField(BaseFieldDefinition &$field, array $options = []) {
+
+    // Build form and view display settings.
+    $field->setDisplayOptions('form', [
+      'type' => 'uri',
+      'settings' => [
+        'size' => 60,
+        'placeholder' => '',
+      ],
+      'weight' => $options['weight']['form'] ?? 0,
+    ]);
+    $field->setDisplayOptions('view', [
+      'label' => 'inline',
+      'type' => 'uri_link',
       'weight' => $options['weight']['view'] ?? 0,
     ]);
   }

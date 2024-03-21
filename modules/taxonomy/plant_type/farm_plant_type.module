@@ -51,15 +51,6 @@ function farm_plant_type_entity_form_display_alter(EntityFormDisplayInterface $f
       'region' => 'content',
       'weight' => 40,
     ]);
-    $form_display->setComponent('image', [
-      'type' => 'image_image',
-      'settings' => [
-        'progress_indicator' => 'throbber',
-        'preview_image_style' => 'thumbnail',
-      ],
-      'region' => 'content',
-      'weight' => 50,
-    ]);
   }
 }
 
@@ -105,16 +96,6 @@ function farm_plant_type_entity_view_display_alter(EntityViewDisplayInterface $d
       ],
       'region' => 'content',
       'weight' => 40,
-    ]);
-    $display->setComponent('image', [
-      'type' => 'image',
-      'label' => 'above',
-      'settings' => [
-        'image_style' => '',
-        'image_link' => '',
-      ],
-      'region' => 'content',
-      'weight' => 50,
     ]);
   }
 }

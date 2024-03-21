@@ -144,3 +144,51 @@ function farm_entity_fields_plan_base_fields() {
   }
   return $fields;
 }
+
+/**
+ * Define common taxonomy term base fields.
+ */
+function farm_entity_fields_taxonomy_term_base_fields() {
+  $field_info = [
+    'file' => [
+      'type' => 'file',
+      'label' => t('Files'),
+      'file_directory' => 'farm/term/[date:custom:Y]-[date:custom:m]',
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => 90,
+        'view' => 90,
+      ],
+    ],
+    'image' => [
+      'type' => 'image',
+      'label' => t('Images'),
+      'file_directory' => 'farm/term/[date:custom:Y]-[date:custom:m]',
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => 89,
+        'view' => 89,
+      ],
+    ],
+    'ontology_uri' => [
+      'type' => 'uri',
+      'label' => t('Ontology URI'),
+      'description' => t('Link this term to one or more external ontology item URIs.'),
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => 80,
+        'view' => 80,
+      ],
+    ],
+  ];
+  /** @var \Drupal\Core\Field\BaseFieldDefinition[] $fields */
+  $fields = [];
+  foreach ($field_info as $name => $info) {
+    $fields[$name] = \Drupal::service('farm_field.factory')->baseFieldDefinition($info);
+  }
+
+  // Add URI validation constraint to the ontology_uri field.
+  $fields['ontology_uri']->addConstraint('OntologyUri');
+
+  return $fields;
+}

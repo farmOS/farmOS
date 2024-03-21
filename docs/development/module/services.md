@@ -153,6 +153,7 @@ Both methods expect an array of field definition options. These include:
     - `string_long` - Unformatted text field of unlimited length.
     - `text_long` - Formatted text field of unlimited length.
     - `timestamp` - Date and time.
+    - `uri` - Uniform Resource Identifier.
 - `label` - The field label.
 - `description` - The field description.
 - `required` - Whether the field is required.
