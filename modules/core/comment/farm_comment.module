@@ -75,7 +75,8 @@ function farm_comment_base_field_definition(string $entity_type) {
  * Implements hook_entity_form_display_alter().
  */
 function farm_comment_entity_form_display_alter(EntityFormDisplayInterface $form_display, array $context) {
-  if ($form_display->getTargetEntityTypeId() == 'comment' && $form_display->getMode() == 'default' && $form_display->isNew()) {
+  $comment_bundles = ['asset', 'log', 'plan'];
+  if ($form_display->getTargetEntityTypeId() == 'comment' && in_array($context['bundle'], $comment_bundles) && $form_display->getMode() == 'default' && $form_display->isNew()) {
     $form_display->setComponent('author', [
       'region' => 'content',
       'settings' => [],
@@ -98,7 +99,8 @@ function farm_comment_entity_form_display_alter(EntityFormDisplayInterface $form
  * Implements hook_entity_view_display_alter().
  */
 function farm_comment_entity_view_display_alter(EntityViewDisplayInterface $display, array $context) {
-  if ($context['entity_type'] == 'comment' && $display->getMode() == 'default' && $display->isNew()) {
+  $comment_bundles = ['asset', 'log', 'plan'];
+  if ($context['entity_type'] == 'comment' && in_array($context['bundle'], $comment_bundles) && $display->getMode() == 'default' && $display->isNew()) {
     $display->setComponent('comment_body', [
       'type' => 'text_default',
       'label' => 'hidden',
