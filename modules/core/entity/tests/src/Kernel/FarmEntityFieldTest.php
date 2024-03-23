@@ -42,6 +42,7 @@ class FarmEntityFieldTest extends KernelTestBase {
     'farm_log_asset',
     'farm_owner',
     'farm_parent',
+    'state_machine',
   ];
 
   /**

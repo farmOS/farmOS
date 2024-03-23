@@ -48,6 +48,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Improve asset and log CSV exports #783](https://github.com/farmOS/farmOS/pull/783)
 - [Remove "All" from "Items per page" options in Views #776](https://github.com/farmOS/farmOS/pull/776)
 
+### Changed
+
+- [Make "done" the default log status #782](https://github.com/farmOS/farmOS/pull/782)
+
 ## [3.0.1] 2024-01-18
 
 ### Added
