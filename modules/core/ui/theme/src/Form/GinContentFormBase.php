@@ -5,11 +5,13 @@ namespace Drupal\farm_ui_theme\Form;
 use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\ContentEntityForm;
+use Drupal\Core\Entity\EntityChangedInterface;
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element\RenderCallbackInterface;
+use Drupal\user\EntityOwnerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -141,7 +143,7 @@ class GinContentFormBase extends ContentEntityForm implements RenderCallbackInte
 
       // Vary field group titles based on entity and bundle.
       if (isset($field_groups['default'])) {
-        $field_groups['default']['title'] = $this->entity->type->entity->label();
+        $field_groups['default']['title'] = $this->getBundleEntity()?->label() ?? $this->entity->getEntityType()->getLabel();
       }
 
       // Create parent for all tabs.
@@ -175,15 +177,26 @@ class GinContentFormBase extends ContentEntityForm implements RenderCallbackInte
 
     // Add authoring information for existing entities.
     if (!$this->entity->isNew()) {
-      $changed = $this->dateFormatter->format($this->entity->getChangedTime(), 'short', '', $this->currentUser()->getTimeZone(), '');
-      $created = $this->dateFormatter->format($this->entity->getCreatedTime(), 'short', '', $this->currentUser()->getTimeZone(), '');
+      $form['revision_field_group']['#optional'] = FALSE;
+      $revision_items = [];
+
+      // Only add created metadata if available.
+      if ($this->entity instanceof EntityOwnerInterface) {
+        $author = $this->entity->getOwner()->getAccountName();
+        $date = $this->dateFormatter->format($this->entity->getCreatedTime(), 'short', '', $this->currentUser()->getTimeZone(), '');
+        $revision_items[] = $this->t('Created @timestamp by @author', ['@timestamp' => $date, '@author' => $author]);
+      }
+
+      // Only add changed metadata if available.
+      if ($this->entity instanceof EntityChangedInterface) {
+        $changed = $this->dateFormatter->format($this->entity->getChangedTime(), 'short', '', $this->currentUser()->getTimeZone(), '');
+        $revision_items[] = $this->t('Last saved: @timestamp', ['@timestamp' => $changed]);
+      }
+
+      // Add to revision field group.
       $form['revision_field_group']['revision_meta'] = [
         '#theme' => 'item_list',
-        '#items' => [
-          $this->t('Author: @author', ['@author' => $this->entity->getOwner()->getAccountName()]),
-          $this->t('Last saved: @timestamp', ['@timestamp' => $changed]),
-          $this->t('Created: @timestamp', ['@timestamp' => $created]),
-        ],
+        '#items' => $revision_items,
       ];
     }
 
