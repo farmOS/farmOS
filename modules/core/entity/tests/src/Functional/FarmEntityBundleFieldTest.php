@@ -60,9 +60,17 @@ class FarmEntityBundleFieldTest extends FarmBrowserTestBase {
   }
 
   /**
+   * Run all tests.
+   */
+  public function testAll() {
+    $this->doTestBundleFieldPostponedInstall();
+    $this->doTestBundlePluginModuleUninstallation();
+  }
+
+  /**
    * Test installing the farm_entity_contrib_test module after farm_entity_test.
    */
-  public function testBundleFieldPostponedInstall() {
+  public function doTestBundleFieldPostponedInstall() {
 
     // Install the farm_entity_contrib_test module.
     $result = $this->moduleInstaller->install(['farm_entity_contrib_test'], TRUE);
@@ -105,7 +113,7 @@ class FarmEntityBundleFieldTest extends FarmBrowserTestBase {
   /**
    * Test that bundle fields can be reused across bundles.
    */
-  public function testBundlePluginModuleUninstallation() {
+  public function doTestBundlePluginModuleUninstallation() {
 
     // Test that database tables exist after uninstalling a bundle with
     // a field storage definition used by other bundles.

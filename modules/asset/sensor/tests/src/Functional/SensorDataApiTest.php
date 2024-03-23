@@ -44,9 +44,17 @@ class SensorDataApiTest extends FarmBrowserTestBase {
   }
 
   /**
+   * Run all tests.
+   */
+  public function testAll() {
+    $this->doTestApiGet();
+    $this->doTestApiPost();
+  }
+
+  /**
    * Test API GET requests.
    */
-  public function testApiGet() {
+  public function doTestApiGet() {
 
     // Build the path.
     $uri = $this->buildPath($this->asset);
@@ -82,7 +90,7 @@ class SensorDataApiTest extends FarmBrowserTestBase {
   /**
    * Test API POST requests.
    */
-  public function testApiPost() {
+  public function doTestApiPost() {
 
     // Build the path.
     $uri = $this->buildPath($this->asset);

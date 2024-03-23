@@ -15,9 +15,22 @@ class PlanCRUDTest extends PlanTestBase {
   use StringTranslationTrait;
 
   /**
+   * Run all tests.
+   */
+  public function testAll() {
+    $this->doTestFieldsVisibility();
+    $this->doTestCreatePlan();
+    $this->doTestViewPlan();
+    $this->doTestEditPlan();
+    $this->doTestDeletePlan();
+    $this->doTestArchivePlan();
+    $this->doTestArchivePlanViaTimestamp();
+  }
+
+  /**
    * Fields are displayed correctly.
    */
-  public function testFieldsVisibility() {
+  public function doTestFieldsVisibility() {
     $this->drupalGet('plan/add/default');
     $assert_session = $this->assertSession();
     $assert_session->statusCodeEquals(200);
@@ -32,7 +45,7 @@ class PlanCRUDTest extends PlanTestBase {
   /**
    * Create plan entity.
    */
-  public function testCreatePlan() {
+  public function doTestCreatePlan() {
     $assert_session = $this->assertSession();
     $name = $this->randomMachineName();
     $edit = [
@@ -59,7 +72,7 @@ class PlanCRUDTest extends PlanTestBase {
   /**
    * Display plan entity.
    */
-  public function testViewPlan() {
+  public function doTestViewPlan() {
     $edit = [
       'name' => $this->randomMachineName(),
       'created' => \Drupal::time()->getRequestTime(),
@@ -77,7 +90,7 @@ class PlanCRUDTest extends PlanTestBase {
   /**
    * Edit plan entity.
    */
-  public function testEditPlan() {
+  public function doTestEditPlan() {
     $plan = $this->createPlanEntity();
     $plan->save();
 
@@ -93,7 +106,7 @@ class PlanCRUDTest extends PlanTestBase {
   /**
    * Delete plan entity.
    */
-  public function testDeletePlan() {
+  public function doTestDeletePlan() {
     $plan = $this->createPlanEntity();
     $plan->save();
 
@@ -112,7 +125,7 @@ class PlanCRUDTest extends PlanTestBase {
   /**
    * Plan archiving.
    */
-  public function testArchivePlan() {
+  public function doTestArchivePlan() {
     $plan = $this->createPlanEntity();
     $plan->save();
 
@@ -142,7 +155,7 @@ class PlanCRUDTest extends PlanTestBase {
   /**
    * Plan archiving/unarchiving via timestamp.
    */
-  public function testArchivePlanViaTimestamp() {
+  public function doTestArchivePlanViaTimestamp() {
     $plan = $this->createPlanEntity();
     $plan->save();
 

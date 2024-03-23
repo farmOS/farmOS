@@ -66,23 +66,27 @@ class DashboardTasksTest extends FarmBrowserTestBase {
   }
 
   /**
-   * Test the upcoming tasks view on the dashboard.
+   * Test the upcoming and late tasks views on the dashboard.
    */
-  public function testUpcomingTasks() {
+  public function testDashboardTasks() {
+
+    // Load the dashboard.
     $this->drupalGet('/dashboard');
     $this->assertSession()->statusCodeEquals(200);
 
-    // Assert that the upcoming tasks view was not added.
+    // Assert that the upcoming and late tasks views were not added.
     $this->assertSession()->pageTextNotContains('Upcoming tasks');
+    $this->assertSession()->pageTextNotContains('Late tasks');
 
     // Grant the user permission to view any log.
     $this->user->addRole($this->role);
     $this->user->save();
 
-    // Assert that the upcoming tasks view is added.
+    // Assert that the upcoming tasks and late tasks views are added.
     $this->drupalGet('/dashboard');
     $this->assertSession()->statusCodeEquals(200);
     $this->assertSession()->pageTextContains('Upcoming tasks');
+    $this->assertSession()->pageTextContains('Late tasks');
 
     // Assert that the log is not displayed.
     $this->assertSession()->pageTextContains('No logs found.');
@@ -92,48 +96,19 @@ class DashboardTasksTest extends FarmBrowserTestBase {
     $this->log->timestamp = \Drupal::time()->getCurrentTime() + 86400;
     $this->log->save();
 
-    // Assert that the upcoming tasks view is added.
-    $this->drupalGet('/dashboard');
-    $this->assertSession()->statusCodeEquals(200);
-    $this->assertSession()->pageTextContains('Upcoming tasks');
-
     // Assert that the log is displayed.
+    $this->drupalGet('/dashboard');
+    $this->assertSession()->statusCodeEquals(200);
     $this->assertSession()->pageTextContains($this->log->label());
-  }
-
-  /**
-   * Test the late tasks view on the dashboard.
-   */
-  public function testLateTasks() {
-    $this->drupalGet('/dashboard');
-    $this->assertSession()->statusCodeEquals(200);
-
-    // Assert that the upcoming tasks view was not added.
-    $this->assertSession()->pageTextNotContains('Late tasks');
-
-    // Grant the user permission to view any log.
-    $this->user->addRole($this->role);
-    $this->user->save();
-
-    // Assert that the upcoming tasks view is added.
-    $this->drupalGet('/dashboard');
-    $this->assertSession()->statusCodeEquals(200);
-    $this->assertSession()->pageTextContains('Late tasks');
-
-    // Assert that the log is not displayed.
-    $this->assertSession()->pageTextContains('No logs found.');
 
     // Mark the log as pending in the past.
     $this->log->status = 'pending';
     $this->log->timestamp = \Drupal::time()->getCurrentTime() - 86400;
     $this->log->save();
 
-    // Assert that the upcoming tasks view is added.
+    // Assert that the log is displayed.
     $this->drupalGet('/dashboard');
     $this->assertSession()->statusCodeEquals(200);
-    $this->assertSession()->pageTextContains('Late tasks');
-
-    // Assert that the log is displayed.
     $this->assertSession()->pageTextContains($this->log->label());
   }
 
