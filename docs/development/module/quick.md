@@ -70,7 +70,7 @@ class Harvest extends QuickFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, string $id = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state) {
 
     // Date+time selection field (defaults to now).
     $form['timestamp'] = [
@@ -292,7 +292,7 @@ class Harvest extends QuickFormBase implements ConfigurableQuickFormInterface {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, string $id = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state) {
 
     // Date+time selection field (defaults to now).
     $form['timestamp'] = [
@@ -580,7 +580,7 @@ class Harvest extends QuickFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, string $id = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state) {
 
     // Date+time selection field (defaults to now).
     $form['timestamp'] = [
