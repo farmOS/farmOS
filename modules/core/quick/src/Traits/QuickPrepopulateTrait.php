@@ -74,12 +74,7 @@ trait QuickPrepopulateTrait {
 
     // Load entities from the query params.
     $query = \Drupal::request()->query;
-    $query_entity_ids = $query->get('asset') ?? [];
-
-    // Wrap in an array, if necessary.
-    if (!is_array($query_entity_ids)) {
-      $query_entity_ids = [$query_entity_ids];
-    }
+    $query_entity_ids = $query->has('asset') ? (array) $query->all()['asset'] : [];
 
     // Only include the unique ids.
     $entity_ids = array_unique(array_merge($temp_store_entity_ids, $query_entity_ids));

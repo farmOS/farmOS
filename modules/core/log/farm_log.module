@@ -30,15 +30,15 @@ function farm_log_entity_prepare_form(EntityInterface $entity, $operation, FormS
   $query = \Drupal::request()->query;
 
   // Prepopulate the log asset field.
-  $asset_ids = $query->get('asset');
-  if (!empty($asset_ids)) {
+  if ($query->has('asset')) {
+
+    // Get asset IDs. We can't use $query->get('asset') or $query->all('asset')
+    // because those throw a client error if the parameter is not the expected
+    // cardinality (single value vs array of values).
+    $asset_ids = (array) $query->all()['asset'];
+
     /** @var \Drupal\Core\Field\EntityReferenceFieldItemList $asset_field */
     $asset_field = $entity->get('asset');
-
-    // Wrap in an array, if necessary.
-    if (!is_array($asset_ids)) {
-      $asset_ids = [$asset_ids];
-    }
 
     // Add each asset the user has view access to.
     $assets = \Drupal::entityTypeManager()->getStorage('asset')->loadMultiple($asset_ids);
