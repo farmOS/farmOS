@@ -3,3 +3,5 @@ description: Provides CSV features for farmOS.
 type: module
 package: farmOS
 core_version_requirement: ^10
+dependencies:
+  - csv_serialization:csv_serialization
