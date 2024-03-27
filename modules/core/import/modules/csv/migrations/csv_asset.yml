@@ -23,6 +23,17 @@ process:
       source: parents
     - plugin: asset_lookup
 
+  # Is location/fixed booleans.
+  is_location:
+    plugin: boolean
+    source: is_location
+  is_fixed:
+    plugin: boolean
+    source: is_fixed
+
+  # Intrinsic geometry.
+  intrinsic_geometry: intrinsic_geometry
+
   # Asset status.
   status:
     - plugin: get
@@ -36,10 +47,18 @@ third_party_settings:
     columns:
       - name: name
         description: Name of the asset. Required.
+      - name: intrinsic_geometry
+        description: The intrinsic geometry of the asset in WKT format (typically used for fixed locations).
       - name: parents
         description: Parents of the asset. Accepts asset names, ID tags, UUIDs, and IDs. Multiple assets can be separated by commas with the whole cell wrapped in quotes.
       - name: notes
         description: Notes about the asset.
+      - name: is_location
+        description: Whether this asset is a location. Accepts most boolean values. Leave this blank to use the default for this asset type.
+      - name: is_fixed
+        description: Whether this asset has a fixed location. Accepts most boolean values. Leave this blank to use the default for this asset type.
+      - name: intrinsic_geometry
+        description: The intrinsic geometry of the asset in WKT format. This is only used if the asset has a fixed location.
       - name: status
         description: 'Status of the asset. Allowed values: active, archived. Defaults to active.'
 
