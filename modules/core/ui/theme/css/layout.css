@@ -12,6 +12,11 @@
   }
 }
 
+/* Hide layout regions if there is no content. */
+.layout--twocol .layout__region:not(:has(div)){
+  display: none;
+}
+
 /* Style entity layout regions similar to gin-layer-wrapper. */
 .layout--twocol .layout__region {
   padding: var(--gin-spacing-s);
