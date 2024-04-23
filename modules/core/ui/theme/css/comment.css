@@ -24,10 +24,13 @@ article.comment ul.links.inline li:first-child {
   padding: 0;
 }
 
-/* Decrease size of comments when rendered on entity page. */
-section.comment-wrapper {
-  padding: 0 var(--space-m);
+/* Decrease font-size of comment headers. */
+section.comment-wrapper h2 {
+  font-size: var(--gin-font-size-h3);
+  margin-top: 0;
 }
+
+/* Decrease size of comments when rendered on entity page. */
 section.comment-wrapper article.comment {
   padding: 0 0 0 var(--space-s);
   margin: 0 0 var(--space-s);
