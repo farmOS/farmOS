@@ -21,3 +21,8 @@
   box-sizing: border-box;
   box-shadow: var(--gin-shadow-l1);
 }
+
+/* Remove padding from top region if it only has a map. */
+.layout--twocol .layout__region--top:has(div.field--name-geometry:only-child) {
+  padding: 0;
+}
