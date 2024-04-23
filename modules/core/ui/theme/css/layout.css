@@ -1,4 +1,10 @@
-/* Add some vertical padding to layout regions. */
+/* Style entity layout regions similar to gin-layer-wrapper. */
 .layout--twocol .layout__region {
   margin-bottom: 1em;
+  padding: var(--gin-spacing-s);
+  background: var(--gin-bg-layer);
+  border: 1px solid var(--gin-border-color-layer);
+  border-radius: var(--gin-border-l);
+  box-sizing: border-box;
+  box-shadow: var(--gin-shadow-l1);
 }
