@@ -1,6 +1,19 @@
+/* Add gap to layout. */
+.layout--twocol {
+  --layout-spacing: var(--gin-spacing-s);
+  gap: var(--layout-spacing);
+}
+
+/* Split first and second regions to two columns on large screens. */
+@media screen and (min-width: 40em) {
+  .layout--twocol > .layout__region--first,
+  .layout--twocol > .layout__region--second {
+    flex-basis: calc(50% - var(--layout-spacing)*.5);
+  }
+}
+
 /* Style entity layout regions similar to gin-layer-wrapper. */
 .layout--twocol .layout__region {
-  margin-bottom: 1em;
   padding: var(--gin-spacing-s);
   background: var(--gin-bg-layer);
   border: 1px solid var(--gin-border-color-layer);
