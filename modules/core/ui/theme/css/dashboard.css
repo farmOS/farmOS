@@ -14,7 +14,7 @@
 }
 
 /* Split first and second regions to two columns on large screens. */
-@media (min-width: 48em) {
+@media screen and (min-width: 40em) {
   .layout--twocol .layout__region--first,
   .layout--twocol .layout__region--second {
     flex-basis: 50%;
