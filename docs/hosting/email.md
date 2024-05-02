@@ -24,9 +24,8 @@ There are two potential solutions to this:
 
 1. Install and configure the [SMTP](https://drupal.org/project/smtp) module.
    This is a contributed Drupal module that allows emails to be relayed through
-   a third-party SMTP server. This module is not included with farmOS, but can
-   be downloaded into `[farmOS-codebase]/web/sites/all/modules` and enabled in
-   `https://[farmOS-hostname]/admin/modules`.
+   a third-party SMTP server. This module is included with farmOS and can be
+   enabled in `https://[farmOS-hostname]/admin/modules`.
 2. Create your own Docker image which inherits from the farmOS image. This
    image can install an SMTP server like Postfix, which can be configured to
    send email directly, or relay it through another SMTP server.

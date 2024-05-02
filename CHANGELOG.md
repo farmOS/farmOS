@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- [Include SMTP module #837](https://github.com/farmOS/farmOS/pull/837)
+
 ### Fixed
 
 - [Remove data_table from existing plan_record entity type definition #829](https://github.com/farmOS/farmOS/pull/829)

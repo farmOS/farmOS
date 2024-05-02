@@ -44,6 +44,7 @@
         "drupal/role_delegation": "^1.2",
         "drupal/simple_oauth": "6.0.0-beta5",
         "drupal/simple_oauth_password_grant": "^1.0@RC",
+        "drupal/smtp": "^1.2",
         "drupal/state_machine": "^1.9",
         "drupal/subrequests": "^3.0.6",
         "drupal/token": "^1.11",
