@@ -46,7 +46,7 @@ appropriate project issue queues and added to their respective roadmaps.
 
 ## Live Discussions
 
-The [farmOS Forum](https://farmOS.discourse.gorup) is a great place for ongoing
+The [farmOS Forum](https://farmOS.discourse.group) is a great place for ongoing
 discussions, sharing workflow ideas, support requests, etc, but sometimes it's
 necessary to talk to someone in real time.
 
