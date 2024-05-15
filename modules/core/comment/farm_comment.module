@@ -56,7 +56,7 @@ function farm_comment_base_field_definition(string $entity_type) {
   // Build form display settings.
   $field->setDisplayOptions('form', [
     'type' => 'comment_default',
-    'weight' => 1000,
+    'weight' => 450,
   ]);
 
   // Build view display settings.
