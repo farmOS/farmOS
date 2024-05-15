@@ -163,7 +163,7 @@ class GinContentFormBase extends ContentEntityForm implements RenderCallbackInte
           '#group' => $tab_group,
           '#optional' => TRUE,
           '#weight' => $tab_info['weight'],
-          '#open' => $tab_id === 'default_field_group' || $tab_group === 'advanced',
+          '#open' => $tab_id === 'default_field_group' || $tab_id === 'meta_field_group',
         ];
       }
 
