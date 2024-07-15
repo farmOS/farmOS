@@ -15,6 +15,24 @@ use Drupal\farm_entity\BundlePlugin\FarmEntityBundlePluginHandler;
 use Drupal\farm_entity\Routing\DefaultHtmlRouteProvider;
 
 /**
+ * Implements hook_modules_installed().
+ */
+function farm_entity_modules_installed($modules, $is_syncing) {
+
+  // Rebuild bundle field map when modules are installed.
+  \Drupal::service('entity_field.manager')->rebuildBundleFieldMap();
+}
+
+/**
+ * Implements hook_modules_uninstalled().
+ */
+function farm_entity_modules_uninstalled($modules, $is_syncing) {
+
+  // Rebuild bundle field map when modules are uninstalled.
+  \Drupal::service('entity_field.manager')->rebuildBundleFieldMap();
+}
+
+/**
  * Implements hook_module_implements_alter().
  */
 function farm_entity_module_implements_alter(&$implementations, $hook) {

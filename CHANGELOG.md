@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Issue #3454144: Fix untranslated plant_type descriptions in plant and seed asset types](https://www.drupal.org/project/farm/issues/3454144)
 - [Set owner of cloned assets to current user #851](https://github.com/farmOS/farmOS/pull/851)
+- [Issue #3314741: EntityFieldManager::getFieldMap() doesn't show farmOS bundle fields](https://www.drupal.org/project/farm/issues/3314741)
 
 ## [3.2.2] 2024-05-17
 

@@ -60,6 +60,49 @@ class FarmEntityBundleFieldTest extends FarmBrowserTestBase {
   }
 
   /**
+   * Test that bundle field maps are updated on install/uninstall.
+   */
+  public function testBundleFieldMapUpdates() {
+
+    // Get the entity field map.
+    $field_map = $this->entityFieldManager->getFieldMap();
+
+    // Confirm that the 'test_default_bundle_field' exists in the log field map.
+    $this->assertArrayHasKey('test_default_bundle_field', $field_map['log']);
+
+    // Confirm that the 'test_contrib_hook_bundle_field' does NOT exist (yet).
+    $this->assertArrayNotHasKey('test_contrib_hook_bundle_field', $field_map['log']);
+
+    // Install the farm_entity_contrib_test module.
+    $result = $this->moduleInstaller->install(['farm_entity_contrib_test']);
+    $this->assertTrue($result);
+
+    // Reload the entity field map.
+    $this->entityFieldManager->setFieldMap([]);
+    \Drupal::service('cache.discovery')->delete('entity_field_map');
+    $field_map = $this->entityFieldManager->getFieldMap();
+
+    // Confirm that the 'test_contrib_hook_bundle_field' exists in the log field
+    // map, and exists in the 'test' bundle, but not in 'test_override'.
+    $this->assertArrayHasKey('test_contrib_hook_bundle_field', $field_map['log']);
+    $this->assertContains('test', $field_map['log']['test_contrib_hook_bundle_field']['bundles']);
+    $this->assertNotContains('test_override', $field_map['log']['test_contrib_hook_bundle_field']['bundles']);
+
+    // Uninstall the farm_entity_contrib_test module.
+    $result = $this->moduleInstaller->uninstall(['farm_entity_contrib_test']);
+    $this->assertTrue($result);
+
+    // Reload the entity field map.
+    $this->entityFieldManager->setFieldMap([]);
+    \Drupal::service('cache.discovery')->delete('entity_field_map');
+    $field_map = $this->entityFieldManager->getFieldMap();
+
+    // Confirm that the 'test_contrib_hook_bundle_field' no longer exists in the
+    // log field map.
+    $this->assertArrayNotHasKey('test_contrib_hook_bundle_field', $field_map['log']);
+  }
+
+  /**
    * Test installing the farm_entity_contrib_test module after farm_entity_test.
    */
   public function testBundleFieldPostponedInstall() {

@@ -15,3 +15,10 @@ function farm_entity_post_update_enforce_plan_eri(&$sandbox) {
   $config->set('enabled_entity_type_ids', $entity_types);
   $config->save();
 }
+
+/**
+ * Rebuild bundle field maps.
+ */
+function farm_entity_post_update_rebuild_bundle_field_maps(&$sandbox = NULL) {
+  \Drupal::service('entity_field.manager')->rebuildBundleFieldMap();
+}
