@@ -77,9 +77,10 @@ class FarmEntityBundleFieldTest extends FarmBrowserTestBase {
     $result = $this->moduleInstaller->install(['farm_entity_contrib_test']);
     $this->assertTrue($result);
 
-    // Reload the entity field map.
-    $this->entityFieldManager->setFieldMap([]);
-    \Drupal::service('cache.discovery')->delete('entity_field_map');
+    // Reload the entity field map. We need to get a new instance of the
+    // entity_field.manager service from the container without old state.
+    $this->container->set('entity_field.manager', NULL);
+    $this->entityFieldManager = $this->container->get('entity_field.manager');
     $field_map = $this->entityFieldManager->getFieldMap();
 
     // Confirm that the 'test_contrib_hook_bundle_field' exists in the log field
@@ -92,9 +93,10 @@ class FarmEntityBundleFieldTest extends FarmBrowserTestBase {
     $result = $this->moduleInstaller->uninstall(['farm_entity_contrib_test']);
     $this->assertTrue($result);
 
-    // Reload the entity field map.
-    $this->entityFieldManager->setFieldMap([]);
-    \Drupal::service('cache.discovery')->delete('entity_field_map');
+    // Reload the entity field map. We need to get a new instance of the
+    // entity_field.manager service from the container without old state.
+    $this->container->set('entity_field.manager', NULL);
+    $this->entityFieldManager = $this->container->get('entity_field.manager');
     $field_map = $this->entityFieldManager->getFieldMap();
 
     // Confirm that the 'test_contrib_hook_bundle_field' no longer exists in the
