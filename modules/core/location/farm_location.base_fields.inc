@@ -42,8 +42,14 @@ function farm_location_asset_base_fields() {
     'label' => t('Current geometry'),
     'computed' => AssetGeometryItemList::class,
     'hidden' => 'form',
-    'weight' => [
-      'view' => 95,
+    'view_display_options' => [
+      'label' => 'hidden',
+      'type' => 'farm_map_geofield',
+      'settings' => [
+        'output_format' => 'wkt',
+        'output_escape' => TRUE,
+      ],
+      'weight' => 95,
     ],
   ];
   $fields['geometry'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
@@ -154,6 +160,15 @@ function farm_location_log_base_fields() {
       'view' => 95,
     ],
     'populate_file_field' => 'file',
+    'view_display_options' => [
+      'label' => 'hidden',
+      'type' => 'farm_map_geofield',
+      'settings' => [
+        'output_format' => 'wkt',
+        'output_escape' => TRUE,
+      ],
+      'weight' => 95,
+    ],
   ];
   $fields['geometry'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
 

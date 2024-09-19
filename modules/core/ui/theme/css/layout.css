@@ -1,10 +1,33 @@
-/* Add some vertical padding to layout regions. */
-.layout--twocol .layout__region {
-  margin-bottom: 1em;
+/* Add gap to layout. */
+.layout--twocol {
+  --layout-spacing: var(--gin-spacing-s);
+  gap: var(--layout-spacing);
 }
 
-/* Hide geometry field label in asset and log page top region. */
-body.path-asset .layout__region--top .field--name-geometry .field__label,
-body.path-log .layout__region--top .field--name-geometry .field__label {
+/* Split first and second regions to two columns on large screens. */
+@media screen and (min-width: 40em) {
+  .layout--twocol > .layout__region--first,
+  .layout--twocol > .layout__region--second {
+    flex-basis: calc(50% - var(--layout-spacing)*.5);
+  }
+}
+
+/* Hide layout regions if there is no content. */
+.layout--twocol .layout__region:not(:has(div)){
   display: none;
+}
+
+/* Style entity layout regions similar to gin-layer-wrapper. */
+.layout--twocol .layout__region {
+  padding: var(--gin-spacing-s);
+  background: var(--gin-bg-layer);
+  border: 1px solid var(--gin-border-color-layer);
+  border-radius: var(--gin-border-l);
+  box-sizing: border-box;
+  box-shadow: var(--gin-shadow-l1);
+}
+
+/* Remove padding from top region if it only has a map. */
+.layout--twocol .layout__region--top:has(div.field--name-geometry:only-child) {
+  padding: 0;
 }

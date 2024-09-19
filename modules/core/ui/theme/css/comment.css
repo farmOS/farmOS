@@ -6,12 +6,12 @@ article.comment {
   background: var(--gin-bg-layer);
   border: 1px solid var(--gin-border-color-layer);
   border-radius: var(--gin-border-m);
-  padding: var(--space-m);
-  margin-top: var(--space-m);
-  margin-bottom: var(--space-m);
+  padding: var(--gin-spacing-m);
+  margin-top: var(--gin-spacing-m);
+  margin-bottom: var(--gin-spacing-m);
 }
 article.comment p {
-  margin: 0 0 var(--space-xs);
+  margin: 0 0 var(--gin-spacing-xs);
 }
 article.comment p.comment__submitted {
   font-size: var(--gin-font-size-s);
@@ -24,13 +24,16 @@ article.comment ul.links.inline li:first-child {
   padding: 0;
 }
 
-/* Decrease size of comments when rendered on entity page. */
-section.comment-wrapper {
-  padding: 0 var(--space-m);
+/* Decrease font-size of comment headers. */
+section.comment-wrapper h2 {
+  font-size: var(--gin-font-size-h3);
+  margin-top: 0;
 }
+
+/* Decrease size of comments when rendered on entity page. */
 section.comment-wrapper article.comment {
-  padding: 0 0 0 var(--space-s);
-  margin: 0 0 var(--space-s);
+  padding: 0 0 0 var(--gin-spacing-s);
+  margin: 0 0 var(--gin-spacing-s);
   border: none;
   border-radius: 0;
   border-left: 5px solid var(--gin-border-color-secondary);
