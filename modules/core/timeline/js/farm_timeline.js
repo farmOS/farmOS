@@ -140,7 +140,9 @@
         // Open entity page on click.
         timeline.timeline.api.tasks.on.select((task) => {
           task = task[0];
-          if (task.model?.editUrl) {
+          if (task.model?.linkUrl) {
+            window.location.replace(task.model.linkUrl);
+          } else if (task.model?.editUrl) {
             var ajaxSettings = {
               url: task.model.editUrl,
               dialogType: 'dialog',
@@ -179,6 +181,7 @@
         from: task.start,
         to: task.end,
         label: task.label ?? '',
+        linkUrl: task.link_url,
         editUrl: task.edit_url,
         draggable: task.draggable ?? false,
         resizable: task.resizable ?? false,

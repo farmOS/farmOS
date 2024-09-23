@@ -33,6 +33,9 @@ class TimelineTaskDefinition extends ComplexDataDefinitionBase {
       $this->propertyDefinitions['label'] = DataDefinition::create('string')
         ->setLabel($this->t('Label'));
 
+      $this->propertyDefinitions['link_url'] = DataDefinition::create('uri')
+        ->setLabel($this->t('Link URL'));
+
       $this->propertyDefinitions['edit_url'] = DataDefinition::create('uri')
         ->setLabel($this->t('Edit URL'));
 
