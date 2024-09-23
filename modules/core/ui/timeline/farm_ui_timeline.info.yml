@@ -1,7 +1,8 @@
 name: farmOS UI Timeline
 description: Provides default farmOS timeline UI.
 type: module
-package: farmOS
+package: farmOS (Experimental)
+lifecycle: experimental
 core_version_requirement: ^10
 dependencies:
   - farm:farm_timeline
