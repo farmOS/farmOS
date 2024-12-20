@@ -20,6 +20,7 @@ interface FarmContextInterface extends CacheableDependencyInterface, DependentPl
    *     type: The message type.
    *     message: A message string.
    *     long_message: (Optional) A longer message with more information.
+   *     links: (Optional) An array of links to display with the message.
    *     weight: (Optional) The weight of the message when rendering.
    */
   public function getMessages(): array;
