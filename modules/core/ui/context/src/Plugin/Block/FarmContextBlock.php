@@ -138,17 +138,52 @@ class FarmContextBlock extends BlockBase implements ContainerFactoryPluginInterf
     // Gather all farm context messages.
     $messages = $this->farmContextManager->getMessages('farm_context_block', $valid_contexts);
 
+    // Bail if no messages.
+    if (count($messages) === 0) {
+      return [];
+    }
+
     // Return a build array with the context messages.
-    $build = [];
+    $title = [
+      '#theme' => 'item_list',
+      '#type' => 'ul',
+      '#attributes' => [
+      ],
+      '#items' => [],
+    ];
+    $body = [
+      '#theme' => 'item_list',
+      '#type' => 'ul',
+      '#attributes' => [
+      ],
+      '#items' => [],
+    ];
     foreach ($messages as $message) {
-      $build[] = [
-        '#markup' => $this->t('@type: @message - @long_message', ['@type' => $message['type'], '@message' => $message['message'], '@long_message' => $message['long_message'] ?? '']),
-        '#prefix' => '<p>',
-        '#suffix' => '</p>',
-        '#weight' => $message['weight'] ?? 0,
+      $link_string = implode(', ', $message['links'] ?? []);
+      $title['#items'][] = [
+        '#type' => 'html_tag',
+        '#tag' => 'p',
+        '#value' => "({$message['type']}) {$message['message']} $link_string",
+      ];
+      $body['#items'][] = [
+        '#type' => 'html_tag',
+        '#tag' => 'p',
+        '#value' => "({$message['type']}) {$message['long_message']} $link_string",
       ];
     }
 
+    // Build a details element.
+    $build = [
+      '#type' => 'details',
+      '#title' => $title,
+      '#open' => FALSE,
+      'body' => $body,
+    ];
+
+    // @todo determine cache strategy.
+    $build['#cache'] = [
+      'max-age' => 0,
+    ];
     return $build;
   }
 
