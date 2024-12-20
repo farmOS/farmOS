@@ -2,7 +2,9 @@
 
 namespace Drupal\plan\Plugin\FarmContext;
 
+use Drupal\Core\StringTranslation\PluralTranslatableMarkup;
 use Drupal\farm_ui_context\Plugin\FarmContext\FarmContextBase;
+use Drupal\plan\Entity\PlanInterface;
 
 /**
  * Provides context when an asset in a part of a plan.
@@ -33,19 +35,29 @@ class PlanAssetFarmContext extends FarmContextBase {
         'asset' => $asset->id(),
       ]);
 
-      // Build a message for each plan the asset is a part of.
-      foreach ($plans as $plan) {
-        $messages[] = [
-          'type' => 'info',
-          'message' => $this->t(
-            'This asset is a part of the plan: <a href="@plan_uri">@plan_label</a>',
-            [
-              '@plan_uri' => $plan->toUrl()->setAbsolute()->toString(),
-              '@plan_label' => $plan->label(),
-            ],
-          ),
-        ];
+      // Bail if no plans.
+      $count = count($plans);
+      if ($count === 0) {
+        return $messages;
       }
+
+      // Build a message summarizing the associated plans.
+      $message = "Plans ($count)";
+      $links = array_map(function (PlanInterface $plan) {
+        return $plan->toLink()->toString();
+      }, $plans);
+
+      $long_message = new PluralTranslatableMarkup(
+        $count,
+        'This asset is associated with @count plan.',
+        'This asset is associated with @count plans.',
+      );
+      $messages[] = [
+        'type' => 'info',
+        'message' => $message,
+        'long_message' => $long_message,
+        'links' => $links,
+      ];
     }
 
     return $messages;
