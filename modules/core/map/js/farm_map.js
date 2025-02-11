@@ -38,6 +38,9 @@
       };
       const instance = farmOS.map.create(element, mapOptions);
 
+      // Enable the snapshot behavior.
+      instance.addBehavior("snapshot");
+
       // Expose settings on the instance so other behaviors don't need to know how to look them up in drupalSettings
       instance.farmMapSettings = drupalSettings.farm_map[drupalSettingsKey] || {};
 
