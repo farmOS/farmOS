@@ -18,6 +18,11 @@ function farm_image_post_update_install_imagick() {
       \Drupal::service('module_installer')->install(['imagick']);
     }
 
+    // Make imagick the default image toolkit.
+    $config = \Drupal::configFactory()->getEditable('system.image');
+    $config->set('toolkit', 'imagick');
+    $config->save();
+
     // Configure imagick to disable strip_metadata.
     // This ensures that EXIF data is preserved in derivative images, which
     // allows browsers to auto-orient them if they have Orientation data.
