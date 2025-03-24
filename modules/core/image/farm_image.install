@@ -14,11 +14,20 @@ use Drupal\image\Entity\ImageStyle;
  */
 function farm_image_install() {
 
-  // Install the imagick module if the PHP extension is available.
+  // If the imagick PHP extension is available...
   if (extension_loaded('imagick')) {
+
+    // Install the imagick module.
     if (!\Drupal::service('module_handler')->moduleExists('imagick')) {
       \Drupal::service('module_installer')->install(['imagick']);
     }
+
+    // Configure imagick to disable strip_metadata.
+    // This ensures that EXIF data is preserved in derivative images, which
+    // allows browsers to auto-orient them if they have Orientation data.
+    $config = \Drupal::configFactory()->getEditable('imagick.config');
+    $config->set('strip_metadata', FALSE);
+    $config->save();
   }
 
   // Add auto-orient effect to Drupal core image styles.
