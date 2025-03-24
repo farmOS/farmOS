@@ -13,6 +13,17 @@ FROM drupal:10.4-php8.3 AS baseimage
 ENV BUILD_PATH=/var/farmOS
 ENV DRUPAL_PATH=/opt/drupal
 
+# Install apt dependencies.
+RUN apt-get update && apt-get install -y \
+    # Install git and unzip (needed by Composer).
+    git unzip \
+    # Install postgresql-client so Drush can connect to the database.
+    postgresql-client \
+    # Install libgeos-c1v5 so geos php extension can use libgeos_c.so.1.
+    libgeos-c1v5 \
+  && rm -rf /var/lib/apt/lists/* \
+  && apt-get clean
+
 ##
 # Build/install PHP extensions.
 FROM baseimage AS php-dependencies
@@ -52,17 +63,6 @@ RUN docker-php-ext-enable bcmath exif geos
 
 # Add custom PHP configurations.
 COPY conf.d/ /usr/local/etc/php/conf.d
-
-# Install apt dependencies.
-RUN apt-get update && apt-get install -y \
-    # Install git and unzip (needed by Composer).
-    git unzip \
-    # Install postgresql-client so Drush can connect to the database.
-    postgresql-client \
-    # Install libgeos-c1v5 so geos php extension can use libgeos_c.so.1.
-    libgeos-c1v5 \
-  && rm -rf /var/lib/apt/lists/* \
-  && apt-get clean
 
 # Set the COMPOSER_MEMORY_LIMIT environment variable to unlimited.
 ENV COMPOSER_MEMORY_LIMIT=-1
