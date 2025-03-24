@@ -31,6 +31,7 @@
         "drupal/fraction": "^3.0",
         "drupal/geofield": "^1.40",
         "drupal/gin": "4.0.6",
+        "drupal/imagick": "^1.12",
         "drupal/inline_entity_form": "^1.0@RC",
         "drupal/inspire_tree": "^1.0",
         "drupal/jsonapi_extras": "^3.22",
