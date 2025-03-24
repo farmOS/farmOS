@@ -14,6 +14,13 @@ use Drupal\image\Entity\ImageStyle;
  */
 function farm_image_install() {
 
+  // Install the imagick module if the PHP extension is available.
+  if (extension_loaded('imagick')) {
+    if (!\Drupal::service('module_handler')->moduleExists('imagick')) {
+      \Drupal::service('module_installer')->install(['imagick']);
+    }
+  }
+
   // Add auto-orient effect to Drupal core image styles.
   $styles = [
     'large',
