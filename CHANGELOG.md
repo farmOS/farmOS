@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- [Display a warning if there are outstanding database updates #838](https://github.com/farmOS/farmOS/pull/838)
+
 ### Fixed
 
 - [Fix hidden entity fields #950](https://github.com/farmOS/farmOS/pull/950)
