@@ -1,0 +1,6 @@
+services:
+  plan.plan_route_context:
+    class: Drupal\plan\ContextProvider\PlanRouteContext
+    arguments: [ '@current_route_match' ]
+    tags:
+      - { name: 'context_provider' }

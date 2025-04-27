@@ -40,9 +40,9 @@ class FarmAssetLogViewsAccessCheck implements AccessInterface {
   public function access(RouteMatchInterface $route_match) {
 
     // If there is no "asset" or "log_type" parameter, bail.
-    $asset_id = $route_match->getParameter('asset');
+    $asset = $route_match->getParameter('asset');
     $log_type = $route_match->getParameter('log_type');
-    if (empty($asset_id) || empty($log_type)) {
+    if (empty($asset) || empty($log_type)) {
       return AccessResult::allowed();
     }
 
@@ -59,8 +59,8 @@ class FarmAssetLogViewsAccessCheck implements AccessInterface {
 
     // Only include logs that reference the asset.
     $reference_condition = $query->orConditionGroup()
-      ->condition('asset.entity.id', $asset_id)
-      ->condition('location.entity.id', $asset_id);
+      ->condition('asset.entity.id', $asset->id())
+      ->condition('location.entity.id', $asset->id());
     $query->condition($reference_condition);
 
     // Determine access based on the log count.

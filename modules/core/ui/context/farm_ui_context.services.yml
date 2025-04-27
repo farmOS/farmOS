@@ -1,0 +1,11 @@
+services:
+  plugin.manager.farm_context:
+    class: Drupal\farm_ui_context\FarmContextManager
+    parent: default_plugin_manager
+  # TODO: Move log route context to log module.
+  # TODO: Update log context_mapping in farm_context block.
+  farm_ui_context.log_route_context:
+    class: Drupal\farm_ui_context\ContextProvider\LogRouteContext
+    arguments: ['@current_route_match']
+    tags:
+      - { name: 'context_provider' }

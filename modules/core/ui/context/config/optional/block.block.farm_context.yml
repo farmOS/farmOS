@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - farm_ui_context
+  theme:
+    - gin
+id: farm_context
+theme: gin
+region: help
+weight: 0
+provider: null
+plugin: farm_context_block
+settings:
+  id: farm_context_block
+  label: 'Farm Context'
+  label_display: '0'
+  provider: farm_ui_context
+  context_mapping:
+    asset: '@asset.asset_route_context:asset'
+    log: '@farm_ui_context.log_route_context:log'
+    term: '@taxonomy_term.taxonomy_term_route_context:taxonomy_term'
+visibility: {  }

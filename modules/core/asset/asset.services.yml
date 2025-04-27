@@ -1,0 +1,6 @@
+services:
+  asset.asset_route_context:
+    class: Drupal\asset\ContextProvider\AssetRouteContext
+    arguments: [ '@current_route_match' ]
+    tags:
+      - { name: 'context_provider' }

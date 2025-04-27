@@ -25,6 +25,16 @@ class RouteSubscriber extends RouteSubscriberBase {
 
       // Set default log_type to mark primary tab as active.
       $route->setDefault('log_type', 'all');
+
+      // @todo Fix so that an asset context message displays on views tabs.
+      // This is needed so that the asset route parameter can pick up the route.
+      // General issue: https://www.drupal.org/project/drupal/issues/2528166
+      // Specify the asset parameter's type.
+      $parameters = $route->getOption('parameters');
+      $parameters['asset'] = [
+        'type' => 'entity:asset',
+      ];
+      $route->setOption('parameters', $parameters);
     }
 
     // Add our _asset_children_access requirement to
