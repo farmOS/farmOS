@@ -2,19 +2,15 @@
 
 /**
  * @file
- * Install, update and uninstall function for the farm_image module.
+ * Updates farm_image module.
  */
 
 declare(strict_types=1);
 
-use Drupal\image\Entity\ImageStyle;
-
 /**
- * Implements hook_install().
+ * Install and configure the imagick module, if the PHP extension is available.
  */
-function farm_image_install() {
-
-  // If the imagick PHP extension is available...
+function farm_image_post_update_install_imagick() {
   if (extension_loaded('imagick')) {
 
     // Install the imagick module.
@@ -33,23 +29,5 @@ function farm_image_install() {
     $config = \Drupal::configFactory()->getEditable('imagick.config');
     $config->set('strip_metadata', FALSE);
     $config->save();
-  }
-
-  // Add auto-orient effect to Drupal core image styles.
-  $styles = [
-    'large',
-    'medium',
-    'thumbnail',
-    'wide',
-  ];
-  foreach ($styles as $name) {
-    $style = ImageStyle::load($name);
-    if (!is_null($style)) {
-      $style->addImageEffect([
-        'id' => 'farm_image_auto_orient',
-        'weight' => -1,
-      ]);
-      $style->save();
-    }
   }
 }

@@ -13,6 +13,19 @@ FROM drupal:10.4-php8.3 AS baseimage
 ENV BUILD_PATH=/var/farmOS
 ENV DRUPAL_PATH=/opt/drupal
 
+# Install apt dependencies.
+RUN apt-get update && apt-get install -y \
+    # Install git and unzip (needed by Composer).
+    git unzip \
+    # Install postgresql-client so Drush can connect to the database.
+    postgresql-client \
+    # Install libgeos-c1v5 so geos php extension can use libgeos_c.so.1.
+    libgeos-c1v5 \
+    # Install libmagickwand-dev for ImageMagick. \
+    libmagickwand-dev \
+  && rm -rf /var/lib/apt/lists/* \
+  && apt-get clean
+
 ##
 # Build/install PHP extensions.
 FROM baseimage AS php-dependencies
@@ -25,6 +38,17 @@ RUN apt-get update && apt-get install -y libgeos-dev \
   && ( tar xzf /opt/php-geos.tar.gz -C /opt/ \
     && cd /opt/php-geos-${PHP_GEOS_VERSION} \
     && ./autogen.sh \
+    && ./configure \
+    && make \
+    && make install \
+    )
+
+# Build and install the ImageMagick PHP extension.
+ARG IMAGICK_VERSION=52ec37ff633de0e5cca159a6437b8c340afe7831
+ADD https://github.com/Imagick/imagick/archive/${IMAGICK_VERSION}.tar.gz /opt/php-imagick.tar.gz
+RUN ( tar xzf /opt/php-imagick.tar.gz -C /opt/ \
+    && cd /opt/imagick-${IMAGICK_VERSION} \
+    && phpize \
     && ./configure \
     && make \
     && make install \
@@ -48,21 +72,10 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Enable PHP dependencies.
 COPY --from=php-dependencies /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
-RUN docker-php-ext-enable bcmath exif geos
+RUN docker-php-ext-enable bcmath exif geos imagick
 
 # Add custom PHP configurations.
 COPY conf.d/ /usr/local/etc/php/conf.d
-
-# Install apt dependencies.
-RUN apt-get update && apt-get install -y \
-    # Install git and unzip (needed by Composer).
-    git unzip \
-    # Install postgresql-client so Drush can connect to the database.
-    postgresql-client \
-    # Install libgeos-c1v5 so geos php extension can use libgeos_c.so.1.
-    libgeos-c1v5 \
-  && rm -rf /var/lib/apt/lists/* \
-  && apt-get clean
 
 # Set the COMPOSER_MEMORY_LIMIT environment variable to unlimited.
 ENV COMPOSER_MEMORY_LIMIT=-1
