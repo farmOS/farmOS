@@ -2,7 +2,7 @@ name: Trigger Netlify to build docs
 on:
   push:
     branches:
-      - '3.x'
+      - '4.x'
     paths:
       - 'docs/**'
 

@@ -1,0 +1,10 @@
+farm_ui_timeline.asset_timeline:
+  path: /timeline/asset/{asset}
+  defaults:
+    _controller: Drupal\farm_ui_timeline\Controller\AssetTimeline::data
+  requirements:
+    _entity_access: asset.view
+  options:
+    parameters:
+      asset:
+        type: entity:asset

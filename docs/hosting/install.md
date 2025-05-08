@@ -15,7 +15,7 @@ the same [requirements](https://drupal.org/docs/system-requirements).
 In addition to Drupal's basic requirements, farmOS has the following server
 dependencies. The [farmOS Docker images](#farmos-in-docker) include these.
 
-- **PHP 8+**
+- **PHP 8.3+**
 - **PHP configuration** - The following PHP settings are recommended:
     - `memory_limit=256M`
     - `max_execution_time=240`
@@ -98,10 +98,10 @@ Official farmOS Docker images are available on Docker Hub:
 
 This allows farmOS to be run in a Docker container with:
 
-    docker pull farmos/farmos:3.x.y
-    docker run --rm -p 80:80 -v "${PWD}/sites:/opt/drupal/web/sites" farmos/farmos:3.x.y
+    docker pull farmos/farmos:4.x.y
+    docker run --rm -p 80:80 -v "${PWD}/sites:/opt/drupal/web/sites" farmos/farmos:4.x.y
 
-Replace `3.x.y` with the desired version. Find the latest farmOS version on the
+Replace `4.x.y` with the desired version. Find the latest farmOS version on the
 [GitHub release page](https://github.com/farmOS/farmOS/releases). Using the
 `latest` Docker tag is not recommended, because updates require manual steps.
 See [Updating farmOS](/hosting/update) for more info.

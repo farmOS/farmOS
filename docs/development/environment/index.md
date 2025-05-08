@@ -10,7 +10,7 @@ Run the following commands to create a farmOS directory and set up Docker
 containers for farmOS and PostgreSQL:
 
     mkdir farmOS && cd farmOS
-    curl https://raw.githubusercontent.com/farmOS/farmOS/3.x/docker/docker-compose.development.yml -o docker-compose.yml
+    curl https://raw.githubusercontent.com/farmOS/farmOS/4.x/docker/docker-compose.development.yml -o docker-compose.yml
     docker compose up -d
 
 ## 2. Install farmOS

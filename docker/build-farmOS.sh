@@ -38,9 +38,9 @@ if [ "${IS_TAGGED_RELEASE}" = false ]; then
 fi
 
 # Require the correct farmOS version in composer.json.
-# If FARMOS_VERSION is 3.x, we will require 3.x-dev.
-if [ "${FARMOS_VERSION}" = "3.x" ]; then
-  FARMOS_COMPOSER_VERSION="3.x-dev"
+# If FARMOS_VERSION is 4.x, we will require 4.x-dev.
+if [ "${FARMOS_VERSION}" = "4.x" ]; then
+  FARMOS_COMPOSER_VERSION="4.x-dev"
 # Or, if this is a tagged release, require the tag version.
 elif [ "${IS_TAGGED_RELEASE}" = true ]; then
   FARMOS_COMPOSER_VERSION="${FARMOS_VERSION}"
@@ -72,7 +72,7 @@ else
 fi
 
 # Set the version in farm.info.yml.
-sed -i "s|version: 3.x|version: ${FARMOS_VERSION}|g" ${BUILD_PATH}/web/profiles/farm/farm.info.yml
+sed -i "s|version: 4.x|version: ${FARMOS_VERSION}|g" ${BUILD_PATH}/web/profiles/farm/farm.info.yml
 
 # Remove the Composer cache directory.
 rm -rf "$COMPOSER_HOME"

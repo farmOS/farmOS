@@ -4,16 +4,16 @@ on:
     - cron: '0 8 * * *' # Run at 8AM UTC.
   push:
     branches:
-      - '3.x'
-      - '3.x-**'
+      - '4.x'
+      - '4.x-**'
     tags:
-      - '3.*'
+      - '4.*'
   pull_request:
     branches:
-      - '3.x'
+      - '4.x'
 
 env:
-  FARMOS_DEV_BRANCH: 3.x
+  FARMOS_DEV_BRANCH: 4.x
   DOCKER_IMG_PREFIX: farmos/farmos
 
 jobs:

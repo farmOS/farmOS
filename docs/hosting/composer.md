@@ -70,7 +70,7 @@ next section.
 To start your own project based on the farmOS project template, open a new
 directory and run the following command:
 
-    composer create-project farmos/project:3.x-dev
+    composer create-project farmos/project:4.x-dev
 
 This will create a `composer.json` file in your directory, copied directly from
 the [farmOS project template](https://packagist.org/packages/farmos/project).
@@ -190,13 +190,13 @@ more information.
 ### Pinning versions
 
 The `farmos/farmos` dependency in the farmOS project template `composer.json`
-defaults to `^3.0`, which means "the latest stable version of the 3.x branch".
+defaults to `^4.0`, which means "the latest stable version of the 4.x branch".
 
 You may want to pin this (or other dependencies) to a specific version so that
 you can be very intentional with your upgrade process.
 
-To pin the `farmos/farmos` dependency to a specific version (eg: `3.0.1`),
-replace `^3.0` with `3.0.1` and run `composer update --no-dev`.
+To pin the `farmos/farmos` dependency to a specific version (eg: `4.0.1`),
+replace `^4.0` with `4.0.1` and run `composer update --no-dev`.
 
 To update pinned dependencies, simply update the version in `composer.json` and
 run `composer update --no-dev` again. Remember to run automated updates and
@@ -215,8 +215,8 @@ custom Docker images with your custom codebase.
 Example `Dockerfile`:
 
 ```Dockerfile
-# Inherit from the upsteam farmOS 3.x image.
-FROM farmos/farmos:3.x
+# Inherit from the upsteam farmOS 4.x image.
+FROM farmos/farmos:4.x
 
 # Install `jq` to help in extracting the farmOS version below.
 RUN apt-get update && apt-get install -y jq
@@ -235,7 +235,7 @@ RUN (cd /var/farmOS; composer install --no-dev)
 # Set the version in farm.info.yml to match the version locked by Composer.
 # This is optional but is useful because the version will appear as the
 # "Installation Profile" version at `/admin/reports/status` in farmOS.
-RUN sed -i "s|version: 3.x|version: $(jq -r '.packages[] | select(.name == "farmos/farmos").version' /var/farmOS/composer.lock)|g" /var/farmOS/web/profiles/farm/farm.info.yml
+RUN sed -i "s|version: 4.x|version: $(jq -r '.packages[] | select(.name == "farmos/farmos").version' /var/farmOS/composer.lock)|g" /var/farmOS/web/profiles/farm/farm.info.yml
 
 # Copy the farmOS codebase into /opt/drupal.
 RUN rm -r /opt/drupal && cp -rp /var/farmOS /opt/drupal

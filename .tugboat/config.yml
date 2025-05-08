@@ -1,6 +1,6 @@
 services:
   php:
-    image: farmos/farmos:3.x-dev
+    image: farmos/farmos:4.x-dev
     default: true
     depends: mysql
     commands:

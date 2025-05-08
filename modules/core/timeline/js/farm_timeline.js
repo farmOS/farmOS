@@ -2,8 +2,15 @@
   Drupal.behaviors.farm_timeline = {
     attach: function (context, settings) {
       once('timelineGantt', '.farm-timeline', context).forEach(async function (element) {
+
+        // Define the options for the farmOS-timeline library.
         const opts = {
+
+          // These props get passed directly to svelte-gantt.
           props: {
+
+            // The taskElementHook method (provided by svelte-gannt) lets us
+            // react when a task is added. We use this to manage popups.
             taskElementHook: (node, task) => {
               let popup;
 
@@ -29,7 +36,7 @@
           },
         };
 
-        // Create the timeline instance.
+        // Create the farmOS-timeline instance.
         const timeline = farmOS.timeline.create(element, opts);
 
         // Helper function to process a single row and its children recursively.
@@ -140,7 +147,9 @@
         // Open entity page on click.
         timeline.timeline.api.tasks.on.select((task) => {
           task = task[0];
-          if (task.model?.editUrl) {
+          if (task.model?.linkUrl) {
+            window.location.replace(task.model.linkUrl);
+          } else if (task.model?.editUrl) {
             var ajaxSettings = {
               url: task.model.editUrl,
               dialogType: 'dialog',
@@ -179,6 +188,7 @@
         from: task.start,
         to: task.end,
         label: task.label ?? '',
+        linkUrl: task.link_url,
         editUrl: task.edit_url,
         draggable: task.draggable ?? false,
         resizable: task.resizable ?? false,

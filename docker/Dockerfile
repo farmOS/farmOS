@@ -39,9 +39,9 @@ FROM baseimage AS common
 
 # Set the farmOS and composer project repository URLs and versions.
 ARG FARMOS_REPO=https://github.com/farmOS/farmOS.git
-ARG FARMOS_VERSION=3.x
+ARG FARMOS_VERSION=4.x
 ARG PROJECT_REPO=https://github.com/farmOS/composer-project.git
-ARG PROJECT_VERSION=3.x
+ARG PROJECT_VERSION=4.x
 
 # Set Apache ServerName directive globally to suppress AH00558 message.
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf

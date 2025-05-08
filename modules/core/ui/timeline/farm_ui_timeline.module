@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * @file
+ * The farmOS UI Timeline module.
+ */
+
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_ENTITY_TYPE_view().
+ */
+function farm_ui_timeline_asset_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+
+  // If this is not full view mode, bail.
+  if ($view_mode != 'full') {
+    return;
+  }
+
+  // If there are no logs associated with the asset, bail.
+  $logs = \Drupal::service('asset.logs')->getLogs($entity);
+  if (empty($logs)) {
+    return;
+  }
+
+  // Render the asset timeline.
+  $row_url = Url::fromRoute('farm_ui_timeline.asset_timeline', ['asset' => $entity->id()]);
+  $build['asset_timeline'] = [
+    '#type' => 'farm_timeline',
+    '#rows' => [$row_url->setAbsolute()->toString()],
+  ];
+
+}
+
+/**
+ * Implements hook_farm_ui_theme_region_items().
+ */
+function farm_ui_timeline_farm_ui_theme_region_items(string $entity_type) {
+
+  // Position the asset timeline in the top region.
+  if ($entity_type == 'asset') {
+    return [
+      'top' => [
+        'asset_timeline',
+      ],
+    ];
+  }
+  return [];
+}
