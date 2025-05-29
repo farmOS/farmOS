@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Remove dependency on JSON:API Extras module #964](https://github.com/farmOS/farmOS/pull/964)
 
+### Fixed
+
+- [Fix plan_record bundle field providers #969](https://github.com/farmOS/farmOS/pull/969)
+
 ## [3.4.5] 2025-04-28
 
 ### Fixed

@@ -92,7 +92,7 @@ function farm_entity_entity_type_build(array &$entity_types) {
 function farm_entity_entity_field_storage_info_alter(&$fields, EntityTypeInterface $entity_type) {
 
   // Bail if not a farm entity type that allows bundle plugins.
-  if (!in_array($entity_type->id(), ['log', 'asset', 'plan', 'quantity'])) {
+  if (!in_array($entity_type->id(), ['asset', 'log', 'plan', 'plan_record', 'quantity'])) {
     return;
   }
 
