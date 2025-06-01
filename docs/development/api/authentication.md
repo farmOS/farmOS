@@ -11,6 +11,11 @@ more secure authentication method.
 
 Read more about the [OAuth 2.0 standards](https://oauth.net/2/).
 
+## Install
+
+Install the farmOS API OAuth2 Server module (`farm_api_oauth`) to enable OAuth2
+authorizations.
+
 ## Client Libraries
 
 The [farmOS.py](https://github.com/farmOS/farmOS.py) and

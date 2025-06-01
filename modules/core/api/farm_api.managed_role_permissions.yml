@@ -1,4 +1,3 @@
 farm_api:
   default_permissions:
-    - grant simple_oauth codes
     - issue subrequests

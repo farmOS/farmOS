@@ -1,0 +1,3 @@
+farm_api_oauth:
+  default_permissions:
+    - grant simple_oauth codes

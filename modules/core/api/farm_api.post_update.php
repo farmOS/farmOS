@@ -8,6 +8,15 @@
 declare(strict_types=1);
 
 /**
+ * Install the farm_api_oauth module.
+ */
+function farm_api_post_update_split_oauth_module(&$sandbox) {
+  if (!\Drupal::service('module_handler')->moduleExists('farm_api_oauth')) {
+    \Drupal::service('module_installer')->install(['farm_api_oauth']);
+  }
+}
+
+/**
  * Implements hook_removed_post_updates().
  */
 function farm_api_removed_post_updates() {

@@ -1,0 +1,7 @@
+name: farmOS API OAuth Tests
+description: 'Support module for farmOS API OAuth testing.'
+type: module
+package: Testing
+core_version_requirement: ^11
+dependencies:
+  - simple_oauth_password_grant:simple_oauth_password_grant

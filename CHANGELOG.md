@@ -44,6 +44,7 @@ requirements:
 - [Issue #3488916: Update Drupal core to 11.x](https://www.drupal.org/project/farm/issues/3488916)
 - [Convert equipment to a base field #956](https://github.com/farmOS/farmOS/pull/956)
 - [Convert quick to a base field #957](https://github.com/farmOS/farmOS/pull/957)
+- [Make farmOS API OAuth2 Server optional #973](https://github.com/farmOS/farmOS/pull/973)
 
 ### Deprecated
 

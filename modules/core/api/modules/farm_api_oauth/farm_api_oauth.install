@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the farm_api_oauth module.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_install().
+ */
+function farm_api_oauth_install() {
+
+  // Load the simple_oauth module settings.
+  $simple_oauth_settings = \Drupal::configFactory()->getEditable('simple_oauth.settings');
+
+  // Explicitly set the public/private key path.
+  $simple_oauth_settings->set('public_key', '../keys/public.key');
+  $simple_oauth_settings->set('private_key', '../keys/private.key');
+
+  // Use static scopes by default.
+  $simple_oauth_settings->set('scope_provider', 'static');
+
+  // Save simple_oauth settings.
+  $simple_oauth_settings->save();
+
+  // Delete the "Default Consumer" created by the Consumers module.
+  $default_consumer = \Drupal::entityTypeManager()->getStorage('consumer')
+    ->loadByProperties(['label' => 'Default Consumer']);
+  if (!empty($default_consumer)) {
+    $default_consumer = reset($default_consumer);
+    $default_consumer->delete();
+  }
+
+}

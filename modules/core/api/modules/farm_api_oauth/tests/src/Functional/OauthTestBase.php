@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\Tests\farm_api\Functional;
+namespace Drupal\Tests\farm_api_oauth\Functional;
 
 use Drupal\Tests\simple_oauth\Functional\TokenBearerFunctionalTestBase;
 
@@ -25,10 +25,9 @@ class OauthTestBase extends TokenBearerFunctionalTestBase {
     'image',
     'node',
     'serialization',
-    'simple_oauth',
     'text',
     'user',
-    'farm_api',
+    'farm_api_oauth',
   ];
 
   /**

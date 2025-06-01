@@ -1,0 +1,9 @@
+name: farmOS API OAuth2 Server
+description: Provides an OAuth2 authorization server for the farmOS API.
+type: module
+package: farmOS
+core_version_requirement: ^11
+dependencies:
+  - farm:farm_api
+  - simple_oauth:simple_oauth
+  - simple_oauth:simple_oauth_static_scope

@@ -4,5 +4,5 @@ type: module
 package: farmOS
 core_version_requirement: ^11
 dependencies:
-  - farm:farm_api
+  - farm:farm_api_oauth
   - simple_oauth_password_grant:simple_oauth_password_grant

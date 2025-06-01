@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\Tests\farm_api\Functional;
+namespace Drupal\Tests\farm_api_oauth\Functional;
 
 use Drupal\Core\Url;
 use Drupal\Tests\farm_test\Functional\FarmBrowserTestBase;
@@ -31,7 +31,7 @@ class CorsResponseEventSubscriberTest extends FarmBrowserTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
-    'farm_api',
+    'farm_api_oauth',
   ];
 
   /**

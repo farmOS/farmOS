@@ -66,6 +66,7 @@ function farm_modules() {
       'farm_comment_log' => t('Log comments'),
       'farm_comment_plan' => t('Plan comments'),
       'farm_map_mapbox' => t('Mapbox map layers: Satellite, Outdoors'),
+      'farm_api_oauth' => t('farmOS API OAuth2 Server'),
       'farm_api_default_consumer' => t('Default API Consumer'),
       'farm_fieldkit' => t('Field Kit integration'),
       'farm_l10n' => t('Translation/localization features'),

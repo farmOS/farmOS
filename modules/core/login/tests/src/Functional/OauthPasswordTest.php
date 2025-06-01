@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Drupal\tests\farm_login\Functional;
 
 use Drupal\Component\Serialization\Json;
-use Drupal\Tests\farm_api\Functional\OauthTestBase;
+use Drupal\Tests\farm_api_oauth\Functional\OauthTestBase;
 
 /**
  * Tests using an email with OAuth Password Grant.
@@ -29,7 +29,7 @@ class OauthPasswordTest extends OauthTestBase {
     'text',
     'user',
     'farm_api_default_consumer',
-    'farm_api_test',
+    'farm_api_oauth_test',
     'farm_login',
   ];
 

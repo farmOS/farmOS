@@ -29,7 +29,6 @@ class FarmApiTest extends KernelTestBase {
    */
   protected static $modules = [
     'asset',
-    'consumers',
     'entity',
     'farm_api',
     'farm_api_test',
@@ -44,7 +43,6 @@ class FarmApiTest extends KernelTestBase {
     'log',
     'options',
     'serialization',
-    'simple_oauth',
     'state_machine',
     'system',
     'user',
@@ -56,7 +54,6 @@ class FarmApiTest extends KernelTestBase {
    */
   public function setUp(): void {
     parent::setUp();
-    $this->installEntitySchema('consumer');
     $this->installEntitySchema('asset');
     $this->installEntitySchema('file');
     $this->installEntitySchema('log');

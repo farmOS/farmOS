@@ -255,8 +255,9 @@ the normal page loading process.
 # OAuth2 keys
 
 If you need to connect to the farmOS API from an outside source, you will need
-to generate public/private keypair files for OAuth2 tokens. A `keys` directory
-must be created outside the webroot.
+to install the farmOS API OAuth2 Server module (`farm_api_oauth`) and generate
+public/private keypair files for OAuth2 tokens in a `keys` directory outside the
+webroot.
 
 As the system administrator (user 1), go to Administration > Configuration > Web
 Services > Consumers in the main menu, then click the Settings tab. The "Public

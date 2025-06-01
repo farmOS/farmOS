@@ -7,6 +7,4 @@ dependencies:
   - drupal:jsonapi
   - entity:entity
   - jsonapi_schema:jsonapi_schema
-  - simple_oauth:simple_oauth
-  - simple_oauth:simple_oauth_static_scope
   - subrequests:subrequests

@@ -1,0 +1,7 @@
+services:
+  # Add CORS headers for allowed origins configured on consumers.
+  farm_api_oauth.cors_event_subscriber:
+    class: Drupal\farm_api_oauth\EventSubscriber\CorsResponseEventSubscriber
+    arguments: ['@entity_type.manager']
+    tags:
+      - { name: event_subscriber }
