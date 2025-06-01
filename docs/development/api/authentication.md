@@ -41,8 +41,8 @@ implements scopes that represent individual roles or permissions. Users will
 authorize clients with one or more scopes that determine how much access they
 have to data on the server.
 
-The farmOS Default Roles module provides an OAuth scope for each of the default
-roles: `farm_manager`, `farm_worker`, and `farm_viewer`.
+The farmOS Role module provides an OAuth scope for each "managed" role,
+including `farm_manager`, `farm_worker`, and `farm_viewer`.
 
 If you are creating an integration with farmOS, see the
 [OAuth](/development/module/oauth) page of the farmOS module development docs

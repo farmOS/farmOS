@@ -10,6 +10,7 @@ declare(strict_types=1);
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\entity\BundleFieldDefinition;
+use Drupal\simple_oauth_static_scope\Plugin\Oauth2Scope;
 
 /**
  * Implements hook_entity_base_field_info().
@@ -33,6 +34,55 @@ function farm_api_oauth_entity_base_field_info(EntityTypeInterface $entity_type)
   }
 
   return $fields;
+}
+
+/**
+ * Implements hook_oauth2_scope_info_alter().
+ */
+function farm_api_oauth_oauth2_scope_info_alter(&$scopes) {
+
+  // Only proceed if the farm_role module is installed.
+  if (!\Drupal::moduleHandler()->moduleExists('farm_role')) {
+    return;
+  }
+
+  // Generate OAuth2 scopes for each managed role.
+  /** @var \Drupal\farm_role\ManagedRolePermissionsManagerInterface $managed_role_manager */
+  $managed_role_manager = \Drupal::service('plugin.manager.managed_role_permissions');
+  $managed_roles = $managed_role_manager->getMangedRoles();
+  foreach ($managed_roles as $role) {
+
+    // Generate a scope for the role.
+    $scopes[$role->id()] = [
+      'id' => $role->id(),
+      'description' => t('Grants access to the @role role.', ['@role' => $role->label()]),
+      'umbrella' => FALSE,
+      'grant_types' => [
+        'authorization_code' => [
+          'status' => TRUE,
+        ],
+        'client_credentials' => [
+          'status' => TRUE,
+        ],
+        'refresh_token' => [
+          'status' => TRUE,
+        ],
+      ],
+      'granularity_id' => 'role',
+      'granularity_configuration' => [
+        'role' => $role->id(),
+      ],
+      'class' => Oauth2Scope::class,
+      'provider' => 'farm_api_oauth',
+    ];
+
+    // Enable the password grant if simple_oauth_password_grant is installed.
+    if (\Drupal::moduleHandler()->moduleExists('simple_oauth_password_grant')) {
+      $scopes[$role->id()]['grant_types']['password'] = [
+        'status' => TRUE,
+      ];
+    }
+  }
 }
 
 /**

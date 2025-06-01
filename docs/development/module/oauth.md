@@ -32,8 +32,8 @@ the server. The farmOS administrator can change to using the `dynamic` scope
 provider if necessary, but may need to re-create any `static` scopes that
 are needed for integrations provided by other modules.
 
-The farmOS Default Roles module provides a `static` OAuth scope for each of the
-default roles: `farm_manager`, `farm_worker`, and `farm_viewer`.
+The farmOS Roles module provides a `static` OAuth scope for each "managed" role,
+including `farm_manager`, `farm_worker`, and `farm_viewer`.
 
 ### Scope Configuration
 
@@ -72,7 +72,8 @@ This configuration is most easily demonstrated with
 ```
 
 An example of the static `farm_manager` scope provided by the farmOS Role
-Roles mdoule:
+module:
+
 ```yaml
 farm_manager:
   description: 'Grants access to the Farm Manager role.'

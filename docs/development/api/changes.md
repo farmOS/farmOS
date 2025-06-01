@@ -17,8 +17,8 @@ There have also been changes to how scopes are provided. User roles no longer
 act as scopes by default. Instead, scopes must be created separately to
 reference each role they represent. Scopes can also be associated with
 individual permissions and can reference parent scopes to create
-hierarchical scope trees. farmOS provides `static` scopes for each of the
-default roles: `farm_manager`, `farm_worker` and `farm_viewer`.
+hierarchical scope trees. farmOS provides `static` scopes for each "managed"
+role, including `farm_manager`, `farm_worker` and `farm_viewer`.
 
 The default farmOS client that is included with farmOS has also been
 moved to a separate module that is not enabled by default. After the update to
