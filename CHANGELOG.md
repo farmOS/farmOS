@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- [Update Drupal core to 10.5 #976](https://github.com/farmOS/farmOS/pull/976)
 - [Merge farm_settings module into farm_setup #1024](https://github.com/farmOS/farmOS/pull/1024)
 
 ## [3.4.6] 2025-11-17
