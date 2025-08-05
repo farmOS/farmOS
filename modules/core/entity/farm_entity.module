@@ -149,11 +149,11 @@ function farm_entity_entity_presave(EntityInterface $entity) {
   // @see https://www.drupal.org/project/drupal/issues/2993557
   // @see https://www.drupal.org/project/drupal/issues/2795279
   // @see https://github.com/json-api/json-api/pull/824
-  $entity_type = $entity->get('type')->getEntity();
+  $entity_type = $entity->get($entity->getEntityType()->getKey('bundle'))->entity;
   if (
     $entity_type instanceof RevisionableEntityBundleInterface
     && $entity_type->shouldCreateNewRevision()
-    && $entity_type->getEntityType()->isRevisionable()
+    && $entity->getEntityType()->isRevisionable()
   ) {
 
     // Always create a new revision.

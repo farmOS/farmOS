@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - [Fix plan_record bundle field providers #969](https://github.com/farmOS/farmOS/pull/969)
+- [Fix logic for forcing entity revision creation #988](https://github.com/farmOS/farmOS/pull/969)
 
 ## [3.4.5] 2025-04-28
 
