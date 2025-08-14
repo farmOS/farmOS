@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- [Pin Docker base image to Debian Bookworm #991](https://github.com/farmOS/farmOS/pull/991)
+
 ### Removed
 
 - [Remove dependency on JSON:API Extras module #964](https://github.com/farmOS/farmOS/pull/964)
