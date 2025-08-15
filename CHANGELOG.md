@@ -40,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Fix Warning: Undefined array keys in hook_views_pre_render() #937](https://github.com/farmOS/farmOS/pull/937)
 - [Fix TypeError: CircularAssetLocationConstraintValidator::getAssetsByLocationRecursively(): Argument #2 ($timestamp) must be of type int, string given #938](https://github.com/farmOS/farmOS/pull/938)
+- [Fix CSV importer compatibility with migrate_source_ui v1.3+ #993](https://github.com/farmOS/farmOS/pull/993)
 
 ## [3.4.3] 2025-03-20
 

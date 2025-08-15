@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Drupal\farm_import_csv\Form;
 
+use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
+use Drupal\Core\StringTranslation\TranslationManager;
 use Drupal\Core\TempStore\PrivateTempStoreFactory;
 use Drupal\file\FileRepositoryInterface;
 use Drupal\file\FileUsage\FileUsageInterface;
@@ -57,6 +60,12 @@ class CsvImportForm extends MigrateSourceUiForm {
    *   The config factory service.
    * @param \Drupal\Core\File\FileSystemInterface $file_system
    *   The File System service.
+   * @param \Drupal\Component\Datetime\TimeInterface $time
+   *   The time service.
+   * @param \Drupal\Core\KeyValueStore\KeyValueFactoryInterface $key_value
+   *   The key value factory.
+   * @param \Drupal\Core\StringTranslation\TranslationManager $translation_manager
+   *   The translation manager service.
    * @param \Drupal\file\FileRepositoryInterface $file_repository
    *   The file repository service.
    * @param \Drupal\file\FileUsage\FileUsageInterface $file_usage
@@ -66,8 +75,8 @@ class CsvImportForm extends MigrateSourceUiForm {
    * @param \Drupal\Core\TempStore\PrivateTempStoreFactory $temp_store_factory
    *   The tempstore service.
    */
-  public function __construct(MigrationPluginManager $plugin_manager_migration, ConfigFactoryInterface $config_factory, FileSystemInterface $file_system, FileRepositoryInterface $file_repository, FileUsageInterface $file_usage, EntityTypeManagerInterface $entity_type_manager, PrivateTempStoreFactory $temp_store_factory) {
-    parent::__construct($plugin_manager_migration, $config_factory, $file_system);
+  public function __construct(MigrationPluginManager $plugin_manager_migration, ConfigFactoryInterface $config_factory, FileSystemInterface $file_system, TimeInterface $time, KeyValueFactoryInterface $key_value, TranslationManager $translation_manager, FileRepositoryInterface $file_repository, FileUsageInterface $file_usage, EntityTypeManagerInterface $entity_type_manager, PrivateTempStoreFactory $temp_store_factory) {
+    parent::__construct($plugin_manager_migration, $config_factory, $file_system, $time, $key_value, $translation_manager);
     $this->fileRepository = $file_repository;
     $this->fileUsage = $file_usage;
     $this->entityTypeManager = $entity_type_manager;
@@ -77,11 +86,14 @@ class CsvImportForm extends MigrateSourceUiForm {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): static {
     return new static(
       $container->get('plugin.manager.migration'),
       $container->get('config.factory'),
       $container->get('file_system'),
+      $container->get('datetime.time'),
+      $container->get('keyvalue'),
+      $container->get('string_translation'),
       $container->get('file.repository'),
       $container->get('file.usage'),
       $container->get('entity_type.manager'),
@@ -92,14 +104,14 @@ class CsvImportForm extends MigrateSourceUiForm {
   /**
    * {@inheritdoc}
    */
-  public function getFormId() {
+  public function getFormId(): string {
     return 'farm_import_csv';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $migration_id = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, $migration_id = NULL): array {
     $form = parent::buildForm($form, $form_state);
 
     // Hard-code and hide the dropdown of migrations.
@@ -120,7 +132,7 @@ class CsvImportForm extends MigrateSourceUiForm {
   /**
    * {@inheritdoc}
    */
-  public function validateForm(array &$form, FormStateInterface $form_state) {
+  public function validateForm(array &$form, FormStateInterface $form_state): void {
     parent::validateForm($form, $form_state);
 
     // If there is no uploaded file, bail.
