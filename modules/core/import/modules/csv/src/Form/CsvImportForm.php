@@ -169,22 +169,13 @@ class CsvImportForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state, $migration_id = NULL): array {
 
-    // Original MigrateSourceUiForm::buildForm() code.
-    $options = [];
-    foreach ($this->migrationPluginManager->getDefinitions() as $definition) {
-      if ($extension = $this->getFileExtensionSupported($definition)) {
-        $options[$definition['id']] = $this->t('%id (supports %file_type)', [
-          '%id' => $definition['label'] ?? $definition['id'],
-          '%file_type' => $extension,
-        ]);
-      }
-    }
-    natcasesort($options);
-    $form['migrations'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Migrations'),
-      '#options' => $options,
+    // Migration ID.
+    $form['migration_id'] = [
+      '#type' => 'value',
+      '#value' => $migration_id,
     ];
+
+    // File upload field.
     $form['source_file'] = [
       '#type' => 'file',
       '#title' => $this->t('Upload the source file'),
@@ -194,10 +185,6 @@ class CsvImportForm extends FormBase {
         ],
       ],
     ];
-
-    // Hard-code and hide the dropdown of migrations.
-    $form['migrations']['#type'] = 'value';
-    $form['migrations']['#value'] = $migration_id;
 
     // Import submit button.
     $form['actions'] = [
@@ -218,7 +205,7 @@ class CsvImportForm extends FormBase {
   public function validateForm(array &$form, FormStateInterface $form_state): void {
 
     // Original MigrateSourceUiForm::validateForm() code.
-    $migration_id = $form_state->getValue('migrations');
+    $migration_id = $form_state->getValue('migration_id');
     $definition = $this->migrationPluginManager->getDefinition($migration_id);
     $extension = $this->getFileExtensionSupported($definition);
 
@@ -270,17 +257,17 @@ class CsvImportForm extends FormBase {
     $file = reset($files);
     $file = $this->fileRepository->move($file, $directory);
     $form_state->setValue('file_path', $file->getFileUri());
-    $this->fileUsage->add($file, 'farm_import_csv', 'migration', $form_state->getValue('migrations'));
+    $this->fileUsage->add($file, 'farm_import_csv', 'migration', $form_state->getValue('migration_id'));
 
     // Save the file ID to the private tempstore.
-    $this->tempStore->set($this->currentUser()->id() . ':' . $form_state->getValue('migrations'), $file->id());
+    $this->tempStore->set($this->currentUser()->id() . ':' . $form_state->getValue('migration_id'), $file->id());
   }
 
   /**
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
-    $migration_id = $form_state->getValue('migrations');
+    $migration_id = $form_state->getValue('migration_id');
     /** @var \Drupal\migrate\Plugin\Migration $migration */
     $migration = $this->migrationPluginManager->createInstance($migration_id);
 

@@ -70,14 +70,11 @@ class CsvImportTest extends FarmBrowserTestBase {
     $this->assertSession()->pageTextContains('Log: Harvest');
     $this->assertSession()->pageTextContains('Taxonomy Term: Animal type');
 
-    // Go to the harvest log importer and confirm that:
-    // 1. access is granted.
-    // 2. the title is visible.
-    // 3. the migrate_source_ui "Migrations" dropdown is hidden.
+    // Go to the harvest log importer and confirm that access is granted and
+    // the title is visible.
     $this->drupalGet('import/csv/csv_log:harvest');
     $this->assertSession()->statusCodeEquals(200);
     $this->assertSession()->pageTextContains('Import Log: Harvest');
-    $this->assertSession()->pageTextNotContains('Migrations');
 
     // Go to the asset, log, and term importers and confirm that column
     // descriptions are included, along with a link to download a template.
