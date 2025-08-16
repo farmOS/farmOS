@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\farm_import_csv\Form;
 
 use Drupal\Component\Datetime\TimeInterface;
-use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\File\FileExists;
@@ -20,10 +19,6 @@ use Drupal\file\FileRepositoryInterface;
 use Drupal\file\FileUsage\FileUsageInterface;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Plugin\MigrationPluginManager;
-use Drupal\migrate_plus\Plugin\migrate\source\Url;
-use Drupal\migrate_plus\Plugin\migrate_plus\data_parser\Json;
-use Drupal\migrate_plus\Plugin\migrate_plus\data_parser\Xml;
-use Drupal\migrate_source_csv\Plugin\migrate\source\CSV;
 use Drupal\migrate_tools\MigrateBatchExecutable;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -204,12 +199,6 @@ class CsvImportForm extends FormBase {
    */
   public function validateForm(array &$form, FormStateInterface $form_state): void {
 
-    // Original MigrateSourceUiForm::validateForm() code.
-    $migration_id = $form_state->getValue('migration_id');
-    $definition = $this->migrationPluginManager->getDefinition($migration_id);
-    $extension = $this->getFileExtensionSupported($definition);
-
-    $validators = ['FileExtension' => ['extensions' => $extension]];
     // Check to see if a specific file temp directory is configured. If not,
     // default the value to FALSE, which will instruct file_save_upload() to
     // use Drupal's temporary files scheme.
@@ -221,6 +210,8 @@ class CsvImportForm extends FormBase {
     $directory = $this->fileSystem->realpath($file_destination);
     $this->fileSystem->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY);
 
+    // Save the uploaded file.
+    $validators = ['FileExtension' => ['extensions' => 'csv']];
     $file = file_save_upload('source_file', $validators, $file_destination, 0, FileExists::Replace);
 
     if (isset($file)) {
@@ -288,48 +279,6 @@ class CsvImportForm extends FormBase {
     ];
     $executable = new MigrateBatchExecutable($migration, new StubMigrationMessage(), $this->keyValueFactory, $this->time, $this->translationManager, $this->migrationPluginManager, $batch_options);
     $executable->batchImport();
-  }
-
-  /**
-   * The allowed file extension for the migration.
-   *
-   * @param array $definition
-   *   The migration definition array.
-   *
-   * @return string|null
-   *   The file extension or null if not detected.
-   */
-  public function getFileExtensionSupported(array $definition): ?string {
-    $extension_detected = NULL;
-    $extensions_allowed = ['csv', 'json', 'xml'];
-
-    $migrationInstance = $this->migrationPluginManager->createStubMigration($definition);
-    if ($migrationInstance->getSourcePlugin() instanceof CSV) {
-      $extension_detected = 'csv';
-    }
-    elseif ($migrationInstance->getSourcePlugin() instanceof Json) {
-      $extension_detected = 'json';
-    }
-    elseif ($migrationInstance->getSourcePlugin() instanceof Spreadsheet) {
-      $extension_detected = 'csv ods slk xls xlsx xml';
-    }
-    elseif ($migrationInstance->getSourcePlugin() instanceof Xml) {
-      $extension_detected = 'xml';
-    }
-    elseif ($migrationInstance->getSourcePlugin() instanceof Url) {
-      $extension_detected = NestedArray::getValue($definition, [
-        'source',
-        'data_parser_plugin',
-      ]);
-      if ($extension_detected === 'simple_xml') {
-        $extension_detected = 'xml';
-      }
-    }
-
-    if ($extension_detected && in_array($extension_detected, $extensions_allowed, TRUE)) {
-      return $extension_detected;
-    }
-    return NULL;
   }
 
 }
