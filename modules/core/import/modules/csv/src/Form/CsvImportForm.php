@@ -291,22 +291,16 @@ class CsvImportForm extends FormBase {
       $this->messenger()->addWarning($this->t('Migration @id reset to Idle', ['@id' => $migration_id]));
     }
 
-    $executable = new MigrateBatchExecutable($migration, new StubMigrationMessage(), $this->keyValueFactory, $this->time, $this->translationManager, $this->migrationPluginManager, $this->getBatchOptions($form, $form_state));
-    $executable->batchImport();
-  }
-
-  /**
-   * Prepares an array of migrate batch options.
-   */
-  protected function getBatchOptions($form, FormStateInterface $form_state): array {
-    $options = [
+    // Build and execute the batch operation.
+    $batch_options = [
       'configuration' => [
         'source' => [
           'path' => $form_state->getValue('file_path'),
         ],
       ],
     ];
-    return $options;
+    $executable = new MigrateBatchExecutable($migration, new StubMigrationMessage(), $this->keyValueFactory, $this->time, $this->translationManager, $this->migrationPluginManager, $batch_options);
+    $executable->batchImport();
   }
 
   /**
