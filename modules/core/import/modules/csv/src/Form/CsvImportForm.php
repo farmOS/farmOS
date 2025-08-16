@@ -15,6 +15,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
 use Drupal\Core\StringTranslation\TranslationManager;
 use Drupal\Core\TempStore\PrivateTempStoreFactory;
+use Drupal\farm_import_csv\StubMigrationMessage;
 use Drupal\file\FileRepositoryInterface;
 use Drupal\file\FileUsage\FileUsageInterface;
 use Drupal\migrate\Plugin\MigrationInterface;
@@ -23,7 +24,6 @@ use Drupal\migrate_plus\Plugin\migrate\source\Url;
 use Drupal\migrate_plus\Plugin\migrate_plus\data_parser\Json;
 use Drupal\migrate_plus\Plugin\migrate_plus\data_parser\Xml;
 use Drupal\migrate_source_csv\Plugin\migrate\source\CSV;
-use Drupal\migrate_source_ui\StubMigrationMessage;
 use Drupal\migrate_tools\MigrateBatchExecutable;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
