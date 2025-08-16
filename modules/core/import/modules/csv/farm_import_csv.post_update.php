@@ -15,3 +15,23 @@ function farm_import_csv_post_update_install_farm_migrate(&$sandbox) {
     \Drupal::service('module_installer')->install(['farm_migrate']);
   }
 }
+
+/**
+ * Uninstall the Migrate Source UI module, unless other modules depend on it.
+ */
+function farm_import_csv_post_update_uninstall_migrate_source_ui(&$sandbox = NULL) {
+  if (\Drupal::service('module_handler')->moduleExists('migrate_source_ui')) {
+    $modules = \Drupal::service('extension.list.module')->reset()->getList();
+    $installed_dependents = [];
+    if (!empty($modules['migrate_source_ui']->required_by)) {
+      foreach (array_keys($modules['migrate_source_ui']->required_by) as $module) {
+        if (\Drupal::service('module_handler')->moduleExists($module)) {
+          $installed_dependents[] = $module;
+        }
+      }
+    }
+    if (empty($installed_dependents)) {
+      \Drupal::service('module_installer')->uninstall(['migrate_source_ui']);
+    }
+  }
+}
