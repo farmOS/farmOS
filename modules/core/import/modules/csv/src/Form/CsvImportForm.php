@@ -199,10 +199,6 @@ class CsvImportForm extends FormBase {
       '#title' => $this->t('Update existing records'),
       '#default_value' => 1,
     ];
-    $form['import'] = [
-      '#type' => 'submit',
-      '#value' => $this->t('Migrate'),
-    ];
 
     // Hard-code and hide the dropdown of migrations.
     $form['migrations']['#type'] = 'value';
@@ -213,8 +209,15 @@ class CsvImportForm extends FormBase {
     $form['update_existing_records']['#type'] = 'value';
     $form['update_existing_records']['#value'] = FALSE;
 
-    // Rename the submit button to "Import".
-    $form['import']['#value'] = $this->t('Import');
+    // Import submit button.
+    $form['actions'] = [
+      '#type' => 'actions',
+      '#weight' => 1000,
+    ];
+    $form['actions']['submit'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Import'),
+    ];
 
     return $form;
   }
