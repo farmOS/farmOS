@@ -74,12 +74,10 @@ class CsvImportTest extends FarmBrowserTestBase {
     // 1. access is granted.
     // 2. the title is visible.
     // 3. the migrate_source_ui "Migrations" dropdown is hidden.
-    // 4. the migrate_source_ui "Update existing records" checkbox is hidden.
     $this->drupalGet('import/csv/csv_log:harvest');
     $this->assertSession()->statusCodeEquals(200);
     $this->assertSession()->pageTextContains('Import Log: Harvest');
     $this->assertSession()->pageTextNotContains('Migrations');
-    $this->assertSession()->pageTextNotContains('Update existing records');
 
     // Go to the asset, log, and term importers and confirm that column
     // descriptions are included, along with a link to download a template.

@@ -194,20 +194,10 @@ class CsvImportForm extends FormBase {
         ],
       ],
     ];
-    $form['update_existing_records'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Update existing records'),
-      '#default_value' => 1,
-    ];
 
     // Hard-code and hide the dropdown of migrations.
     $form['migrations']['#type'] = 'value';
     $form['migrations']['#value'] = $migration_id;
-
-    // Remove the option to update existing records.
-    // @todo https://www.drupal.org/project/farm/issues/2968909
-    $form['update_existing_records']['#type'] = 'value';
-    $form['update_existing_records']['#value'] = FALSE;
 
     // Import submit button.
     $form['actions'] = [
@@ -316,12 +306,6 @@ class CsvImportForm extends FormBase {
         ],
       ],
     ];
-
-    // Force updates or not.
-    if ($form_state->getValue('update_existing_records')) {
-      $options['update'] = 1;
-    }
-
     return $options;
   }
 
