@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Drupal\farm_import_csv\Form;
 
 use Drupal\Component\Datetime\TimeInterface;
-use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\File\FileExists;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\FormBase;
@@ -15,7 +13,6 @@ use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
 use Drupal\Core\StringTranslation\TranslationManager;
 use Drupal\Core\TempStore\PrivateTempStoreFactory;
 use Drupal\farm_import_csv\StubMigrationMessage;
-use Drupal\file\FileRepositoryInterface;
 use Drupal\file\FileUsage\FileUsageInterface;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Plugin\MigrationPluginManager;
@@ -33,13 +30,6 @@ class CsvImportForm extends FormBase {
    * @var \Drupal\migrate\Plugin\MigrationPluginManager
    */
   protected MigrationPluginManager $migrationPluginManager;
-
-  /**
-   * The config factory.
-   *
-   * @var \Drupal\Core\Config\ConfigFactoryInterface
-   */
-  protected $configFactory;
 
   /**
    * The file system service.
@@ -70,25 +60,11 @@ class CsvImportForm extends FormBase {
   protected TranslationManager $translationManager;
 
   /**
-   * The file repository service.
-   *
-   * @var \Drupal\file\FileRepositoryInterface
-   */
-  protected $fileRepository;
-
-  /**
    * The file usage service.
    *
    * @var \Drupal\file\FileUsage\FileUsageInterface
    */
   protected $fileUsage;
-
-  /**
-   * The entity type manager service.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   */
-  protected $entityTypeManager;
 
   /**
    * The farm_import_csv temp store.
@@ -102,8 +78,6 @@ class CsvImportForm extends FormBase {
    *
    * @param \Drupal\migrate\Plugin\MigrationPluginManager $plugin_manager_migration
    *   The migration plugin manager.
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   *   The config factory service.
    * @param \Drupal\Core\File\FileSystemInterface $file_system
    *   The File System service.
    * @param \Drupal\Component\Datetime\TimeInterface $time
@@ -112,25 +86,18 @@ class CsvImportForm extends FormBase {
    *   The key value factory.
    * @param \Drupal\Core\StringTranslation\TranslationManager $translation_manager
    *   The translation manager service.
-   * @param \Drupal\file\FileRepositoryInterface $file_repository
-   *   The file repository service.
    * @param \Drupal\file\FileUsage\FileUsageInterface $file_usage
    *   The file usage service.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity type manager service.
    * @param \Drupal\Core\TempStore\PrivateTempStoreFactory $temp_store_factory
    *   The tempstore service.
    */
-  public function __construct(MigrationPluginManager $plugin_manager_migration, ConfigFactoryInterface $config_factory, FileSystemInterface $file_system, TimeInterface $time, KeyValueFactoryInterface $key_value, TranslationManager $translation_manager, FileRepositoryInterface $file_repository, FileUsageInterface $file_usage, EntityTypeManagerInterface $entity_type_manager, PrivateTempStoreFactory $temp_store_factory) {
+  public function __construct(MigrationPluginManager $plugin_manager_migration, FileSystemInterface $file_system, TimeInterface $time, KeyValueFactoryInterface $key_value, TranslationManager $translation_manager, FileUsageInterface $file_usage, PrivateTempStoreFactory $temp_store_factory) {
     $this->migrationPluginManager = $plugin_manager_migration;
-    $this->configFactory = $config_factory;
     $this->fileSystem = $file_system;
     $this->time = $time;
     $this->keyValueFactory = $key_value;
     $this->translationManager = $translation_manager;
-    $this->fileRepository = $file_repository;
     $this->fileUsage = $file_usage;
-    $this->entityTypeManager = $entity_type_manager;
     $this->tempStore = $temp_store_factory->get('farm_import_csv');
   }
 
@@ -140,14 +107,11 @@ class CsvImportForm extends FormBase {
   public static function create(ContainerInterface $container): static {
     return new static(
       $container->get('plugin.manager.migration'),
-      $container->get('config.factory'),
       $container->get('file_system'),
       $container->get('datetime.time'),
       $container->get('keyvalue'),
       $container->get('string_translation'),
-      $container->get('file.repository'),
       $container->get('file.usage'),
-      $container->get('entity_type.manager'),
       $container->get('tempstore.private'),
     );
   }
@@ -199,20 +163,13 @@ class CsvImportForm extends FormBase {
    */
   public function validateForm(array &$form, FormStateInterface $form_state): void {
 
-    // Check to see if a specific file temp directory is configured. If not,
-    // default the value to FALSE, which will instruct file_save_upload() to
-    // use Drupal's temporary files scheme.
-    $file_destination = $this->configFactory->get('migrate_source_ui.settings')->get('file_temp_directory');
-    if (is_null($file_destination)) {
-      $file_destination = FALSE;
-    }
-
-    $directory = $this->fileSystem->realpath($file_destination);
+    // Prepare the private://csv directory.
+    $directory = 'private://csv';
     $this->fileSystem->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY);
 
     // Save the uploaded file.
     $validators = ['FileExtension' => ['extensions' => 'csv']];
-    $file = file_save_upload('source_file', $validators, $file_destination, 0, FileExists::Replace);
+    $file = file_save_upload('source_file', $validators, $directory, 0, FileExists::Replace);
 
     if (isset($file)) {
       // File upload was attempted.
@@ -233,21 +190,7 @@ class CsvImportForm extends FormBase {
       return;
     }
 
-    // Prepare the private://csv directory.
-    $directory = 'private://csv';
-    $this->fileSystem->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY);
-
-    // Move the file to the private filesystem and register usage.
-    /** @var \Drupal\file\FileStorageInterface $file_storage */
-    $file_storage = $this->entityTypeManager->getStorage('file');
-    /** @var \Drupal\file\FileInterface[] $files */
-    $files = $file_storage->loadByProperties(['uri' => $form_state->getValue('file_path')]);
-    if (empty($files)) {
-      return;
-    }
-    $file = reset($files);
-    $file = $this->fileRepository->move($file, $directory);
-    $form_state->setValue('file_path', $file->getFileUri());
+    // Register file usage.
     $this->fileUsage->add($file, 'farm_import_csv', 'migration', $form_state->getValue('migration_id'));
 
     // Save the file ID to the private tempstore.
