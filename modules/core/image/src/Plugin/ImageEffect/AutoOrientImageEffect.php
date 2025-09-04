@@ -195,6 +195,11 @@ class AutoOrientImageEffect extends ImageEffectBase implements ContainerFactoryP
     // Get the image file path.
     $path = $this->fileSystem->realpath($uri);
 
+    // If there is no path for the image, return NULL.
+    if ($path === FALSE) {
+      return NULL;
+    }
+
     // Attempt to load EXIF data.
     $exif = @exif_read_data($path);
 
