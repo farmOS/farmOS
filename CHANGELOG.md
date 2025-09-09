@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - [Remove dependency on JSON:API Extras module #964](https://github.com/farmOS/farmOS/pull/964)
+- [Remove dependency on Migrate Source UI module #994](https://github.com/farmOS/farmOS/pull/994)
 
 ### Fixed
 

@@ -5,30 +5,59 @@ declare(strict_types=1);
 namespace Drupal\farm_import_csv\Form;
 
 use Drupal\Component\Datetime\TimeInterface;
-use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\File\FileExists;
 use Drupal\Core\File\FileSystemInterface;
+use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
 use Drupal\Core\StringTranslation\TranslationManager;
 use Drupal\Core\TempStore\PrivateTempStoreFactory;
-use Drupal\file\FileRepositoryInterface;
+use Drupal\farm_import_csv\StubMigrationMessage;
 use Drupal\file\FileUsage\FileUsageInterface;
+use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Plugin\MigrationPluginManager;
-use Drupal\migrate_source_ui\Form\MigrateSourceUiForm;
+use Drupal\migrate_tools\MigrateBatchExecutable;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides the CSV import form.
  */
-class CsvImportForm extends MigrateSourceUiForm {
+class CsvImportForm extends FormBase {
 
   /**
-   * The file repository service.
+   * The migration plugin manager.
    *
-   * @var \Drupal\file\FileRepositoryInterface
+   * @var \Drupal\migrate\Plugin\MigrationPluginManager
    */
-  protected $fileRepository;
+  protected MigrationPluginManager $migrationPluginManager;
+
+  /**
+   * The file system service.
+   *
+   * @var \Drupal\Core\File\FileSystemInterface
+   */
+  protected FileSystemInterface $fileSystem;
+
+  /**
+   * The time service.
+   *
+   * @var \Drupal\Component\Datetime\TimeInterface
+   */
+  protected TimeInterface $time;
+
+  /**
+   * The key-value factory.
+   *
+   * @var \Drupal\Core\KeyValueStore\KeyValueFactoryInterface
+   */
+  protected KeyValueFactoryInterface $keyValueFactory;
+
+  /**
+   * The translation manager.
+   *
+   * @var \Drupal\Core\StringTranslation\TranslationManager
+   */
+  protected TranslationManager $translationManager;
 
   /**
    * The file usage service.
@@ -36,13 +65,6 @@ class CsvImportForm extends MigrateSourceUiForm {
    * @var \Drupal\file\FileUsage\FileUsageInterface
    */
   protected $fileUsage;
-
-  /**
-   * The entity type manager service.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   */
-  protected $entityTypeManager;
 
   /**
    * The farm_import_csv temp store.
@@ -56,8 +78,6 @@ class CsvImportForm extends MigrateSourceUiForm {
    *
    * @param \Drupal\migrate\Plugin\MigrationPluginManager $plugin_manager_migration
    *   The migration plugin manager.
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   *   The config factory service.
    * @param \Drupal\Core\File\FileSystemInterface $file_system
    *   The File System service.
    * @param \Drupal\Component\Datetime\TimeInterface $time
@@ -66,20 +86,18 @@ class CsvImportForm extends MigrateSourceUiForm {
    *   The key value factory.
    * @param \Drupal\Core\StringTranslation\TranslationManager $translation_manager
    *   The translation manager service.
-   * @param \Drupal\file\FileRepositoryInterface $file_repository
-   *   The file repository service.
    * @param \Drupal\file\FileUsage\FileUsageInterface $file_usage
    *   The file usage service.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity type manager service.
    * @param \Drupal\Core\TempStore\PrivateTempStoreFactory $temp_store_factory
    *   The tempstore service.
    */
-  public function __construct(MigrationPluginManager $plugin_manager_migration, ConfigFactoryInterface $config_factory, FileSystemInterface $file_system, TimeInterface $time, KeyValueFactoryInterface $key_value, TranslationManager $translation_manager, FileRepositoryInterface $file_repository, FileUsageInterface $file_usage, EntityTypeManagerInterface $entity_type_manager, PrivateTempStoreFactory $temp_store_factory) {
-    parent::__construct($plugin_manager_migration, $config_factory, $file_system, $time, $key_value, $translation_manager);
-    $this->fileRepository = $file_repository;
+  public function __construct(MigrationPluginManager $plugin_manager_migration, FileSystemInterface $file_system, TimeInterface $time, KeyValueFactoryInterface $key_value, TranslationManager $translation_manager, FileUsageInterface $file_usage, PrivateTempStoreFactory $temp_store_factory) {
+    $this->migrationPluginManager = $plugin_manager_migration;
+    $this->fileSystem = $file_system;
+    $this->time = $time;
+    $this->keyValueFactory = $key_value;
+    $this->translationManager = $translation_manager;
     $this->fileUsage = $file_usage;
-    $this->entityTypeManager = $entity_type_manager;
     $this->tempStore = $temp_store_factory->get('farm_import_csv');
   }
 
@@ -89,14 +107,11 @@ class CsvImportForm extends MigrateSourceUiForm {
   public static function create(ContainerInterface $container): static {
     return new static(
       $container->get('plugin.manager.migration'),
-      $container->get('config.factory'),
       $container->get('file_system'),
       $container->get('datetime.time'),
       $container->get('keyvalue'),
       $container->get('string_translation'),
-      $container->get('file.repository'),
       $container->get('file.usage'),
-      $container->get('entity_type.manager'),
       $container->get('tempstore.private'),
     );
   }
@@ -112,19 +127,33 @@ class CsvImportForm extends MigrateSourceUiForm {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $migration_id = NULL): array {
-    $form = parent::buildForm($form, $form_state);
 
-    // Hard-code and hide the dropdown of migrations.
-    $form['migrations']['#type'] = 'value';
-    $form['migrations']['#value'] = $migration_id;
+    // Migration ID.
+    $form['migration_id'] = [
+      '#type' => 'value',
+      '#value' => $migration_id,
+    ];
 
-    // Remove the option to update existing records.
-    // @todo https://www.drupal.org/project/farm/issues/2968909
-    $form['update_existing_records']['#type'] = 'value';
-    $form['update_existing_records']['#value'] = FALSE;
+    // File upload field.
+    $form['source_file'] = [
+      '#type' => 'file',
+      '#title' => $this->t('Upload the source file'),
+      '#upload_validators' => [
+        'FileExtension' => [
+          'extensions' => 'json csv xml',
+        ],
+      ],
+    ];
 
-    // Rename the submit button to "Import".
-    $form['import']['#value'] = $this->t('Import');
+    // Import submit button.
+    $form['actions'] = [
+      '#type' => 'actions',
+      '#weight' => 1000,
+    ];
+    $form['actions']['submit'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Import'),
+    ];
 
     return $form;
   }
@@ -133,32 +162,66 @@ class CsvImportForm extends MigrateSourceUiForm {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state): void {
-    parent::validateForm($form, $form_state);
+
+    // Prepare the private://csv directory.
+    $directory = 'private://csv';
+    $this->fileSystem->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY);
+
+    // Save the uploaded file.
+    $validators = ['FileExtension' => ['extensions' => 'csv']];
+    $file = file_save_upload('source_file', $validators, $directory, 0, FileExists::Replace);
+
+    if (isset($file)) {
+      // File upload was attempted.
+      if ($file) {
+        $form_state->setValue('file_path', $file->getFileUri());
+      }
+      // File upload failed.
+      else {
+        $form_state->setErrorByName('source_file', $this->t('The file could not be uploaded.'));
+      }
+    }
+    else {
+      $form_state->setErrorByName('source_file', $this->t('You have to upload a source file.'));
+    }
 
     // If there is no uploaded file, bail.
     if (empty($form_state->getValue('file_path'))) {
       return;
     }
 
-    // Prepare the private://csv directory.
-    $directory = 'private://csv';
-    $this->fileSystem->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY);
-
-    // Move the file to the private filesystem and register usage.
-    /** @var \Drupal\file\FileStorageInterface $file_storage */
-    $file_storage = $this->entityTypeManager->getStorage('file');
-    /** @var \Drupal\file\FileInterface[] $files */
-    $files = $file_storage->loadByProperties(['uri' => $form_state->getValue('file_path')]);
-    if (empty($files)) {
-      return;
-    }
-    $file = reset($files);
-    $file = $this->fileRepository->move($file, $directory);
-    $form_state->setValue('file_path', $file->getFileUri());
-    $this->fileUsage->add($file, 'farm_import_csv', 'migration', $form_state->getValue('migrations'));
+    // Register file usage.
+    $this->fileUsage->add($file, 'farm_import_csv', 'migration', $form_state->getValue('migration_id'));
 
     // Save the file ID to the private tempstore.
-    $this->tempStore->set($this->currentUser()->id() . ':' . $form_state->getValue('migrations'), $file->id());
+    $this->tempStore->set($this->currentUser()->id() . ':' . $form_state->getValue('migration_id'), $file->id());
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
+    $migration_id = $form_state->getValue('migration_id');
+    /** @var \Drupal\migrate\Plugin\Migration $migration */
+    $migration = $this->migrationPluginManager->createInstance($migration_id);
+
+    // Reset status.
+    $status = $migration->getStatus();
+    if ($status !== MigrationInterface::STATUS_IDLE) {
+      $migration->setStatus(MigrationInterface::STATUS_IDLE);
+      $this->messenger()->addWarning($this->t('Migration @id reset to Idle', ['@id' => $migration_id]));
+    }
+
+    // Build and execute the batch operation.
+    $batch_options = [
+      'configuration' => [
+        'source' => [
+          'path' => $form_state->getValue('file_path'),
+        ],
+      ],
+    ];
+    $executable = new MigrateBatchExecutable($migration, new StubMigrationMessage(), $this->keyValueFactory, $this->time, $this->translationManager, $this->migrationPluginManager, $batch_options);
+    $executable->batchImport();
   }
 
 }
