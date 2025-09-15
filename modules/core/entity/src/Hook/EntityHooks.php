@@ -128,6 +128,7 @@ class EntityHooks {
       // revision so that the log module's LogStorage::doPostSave() logic can
       // fill in its name and save it again. We don't want to create two
       // revisions during this process.
+      // @todo this doesn't work as expected when saving an existing log and clearing its name
       if ($entity->getEntityTypeId() == 'log' && (is_null($entity->label()) || (!empty($entity->getOriginal()) && is_null($entity->getOriginal()->label())))) {
         $entity->setNewRevision(FALSE);
         return;
