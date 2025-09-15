@@ -77,6 +77,19 @@ class FarmEntityRevisionsTest extends KernelTestBase {
       $this->assertCount(2, $this->revisionIds($entity));
     }
 
+    // Test saving a log without a name only creates a single revision, but
+    // saving it again creates a separate revision. The log module will re-save
+    // log entities that don't have a name, and we don't want an extra
+    // revision for that.
+    $storage = \Drupal::entityTypeManager()->getStorage('log');
+    $entity = $storage->create([
+      'type' => $bundle,
+    ]);
+    $entity->save();
+    $this->assertNotEmpty($entity->label());
+    $this->assertCount(1, $this->revisionIds($entity));
+    $entity->save();
+    $this->assertCount(2, $this->revisionIds($entity));
   }
 
   /**

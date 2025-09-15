@@ -124,6 +124,15 @@ class EntityHooks {
     $entity_type = $entity->get($entity->getEntityType()->getKey('bundle'))->entity;
     if ($entity_type instanceof RevisionableEntityBundleInterface && $entity_type->shouldCreateNewRevision() && $entity->getEntityType()->isRevisionable()) {
 
+      // If this is a log, and it does not have a name, do not create a new
+      // revision so that the log module's LogStorage::doPostSave() logic can
+      // fill in its name and save it again. We don't want to create two
+      // revisions during this process.
+      if ($entity->getEntityTypeId() == 'log' && (is_null($entity->label()) || (!empty($entity->getOriginal()) && is_null($entity->getOriginal()->label())))) {
+        $entity->setNewRevision(FALSE);
+        return;
+      }
+
       // Always create a new revision.
       $entity->setNewRevision(TRUE);
 
