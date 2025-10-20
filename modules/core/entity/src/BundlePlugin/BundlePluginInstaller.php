@@ -26,14 +26,10 @@ class BundlePluginInstaller extends EntityBundlePluginInstaller {
       return in_array($bundle_info['provider'], $modules, TRUE);
     });
 
-    /**
-     * We need to uninstall the field storage definitions in a separate loop.
-     *
-     * This way we can allow a module to re-use the same field within multiple
-     * bundles, allowing e.g to subclass a bundle plugin.
-     *
-     * @var \Drupal\entity\BundleFieldDefinition[] $field_storage_definitions
-     */
+    // We need to uninstall the field storage definitions in a separate loop.
+    // This way we can allow a module to re-use the same field within multiple
+    // bundles, eg: allowing to subclass a bundle plugin.
+    /** @var \Drupal\entity\BundleFieldDefinition[] $field_storage_definitions */
     $field_storage_definitions = [];
 
     // Field definitions that should persist after uninstalling these bundles.

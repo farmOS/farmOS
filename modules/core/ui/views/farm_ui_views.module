@@ -116,12 +116,11 @@ function farm_ui_views_form_views_exposed_form_alter(&$form, FormStateInterface 
     // This is needed to prevent the filter from opening when click sort is
     // applied and all default filter values are passed as query parameters.
     $open_input = FALSE;
-    /**
-     * Add correct type hint for returned array structure.
-     * @var string $filter_name
-     * @var string|array $filter_value
-     */
     foreach ($view->getExposedInput() as $filter_name => $filter_value) {
+      /**
+       * @var string $filter_name
+       * @var string|array $filter_value
+       */
 
       // Check if the exposed input is for a filter.
       if (isset($view->filter[$filter_name])) {
