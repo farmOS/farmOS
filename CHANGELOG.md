@@ -22,6 +22,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Fix logic for forcing entity revision creation #988](https://github.com/farmOS/farmOS/pull/969)
 - [Check that real path exists before loading exif data #1000](https://github.com/farmOS/farmOS/pull/1000)
 
+### Security
+
+- Updated Drupal core to 10.4.9 for
+  [SA-CORE-2025-005](https://www.drupal.org/sa-core-2025-005),
+  [SA-CORE-2025-006](https://www.drupal.org/sa-core-2025-006),
+  [SA-CORE-2025-007](https://www.drupal.org/sa-core-2025-007), and
+  [SA-CORE-2025-008](https://www.drupal.org/sa-core-2025-008).
+
 ## [3.4.5] 2025-04-28
 
 ### Fixed
