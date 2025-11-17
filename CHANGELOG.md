@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.4.6] 2025-11-17
+
 ### Changed
 
 - [Pin Docker base image to Debian Bookworm #991](https://github.com/farmOS/farmOS/pull/991)
@@ -420,7 +422,8 @@ farmOS 2.x release notes are available in the 2.x branch's
 farmOS 1.x release notes are available in the
 [farmOS releases on Drupal.org](https://www.drupal.org/project/farm/releases?version=7.x-1).
 
-[Unreleased]: https://github.com/farmOS/farmOS/compare/3.4.5...3.x
+[Unreleased]: https://github.com/farmOS/farmOS/compare/3.4.6...3.x
+[3.4.6]: https://github.com/farmOS/farmOS/releases/tag/3.4.6
 [3.4.5]: https://github.com/farmOS/farmOS/releases/tag/3.4.5
 [3.4.4]: https://github.com/farmOS/farmOS/releases/tag/3.4.4
 [3.4.3]: https://github.com/farmOS/farmOS/releases/tag/3.4.3
