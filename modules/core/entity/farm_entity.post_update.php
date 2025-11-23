@@ -89,4 +89,16 @@ function farm_entity_post_update_update_anonymous_log_revisions(&$sandbox = NULL
       ->execute();
     \Drupal::logger('farm_entity')->notice('Updated @count plan revisions with correct revision_user.', ['@count' => $updated]);
   }
+
+  // Update quantities.
+  if (\Drupal::service('module_handler')->moduleExists('quantity')) {
+
+    // Note that quantities have a single quantity_revision table.
+    // Update anonymous quantity revision_user to the original creator uid.
+    $updated = $connection->update('quantity_revision')
+      ->expression('revision_user', 'quantity_revision.uid')
+      ->condition('revision_user', 0)
+      ->execute();
+    \Drupal::logger('farm_entity')->notice('Updated @count quantity revisions with correct revision_user.', ['@count' => $updated]);
+  }
 }
