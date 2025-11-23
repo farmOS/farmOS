@@ -7,6 +7,8 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Database\Database;
+
 /**
  * Enforce entity reference integrity on plan reference fields.
  */
@@ -35,4 +37,25 @@ function farm_entity_post_update_uninstall_exif_orientation() {
       \Drupal::service('module_installer')->uninstall(['exif_orientation']);
     }
   }
+}
+
+/**
+ * Update log revisions with revision_user set to anonymous user.
+ */
+function farm_entity_post_update_update_anonymous_log_revisions(&$sandbox = NULL) {
+
+  // Create a subquery to get the original creator uid.
+  $connection = Database::getConnection();
+  $subquery = $connection->select('log_field_revision', 'lfr')
+    ->fields('lfr', ['uid'])
+    ->where('lfr.id = log_revision.id')
+    ->where('lfr.revision_id = log_revision.revision_id');
+
+  // Update anonymous log revision_user to the original creator uid.
+  $updated = $connection->update('log_revision')
+    ->expression('revision_user', "($subquery)")
+    ->condition('revision_user', 0)
+    ->execute();
+
+  \Drupal::logger('farm_entity')->notice('Updated @count log revisions with correct revision_user.', ['@count' => $updated]);
 }
