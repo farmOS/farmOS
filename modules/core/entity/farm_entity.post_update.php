@@ -43,9 +43,10 @@ function farm_entity_post_update_uninstall_exif_orientation() {
  * Update log revisions with revision_user set to anonymous user.
  */
 function farm_entity_post_update_update_anonymous_log_revisions(&$sandbox = NULL) {
-
-  // Create a subquery to get the original creator uid.
   $connection = Database::getConnection();
+
+  // Update logs.
+  // Create a subquery to get the original creator uid.
   $subquery = $connection->select('log_field_revision', 'lfr')
     ->fields('lfr', ['uid'])
     ->where('lfr.id = log_revision.id')
@@ -56,6 +57,36 @@ function farm_entity_post_update_update_anonymous_log_revisions(&$sandbox = NULL
     ->expression('revision_user', "($subquery)")
     ->condition('revision_user', 0)
     ->execute();
-
   \Drupal::logger('farm_entity')->notice('Updated @count log revisions with correct revision_user.', ['@count' => $updated]);
+
+  // Update assets.
+  // Create a subquery to get the original creator uid.
+  $subquery = $connection->select('asset_field_revision', 'afr')
+    ->fields('afr', ['uid'])
+    ->where('afr.id = asset_revision.id')
+    ->where('afr.revision_id = asset_revision.revision_id');
+
+  // Update anonymous asset revision_user to the original creator uid.
+  $updated = $connection->update('asset_revision')
+    ->expression('revision_user', "($subquery)")
+    ->condition('revision_user', 0)
+    ->execute();
+  \Drupal::logger('farm_entity')->notice('Updated @count asset revisions with correct revision_user.', ['@count' => $updated]);
+
+  // Update plans.
+  if (\Drupal::service('module_handler')->moduleExists('plan')) {
+
+    // Create a subquery to get the original creator uid.
+    $subquery = $connection->select('plan_field_revision', 'pfr')
+      ->fields('pfr', ['uid'])
+      ->where('pfr.id = plan_revision.id')
+      ->where('pfr.revision_id = plan_revision.revision_id');
+
+    // Update anonymous plan revision_user to the original creator uid.
+    $updated = $connection->update('plan_revision')
+      ->expression('revision_user', "($subquery)")
+      ->condition('revision_user', 0)
+      ->execute();
+    \Drupal::logger('farm_entity')->notice('Updated @count plan revisions with correct revision_user.', ['@count' => $updated]);
+  }
 }
