@@ -118,11 +118,6 @@ class FarmModulesForm extends FormBase {
         '#title' => $this->t('farmOS Modules'),
         '#title_display' => 'invisible',
         '#type' => 'container',
-        // form-checkboxes class is required so gin does not render each
-        // checkbox as a toggle element.
-        '#attributes' => [
-          'class' => ['form-checkboxes'],
-        ],
       ];
 
       // Add a checkbox for each module.
