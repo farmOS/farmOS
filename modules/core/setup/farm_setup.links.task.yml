@@ -1,0 +1,5 @@
+farm_setup.settings:
+  base_route: farm.setup.settings
+  route_name: farm.setup.settings
+  title: 'Farm Info'
+  weight: -5

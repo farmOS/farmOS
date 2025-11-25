@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\farm_settings\Form;
+namespace Drupal\farm_setup\Form;
 
 use Drupal\Core\Datetime\TimeZoneFormHelper;
 use Drupal\Core\Form\ConfigFormBase;
@@ -13,13 +13,13 @@ use Drupal\Core\Form\FormStateInterface;
  *
  * @ingroup farm
  */
-class FarmSettingsFarmInfoForm extends ConfigFormBase {
+class FarmSettingsForm extends ConfigFormBase {
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'farm_settings_farm_info';
+    return 'farm_settings_form';
   }
 
   /**

@@ -1,5 +1,5 @@
-name: farmOS Settings Test
-description: 'Support module for farm settings testing.'
+name: farmOS Setup Test
+description: 'Support module for farmOS setup testing.'
 type: module
 package: farmOS Contrib
 core_version_requirement: ^10

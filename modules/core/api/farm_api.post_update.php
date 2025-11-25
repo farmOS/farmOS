@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Post update functions for farm_settings module.
+ * Post update functions for farm_api module.
  */
 
 declare(strict_types=1);

@@ -5,3 +5,19 @@ farm.setup:
     _title: Setup
   requirements:
     _permission: access farm setup
+
+farm.setup.settings:
+  path: /farm/settings
+  defaults:
+    _title: farmOS Settings
+    _form: \Drupal\farm_setup\Form\FarmSettingsForm
+  requirements:
+    _permission: administer farm settings
+
+farm.setup.modules:
+  path: /setup/modules
+  defaults:
+    _title: Modules
+    _form: \Drupal\farm_setup\Form\FarmModulesForm
+  requirements:
+    _permission: administer farm settings

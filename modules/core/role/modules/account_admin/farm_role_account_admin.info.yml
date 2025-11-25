@@ -5,5 +5,5 @@ package: farmOS
 core_version_requirement: ^10
 dependencies:
   - farm:farm_role
-  - farm:farm_settings
+  - farm:farm_setup
   - role_delegation:role_delegation

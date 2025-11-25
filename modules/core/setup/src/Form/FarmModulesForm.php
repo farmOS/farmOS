@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\farm_settings\Form;
+namespace Drupal\farm_setup\Form;
 
 use Drupal\Core\Extension\ModuleExtensionList;
 use Drupal\Core\Form\FormBase;
@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @ingroup farm
  */
-class FarmSettingsModulesForm extends FormBase {
+class FarmModulesForm extends FormBase {
 
   /**
    * The package name for farmOS contrib modules.
@@ -41,11 +41,11 @@ class FarmSettingsModulesForm extends FormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'farm_settings_modules_form';
+    return 'farm_modules_form';
   }
 
   /**
-   * Constructs a new FarmSettingsModulesForm.
+   * Constructs a new FarmModulesForm.
    *
    * @param \Drupal\Core\Extension\ModuleExtensionList $module_extension_list
    *   The module extension list.
@@ -237,7 +237,7 @@ class FarmSettingsModulesForm extends FormBase {
     $operations = [];
     foreach ($to_install as $module => $weight) {
       $operations[] = [
-        [__NAMESPACE__ . '\FarmSettingsModulesForm', 'farmInstallModuleBatch'],
+        [__NAMESPACE__ . '\FarmModulesForm', 'farmInstallModuleBatch'],
         [$module, $this->moduleExtensionList->getName($module)],
       ];
     }

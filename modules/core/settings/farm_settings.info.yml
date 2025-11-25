@@ -1,7 +1,7 @@
-name: farmOS Settings
-description: Provides settings pages for core farmOS configuration options.
+name: farm_settings (deprecated)
+description: This module has merged into the farm_setup module.
 type: module
-package: farmOS
+package: farmOS (deprecated)
 core_version_requirement: ^10
-dependencies:
-  - farm:farm_setup
+lifecycle: obsolete
+lifecycle_link: 'https://www.drupal.org/node/3559903'

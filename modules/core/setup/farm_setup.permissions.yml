@@ -1,2 +1,5 @@
 access farm setup:
   title: 'Access farmOS setup'
+
+administer farm settings:
+  title: 'Administer farmOS settings'

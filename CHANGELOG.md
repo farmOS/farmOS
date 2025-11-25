@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- [Merge farm_settings module into farm_setup #1024](https://github.com/farmOS/farmOS/pull/1024)
+
 ## [3.4.6] 2025-11-17
 
 ### Changed

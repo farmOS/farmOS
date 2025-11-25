@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains farm_settings.module.
+ * Contains farm_setup.module.
  */
 
 declare(strict_types=1);
@@ -12,11 +12,11 @@ use Drupal\Core\Routing\RouteMatchInterface;
 /**
  * Implements hook_help().
  */
-function farm_settings_help($route_name, RouteMatchInterface $route_match) {
+function farm_setup_help($route_name, RouteMatchInterface $route_match) {
   $output = '';
 
   // Modules form.
-  if ($route_name == 'farm_settings.modules_form') {
+  if ($route_name == 'farm.setup.modules') {
     $output .= '<p>' . t('Select the core and community farmOS modules that you would like to be installed.') . '</p>';
   }
 

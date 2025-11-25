@@ -1,5 +1,5 @@
 farm_role_account_admin.settings:
-  base_route: farm_settings.settings_page
+  base_route: farm.setup.settings
   route_name: farm_role_account_admin.settings
   title: 'Account Admin'
   weight: 5

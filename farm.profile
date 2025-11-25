@@ -23,7 +23,6 @@ function farm_modules() {
     'base' => [
       'farm_api' => t('farmOS API'),
       'farm_login' => t('Login with username or email.'),
-      'farm_settings' => t('farmOS Settings forms'),
       'farm_setup' => t('farmOS Setup pages'),
       'farm_ui' => t('farmOS UI'),
       'farm_update' => t('farmOS Update'),
