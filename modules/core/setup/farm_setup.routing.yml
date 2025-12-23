@@ -6,7 +6,7 @@ farm.setup:
   requirements:
     _permission: access farm setup
 
-farm.setup.settings:
+farm_settings.settings_page:
   path: /farm/settings
   defaults:
     _title: farmOS Settings
@@ -14,7 +14,7 @@ farm.setup.settings:
   requirements:
     _permission: administer farm settings
 
-farm.setup.modules:
+farm_settings.modules_form:
   path: /setup/modules
   defaults:
     _title: Modules

@@ -16,7 +16,7 @@ function farm_setup_help($route_name, RouteMatchInterface $route_match) {
   $output = '';
 
   // Modules form.
-  if ($route_name == 'farm.setup.modules') {
+  if ($route_name == 'farm_settings.modules_form') {
     $output .= '<p>' . t('Select the core and community farmOS modules that you would like to be installed.') . '</p>';
   }
 
