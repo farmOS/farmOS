@@ -189,11 +189,6 @@ class UserLoginTest extends FarmBrowserTestBase {
    * @see drupalCreateUser()
    */
   protected function drupalLoginUsingEmail(UserInterface $user) {
-    // PHPStan level 3+ throws the following error on the next line:
-    // If condition is always true.
-    // We ignore this because the \Drupal\Tests\UiHelperTrait::loggedInUser
-    // property has an incorrect type hint.
-    // @phpstan-ignore if.alwaysTrue
     if ($this->loggedInUser) {
       $this->drupalLogout();
     }
