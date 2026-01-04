@@ -18,6 +18,7 @@ class FarmUiThemeTest extends FarmBrowserTestBase {
    */
   protected static $modules = [
     'farm_ui_theme',
+    'farm_ui_theme_test',
   ];
 
   /**

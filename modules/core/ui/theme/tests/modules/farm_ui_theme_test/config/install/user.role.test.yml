@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {}
+id: test
+label: Test
+weight: 0
+is_admin: false
+permissions: {}
