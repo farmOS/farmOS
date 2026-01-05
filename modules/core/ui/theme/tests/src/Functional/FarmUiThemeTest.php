@@ -7,11 +7,11 @@ namespace Drupal\Tests\farm_ui_theme\Functional;
 use Drupal\Tests\farm_test\Functional\FarmBrowserTestBase;
 
 /**
- * Tests the "Powered by farmOS" block.
+ * Tests the farmOS UI Theme module.
  *
  * @group farm
  */
-class FarmBlockTest extends FarmBrowserTestBase {
+class FarmUiThemeTest extends FarmBrowserTestBase {
 
   /**
    * {@inheritdoc}
