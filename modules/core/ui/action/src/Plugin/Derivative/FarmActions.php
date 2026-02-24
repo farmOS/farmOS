@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Drupal\farm_ui_action\Plugin\Derivative;
 
 use Drupal\Component\Plugin\Derivative\DeriverBase;
+use Drupal\Core\Action\Plugin\Action\EntityActionBase;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\farm_ui_action\Plugin\Menu\LocalAction\AddEntity;
+use Drupal\farm_ui_action\Plugin\Menu\LocalAction\EntityAction;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -54,6 +56,9 @@ class FarmActions extends DeriverBase implements ContainerDeriverInterface {
       'organization',
       'plan',
     ];
+
+    // Load all available entity actions.
+    $entity_actions = $this->entityTypeManager->getStorage('action')->loadMultiple();
 
     // Iterate through the farmOS entity types.
     foreach ($farm_types as $type) {
@@ -104,6 +109,24 @@ class FarmActions extends DeriverBase implements ContainerDeriverInterface {
             $this->derivatives[$name]['appears_on'][] = 'view.farm_log.page_asset';
           }
         }
+      }
+
+      // Generate action links for each entity action.
+      /** @var \Drupal\system\Entity\Action[] $applicable_entity_actions */
+      $applicable_entity_actions = array_filter($entity_actions, function ($action) use ($type) {
+        return $action->getPlugin() instanceof EntityActionBase && $action->getType() == $type;
+      });
+      foreach ($applicable_entity_actions as $action) {
+        $name = 'farm.action.' . $type . '.' . $action->id();
+        $this->derivatives[$name] = $base_plugin_definition;
+        $this->derivatives[$name]['title'] = $action->label();
+        $this->derivatives[$name]['route_name'] = 'farm.action.' . $type;
+        $this->derivatives[$name]['class'] = EntityAction::class;
+        $this->derivatives[$name]['route_parameters'] = [
+          'action' => $action->id(),
+        ];
+        $this->derivatives[$name]['appears_on'][] = 'entity.' . $type . '.canonical';
+        $this->derivatives[$name]['weight'] = 10;
       }
     }
 
