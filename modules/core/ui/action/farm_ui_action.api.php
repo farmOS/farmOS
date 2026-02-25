@@ -32,5 +32,20 @@ function hook_farm_exposed_entity_actions() {
 }
 
 /**
+ * Alter exposed actions.
+ *
+ * @param array $actions
+ *   An array of action IDs that will be exposed as action links, passed by
+ *   reference, so they can be modified.
+ */
+function hook_farm_exposed_entity_actions_alter(array &$actions) {
+
+  // Remove the "Archive asset" action.
+  if (($key = array_search('asset_archive_action', $actions)) !== FALSE) {
+    unset($actions[$key]);
+  }
+}
+
+/**
  * @} End of "addtogroup hooks".
  */

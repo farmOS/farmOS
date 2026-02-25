@@ -110,6 +110,7 @@ class FarmActions extends DeriverBase implements ContainerDeriverInterface {
 
       // Generate action links for exposed entity action.
       $exposed_action_ids = $this->moduleHandler->invokeAll('farm_exposed_entity_actions');
+      $this->moduleHandler->alter('farm_exposed_entity_actions', $exposed_action_ids);
       /** @var \Drupal\system\Entity\Action[] $entity_actions */
       $entity_actions = $this->entityTypeManager->getStorage('action')->loadMultiple(array_filter($exposed_action_ids, function ($id) {
         return is_string($id);
