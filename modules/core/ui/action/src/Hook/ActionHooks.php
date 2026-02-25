@@ -8,9 +8,9 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 
 /**
- * Menu hook implementations for farm_ui_action.
+ * Action hook implementations for farm_ui_action.
  */
-class MenuHooks {
+class ActionHooks {
 
   public function __construct(
     protected ModuleHandlerInterface $moduleHandler,
