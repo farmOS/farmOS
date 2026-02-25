@@ -57,9 +57,6 @@ class FarmActions extends DeriverBase implements ContainerDeriverInterface {
       'plan',
     ];
 
-    // Load all available entity actions.
-    $entity_actions = $this->entityTypeManager->getStorage('action')->loadMultiple();
-
     // Iterate through the farmOS entity types.
     foreach ($farm_types as $type) {
 
@@ -111,12 +108,16 @@ class FarmActions extends DeriverBase implements ContainerDeriverInterface {
         }
       }
 
-      // Generate action links for each entity action.
-      /** @var \Drupal\system\Entity\Action[] $applicable_entity_actions */
-      $applicable_entity_actions = array_filter($entity_actions, function ($action) use ($type) {
-        return $action->getPlugin() instanceof EntityActionBase && $action->getType() == $type;
-      });
-      foreach ($applicable_entity_actions as $action) {
+      // Generate action links for exposed entity action.
+      $exposed_action_ids = $this->moduleHandler->invokeAll('farm_exposed_entity_actions');
+      /** @var \Drupal\system\Entity\Action[] $entity_actions */
+      $entity_actions = $this->entityTypeManager->getStorage('action')->loadMultiple(array_filter($exposed_action_ids, function ($id) {
+        return is_string($id);
+      }));
+      foreach ($entity_actions as $action) {
+        if (!($action->getPlugin() instanceof EntityActionBase && $action->getPluginDefinition()['type'] == $type)) {
+          continue;
+        }
         $name = 'farm.action.' . $type . '.' . $action->id();
         $this->derivatives[$name] = $base_plugin_definition;
         $this->derivatives[$name]['title'] = $action->label();
