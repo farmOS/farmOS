@@ -17,6 +17,36 @@ class ActionHooks {
   ) {}
 
   /**
+   * Implements hook_farm_exposed_entity_actions().
+   */
+  #[Hook('farm_exposed_entity_actions')]
+  public function farmExposedEntityActions() {
+
+    // Expose actions on behalf of farmOS core modules.
+    return [
+
+      // Asset actions.
+      'quick_movement',
+      'quick_group',
+      'asset_farm_action',
+      'asset_clone_action',
+      'asset_csv_action',
+      'asset_kml_action',
+
+      // Log actions.
+      'log_mark_as_done_action',
+      'log_reschedule_action',
+      'log_clone_action',
+      'log_csv_action',
+      'log_quantity_csv_action',
+      'log_kml_action',
+
+      // Organization actions.
+      'organization_clone_action',
+    ];
+  }
+
+  /**
    * Implements hook_menu_local_actions_alter().
    */
   #[Hook('menu_local_actions_alter')]
