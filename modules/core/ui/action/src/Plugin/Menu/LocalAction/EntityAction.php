@@ -32,8 +32,15 @@ class EntityAction extends LocalActionDefault {
     $parameters = parent::getRouteParameters($route_match);
     foreach ($route_match->getParameters()->all() as $name => $value) {
       if (in_array($name, $entity_types)) {
+
+        // The entity.[type].canonical routes include the full entity object.
         if ($value instanceof EntityInterface) {
           $parameters['entity'] = $value->id();
+        }
+
+        // Views routes only include the numeric entity ID.
+        elseif (is_numeric($value)) {
+          $parameters['entity'] = $value;
         }
       }
     }

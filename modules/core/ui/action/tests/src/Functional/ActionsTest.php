@@ -29,6 +29,7 @@ class ActionsTest extends FarmBrowserTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
+    'farm_log_asset',
     'farm_ui_action',
     'farm_ui_action_test',
     'farm_ui_dashboard',
@@ -191,7 +192,6 @@ class ActionsTest extends FarmBrowserTestBase {
     $asset = \Drupal::entityTypeManager()->getStorage('asset')->load($asset->id());
     $this->assertEquals(TRUE, $asset->get('archived')->value);
 
-    // Test links to /log/add/[bundle]?asset=[id] on asset pages.
     // Create a log that references the asset so that /asset/%asset/logs and
     // /asset/%asset/logs/%log_type are available.
     /** @var \Drupal\log\Entity\LogInterface $log */
@@ -200,15 +200,36 @@ class ActionsTest extends FarmBrowserTestBase {
       'asset' => [$asset],
     ]);
     $log->save();
+
+    // Test that the "Add log" action is not visible on /asset/%asset,
+    // /asset/%asset/logs and /asset/%asset/logs/%log_type.
     $this->drupalGet('/asset/' . $asset->id());
     $this->assertSession()->statusCodeEquals(200);
-    $this->assertActionLinkExists('Add Log: Test', '/log/add/test?asset=' . $asset->id());
+    $this->assertActionLinkNotExists('Add log', '/asset/' . $asset->id() . '/action/asset_add_log_action');
     $this->drupalGet('/asset/' . $asset->id() . '/logs');
     $this->assertSession()->statusCodeEquals(200);
-    $this->assertActionLinkExists('Add Log: Test', '/log/add/test?asset=' . $asset->id());
+    $this->assertActionLinkNotExists('Add log', '/asset/' . $asset->id() . '/action/asset_add_log_action');
     $this->drupalGet('/asset/' . $asset->id() . '/logs/test');
     $this->assertSession()->statusCodeEquals(200);
-    $this->assertActionLinkExists('Add Log: Test', '/log/add/test?asset=' . $asset->id());
+    $this->assertActionLinkNotExists('Add log', '/asset/' . $asset->id() . '/action/asset_add_log_action');
+
+    // Grant the "update any test asset" permission to the user so that they
+    // can access the asset_add_log_action action.
+    $permissions[] = 'update any test asset';
+    $user = $this->createUser($permissions);
+    $this->drupalLogin($user);
+
+    // Test that the "Add log" action is now visible on /asset/%asset,
+    // /asset/%asset/logs and /asset/%asset/logs/%log_type.
+    $this->drupalGet('/asset/' . $asset->id());
+    $this->assertSession()->statusCodeEquals(200);
+    $this->assertActionLinkExists('Add log', '/asset/' . $asset->id() . '/action/asset_add_log_action');
+    $this->drupalGet('/asset/' . $asset->id() . '/logs');
+    $this->assertSession()->statusCodeEquals(200);
+    $this->assertActionLinkExists('Add log', '/asset/' . $asset->id() . '/action/asset_add_log_action');
+    $this->drupalGet('/asset/' . $asset->id() . '/logs/test');
+    $this->assertSession()->statusCodeEquals(200);
+    $this->assertActionLinkExists('Add log', '/asset/' . $asset->id() . '/action/asset_add_log_action');
   }
 
   /**

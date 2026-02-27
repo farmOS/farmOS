@@ -27,6 +27,7 @@ class ActionHooks {
 
       // Asset actions.
       'quick_movement',
+      'asset_add_log_action',
       'quick_group',
       'asset_farm_action',
       'asset_clone_action',
