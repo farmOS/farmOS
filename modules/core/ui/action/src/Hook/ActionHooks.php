@@ -34,7 +34,8 @@ class ActionHooks {
       'asset_kml_action',
 
       // Log actions.
-      'log_mark_as_done_action',
+      // @todo Expose log_mark_as_done_action when it is hidden on done logs.
+      // @see https://www.drupal.org/project/log/issues/3576009
       'log_reschedule_action',
       'log_clone_action',
       'log_csv_action',
