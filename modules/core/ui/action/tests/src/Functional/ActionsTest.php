@@ -44,9 +44,15 @@ class ActionsTest extends FarmBrowserTestBase {
 
     // Add the local actions block.
     $this->drupalPlaceBlock('local_actions_block');
+  }
+
+  /**
+   * Test that action buttons are added.
+   */
+  public function testActionButtons() {
 
     // Create and login a user with necessary permissions.
-    $this->user = $this->createUser([
+    $permissions = [
       'access asset collection',
       'access farm dashboard',
       'access log collection',
@@ -60,14 +66,9 @@ class ActionsTest extends FarmBrowserTestBase {
       'view any log',
       'view any organization',
       'view any plan',
-    ]);
-    $this->drupalLogin($this->user);
-  }
-
-  /**
-   * Test that action buttons are added.
-   */
-  public function testActionButtons() {
+    ];
+    $user = $this->createUser($permissions);
+    $this->drupalLogin($user);
 
     // Test dashboard buttons.
     $this->drupalGet('/dashboard');
@@ -106,7 +107,7 @@ class ActionsTest extends FarmBrowserTestBase {
     $this->assertActionLinkExists('Add Plan: Test', '/plan/add/test');
 
     // Test /user/%uid/logs.
-    $this->drupalGet('/user/' . $this->user->id() . '/logs');
+    $this->drupalGet('/user/' . $user->id() . '/logs');
     $this->assertSession()->statusCodeEquals(200);
     $this->assertActionLinkExists('Add Log', '/log/add');
 
