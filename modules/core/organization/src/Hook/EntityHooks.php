@@ -27,8 +27,12 @@ class EntityHooks {
   public function organizationPresave(OrganizationInterface $organization) {
 
     // Dispatch an event on organization presave.
-    // @todo Replace this with core event via https://www.drupal.org/node/2551893.
+    // @deprecated in farm:4.1.0 and is removed from farm:5.0.0.
+    // Use Drupal core entity hooks instead.
+    // @see https://www.drupal.org/node/3576637
+    // @phpstan-ignore-next-line
     $event = new OrganizationEvent($organization);
+    // @phpstan-ignore-next-line
     $this->eventDispatcher->dispatch($event, OrganizationEvent::PRESAVE);
   }
 
@@ -39,8 +43,12 @@ class EntityHooks {
   public function organizationInsert(OrganizationInterface $organization) {
 
     // Dispatch an event on organization insert.
-    // @todo Replace this with core event via https://www.drupal.org/node/2551893.
+    // @deprecated in farm:4.1.0 and is removed from farm:5.0.0.
+    // Use Drupal core entity hooks instead.
+    // @see https://www.drupal.org/node/3576637
+    // @phpstan-ignore-next-line
     $event = new OrganizationEvent($organization);
+    // @phpstan-ignore-next-line
     $this->eventDispatcher->dispatch($event, OrganizationEvent::INSERT);
   }
 
@@ -51,8 +59,12 @@ class EntityHooks {
   public function organizationUpdate(OrganizationInterface $organization) {
 
     // Dispatch an event on organization update.
-    // @todo Replace this with core event via https://www.drupal.org/node/2551893.
+    // @deprecated in farm:4.1.0 and is removed from farm:5.0.0.
+    // Use Drupal core entity hooks instead.
+    // @see https://www.drupal.org/node/3576637
+    // @phpstan-ignore-next-line
     $event = new OrganizationEvent($organization);
+    // @phpstan-ignore-next-line
     $this->eventDispatcher->dispatch($event, OrganizationEvent::UPDATE);
   }
 
@@ -63,8 +75,12 @@ class EntityHooks {
   public function organizationDelete(OrganizationInterface $organization) {
 
     // Dispatch an event on organization delete.
-    // @todo Replace this with core event via https://www.drupal.org/node/2551893.
+    // @deprecated in farm:4.1.0 and is removed from farm:5.0.0.
+    // Use Drupal core entity hooks instead.
+    // @see https://www.drupal.org/node/3576637
+    // @phpstan-ignore-next-line
     $event = new OrganizationEvent($organization);
+    // @phpstan-ignore-next-line
     $this->eventDispatcher->dispatch($event, OrganizationEvent::DELETE);
   }
 

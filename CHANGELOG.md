@@ -30,6 +30,10 @@ the abandoned `oomphinc/composer-installers-extender` project:
 
 - [Update Drupal core to 11.4 #1096](https://github.com/farmOS/farmOS/pull/1096)
 
+### Deprecated
+
+- [Issue #3576633: Deprecate asset/organization/quantity entity events](https://www.drupal.org/project/farm/issues/3576633)
+
 ## [4.0.6] 2026-09-16
 
 ### Fixed

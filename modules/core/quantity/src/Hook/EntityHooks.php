@@ -27,8 +27,12 @@ class EntityHooks {
   public function quantityPresave(QuantityInterface $quantity) {
 
     // Dispatch an event on quantity presave.
-    // @todo Replace this with core event via https://www.drupal.org/node/2551893.
+    // @deprecated in farm:4.1.0 and is removed from farm:5.0.0.
+    // Use Drupal core entity hooks instead.
+    // @see https://www.drupal.org/node/3576637
+    // @phpstan-ignore-next-line
     $event = new QuantityEvent($quantity);
+    // @phpstan-ignore-next-line
     $this->eventDispatcher->dispatch($event, QuantityEvent::PRESAVE);
   }
 
@@ -39,8 +43,12 @@ class EntityHooks {
   public function quantityDelete(QuantityInterface $quantity) {
 
     // Dispatch an event on quantity delete.
-    // @todo Replace this with core event via https://www.drupal.org/node/2551893.
+    // @deprecated in farm:4.1.0 and is removed from farm:5.0.0.
+    // Use Drupal core entity hooks instead.
+    // @see https://www.drupal.org/node/3576637
+    // @phpstan-ignore-next-line
     $event = new QuantityEvent($quantity);
+    // @phpstan-ignore-next-line
     $this->eventDispatcher->dispatch($event, QuantityEvent::DELETE);
   }
 
