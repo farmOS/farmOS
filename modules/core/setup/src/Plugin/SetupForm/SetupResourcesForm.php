@@ -46,7 +46,7 @@ class SetupResourcesForm extends SetupFormBase {
       '#theme' => 'item_list',
       '#items' => [
         $this->t('Community blog: <a href=":uri">:uri</a>', [':uri' => 'https://farmOS.org/blog/']),
-        $this->t('Forum: <a href=":uri">:uri</a>', [':uri' => 'https://farmOS.discourse.org/']),
+        $this->t('Forum: <a href=":uri">:uri</a>', [':uri' => 'https://farmOS.discourse.group/']),
         $this->t('Chat room: <a href=":matrix-uri">#farmOS:matrix.org</a> / <a href=":irc-uri">#farmOS IRC</a>', [':matrix-uri' => 'https://app.element.io/#/room/#farmOS:matrix.org', ':irc-uri' => 'https://webchat.oftc.net/?channels=#farmOS']),
         $this->t('Monthly call: <a href=":uri">:uri</a>', [':uri' => 'https://farmOS.org/community/monthly-call/']),
       ],
