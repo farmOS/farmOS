@@ -172,6 +172,7 @@ Relationships that are common to all Asset types include:
 - Location
 - Parents
 - Owners
+- Categories
 - Images
 - Files
 
@@ -200,6 +201,32 @@ Multiple parents are allowed, but circular relationships are not.
 #### Owners
 
 Assets can be assigned to one or more Users in farmOS.
+
+#### Categories
+
+Assets can be assigned to one or more categories to help with sorting and
+filtering.
+
+Categories differ from the "Asset Type" in a few ways:
+
+- An Asset can be in multiple categories.
+- Categories of a Asset can change.
+- The same set of Categories is available across all Asset types.
+- Categories are optional, type is required.
+
+Categories are therefore a more flexible and dynamic method of organizing
+sets of Assets, regardless of type.
+
+Categories differ from "Flags" in that categories only apply to Assets. Flags
+can be applied to Assets, Plans, and Logs. Flags are intended to bring attention
+to an Asset, and are often highlighted in the UI. Flags may also be added and
+removed from an Asset (eg: adding/removing the "Needs review" flag), whereas
+categories will tend to be fixed.
+
+Flags are also more strictly defined and controlled than categories. Categories
+are Terms in the "Asset categories" vocabulary, so they can be added, edited,
+deleted, and rearranged through the UI. Flags must be defined in code by a
+module.
 
 #### Images
 
