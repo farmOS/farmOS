@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\farm_log_category\Hook;
+namespace Drupal\farm_category\Hook;
 
 use Drupal\Core\DependencyInjection\AutowireTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -11,7 +11,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\farm_field\FarmFieldFactoryInterface;
 
 /**
- * Field hook implementations for farm_log_category.
+ * Field hook implementations for farm_category.
  */
 class FieldHooks {
 
@@ -27,6 +27,7 @@ class FieldHooks {
    */
   #[Hook('entity_base_field_info')]
   public function entityBaseFieldInfo(EntityTypeInterface $entity_type) {
+
     // Add category base field to all log types.
     $fields = [];
     if ($entity_type->id() == 'log') {

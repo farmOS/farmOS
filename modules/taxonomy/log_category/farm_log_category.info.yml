@@ -5,4 +5,3 @@ package: farmOS Taxonomies
 core_version_requirement: ^11
 dependencies:
   - drupal:taxonomy
-  - log:log
