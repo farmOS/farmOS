@@ -27,6 +27,10 @@ Assets can be assigned to one or more person(s) in farmOS using the Asset's
 *Owner* field. Users can view a list of all Assets assigned to them by
 navigating to their profile and then clicking the "Assets" tab.
 
+Assets can be also be categorized for organizing, sorting, and filtering your
+Assets in ways that make sense to you, so you can find the Assets you need
+easily in the future.
+
 For more information on Asset records, refer the [Assets](/model/type/asset)
 section of the [farmOS data model](/model) docs.
 
