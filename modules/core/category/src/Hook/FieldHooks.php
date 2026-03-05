@@ -28,15 +28,14 @@ class FieldHooks {
   #[Hook('entity_base_field_info')]
   public function entityBaseFieldInfo(EntityTypeInterface $entity_type) {
 
-    // Add category base field to all log types.
+    // Add category base field to all asset and log types.
     $fields = [];
-    if ($entity_type->id() == 'log') {
+    if (in_array($entity_type->id(), ['asset', 'log'])) {
       $category_info = [
         'type' => 'entity_reference',
-        'label' => $this->t('Log category'),
-        'description' => $this->t('Use this to organize your logs into categories for easier searching and filtering later.'),
+        'label' => $this->t('Category'),
+        'description' => $this->t('Use this to organize your records into categories for easier searching and filtering later.'),
         'target_type' => 'taxonomy_term',
-        'target_bundle' => 'log_category',
         'multiple' => TRUE,
         'weight' => [
           'view' => 80,
@@ -46,6 +45,12 @@ class FieldHooks {
           'weight' => 10,
         ],
       ];
+      if ($entity_type->id() == 'asset') {
+        $category_info['target_bundle'] = 'asset_category';
+      }
+      elseif ($entity_type->id() == 'log') {
+        $category_info['target_bundle'] = 'log_category';
+      }
       $fields['category'] = $this->farmFieldFactory->baseFieldDefinition($category_info);
     }
     return $fields;
