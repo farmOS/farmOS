@@ -1,0 +1,5 @@
+name: farmOS Category
+description: Provides a Category field for farmOS records.
+type: module
+package: farmOS
+core_version_requirement: ^11
