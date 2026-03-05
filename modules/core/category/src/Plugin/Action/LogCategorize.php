@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\farm_log_category\Plugin\Action;
+namespace Drupal\farm_category\Plugin\Action;
 
 use Drupal\Core\Action\Attribute\Action;
 use Drupal\Core\Action\Plugin\Action\EntityActionBase;
@@ -18,7 +18,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 #[Action(
   id: 'log_categorize_action',
   action_label: new TranslatableMarkup('Categorize log'),
-  confirm_form_route_name: 'farm_log_category.log_categorize_action_form',
+  confirm_form_route_name: 'farm_category.log_categorize_action_form',
   type: 'log',
 )]
 class LogCategorize extends EntityActionBase {

@@ -7,6 +7,8 @@
 
 declare(strict_types=1);
 
+use Drupal\system\Entity\Action;
+
 /**
  * Implements hook_removed_post_updates().
  */
@@ -21,7 +23,15 @@ function farm_entity_fields_removed_post_updates() {
 /**
  * Install the farm_category module.
  */
-function farm_entity_post_update_install_farm_category() {
+function farm_entity_fields_post_update_install_farm_category() {
+
+  // Delete log_categorize_action. It will be reinstalled by farm_category.
+  $action = Action::load('log_categorize_action');
+  if (!is_null($action)) {
+    $action->delete();
+  }
+
+  // Install the farm_category module.
   if (!\Drupal::service('module_handler')->moduleExists('farm_category')) {
     \Drupal::service('module_installer')->install(['farm_category']);
   }
