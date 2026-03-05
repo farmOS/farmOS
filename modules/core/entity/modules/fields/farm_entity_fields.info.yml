@@ -10,13 +10,13 @@ dependencies:
   - drupal:text
   - drupal:user
   - farm:asset
+  - farm:farm_category
   - farm:farm_field
   - farm:farm_flag
   - farm:farm_format
   - farm:farm_id_tag
   - farm:farm_image
   - farm:farm_location
-  - farm:farm_log_category
   - farm:farm_log_quantity
   - farm:farm_owner
   - farm:farm_parent

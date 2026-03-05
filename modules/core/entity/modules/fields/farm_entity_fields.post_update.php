@@ -17,3 +17,12 @@ function farm_entity_fields_removed_post_updates() {
     'farm_entity_fields_post_update_install_farm_image' => '4.x',
   ];
 }
+
+/**
+ * Install the farm_category module.
+ */
+function farm_entity_post_update_install_farm_category() {
+  if (!\Drupal::service('module_handler')->moduleExists('farm_category')) {
+    \Drupal::service('module_installer')->install(['farm_category']);
+  }
+}

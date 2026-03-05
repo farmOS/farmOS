@@ -3,3 +3,6 @@ description: Provides a Category field for farmOS records.
 type: module
 package: farmOS
 core_version_requirement: ^11
+dependencies:
+  - farm:farm_log_category
+  - log:log
