@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - asset
+    - farm_category
+id: asset_categorize_action
+label: 'Categorize'
+type: asset
+plugin: 'asset_categorize_action'
+configuration: {  }

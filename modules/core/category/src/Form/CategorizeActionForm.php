@@ -83,8 +83,8 @@ class CategorizeActionForm extends ConfirmFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state, ?string $entity_type = NULL, ?string $taxonomy = NULL): array|RedirectResponse {
 
-    // Only allow log entities.
-    if ($entity_type != 'log') {
+    // Only allow asset and log entities.
+    if (!in_array($entity_type, ['asset', 'log'])) {
       throw new PluginException('Unsupported entity type given when building form to categorize entity');
     }
 
