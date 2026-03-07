@@ -1,6 +1,8 @@
 farm_category.log_categorize_action_form:
   path: '/log/categorize'
   defaults:
-    _form: Drupal\farm_category\Form\LogCategorizeActionForm
+    _form: 'Drupal\farm_category\Form\CategorizeActionForm'
+    entity_type: 'log'
+    taxonomy: 'log_category'
   requirements:
     _user_is_logged_in: 'TRUE'
