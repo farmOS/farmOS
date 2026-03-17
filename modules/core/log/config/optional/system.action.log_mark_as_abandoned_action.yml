@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - farm_log
+    - log
+id: log_mark_as_abandoned_action
+label: 'Mark as abandoned'
+type: log
+plugin: log_mark_as_abandoned_action
+configuration: {  }
