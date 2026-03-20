@@ -1,29 +1,56 @@
 langcode: en
 status: true
-dependencies: {  }
-name: 'Default'
+dependencies:
+  module:
+    - markdown
+name: Default
 format: default
 weight: 0
 filters:
-  filter_html:
-    id: filter_html
-    provider: filter
-    status: true
-    weight: -10
-    settings:
-      allowed_html: '<a href hreflang> <img src alt height width data-entity-type data-entity-uuid> <em> <strong> <del> <cite> <blockquote cite> <code> <ul type> <ol start type=''1 A I''> <li> <dl> <dt> <dd> <h2 id=''jump-*''> <h3 id> <h4 id> <h5 id> <h6 id>'
-      filter_html_help: true
-      filter_html_nofollow: false
-  filter_autop:
-    id: filter_autop
-    provider: filter
-    status: true
-    weight: 0
-    settings: {  }
-  filter_url:
-    id: filter_url
-    provider: filter
+  markdown:
+    id: markdown
+    provider: markdown
     status: true
     weight: 0
     settings:
-      filter_url_length: 72
+      id: commonmark
+      enabled: true
+      render_strategy:
+        type: filter_output
+        custom_allowed_html: ''
+        plugins:
+          commonmark: true
+          commonmark-external-links: false
+          commonmark-footnotes: false
+          commonmark-heading-permalink: false
+          commonmark-strikethrough: true
+          commonmark-table: true
+          commonmark-task-list: false
+          filter_align: false
+          filter_caption: false
+      settings:
+        allow_unsafe_links: true
+        html_input: allow
+      extensions:
+        -
+          id: commonmark-autolink
+          enabled: true
+          weight: 0
+        -
+          id: commonmark-disallowed-raw-html
+          enabled: true
+          weight: 0
+        -
+          id: commonmark-strikethrough
+          enabled: true
+          weight: 0
+        -
+          id: commonmark-table
+          enabled: true
+          weight: 0
+        -
+          id: commonmark-task-list
+          enabled: true
+          weight: 0
+      override: true
+    filterFormat: default
