@@ -51,6 +51,7 @@ abstract class CsvImportTestBase extends MigrateTestBase {
     'fraction',
     'image',
     'log',
+    'markdown',
     'migrate',
     'migrate_plus',
     'migrate_source_csv',
