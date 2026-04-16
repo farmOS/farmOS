@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Security
+
+- Updated Drupal core to 10.6.7 for
+  [SA-CORE-2026-001](https://www.drupal.org/sa-core-2026-001), and
+  [SA-CORE-2026-002](https://www.drupal.org/sa-core-2026-002).
+
 ## [3.5.1] 2026-01-28
 
 No changes since 3.5.0.
