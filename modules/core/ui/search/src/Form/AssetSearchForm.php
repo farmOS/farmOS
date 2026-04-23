@@ -24,8 +24,17 @@ class AssetSearchForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
+    $form['search'] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => [
+          'inline-container',
+        ],
+      ],
+    ];
+
     // Asset search textfield.
-    $form['asset_search'] = [
+    $form['search']['asset_search'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Asset search'),
       '#title_display' => 'invisible',
@@ -33,11 +42,7 @@ class AssetSearchForm extends FormBase {
     ];
 
     // Search submit button.
-    $form['actions'] = [
-      '#type' => 'actions',
-      '#weight' => 1000,
-    ];
-    $form['actions']['submit'] = [
+    $form['search']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Search'),
     ];

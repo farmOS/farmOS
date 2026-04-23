@@ -48,6 +48,14 @@ class FormHooks {
   /**
    * Implements hook_form_FORM_ID_alter().
    */
+  #[Hook('form_farm_ui_search_asset_form_alter')]
+  public function formFarmUiSearchAssetFormAlter(&$form, FormStateInterface $form_state, $form_id) {
+    $form['#attached']['library'][] = 'farm_ui_theme/search';
+  }
+
+  /**
+   * Implements hook_form_FORM_ID_alter().
+   */
   #[Hook('form_farm_modules_form_alter')]
   public function formFarmModulesFormAlter(&$form, FormStateInterface $form_state, $form_id) {
 

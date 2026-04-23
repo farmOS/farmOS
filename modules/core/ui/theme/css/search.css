@@ -1,0 +1,9 @@
+form.farm-ui-search-asset-form .inline-container {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 1em;
+}
+form.farm-ui-search-asset-form .form-item,
+form.farm-ui-search-asset-form .button {
+  margin: 0;
+}
