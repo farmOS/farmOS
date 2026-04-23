@@ -29,6 +29,7 @@ class AssetSearchForm extends FormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Asset search'),
       '#title_display' => 'invisible',
+      '#placeholder' => $this->t('Search assets'),
     ];
 
     // Search submit button.

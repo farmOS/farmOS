@@ -22,7 +22,6 @@ class ThemeHooks {
     return [
       'asset_search' => [
         'block' => 'farm_asset_search_block',
-        'title' => $this->t('Search assets'),
         'region' => 'top',
         'weight' => -100,
       ],
