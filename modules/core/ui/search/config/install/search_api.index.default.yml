@@ -1,0 +1,156 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - search_api.server.default
+  module:
+    - asset
+    - farm_entity_fields
+    - log
+  enforced:
+    module:
+      - farm_ui_search
+id: default
+name: Default
+description: ''
+read_only: false
+field_settings:
+  asset_name:
+    label: Name
+    datasource_id: 'entity:asset'
+    property_path: name
+    type: text
+    boost: 2.0
+    dependencies:
+      module:
+        - asset
+  asset_notes:
+    label: Notes
+    datasource_id: 'entity:asset'
+    property_path: notes
+    type: text
+    dependencies:
+      module:
+        - farm_entity_fields
+  asset_type:
+    label: 'Asset type'
+    datasource_id: 'entity:asset'
+    property_path: type
+    type: string
+    dependencies:
+      module:
+        - asset
+  entity_type:
+    label: 'Entity type'
+    property_path: search_api_entity_type
+    type: string
+  log_name:
+    label: Name
+    datasource_id: 'entity:log'
+    property_path: name
+    type: text
+    boost: 2.0
+    dependencies:
+      module:
+        - log
+  log_notes:
+    label: Notes
+    datasource_id: 'entity:log'
+    property_path: notes
+    type: text
+    dependencies:
+      module:
+        - farm_entity_fields
+  log_type:
+    label: 'Log type'
+    datasource_id: 'entity:log'
+    property_path: type
+    type: string
+    dependencies:
+      module:
+        - log
+datasource_settings:
+  'entity:asset':
+    bundles:
+      default: true
+      selected: {  }
+    languages:
+      default: true
+      selected: {  }
+  'entity:log':
+    bundles:
+      default: true
+      selected: {  }
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  custom_value: {  }
+  entity_type: {  }
+  highlight:
+    weights:
+      postprocess_query: 0
+    prefix: '<strong>'
+    suffix: '</strong>'
+    excerpt: true
+    excerpt_always: false
+    excerpt_length: 256
+    exclude_fields: {  }
+    highlight: always
+    highlight_partial: true
+  html_filter:
+    weights:
+      preprocess_index: -15
+      preprocess_query: -15
+    all_fields: false
+    fields:
+      - asset_name
+      - asset_notes
+      - log_name
+      - log_notes
+    title: true
+    alt: true
+    tags:
+      b: 2.0
+      em: 1.5
+      h1: 5.0
+      h2: 3.0
+      h3: 2.0
+      strong: 2.0
+      u: 1.5
+  ignorecase:
+    weights:
+      preprocess_index: -20
+      preprocess_query: -20
+    all_fields: false
+    fields:
+      - asset_name
+      - asset_notes
+      - log_name
+      - log_notes
+  language_with_fallback: {  }
+  rendered_item: {  }
+  stemmer:
+    weights:
+      preprocess_index: 0
+      preprocess_query: 0
+    all_fields: false
+    fields:
+      - asset_name
+      - asset_notes
+      - log_name
+      - log_notes
+    exceptions:
+      mexican: mexic
+      texan: texa
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  cron_limit: 50
+  delete_on_fail: true
+  index_directly: true
+  track_changes_in_references: true
+server: default
