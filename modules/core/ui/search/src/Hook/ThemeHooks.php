@@ -23,7 +23,7 @@ class ThemeHooks {
       'asset_search' => [
         'block' => 'farm_asset_search_block',
         'title' => $this->t('Search assets'),
-        'region' => 'second',
+        'region' => 'top',
         'weight' => -100,
       ],
     ];
