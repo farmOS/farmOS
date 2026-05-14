@@ -1,1 +1,8 @@
 site/
+
+# Docker runtime data (not source-controlled)
+docker/db/
+docker/www/
+
+# Environment
+.env

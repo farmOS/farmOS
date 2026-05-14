@@ -1,0 +1,11 @@
+name: Syntropic Agroforestry
+description: Adds Tree and Infrastructure asset types with syntropic agroforestry taxonomies for Goldberry Grove.
+type: module
+package: farmOS Custom
+core_version_requirement: ^11
+dependencies:
+  - farm:asset
+  - farm:farm_entity
+  - farm:farm_plant
+  - farm:farm_structure
+  - farm:farm_plant_type

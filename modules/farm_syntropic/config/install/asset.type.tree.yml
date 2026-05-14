@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_syntropic
+id: tree
+label: Tree
+description: 'Individual perennial tree with GPS point geometry and syntropic metadata.'
+new_revision: true

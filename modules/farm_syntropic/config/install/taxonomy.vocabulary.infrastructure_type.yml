@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_syntropic
+name: Infrastructure Type
+vid: infrastructure_type
+description: 'Categories of farm infrastructure assets.'
+weight: 0

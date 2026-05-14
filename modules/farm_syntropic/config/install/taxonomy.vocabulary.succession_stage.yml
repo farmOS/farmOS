@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_syntropic
+name: Succession Stage
+vid: succession_stage
+description: 'Syntropic succession phases from placenta through abundance.'
+weight: 0
