@@ -1,0 +1,11 @@
+uuid: bf00b45c-b8c5-4cc6-96a0-99d3e957c6bc
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_syntropic
+name: Syntropic Stratum
+vid: syntropic_stratum
+description: 'Functional canopy layers in the Ernst Götsch syntropic framework.'
+weight: 0

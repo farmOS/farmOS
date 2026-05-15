@@ -1,0 +1,11 @@
+uuid: 77e4d5da-1885-4d66-aba2-742349360735
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_syntropic
+name: Infrastructure Type
+vid: infrastructure_type
+description: 'Categories of farm infrastructure assets.'
+weight: 0

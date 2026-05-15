@@ -1,0 +1,11 @@
+uuid: 26eb4cca-6c40-4456-9741-1726fd3bac4d
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_syntropic
+id: infrastructure
+label: Infrastructure
+description: 'Farm infrastructure (solar, irrigation, fencing) with typed geometries.'
+new_revision: true

@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * @file
+ * Hooks and procedural code for the Syntropic Agroforestry module.
+ *
+ * Custom asset types (Tree, Infrastructure) are provided by plugin classes
+ * in src/Plugin/Asset/AssetType/, and taxonomy vocabularies are declared as
+ * config entities in config/install/. This file is intentionally minimal —
+ * add hook_* implementations here when needed.
+ */

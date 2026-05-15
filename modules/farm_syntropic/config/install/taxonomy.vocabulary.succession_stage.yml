@@ -1,0 +1,11 @@
+uuid: f21618d5-56e0-4892-9efb-30f13dc7cbcb
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_syntropic
+name: Succession Stage
+vid: succession_stage
+description: 'Syntropic succession phases from placenta through abundance.'
+weight: 0
