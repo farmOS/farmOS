@@ -1,0 +1,93 @@
+name: farm_syntropic CI (fast)
+
+# Fast static checks that run on every PR.
+# Heavier integration/smoke tests live in smoke-farm-syntropic.yml.
+
+on:
+  pull_request:
+    branches: [4.x, 'feature/**']
+  push:
+    branches: [4.x]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-farm-syntropic-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  actionlint:
+    name: Workflow lint (actionlint)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run actionlint
+        # Use the official actionlint Docker image directly so we don't
+        # have to pin a third-party "actionlint-action" SHA. The :1.7.7
+        # tag is an immutable, signed release from rhysd.
+        run: |
+          docker run --rm \
+            -v "${PWD}:/repo" \
+            -w /repo \
+            rhysd/actionlint:1.7.7 -color
+
+  yaml-lint:
+    name: YAML lint (config + workflows)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install yamllint
+        run: pip install --user yamllint==1.35.1
+      - name: Lint farm_syntropic config files
+        # Drupal config YAML allows long lines and unquoted strings, so we
+        # use the "relaxed" preset with line-length relaxed further.
+        run: |
+          yamllint -d "{extends: relaxed, rules: {line-length: disable, document-start: disable, truthy: disable}}" \
+            modules/farm_syntropic/
+
+  php-syntax:
+    name: PHP syntax check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up PHP 8.4
+        uses: shivammathur/setup-php@2e947f1f6932d141d076ca441d0e1e881775e95b # v2.31.1
+        with:
+          php-version: '8.4'
+          tools: none
+          coverage: none
+      - name: Lint all PHP files in the module
+        # `php -l` returns non-zero on any parse error and prints the line.
+        run: |
+          set -e
+          find modules/farm_syntropic -type f \( -name '*.php' -o -name '*.module' -o -name '*.install' \) -print0 \
+            | xargs -0 -n1 php -l
+
+  hadolint:
+    name: Dockerfile lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run hadolint on docker/Dockerfile
+        # Use the official hadolint image directly. DL3008 (pin apt versions)
+        # is allowed because base-image security updates are intended.
+        run: |
+          docker run --rm -i hadolint/hadolint:v2.12.0-debian \
+            hadolint --ignore DL3008 --ignore DL3015 - < docker/Dockerfile
+
+  gitleaks:
+    name: Secret scan (gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # gitleaks needs full history to scan diff range on PRs
+          fetch-depth: 0
+      - name: Run gitleaks
+        # Pinned to v8.18.4 immutable tag from the official image.
+        run: |
+          docker run --rm \
+            -v "${PWD}:/path" \
+            zricethezav/gitleaks:v8.18.4 \
+            detect --source="/path" --no-banner --verbose
