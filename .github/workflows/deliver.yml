@@ -26,31 +26,36 @@ jobs:
         uses: actions/checkout@v6
       - name: Set default FARMOS_REPO and FARMOS_VERSION
         run: |
-          echo "FARMOS_REPO=${GITHUB_REPOSITORY}" >> $GITHUB_ENV
-          echo "FARMOS_VERSION=${FARMOS_DEV_BRANCH}" >> $GITHUB_ENV
+          echo "FARMOS_REPO=${GITHUB_REPOSITORY}" >> "$GITHUB_ENV"
+          echo "FARMOS_VERSION=${FARMOS_DEV_BRANCH}" >> "$GITHUB_ENV"
       - name: Set FARMOS_VERSION for branch push event
         if: github.event_name == 'push' && github.ref_type == 'branch'
-        run: echo "FARMOS_VERSION=${GITHUB_REF:11}" >> $GITHUB_ENV
+        run: echo "FARMOS_VERSION=${GITHUB_REF:11}" >> "$GITHUB_ENV"
       - name: Set FARMOS_VERSION for tag push event
         if: github.event_name == 'push' && github.ref_type == 'tag'
-        run: echo "FARMOS_VERSION=${GITHUB_REF:10}" >> $GITHUB_ENV
+        run: echo "FARMOS_VERSION=${GITHUB_REF:10}" >> "$GITHUB_ENV"
       - name: Set FARMOS_VERSION and FARMOS_REPO for pull request event
         if: github.event_name == 'pull_request'
         run: |
-          echo "FARMOS_VERSION=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
-          echo "FARMOS_REPO=${{ github.event.pull_request.head.repo.full_name }}" >> $GITHUB_ENV
+          echo "FARMOS_VERSION=${GITHUB_HEAD_REF}" >> "$GITHUB_ENV"
+          echo "FARMOS_REPO=${{ github.event.pull_request.head.repo.full_name }}" >> "$GITHUB_ENV"
       # This builds the production/dev Docker images using the specified FARMOS_VERSION,
       # but notably it does NOT override the default PROJECT_VERSION, so the
       # farmOS Composer project dev branch is always used.
       - name: Build and save the farmOS Docker image
         run: |
-          COMMON_BUILD_ARGS="--build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION}"
-          PROD_IMG_NAME=${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-amd64
-          DEV_IMG_NAME=${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-amd64
-          docker build ${COMMON_BUILD_ARGS} -t ${PROD_IMG_NAME} docker
-          docker build ${COMMON_BUILD_ARGS} -t ${DEV_IMG_NAME} --target dev docker
-          docker save ${PROD_IMG_NAME} > /tmp/farmos-amd64.tar
-          docker save ${DEV_IMG_NAME} > /tmp/farmos-dev-amd64.tar
+          # Use a bash array for build args so word-splitting is explicit
+          # and individual values can contain spaces safely. See SC2086.
+          COMMON_BUILD_ARGS=(
+            --build-arg "FARMOS_REPO=https://github.com/${FARMOS_REPO}"
+            --build-arg "FARMOS_VERSION=${FARMOS_VERSION}"
+          )
+          PROD_IMG_NAME="${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-amd64"
+          DEV_IMG_NAME="${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-amd64"
+          docker build "${COMMON_BUILD_ARGS[@]}" -t "${PROD_IMG_NAME}" docker
+          docker build "${COMMON_BUILD_ARGS[@]}" -t "${DEV_IMG_NAME}" --target dev docker
+          docker save "${PROD_IMG_NAME}" > /tmp/farmos-amd64.tar
+          docker save "${DEV_IMG_NAME}" > /tmp/farmos-dev-amd64.tar
       - name: Cache the farmOS Docker image
         uses: actions/cache@v5
         with:
@@ -73,31 +78,34 @@ jobs:
         uses: actions/checkout@v6
       - name: Set default FARMOS_REPO and FARMOS_VERSION
         run: |
-          echo "FARMOS_REPO=${GITHUB_REPOSITORY}" >> $GITHUB_ENV
-          echo "FARMOS_VERSION=${FARMOS_DEV_BRANCH}" >> $GITHUB_ENV
+          echo "FARMOS_REPO=${GITHUB_REPOSITORY}" >> "$GITHUB_ENV"
+          echo "FARMOS_VERSION=${FARMOS_DEV_BRANCH}" >> "$GITHUB_ENV"
       - name: Set FARMOS_VERSION for branch push event
         if: github.event_name == 'push' && github.ref_type == 'branch'
-        run: echo "FARMOS_VERSION=${GITHUB_REF:11}" >> $GITHUB_ENV
+        run: echo "FARMOS_VERSION=${GITHUB_REF:11}" >> "$GITHUB_ENV"
       - name: Set FARMOS_VERSION for tag push event
         if: github.event_name == 'push' && github.ref_type == 'tag'
-        run: echo "FARMOS_VERSION=${GITHUB_REF:10}" >> $GITHUB_ENV
+        run: echo "FARMOS_VERSION=${GITHUB_REF:10}" >> "$GITHUB_ENV"
       - name: Set FARMOS_VERSION and FARMOS_REPO for pull request event
         if: github.event_name == 'pull_request'
         run: |
-          echo "FARMOS_VERSION=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
-          echo "FARMOS_REPO=${{ github.event.pull_request.head.repo.full_name }}" >> $GITHUB_ENV
+          echo "FARMOS_VERSION=${GITHUB_HEAD_REF}" >> "$GITHUB_ENV"
+          echo "FARMOS_REPO=${{ github.event.pull_request.head.repo.full_name }}" >> "$GITHUB_ENV"
       # This builds the production/dev Docker images using the specified FARMOS_VERSION,
       # but notably it does NOT override the default PROJECT_VERSION, so the
       # farmOS Composer project dev branch is always used.
       - name: Build and save the farmOS Docker image
         run: |
-          COMMON_BUILD_ARGS="--build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION}"
-          PROD_IMG_NAME=${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-arm64v8
-          DEV_IMG_NAME=${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-arm64v8
-          docker build ${COMMON_BUILD_ARGS} -t ${PROD_IMG_NAME} docker
-          docker build ${COMMON_BUILD_ARGS} -t ${DEV_IMG_NAME} --target dev docker
-          docker save ${PROD_IMG_NAME} > /tmp/farmos-arm64v8.tar
-          docker save ${DEV_IMG_NAME} > /tmp/farmos-dev-arm64v8.tar
+          COMMON_BUILD_ARGS=(
+            --build-arg "FARMOS_REPO=https://github.com/${FARMOS_REPO}"
+            --build-arg "FARMOS_VERSION=${FARMOS_VERSION}"
+          )
+          PROD_IMG_NAME="${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-arm64v8"
+          DEV_IMG_NAME="${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-arm64v8"
+          docker build "${COMMON_BUILD_ARGS[@]}" -t "${PROD_IMG_NAME}" docker
+          docker build "${COMMON_BUILD_ARGS[@]}" -t "${DEV_IMG_NAME}" --target dev docker
+          docker save "${PROD_IMG_NAME}" > /tmp/farmos-arm64v8.tar
+          docker save "${DEV_IMG_NAME}" > /tmp/farmos-dev-arm64v8.tar
       - name: Cache the farmOS Docker image
         uses: actions/cache@v5
         with:
@@ -125,31 +133,36 @@ jobs:
         uses: actions/checkout@v6
       - name: Set default FARMOS_REPO and FARMOS_VERSION
         run: |
-          echo "FARMOS_REPO=${GITHUB_REPOSITORY}" >> $GITHUB_ENV
-          echo "FARMOS_VERSION=${FARMOS_DEV_BRANCH}" >> $GITHUB_ENV
+          echo "FARMOS_REPO=${GITHUB_REPOSITORY}" >> "$GITHUB_ENV"
+          echo "FARMOS_VERSION=${FARMOS_DEV_BRANCH}" >> "$GITHUB_ENV"
       - name: Set FARMOS_VERSION for branch push event
         if: github.event_name == 'push' && github.ref_type == 'branch'
-        run: echo "FARMOS_VERSION=${GITHUB_REF:11}" >> $GITHUB_ENV
+        run: echo "FARMOS_VERSION=${GITHUB_REF:11}" >> "$GITHUB_ENV"
       - name: Set FARMOS_VERSION for tag push event
         if: github.event_name == 'push' && github.ref_type == 'tag'
-        run: echo "FARMOS_VERSION=${GITHUB_REF:10}" >> $GITHUB_ENV
+        run: echo "FARMOS_VERSION=${GITHUB_REF:10}" >> "$GITHUB_ENV"
       - name: Set FARMOS_VERSION and FARMOS_REPO for pull request event
         if: github.event_name == 'pull_request'
         run: |
-          echo "FARMOS_VERSION=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
-          echo "FARMOS_REPO=${{ github.event.pull_request.head.repo.full_name }}" >> $GITHUB_ENV
+          echo "FARMOS_VERSION=${GITHUB_HEAD_REF}" >> "$GITHUB_ENV"
+          echo "FARMOS_REPO=${{ github.event.pull_request.head.repo.full_name }}" >> "$GITHUB_ENV"
       # This builds the production/dev Docker images using the specified FARMOS_VERSION,
       # but notably it does NOT override the default PROJECT_VERSION, so the
       # farmOS Composer project dev branch is always used.
       - name: Build and save the farmOS Docker image
         run: |
-          COMMON_BUILD_ARGS="--load --build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION} --platform linux/arm/v7"
-          PROD_IMG_NAME=${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-arm32v7
-          DEV_IMG_NAME=${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-arm32v7
-          docker buildx build ${COMMON_BUILD_ARGS} -t ${PROD_IMG_NAME} docker
-          docker buildx build ${COMMON_BUILD_ARGS} -t ${DEV_IMG_NAME} --target dev docker
-          docker save ${PROD_IMG_NAME} > /tmp/farmos-arm32v7.tar
-          docker save ${DEV_IMG_NAME} > /tmp/farmos-dev-arm32v7.tar
+          COMMON_BUILD_ARGS=(
+            --load
+            --platform linux/arm/v7
+            --build-arg "FARMOS_REPO=https://github.com/${FARMOS_REPO}"
+            --build-arg "FARMOS_VERSION=${FARMOS_VERSION}"
+          )
+          PROD_IMG_NAME="${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-arm32v7"
+          DEV_IMG_NAME="${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-arm32v7"
+          docker buildx build "${COMMON_BUILD_ARGS[@]}" -t "${PROD_IMG_NAME}" docker
+          docker buildx build "${COMMON_BUILD_ARGS[@]}" -t "${DEV_IMG_NAME}" --target dev docker
+          docker save "${PROD_IMG_NAME}" > /tmp/farmos-arm32v7.tar
+          docker save "${DEV_IMG_NAME}" > /tmp/farmos-dev-arm32v7.tar
       - name: Cache the farmOS Docker image
         uses: actions/cache@v5
         with:
@@ -174,11 +187,11 @@ jobs:
       - name: Load the Docker dev image
         run: docker load < /tmp/farmos-dev-amd64.tar
       - name: Run PHP CodeSniffer
-        run: docker run ${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-amd64 phpcs /opt/drupal/web/profiles/farm
+        run: docker run "${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-amd64" phpcs /opt/drupal/web/profiles/farm
       - name: Check PHP compatibility of contrib modules and themes (ignore warnings)
         run: |
-          docker run ${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-amd64 phpcs --standard=PHPCompatibility --runtime-set testVersion 8.4- --warning-severity=0 /opt/drupal/web/modules
-          docker run ${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-amd64 phpcs --standard=PHPCompatibility --runtime-set testVersion 8.4- --warning-severity=0 /opt/drupal/web/themes
+          docker run "${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-amd64" phpcs --standard=PHPCompatibility --runtime-set testVersion 8.4- --warning-severity=0 /opt/drupal/web/modules
+          docker run "${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-amd64" phpcs --standard=PHPCompatibility --runtime-set testVersion 8.4- --warning-severity=0 /opt/drupal/web/themes
 
   phpstan:
     name: PHPStan
@@ -193,7 +206,7 @@ jobs:
       - name: Load the Docker dev image
         run: docker load < /tmp/farmos-dev-amd64.tar
       - name: Run PHPStan
-        run: docker run ${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-amd64 phpstan analyze --memory-limit 1G /opt/drupal/web/profiles/farm
+        run: docker run "${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-amd64" phpstan analyze --memory-limit 1G /opt/drupal/web/profiles/farm
 
   rector:
     name: Rector
@@ -208,7 +221,7 @@ jobs:
       - name: Load the Docker dev image
         run: docker load < /tmp/farmos-dev-amd64.tar
       - name: Run Rector
-        run: docker run ${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-amd64 rector process --dry-run /opt/drupal/web/profiles/farm
+        run: docker run "${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-amd64" rector process --dry-run /opt/drupal/web/profiles/farm
 
   test:
     name: Run PHPUnit tests
@@ -298,7 +311,7 @@ jobs:
          - amd64
     steps:
       - name: Set FARMOS_VERSION from previous output
-        run: echo "FARMOS_VERSION=${{ needs.build.outputs.farmos_version }}" >> $GITHUB_ENV
+        run: echo "FARMOS_VERSION=${{ needs.build.outputs.farmos_version }}" >> "$GITHUB_ENV"
       - name: Restore the farmOS Docker image from cache
         uses: actions/cache@v5
         with:
@@ -309,9 +322,9 @@ jobs:
       - name: Create /tmp/farmOS directory owned by www-data for bind-mount volume.
         run: mkdir /tmp/farmOS && sudo chown 33:33 /tmp/farmOS
       - name: Run the farmOS Docker container
-        run: docker run --rm -v /tmp/farmOS:/opt/drupal ${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-${{ matrix.platform }} true
+        run: docker run --rm -v /tmp/farmOS:/opt/drupal "${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-${{ matrix.platform }}" true
       - name: Create artifact
-        run: cd /tmp && tar -czf farmOS-${FARMOS_VERSION}.tar.gz farmOS
+        run: cd /tmp && tar -czf "farmOS-${FARMOS_VERSION}.tar.gz" farmOS
       - name: Create GitHub release
         uses: softprops/action-gh-release@c062e08bd532815e2082a85e87e3ef29c3e6d191 #2.0.8
         with:
@@ -344,7 +357,7 @@ jobs:
          - arm64v8
     steps:
       - name: Set FARMOS_VERSION from previous output
-        run: echo "FARMOS_VERSION=${{ needs.build.outputs.farmos_version }}" >> $GITHUB_ENV
+        run: echo "FARMOS_VERSION=${{ needs.build.outputs.farmos_version }}" >> "$GITHUB_ENV"
       - name: Restore the farmOS Docker image from cache
         uses: actions/cache@v5
         with:
@@ -367,21 +380,26 @@ jobs:
       # If the dev branch was pushed...
       - name: Publish the farmOS image to Docker Hub
         if: github.ref_type == 'branch' && env.FARMOS_VERSION == env.FARMOS_DEV_BRANCH
-        run: docker push ${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-${{ matrix.platform }}
+        run: docker push "${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-${{ matrix.platform }}"
       - name: Publish the farmOS dev Docker image to Docker Hub
         if: github.ref_type == 'branch' && env.FARMOS_VERSION == env.FARMOS_DEV_BRANCH
-        run: docker push ${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-${{ matrix.platform }}
+        run: docker push "${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-${{ matrix.platform }}"
       # If a tag was pushed, tag the Docker image and push to Docker Hub.
       # If the tag is a valid semantic versioning string, also tag "latest".
       # Semver regex from https://github.com/semver/semver/issues/199#issuecomment-43640395
       - name: Tag and publish {DOCKER_IMG_PREFIX}:{tag} image to Docker Hub
         if: github.ref_type == 'tag'
+        env:
+          # Move version through env so the regex check is fed a literal $VERSION
+          # rather than letting the shell parse the template expansion.
+          VERSION: ${{ env.FARMOS_VERSION }}
+          PLATFORM: ${{ matrix.platform }}
         run: |
-          docker tag ${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-${{ matrix.platform }} ${DOCKER_IMG_PREFIX}:${{ env.FARMOS_VERSION }}-${{ matrix.platform }}
-          docker push ${DOCKER_IMG_PREFIX}:${{ env.FARMOS_VERSION }}-${{ matrix.platform }}
-          if echo ${{ env.FARMOS_VERSION }} | grep -Pq '^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'; then
-            docker tag ${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-${{ matrix.platform }} ${DOCKER_IMG_PREFIX}:latest-${{ matrix.platform }}
-            docker push ${DOCKER_IMG_PREFIX}:latest-${{ matrix.platform }}
+          docker tag "${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-${PLATFORM}" "${DOCKER_IMG_PREFIX}:${VERSION}-${PLATFORM}"
+          docker push "${DOCKER_IMG_PREFIX}:${VERSION}-${PLATFORM}"
+          if echo "$VERSION" | grep -Pq '^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'; then
+            docker tag "${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-${PLATFORM}" "${DOCKER_IMG_PREFIX}:latest-${PLATFORM}"
+            docker push "${DOCKER_IMG_PREFIX}:latest-${PLATFORM}"
           fi
 
   publish-manifest:
@@ -395,7 +413,7 @@ jobs:
       - publish-multi-arch-images
     steps:
       - name: Set FARMOS_VERSION from previous output
-        run: echo "FARMOS_VERSION=${{ needs.build.outputs.farmos_version }}" >> $GITHUB_ENV
+        run: echo "FARMOS_VERSION=${{ needs.build.outputs.farmos_version }}" >> "$GITHUB_ENV"
       - name: Login to Docker Hub
         uses: docker/login-action@v4
         with:
@@ -405,27 +423,41 @@ jobs:
       - name: Create and publish the {DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH} manifest to Docker Hub
         if: github.ref_type == 'branch' && env.FARMOS_VERSION == env.FARMOS_DEV_BRANCH
         run: |
-          docker manifest create ${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH} --amend ${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-amd64 --amend ${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-arm32v7 --amend ${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-arm64v8
-          docker manifest push ${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}
+          docker manifest create "${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}" \
+            --amend "${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-amd64" \
+            --amend "${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-arm32v7" \
+            --amend "${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-arm64v8"
+          docker manifest push "${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}"
       - name: Create and publish the {DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev manifest to Docker Hub
         if: github.ref_type == 'branch' && env.FARMOS_VERSION == env.FARMOS_DEV_BRANCH
         run: |
-          docker manifest create ${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev --amend ${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-amd64 --amend ${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-arm32v7 --amend ${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-arm64v8
-          docker manifest push ${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev
+          docker manifest create "${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev" \
+            --amend "${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-amd64" \
+            --amend "${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-arm32v7" \
+            --amend "${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-arm64v8"
+          docker manifest push "${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev"
       # Same conditional logic as in the publish-multi-arch-images step, except here we
       # are creating the multi-arch manifest pointing at the previously pushed image tags.
       # If "latest" is tagged, we will also announce the release in a followup job.
       - name: Create and publish the {DOCKER_IMG_PREFIX}:{tag} manifest to Docker Hub
         if: github.ref_type == 'tag'
+        env:
+          VERSION: ${{ env.FARMOS_VERSION }}
         run: |
-          docker manifest create ${DOCKER_IMG_PREFIX}:${{ env.FARMOS_VERSION }} --amend ${DOCKER_IMG_PREFIX}:${{ env.FARMOS_VERSION }}-amd64 --amend ${DOCKER_IMG_PREFIX}:${{ env.FARMOS_VERSION }}-arm32v7 --amend ${DOCKER_IMG_PREFIX}:${{ env.FARMOS_VERSION }}-arm64v8
-          docker manifest push ${DOCKER_IMG_PREFIX}:${{ env.FARMOS_VERSION }}
-          if echo ${{ env.FARMOS_VERSION }} | grep -Pq '^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'; then
-            docker manifest create ${DOCKER_IMG_PREFIX}:latest --amend ${DOCKER_IMG_PREFIX}:${{ env.FARMOS_VERSION }}-amd64 --amend ${DOCKER_IMG_PREFIX}:${{ env.FARMOS_VERSION }}-arm32v7 --amend ${DOCKER_IMG_PREFIX}:${{ env.FARMOS_VERSION }}-arm64v8
-            docker manifest push ${DOCKER_IMG_PREFIX}:latest
-            echo "ANNOUNCE_RELEASE=1" >> $GITHUB_ENV
+          docker manifest create "${DOCKER_IMG_PREFIX}:${VERSION}" \
+            --amend "${DOCKER_IMG_PREFIX}:${VERSION}-amd64" \
+            --amend "${DOCKER_IMG_PREFIX}:${VERSION}-arm32v7" \
+            --amend "${DOCKER_IMG_PREFIX}:${VERSION}-arm64v8"
+          docker manifest push "${DOCKER_IMG_PREFIX}:${VERSION}"
+          if echo "$VERSION" | grep -Pq '^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'; then
+            docker manifest create "${DOCKER_IMG_PREFIX}:latest" \
+              --amend "${DOCKER_IMG_PREFIX}:${VERSION}-amd64" \
+              --amend "${DOCKER_IMG_PREFIX}:${VERSION}-arm32v7" \
+              --amend "${DOCKER_IMG_PREFIX}:${VERSION}-arm64v8"
+            docker manifest push "${DOCKER_IMG_PREFIX}:latest"
+            echo "ANNOUNCE_RELEASE=1" >> "$GITHUB_ENV"
           else
-            echo "ANNOUNCE_RELEASE=0" >> $GITHUB_ENV
+            echo "ANNOUNCE_RELEASE=0" >> "$GITHUB_ENV"
           fi
     outputs:
       announce: ${{ env.ANNOUNCE_RELEASE }}
