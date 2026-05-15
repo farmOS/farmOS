@@ -4,3 +4,18 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+
+  # Keep GitHub Actions up to date, especially the SHA-pinned third-party
+  # actions in our farm_syntropic workflows. Dependabot will open PRs that
+  # bump the SHA and update the trailing version comment.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      # Batch all first-party action bumps together to reduce PR noise.
+      first-party-actions:
+        patterns:
+          - "actions/*"
+          - "github/*"
+          - "docker/*"

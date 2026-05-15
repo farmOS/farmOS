@@ -1,0 +1,220 @@
+name: farm_syntropic smoke test
+
+# Boots a real farmOS stack, installs the farm_syntropic module, and
+# verifies that asset bundles, taxonomies, default terms, and the
+# JSON:API endpoint all work end-to-end.
+#
+# Path-filtered so it only runs when our module or the Docker stack
+# changes - saves CI minutes on docs-only PRs.
+
+on:
+  pull_request:
+    branches: [4.x, 'feature/**']
+    paths:
+      - 'modules/farm_syntropic/**'
+      - 'docker/**'
+      - '.github/workflows/smoke-farm-syntropic.yml'
+  push:
+    branches: [4.x]
+    paths:
+      - 'modules/farm_syntropic/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: smoke-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    name: Install + verify farm_syntropic in fresh farmOS stack
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      # We bring up postgres + farmOS using the upstream farmOS dev image
+      # rather than rebuilding from source. That image already includes
+      # drush, composer, phpcs, phpstan, and php-geos. Pulling is ~30s vs.
+      # ~10min for a fresh docker build.
+      - name: Write a smoke-test docker-compose.yml
+        run: |
+          mkdir -p www
+          sudo chown 1000:1000 www
+          cat > docker-compose.smoke.yml <<'YAML'
+          services:
+            db:
+              image: postgres:17
+              environment:
+                POSTGRES_USER: farm
+                POSTGRES_PASSWORD: farm
+                POSTGRES_DB: farm
+              healthcheck:
+                test: ["CMD-SHELL", "pg_isready -U farm -d farm"]
+                interval: 2s
+                timeout: 3s
+                retries: 30
+            www:
+              image: farmos/farmos:4.x-dev
+              depends_on:
+                db:
+                  condition: service_healthy
+              volumes:
+                - ./www:/opt/drupal
+              environment:
+                FARMOS_FS_READY_SENTINEL_FILENAME: /opt/drupal/www-container-fs-ready
+                XDEBUG_MODE: 'off'
+          YAML
+
+      - name: Start farmOS stack
+        run: docker compose -f docker-compose.smoke.yml up -d
+
+      - name: Wait for farmOS file system to populate
+        # The www-container-fs-ready sentinel is created by the farmOS
+        # entrypoint once the codebase has been bind-mounted into /opt/drupal.
+        # Without it, drush invocations would race against the entrypoint.
+        run: |
+          for i in $(seq 1 120); do
+            if [ -f ./www/www-container-fs-ready ]; then
+              echo "farmOS filesystem ready after ${i}s"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "Timed out waiting for farmOS to be ready"
+          docker compose -f docker-compose.smoke.yml logs www
+          exit 1
+
+      - name: Mount farm_syntropic into the container
+        # Copying the module is faster than rebuilding the image and ensures
+        # the smoke test runs against the EXACT files in this PR.
+        run: |
+          sudo cp -R modules/farm_syntropic ./www/web/modules/farm_syntropic
+          sudo chown -R 1000:1000 ./www/web/modules/farm_syntropic
+
+      - name: Install farmOS (Drupal site install)
+        run: |
+          docker compose -f docker-compose.smoke.yml exec -T www \
+            drush site-install farm \
+              --db-url=pgsql://farm:farm@db/farm \
+              --account-name=admin \
+              --account-pass=admin \
+              --yes
+
+      - name: Enable farm_syntropic module
+        # If config UUIDs are missing, dependencies are wrong, or PHP plugin
+        # classes have errors, this step is where it will blow up.
+        run: |
+          docker compose -f docker-compose.smoke.yml exec -T www \
+            drush en farm_syntropic jsonapi basic_auth --yes
+
+      - name: Verify Tree and Infrastructure asset bundles are registered
+        env:
+          # Pass the verification script via env to keep template expansion
+          # away from the shell parser (defense in depth - the value is a
+          # static literal here, but we use the safe pattern habitually).
+          ASSERT_SCRIPT: |
+            $expected_bundles = ['tree', 'infrastructure'];
+            $storage = \Drupal::entityTypeManager()->getStorage('asset_type');
+            foreach ($expected_bundles as $id) {
+              $bundle = $storage->load($id);
+              if (!$bundle) {
+                throw new \Exception("FAIL: asset_type '$id' not registered");
+              }
+              print "OK: asset_type '$id' is registered as '" . $bundle->label() . "'\n";
+            }
+        run: |
+          docker compose -f docker-compose.smoke.yml exec -T -e ASSERT_SCRIPT="$ASSERT_SCRIPT" www \
+            drush php:eval "$ASSERT_SCRIPT"
+
+      - name: Verify all 4 taxonomy vocabularies exist
+        env:
+          ASSERT_SCRIPT: |
+            $expected_vocabs = [
+              'syntropic_stratum',
+              'succession_stage',
+              'tree_health',
+              'infrastructure_type',
+            ];
+            $storage = \Drupal::entityTypeManager()->getStorage('taxonomy_vocabulary');
+            foreach ($expected_vocabs as $vid) {
+              $vocab = $storage->load($vid);
+              if (!$vocab) {
+                throw new \Exception("FAIL: vocabulary '$vid' not registered");
+              }
+              print "OK: vocabulary '$vid' is registered\n";
+            }
+        run: |
+          docker compose -f docker-compose.smoke.yml exec -T -e ASSERT_SCRIPT="$ASSERT_SCRIPT" www \
+            drush php:eval "$ASSERT_SCRIPT"
+
+      - name: Verify Tree custom fields are registered
+        # Sanity check that buildFieldDefinitions() actually wired up the
+        # fields we declared. Catches typos, namespace errors, and missing
+        # parent::buildFieldDefinitions() calls.
+        env:
+          ASSERT_SCRIPT: |
+            $expected_fields = [
+              'species', 'variety', 'dbh_cm', 'height_m', 'canopy_radius_m',
+              'stratum', 'succession_stage', 'health_status',
+              'rootstock', 'graft_variety', 'planting_date', 'source', 'odoo_lot',
+            ];
+            $fields = \Drupal::service('entity_field.manager')
+              ->getFieldDefinitions('asset', 'tree');
+            $missing = array_diff($expected_fields, array_keys($fields));
+            if (!empty($missing)) {
+              throw new \Exception("FAIL: missing Tree fields: " . implode(', ', $missing));
+            }
+            print "OK: all 13 Tree custom fields are registered\n";
+        run: |
+          docker compose -f docker-compose.smoke.yml exec -T -e ASSERT_SCRIPT="$ASSERT_SCRIPT" www \
+            drush php:eval "$ASSERT_SCRIPT"
+
+      - name: Create a test Tree asset and read it back
+        env:
+          ASSERT_SCRIPT: |
+            $asset = \Drupal::entityTypeManager()->getStorage('asset')->create([
+              'type' => 'tree',
+              'name' => 'CI smoke test tree',
+              'variety' => 'Test Variety',
+              'dbh_cm' => '10.5',
+            ]);
+            $asset->save();
+            $id = $asset->id();
+            print "OK: created tree asset id=$id\n";
+            $reloaded = \Drupal::entityTypeManager()->getStorage('asset')->load($id);
+            if ($reloaded->get('variety')->value !== 'Test Variety') {
+              throw new \Exception("FAIL: variety field did not persist");
+            }
+            if ((string) $reloaded->get('dbh_cm')->value !== '10.50') {
+              throw new \Exception("FAIL: dbh_cm did not persist (got '" . $reloaded->get('dbh_cm')->value . "')");
+            }
+            print "OK: tree asset fields persist correctly\n";
+        run: |
+          docker compose -f docker-compose.smoke.yml exec -T -e ASSERT_SCRIPT="$ASSERT_SCRIPT" www \
+            drush php:eval "$ASSERT_SCRIPT"
+
+      - name: Verify JSON:API exposes the tree asset
+        run: |
+          docker compose -f docker-compose.smoke.yml exec -T www \
+            curl -fsS -u admin:admin \
+              -H 'Accept: application/vnd.api+json' \
+              http://localhost/jsonapi/asset/tree \
+            | python3 -c "
+          import json, sys
+          data = json.load(sys.stdin)
+          if 'data' not in data:
+              sys.exit('FAIL: JSON:API response missing data field')
+          if len(data['data']) < 1:
+              sys.exit('FAIL: expected at least 1 tree asset in JSON:API response')
+          tree = data['data'][0]
+          for f in ['variety', 'dbh_cm', 'height_m', 'canopy_radius_m', 'rootstock']:
+              if f not in tree['attributes']:
+                  sys.exit(f'FAIL: JSON:API tree asset missing attribute \"{f}\"')
+          print('OK: JSON:API exposes tree asset with all custom fields')
+          "
+
+      - name: Dump container logs on failure
+        if: failure()
+        run: docker compose -f docker-compose.smoke.yml logs --no-color
