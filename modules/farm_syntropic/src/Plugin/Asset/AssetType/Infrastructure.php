@@ -46,6 +46,9 @@ class Infrastructure extends FarmAssetType {
           'view' => -50,
         ],
       ],
+      // TODO(phase-2): Split capacity into a decimal value field plus a unit
+      // string field (or a list_string of units) so values are queryable and
+      // unit-aware. Free-text mixes "400W" / "15 GPM" / "200 gal" in one column.
       'capacity' => [
         'type' => 'string',
         'label' => $this->t('Capacity'),

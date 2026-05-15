@@ -31,8 +31,16 @@ Walk to the tree. Ensure you are standing at or near the trunk.
 | Field | What to enter | Example |
 |-------|--------------|---------|
 | **Name** | Row + position or unique ID | `Row A - Tree 3` |
-| **Species** | Select from dropdown or type new | `American Chestnut` |
-| **Status** | Active, Planned, or Archived | `Active` |
+| **Species** | Select from existing terms (preferred) or type to create new | `American Chestnut` |
+
+> **Tip:** When entering Species (or any taxonomy field), **always pick an
+> existing term from the autocomplete dropdown** if one matches. Typing a new
+> name creates a new taxonomy term automatically — a typo like `"Amercan
+> Chestnut"` becomes a permanent orphan term that has to be cleaned up later.
+
+> **Archive:** Trees are kept as Active by default. To archive a tree that is
+> dead, removed, or otherwise no longer in service, toggle **Archived** in the
+> right-hand meta sidebar before saving.
 
 ### Step 4: Fill in recommended fields (if known)
 
@@ -88,7 +96,7 @@ Tap **Save**. The tree is now recorded with its GPS position.
 - Enter the best guess for **Species** — it can be updated later
 
 ### Tree is dead or removed
-- Set **Status** to `Archived`
+- Toggle **Archived** in the right-hand meta sidebar
 - Set **Health status** to `Dead` or `Removed`
 - Still record GPS coordinates — the location data is valuable for replanting plans
 
@@ -129,8 +137,8 @@ After completing a section:
 |-------|-----------|----------------|
 | Name | Yes | — |
 | Species | Yes | — |
-| Status | Yes | — |
 | GPS (Geometry) | No but strongly recommended | Yes |
+| Archived (sidebar toggle) | No (defaults to off) | Yes |
 | Variety | No | Yes |
 | Health status | No | Yes |
 | Stratum | No | Yes |
