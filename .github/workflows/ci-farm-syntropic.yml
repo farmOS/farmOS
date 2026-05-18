@@ -42,6 +42,7 @@ jobs:
             rhysd/actionlint:1.7.7 -color \
               .github/workflows/ci-farm-syntropic.yml \
               .github/workflows/smoke-farm-syntropic.yml \
+              .github/workflows/phpstan-farm-syntropic.yml \
               .github/workflows/enforce-changelog.yml
 
   yaml-lint:

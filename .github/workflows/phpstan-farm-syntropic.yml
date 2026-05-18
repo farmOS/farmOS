@@ -1,0 +1,62 @@
+name: farm_syntropic PHPStan
+
+# PHP static analysis scoped to modules/farm_syntropic only.
+#
+# Why not CodeQL: CodeQL does not support PHP. We replace it with
+# PHPStan, which is the standard tool in the Drupal ecosystem and is
+# already bundled inside farmos/farmos:4.x-dev with the Drupal-aware
+# rules (mglaman/phpstan-drupal) preinstalled.
+#
+# Why not run inside ci-farm-syntropic.yml as another job: pulling
+# farmos/farmos:4.x-dev (~1.5GB) takes 30-60s, so we path-filter this
+# workflow to only run when PHP actually changes and keep ci-fast as
+# the always-on gate.
+
+on:
+  pull_request:
+    branches: [4.x, 'feature/**']
+    paths:
+      - 'modules/farm_syntropic/**/*.php'
+      - 'modules/farm_syntropic/**/*.module'
+      - 'modules/farm_syntropic/**/*.install'
+      - '.github/workflows/phpstan-farm-syntropic.yml'
+  push:
+    branches: [4.x]
+    paths:
+      - 'modules/farm_syntropic/**/*.php'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: phpstan-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  phpstan:
+    name: PHPStan analyze farm_syntropic
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run PHPStan against farm_syntropic only
+        # We mount our module into the upstream dev image so PHPStan can
+        # see it next to Drupal core and the farm profile (which it
+        # needs for type information on entity API calls). The working
+        # directory is set to the upstream farm profile so PHPStan auto-
+        # discovers its existing phpstan.neon (and with it the Drupal
+        # extension), then we point analysis at our module's path.
+        #
+        # --level 5 matches the upstream farmOS strictness; pinning it
+        # explicitly so a base-image bump cannot silently shift level.
+        run: |
+          docker run --rm \
+            -v "${PWD}/modules/farm_syntropic:/opt/drupal/web/modules/farm_syntropic:ro" \
+            -w /opt/drupal/web/profiles/farm \
+            farmos/farmos:4.x-dev \
+            phpstan analyze \
+              --level 5 \
+              --memory-limit 1G \
+              --no-progress \
+              /opt/drupal/web/modules/farm_syntropic

@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- AgriforestryOS fork: docker-compose override (`docker/docker-compose.farm-syntropic.yml`) that bind-mounts the repo-root `modules/farm_syntropic/` directory into the running farmOS container for a live dev loop.
+- AgriforestryOS fork: kernel test (`FarmSyntropicFieldSchemaTest`) that asserts asset bundles register, all custom fields exist on each bundle, taxonomies install, and decimal range constraints actually reject out-of-range values.
+- AgriforestryOS fork: PHPStan CI workflow scoped to `modules/farm_syntropic` at level 5 (replaces the removed CodeQL workflow — CodeQL does not support PHP).
+
+### Changed
+
+- AgriforestryOS fork: Tree asset type `dbh_cm`, `height_m`, and `canopy_radius_m` now have min/max range constraints (0–1000 cm, 0–200 m, 0–100 m respectively) that gate both the form widget and JSON:API writes via Drupal entity validation.
+
 ### Fixed
 
 - [Fork-scope CI linters and remove CodeQL workflow #3](https://github.com/Goldberry-Playground/AgriforestryOS/pull/3) (AgriforestryOS fork) — fixes CI runs that were failing on inherited upstream paths since the Sprint 3.5 foundation merge.
