@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- [Fork-scope CI linters and remove CodeQL workflow #3](https://github.com/Goldberry-Playground/AgriforestryOS/pull/3) (AgriforestryOS fork) — fixes CI runs that were failing on inherited upstream paths since the Sprint 3.5 foundation merge.
 - [Fix dashboard block title access #1075](https://github.com/farmOS/farmOS/pull/1075)
 
 ## [4.0.1] 2026-04-16
