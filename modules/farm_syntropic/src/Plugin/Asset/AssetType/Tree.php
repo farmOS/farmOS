@@ -47,12 +47,25 @@ class Tree extends FarmAssetType {
           'view' => -85,
         ],
       ],
+      // Bounds chosen to catch operator typos and bad sensor data without
+      // rejecting legitimate values:
+      // - DBH 0-1000 cm: covers everything from a seedling (~0.1) up to the
+      //   largest known trees on earth (~970 cm for General Sherman).
+      // - Height 0-200 m: covers everything from a seedling up to the
+      //   tallest known coastal redwood (~115 m), with headroom.
+      // - Canopy radius 0-100 m: extreme upper bound for a single tree's
+      //   spread; in practice almost always well below 30 m.
+      // Field factory translates min/max to FieldItem settings, which
+      // Drupal then enforces in the form widget AND on entity validation
+      // (so JSON:API writes are also gated).
       'dbh_cm' => [
         'type' => 'decimal',
         'label' => $this->t('DBH (cm)'),
         'description' => $this->t('Diameter at breast height in centimeters.'),
         'precision' => 6,
         'scale' => 2,
+        'min' => 0,
+        'max' => 1000,
         'weight' => [
           'form' => -40,
           'view' => -40,
@@ -64,6 +77,8 @@ class Tree extends FarmAssetType {
         'description' => $this->t('Tree height in meters.'),
         'precision' => 6,
         'scale' => 2,
+        'min' => 0,
+        'max' => 200,
         'weight' => [
           'form' => -35,
           'view' => -35,
@@ -75,6 +90,8 @@ class Tree extends FarmAssetType {
         'description' => $this->t('Canopy radius in meters.'),
         'precision' => 6,
         'scale' => 2,
+        'min' => 0,
+        'max' => 100,
         'weight' => [
           'form' => -30,
           'view' => -30,

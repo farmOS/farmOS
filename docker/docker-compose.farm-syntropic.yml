@@ -1,0 +1,33 @@
+##
+# docker-compose override for AgriforestryOS farm_syntropic dev loop.
+#
+# Layers a bind-mount of the repo-root `modules/farm_syntropic/` directory
+# onto `/opt/drupal/web/modules/farm_syntropic` inside the www container.
+# This lets you edit files under modules/farm_syntropic/ in your editor and
+# see the changes immediately inside the running container - no cp, no
+# restart, no docker volume sync.
+#
+# Usage:
+#   cd docker/
+#   docker compose \
+#     -f docker-compose.development.yml \
+#     -f docker-compose.farm-syntropic.yml \
+#     up -d
+#
+# After enabling the module once (drush en farm_syntropic), you can use
+# `drush cr` from inside the container to rebuild the Drupal cache after
+# changes to plugin classes or config YAML.
+#
+# Why a separate file:
+# - docker-compose.development.yml is inherited from upstream farmOS; we
+#   keep it untouched so future rebases against farmOS/farmOS apply
+#   cleanly.
+# - docker-compose.testing.* files in this directory follow the same
+#   override-file pattern, so this addition matches local convention.
+##
+services:
+  www:
+    volumes:
+      # The path is relative to the location of THIS file (docker/), so
+      # ../modules/farm_syntropic points at the repo-root module source.
+      - '../modules/farm_syntropic:/opt/drupal/web/modules/farm_syntropic'
