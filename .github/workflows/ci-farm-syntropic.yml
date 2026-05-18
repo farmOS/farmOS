@@ -2,6 +2,13 @@ name: farm_syntropic CI (fast)
 
 # Fast static checks that run on every PR.
 # Heavier integration/smoke tests live in smoke-farm-syntropic.yml.
+#
+# Linter scoping policy:
+# This repo is a fork of farmOS/farmOS, and per project policy we do not
+# contribute to upstream. Linters here are scoped to paths we authored
+# (modules/farm_syntropic, docs/workflows, and the .github/workflows files
+# we own). Findings in inherited upstream files are not our hygiene problem
+# and we do not have a path to fix them.
 
 on:
   pull_request:
@@ -22,15 +29,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Run actionlint
-        # Use the official actionlint Docker image directly so we don't
-        # have to pin a third-party "actionlint-action" SHA. The :1.7.7
-        # tag is an immutable, signed release from rhysd.
+      - name: Run actionlint (scoped to workflows we own)
+        # The official actionlint Docker image (immutable :1.7.7 tag).
+        # We pass an explicit file list rather than letting actionlint
+        # discover .github/workflows/*.yml, because the deliver.yml and
+        # netlify-build-docs.yml workflows are inherited from upstream
+        # farmOS and we are not contributing fixes upstream.
         run: |
           docker run --rm \
             -v "${PWD}:/repo" \
             -w /repo \
-            rhysd/actionlint:1.7.7 -color
+            rhysd/actionlint:1.7.7 -color \
+              .github/workflows/ci-farm-syntropic.yml \
+              .github/workflows/smoke-farm-syntropic.yml \
+              .github/workflows/enforce-changelog.yml
 
   yaml-lint:
     name: YAML lint (config + workflows)
@@ -64,30 +76,26 @@ jobs:
           find modules/farm_syntropic -type f \( -name '*.php' -o -name '*.module' -o -name '*.install' \) -print0 \
             | xargs -0 -n1 php -l
 
-  hadolint:
-    name: Dockerfile lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run hadolint on docker/Dockerfile
-        # Use the official hadolint image directly. DL3008 (pin apt versions)
-        # is allowed because base-image security updates are intended.
-        run: |
-          docker run --rm -i hadolint/hadolint:v2.12.0-debian \
-            hadolint --ignore DL3008 --ignore DL3015 - < docker/Dockerfile
-
   gitleaks:
     name: Secret scan (gitleaks)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          # gitleaks needs full history to scan diff range on PRs
+          # gitleaks needs full history to scan diff range on PRs and to
+          # detect secrets in older commits (a secret in git history is
+          # still a leak even after the file is deleted).
           fetch-depth: 0
-      - name: Run gitleaks
+      - name: Run gitleaks (with fork-scoped allowlist)
         # Pinned to v8.18.4 immutable tag from the official image.
+        # The .gitleaks.toml at the repo root tells gitleaks to skip
+        # upstream documentation files that contain example tokens.
         run: |
           docker run --rm \
             -v "${PWD}:/path" \
             zricethezav/gitleaks:v8.18.4 \
-            detect --source="/path" --no-banner --verbose
+            detect \
+              --source="/path" \
+              --config="/path/.gitleaks.toml" \
+              --no-banner \
+              --verbose

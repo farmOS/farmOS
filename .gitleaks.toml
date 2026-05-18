@@ -1,0 +1,32 @@
+# gitleaks configuration for AgriforestryOS
+#
+# We are a fork of farmOS/farmOS and inherit ~8800 commits of upstream
+# history. The allowlist below carves out known false-positive paths
+# from upstream that we do not control. Every other built-in gitleaks
+# rule continues to apply.
+
+[extend]
+# CRITICAL: extend (do not replace) gitleaks' default ruleset.
+# Without this, the custom [allowlist] would be the ONLY config and
+# all default secret-detection rules would be silently disabled.
+useDefault = true
+
+[allowlist]
+description = "Fork-scoped allowlist for inherited upstream paths"
+
+# Allowlist paths (regex matched against file path).
+# Use raw triple-quoted strings so backslashes do not need escaping.
+#
+# Every entry below is upstream farmOS authentication documentation that
+# contains intentionally-embedded example tokens (refresh tokens, client
+# IDs, signed JWTs) used to illustrate the JSON:API auth flow. None are
+# real credentials. We scan the full git history, so each historical
+# location of the file needs to be listed explicitly.
+paths = [
+  # Original single-file location, 2020 (Michael Stenta).
+  '''docs/development/api\.md''',
+  # Renamed/expanded location, 2020 (paul121).
+  '''docs/api/authentication\.md''',
+  # Current location after the 2022 docs restructure (Paul Weidner).
+  '''docs/development/api/authentication\.md''',
+]
