@@ -1,0 +1,11 @@
+uuid: 53291700-c28f-4e3d-902e-a9b95eb3ccb2
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_syntropic
+id: tree_planting
+label: 'Tree Planting'
+description: 'A row or block of trees planted as a batch. Parent record for individual Tree assets.'
+new_revision: true
