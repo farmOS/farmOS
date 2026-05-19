@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- AgriforestryOS fork: 3 implementation plans for upcoming Phase 2 work [#6](https://github.com/Goldberry-Playground/AgriforestryOS/pull/6) — capacity-field split, Tree Planting asset type, and farmOS MCP server v1.
 - AgriforestryOS fork: docker-compose override (`docker/docker-compose.farm-syntropic.yml`) that bind-mounts the repo-root `modules/farm_syntropic/` directory into the running farmOS container for a live dev loop.
 - AgriforestryOS fork: kernel test (`FarmSyntropicFieldSchemaTest`) that asserts asset bundles register, all custom fields exist on each bundle, taxonomies install, and decimal range constraints actually reject out-of-range values.
 - AgriforestryOS fork: PHPStan CI workflow scoped to `modules/farm_syntropic` at level 5 (replaces the removed CodeQL workflow — CodeQL does not support PHP).
@@ -67,6 +68,7 @@ breaking changes in [4.0.0-beta1], [4.0.0-beta2], [4.0.0-beta3], and
 
 ### Added
 
+- AgriforestryOS fork: 3 implementation plans for upcoming Phase 2 work [#6](https://github.com/Goldberry-Playground/AgriforestryOS/pull/6) — capacity-field split, Tree Planting asset type, and farmOS MCP server v1.
 - [Document browser version support #1047](https://github.com/farmOS/farmOS/pull/1047)
 
 ### Changed
@@ -127,6 +129,7 @@ requirements (inherited from
 
 ### Added
 
+- AgriforestryOS fork: 3 implementation plans for upcoming Phase 2 work [#6](https://github.com/Goldberry-Playground/AgriforestryOS/pull/6) — capacity-field split, Tree Planting asset type, and farmOS MCP server v1.
 - [Add a farmOS setup wizard #1035](https://github.com/farmOS/farmOS/pull/1035)
 - [Add an Organization entity type with a Farm bundle #849](https://github.com/farmOS/farmOS/pull/849)
 - [Add Google Maps base layers #946](https://github.com/farmOS/farmOS/pull/946)
