@@ -50,6 +50,9 @@ class Infrastructure extends FarmAssetType {
         'type' => 'decimal',
         'label' => $this->t('Capacity value'),
         'description' => $this->t('Numeric magnitude (e.g. 400 for a 400 W panel).'),
+        // DECIMAL(10,3) is intentionally wider than Tree decimal fields'
+        // DECIMAL(6,2) — covers cistern volumes up to 9,999,999 gallons
+        // and sub-GPM flow rates without rounding loss.
         'precision' => 10,
         'scale' => 3,
         'min' => 0,
