@@ -171,6 +171,38 @@ jobs:
           docker compose -f docker-compose.smoke.yml exec -T -e ASSERT_SCRIPT="$ASSERT_SCRIPT" www \
             drush php:eval "$ASSERT_SCRIPT"
 
+      - name: Verify Infrastructure capacity fields are registered
+        env:
+          ASSERT_SCRIPT: |
+            $expected_fields = [
+              'infrastructure_type', 'material',
+              'capacity_value', 'capacity_unit',
+              'installation_date', 'condition', 'specifications',
+            ];
+            $fields = \Drupal::service('entity_field.manager')
+              ->getFieldDefinitions('asset', 'infrastructure');
+            $missing = array_diff($expected_fields, array_keys($fields));
+            if (!empty($missing)) {
+              throw new \Exception("FAIL: missing Infrastructure fields: " . implode(', ', $missing));
+            }
+            if (array_key_exists('capacity', $fields)) {
+              throw new \Exception("FAIL: old 'capacity' field still registered — should have been removed");
+            }
+            if ($fields['capacity_value']->getType() !== 'decimal') {
+              throw new \Exception("FAIL: capacity_value type should be 'decimal', got '" . $fields['capacity_value']->getType() . "'");
+            }
+            if ($fields['capacity_unit']->getType() !== 'list_string') {
+              throw new \Exception("FAIL: capacity_unit type should be 'list_string', got '" . $fields['capacity_unit']->getType() . "'");
+            }
+            $allowed = $fields['capacity_unit']->getSetting('allowed_values');
+            if (!array_key_exists('watts', $allowed)) {
+              throw new \Exception("FAIL: capacity_unit allowed_values missing 'watts' key");
+            }
+            print "OK: all 7 Infrastructure custom fields registered with correct types\n";
+        run: |
+          docker compose -f docker-compose.smoke.yml exec -T -e ASSERT_SCRIPT="$ASSERT_SCRIPT" www \
+            drush php:eval "$ASSERT_SCRIPT"
+
       - name: Create a test Tree asset and read it back
         env:
           ASSERT_SCRIPT: |
