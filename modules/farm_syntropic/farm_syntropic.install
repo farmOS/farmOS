@@ -6,3 +6,98 @@
  */
 
 declare(strict_types=1);
+
+/**
+ * Split Infrastructure capacity field into capacity_value + capacity_unit.
+ *
+ * The old 'capacity' field was a free-text string (e.g. "400W", "15 GPM").
+ * The new fields are a decimal 'capacity_value' and a list_string
+ * 'capacity_unit', which are queryable in JSON:API and Drupal Views.
+ *
+ * JSON:API BREAKING CHANGE: the 'capacity' attribute is removed from the
+ * /jsonapi/asset/infrastructure endpoint. Clients must migrate to
+ * 'capacity_value' and 'capacity_unit'.
+ *
+ * Existing capacity string values are NOT automatically parsed — real-world
+ * operator input ("400w (2 panels)", "~400W") defeats any regex and silent
+ * misclassification is worse than NULL. Existing values are logged at WARNING
+ * level so operators can re-enter them.
+ */
+function farm_syntropic_update_8001(): string {
+  $update_manager = \Drupal::entityDefinitionUpdateManager();
+  $entity_storage = \Drupal::entityTypeManager()->getStorage('asset');
+  $logger = \Drupal::logger('farm_syntropic');
+
+  // Step 1: Query existing Infrastructure assets and capture capacity values.
+  $ids = $entity_storage->getQuery()
+    ->accessCheck(FALSE)
+    ->condition('type', 'infrastructure')
+    ->execute();
+
+  $logged_count = 0;
+  if (!empty($ids)) {
+    $assets = $entity_storage->loadMultiple($ids);
+    $values_to_log = [];
+    foreach ($assets as $asset) {
+      // Use hasField() guard because the field is being dropped in this hook;
+      // on a fresh install this field may not exist.
+      if ($asset->hasField('capacity')) {
+        $capacity = $asset->get('capacity')->value ?? NULL;
+        if ($capacity !== NULL && $capacity !== '') {
+          $values_to_log[] = sprintf(
+            'asset %d (%s): capacity="%s"',
+            $asset->id(),
+            $asset->label(),
+            $capacity,
+          );
+        }
+      }
+    }
+    if (!empty($values_to_log)) {
+      $logged_count = count($values_to_log);
+      $logger->warning(
+        'farm_syntropic_update_8001: @count Infrastructure asset(s) had a ' .
+        'capacity value that cannot be automatically migrated. ' .
+        'Re-enter capacity as value+unit on the following assets: @list',
+        [
+          '@count' => $logged_count,
+          '@list' => implode('; ', $values_to_log),
+        ],
+      );
+    }
+  }
+
+  // Step 2: Drop the old 'capacity' bundle field storage definition.
+  //
+  // IMPORTANT: Do NOT use FieldStorageConfig::loadByName('asset', 'capacity').
+  // That method only works for configurable fields stored as config entities.
+  // Fields created via FarmFieldFactory::bundleFieldDefinition() are registered
+  // in Drupal's last-installed schema repository through the bundle plugin
+  // system (FarmEntityBundlePluginHandler), not as config entities.
+  // getFieldStorageDefinition() reads from getLastInstalledFieldStorageDefinitions(),
+  // which includes bundle fields. uninstallFieldStorageDefinition() then fires
+  // onFieldStorageDefinitionDelete, dropping the column and purging data.
+  $old_definition = $update_manager->getFieldStorageDefinition('capacity', 'asset');
+  if ($old_definition) {
+    $update_manager->uninstallFieldStorageDefinition($old_definition);
+  }
+
+  // Step 3: Apply updates so Drupal installs the two new fields declared in
+  // Infrastructure::buildFieldDefinitions(). The field manager cache was
+  // cleared inside uninstallFieldStorageDefinition(); applyUpdates() detects
+  // capacity_value and capacity_unit as new definitions and creates their
+  // database columns.
+  $update_manager->applyUpdates();
+
+  if ($logged_count > 0) {
+    return sprintf(
+      'Dropped old capacity field. %d asset(s) had existing capacity values ' .
+      'that could not be auto-migrated — check the watchdog log for details ' .
+      'and re-enter them via the UI.',
+      $logged_count,
+    );
+  }
+
+  return 'Dropped old capacity field (no existing data found). ' .
+    'New capacity_value and capacity_unit fields are now active.';
+}
