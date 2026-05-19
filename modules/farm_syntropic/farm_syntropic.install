@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the farm_syntropic module.
+ */
+
+declare(strict_types=1);
