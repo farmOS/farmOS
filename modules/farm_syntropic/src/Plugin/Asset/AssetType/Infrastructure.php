@@ -18,10 +18,71 @@ use Drupal\farm_entity\Plugin\Asset\AssetType\FarmAssetType;
 class Infrastructure extends FarmAssetType {
 
   /**
+   * Field-info options for the structured capacity fields.
+   *
+   * Returned as a 2-element array keyed by field name so both this plugin's
+   * buildFieldDefinitions() AND the farm_syntropic_update_8001() migration
+   * hook can build the field definitions from a single source of truth.
+   *
+   * Uses TranslatableMarkup directly (not the $this->t() helper) so the
+   * method remains static — the install hook calls it without
+   * instantiating the plugin.
+   *
+   * @return array<string, array<string, mixed>>
+   *   Keyed by field name ('capacity_value', 'capacity_unit'). Values are
+   *   options arrays compatible with FarmFieldFactory::bundleFieldDefinition().
+   */
+  public static function capacityFieldOptions(): array {
+    return [
+      'capacity_value' => [
+        'type' => 'decimal',
+        'label' => new TranslatableMarkup('Capacity value'),
+        'description' => new TranslatableMarkup('Numeric magnitude (e.g. 400 for a 400 W panel).'),
+        // DECIMAL(10,3) is intentionally wider than Tree decimal fields'
+        // DECIMAL(6,2) — covers cistern volumes up to 9,999,999 gallons
+        // and sub-GPM flow rates without rounding loss.
+        'precision' => 10,
+        'scale' => 3,
+        'min' => 0,
+        'weight' => [
+          'form' => -47,
+          'view' => -47,
+        ],
+      ],
+      'capacity_unit' => [
+        'type' => 'list_string',
+        'label' => new TranslatableMarkup('Capacity unit'),
+        'description' => new TranslatableMarkup('Unit of measure for the capacity value.'),
+        'allowed_values' => [
+          'watts' => 'Watts (W)',
+          'kilowatts' => 'Kilowatts (kW)',
+          'gpm' => 'Gallons per minute (GPM)',
+          'lpm' => 'Litres per minute (LPM)',
+          'gallons' => 'Gallons (gal)',
+          'litres' => 'Litres (L)',
+          'amps' => 'Amps (A)',
+          'volts' => 'Volts (V)',
+          'linear_feet' => 'Linear feet (ft)',
+          'linear_meters' => 'Linear meters (m)',
+        ],
+        'weight' => [
+          'form' => -46,
+          'view' => -46,
+        ],
+      ],
+    ];
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function buildFieldDefinitions() {
     $fields = parent::buildFieldDefinitions();
+
+    // Pull capacity field options from the shared source-of-truth method so
+    // a fresh install and a drush-updb migration always produce the same
+    // schema. See capacityFieldOptions() above.
+    $capacity = self::capacityFieldOptions();
 
     $field_info = [
       'infrastructure_type' => [
@@ -46,42 +107,8 @@ class Infrastructure extends FarmAssetType {
           'view' => -50,
         ],
       ],
-      'capacity_value' => [
-        'type' => 'decimal',
-        'label' => $this->t('Capacity value'),
-        'description' => $this->t('Numeric magnitude (e.g. 400 for a 400 W panel).'),
-        // DECIMAL(10,3) is intentionally wider than Tree decimal fields'
-        // DECIMAL(6,2) — covers cistern volumes up to 9,999,999 gallons
-        // and sub-GPM flow rates without rounding loss.
-        'precision' => 10,
-        'scale' => 3,
-        'min' => 0,
-        'weight' => [
-          'form' => -47,
-          'view' => -47,
-        ],
-      ],
-      'capacity_unit' => [
-        'type' => 'list_string',
-        'label' => $this->t('Capacity unit'),
-        'description' => $this->t('Unit of measure for the capacity value.'),
-        'allowed_values' => [
-          'watts' => 'Watts (W)',
-          'kilowatts' => 'Kilowatts (kW)',
-          'gpm' => 'Gallons per minute (GPM)',
-          'lpm' => 'Litres per minute (LPM)',
-          'gallons' => 'Gallons (gal)',
-          'litres' => 'Litres (L)',
-          'amps' => 'Amps (A)',
-          'volts' => 'Volts (V)',
-          'linear_feet' => 'Linear feet (ft)',
-          'linear_meters' => 'Linear meters (m)',
-        ],
-        'weight' => [
-          'form' => -46,
-          'view' => -46,
-        ],
-      ],
+      'capacity_value' => $capacity['capacity_value'],
+      'capacity_unit' => $capacity['capacity_unit'],
       'installation_date' => [
         'type' => 'timestamp',
         'label' => $this->t('Installation date'),
