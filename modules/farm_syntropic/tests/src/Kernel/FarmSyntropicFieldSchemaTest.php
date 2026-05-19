@@ -154,6 +154,46 @@ class FarmSyntropicFieldSchemaTest extends KernelTestBase {
   }
 
   /**
+   * Negative values on capacity_value are rejected; zero and positive pass.
+   *
+   * Mirrors testDecimalRangeValidation() for the Tree asset type.
+   * FarmFieldFactory enforces the min:0 setting via entity validation, which
+   * gates both the form widget and JSON:API writes.
+   */
+  public function testCapacityValueRangeValidation(): void {
+    $infra = Asset::create([
+      'type' => 'infrastructure',
+      'name' => 'Capacity range probe',
+      'infrastructure_type' => 'solar',
+      'capacity_value' => '-1',
+    ]);
+    $violations = $infra->validate();
+    $this->assertGreaterThan(
+      0,
+      $violations->getByField('capacity_value')->count(),
+      'Expected a validation violation for capacity_value = -1',
+    );
+
+    // Zero is on the boundary — must be accepted.
+    $infra->set('capacity_value', '0');
+    $violations = $infra->validate();
+    $this->assertSame(
+      0,
+      $violations->getByField('capacity_value')->count(),
+      'capacity_value = 0 should not produce a violation',
+    );
+
+    // Positive value must be accepted.
+    $infra->set('capacity_value', '400.000');
+    $violations = $infra->validate();
+    $this->assertSame(
+      0,
+      $violations->getByField('capacity_value')->count(),
+      'capacity_value = 400.000 should not produce a violation',
+    );
+  }
+
+  /**
    * All four custom taxonomy vocabularies install.
    */
   public function testTaxonomyVocabulariesRegistered(): void {
