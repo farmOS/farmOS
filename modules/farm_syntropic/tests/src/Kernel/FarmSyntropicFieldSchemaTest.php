@@ -171,6 +171,32 @@ class FarmSyntropicFieldSchemaTest extends KernelTestBase {
   }
 
   /**
+   * The capacity_unit list_string has exactly the 10 expected allowed values.
+   *
+   * Guards against accidental truncation of the controlled vocabulary AND
+   * against accidental drift between Infrastructure::capacityFieldOptions()
+   * and what actually reaches the field manager.
+   */
+  public function testCapacityUnitAllowedValues(): void {
+    $field = $this->fieldManager->getFieldDefinitions('asset', 'infrastructure')['capacity_unit'];
+    $allowed = $field->getSetting('allowed_values');
+    $this->assertCount(
+      10,
+      $allowed,
+      'capacity_unit should have exactly 10 allowed values',
+    );
+    // Spot-check one key from each measurement family — power, flow,
+    // volume, electrical, length. Missing any would indicate truncation.
+    foreach (['watts', 'gpm', 'gallons', 'volts', 'linear_meters'] as $key) {
+      $this->assertArrayHasKey(
+        $key,
+        $allowed,
+        "capacity_unit allowed_values should contain '$key'",
+      );
+    }
+  }
+
+  /**
    * Negative values on capacity_value are rejected; zero and positive pass.
    *
    * Mirrors testDecimalRangeValidation() for the Tree asset type.
