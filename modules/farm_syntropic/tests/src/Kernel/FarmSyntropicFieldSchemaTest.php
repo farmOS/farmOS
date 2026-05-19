@@ -146,13 +146,18 @@ class FarmSyntropicFieldSchemaTest extends KernelTestBase {
   }
 
   /**
-   * All 6 Infrastructure custom fields exist.
+   * All 7 Infrastructure custom fields exist.
+   *
+   * If you add or rename a field on the Infrastructure asset type plugin,
+   * update this list. The intent of the test is to make field-name changes
+   * visible (they're a JSON:API breaking change).
    */
   public function testInfrastructureFieldsRegistered(): void {
     $expected = [
       'infrastructure_type',
       'material',
-      'capacity',
+      'capacity_value',
+      'capacity_unit',
       'installation_date',
       'condition',
       'specifications',
