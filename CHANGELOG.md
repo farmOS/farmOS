@@ -13,10 +13,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - AgriforestryOS fork: docker-compose override (`docker/docker-compose.farm-syntropic.yml`) that bind-mounts the repo-root `modules/farm_syntropic/` directory into the running farmOS container for a live dev loop.
 - AgriforestryOS fork: kernel test (`FarmSyntropicFieldSchemaTest`) that asserts asset bundles register, all custom fields exist on each bundle, taxonomies install, and decimal range constraints actually reject out-of-range values.
 - AgriforestryOS fork: PHPStan CI workflow scoped to `modules/farm_syntropic` at level 5 (replaces the removed CodeQL workflow — CodeQL does not support PHP).
+- AgriforestryOS fork: Infrastructure asset type gains two structured capacity fields: `capacity_value` (decimal, precision 10 scale 3, min 0) and `capacity_unit` (list_string with 10 controlled units covering solar, irrigation, electrical, and fencing). Values are queryable via JSON:API and Drupal Views.
+- AgriforestryOS fork: `farm_syntropic.install` with `farm_syntropic_update_8001()` — logs any existing Infrastructure `capacity` strings at WARNING level before dropping the old field, then installs the two new bundle fields via `installFieldStorageDefinition()` (Drupal 11–compatible — `applyUpdates()` was removed).
 
 ### Changed
 
 - AgriforestryOS fork: Tree asset type `dbh_cm`, `height_m`, and `canopy_radius_m` now have min/max range constraints (0–1000 cm, 0–200 m, 0–100 m respectively) that gate both the form widget and JSON:API writes via Drupal entity validation.
+- AgriforestryOS fork: **JSON:API breaking change** — the `capacity` attribute is removed from the `/jsonapi/asset/infrastructure` endpoint and replaced by `capacity_value` and `capacity_unit`. The field carried a `TODO(phase-2)` comment since its initial commit and has no confirmed external consumers. Run `drush updb` after deploying to apply `farm_syntropic_update_8001()`.
 
 ### Fixed
 

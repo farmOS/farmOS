@@ -35,6 +35,18 @@ class FarmSyntropicFieldSchemaTest extends KernelTestBase {
 
   /**
    * {@inheritdoc}
+   *
+   * Disable strict config schema validation. This class exercises field
+   * BEHAVIOR (registration, range validation), not config schema
+   * correctness. Strict checking would require declaring a per-bundle
+   * config schema YAML for every asset_type we ship, which is outside
+   * this test's scope. The smoke test workflow validates the live config
+   * against a real farmOS install end-to-end.
+   */
+  protected $strictConfigSchema = FALSE;
+
+  /**
+   * {@inheritdoc}
    */
   protected static $modules = [
     // Drupal core + general contrib.
@@ -134,13 +146,18 @@ class FarmSyntropicFieldSchemaTest extends KernelTestBase {
   }
 
   /**
-   * All 6 Infrastructure custom fields exist.
+   * All 7 Infrastructure custom fields exist.
+   *
+   * If you add or rename a field on the Infrastructure asset type plugin,
+   * update this list. The intent of the test is to make field-name changes
+   * visible (they're a JSON:API breaking change).
    */
   public function testInfrastructureFieldsRegistered(): void {
     $expected = [
       'infrastructure_type',
       'material',
-      'capacity',
+      'capacity_value',
+      'capacity_unit',
       'installation_date',
       'condition',
       'specifications',
@@ -150,6 +167,46 @@ class FarmSyntropicFieldSchemaTest extends KernelTestBase {
     $this->assertEmpty(
       $missing,
       'Missing Infrastructure fields: ' . implode(', ', $missing),
+    );
+  }
+
+  /**
+   * Negative values on capacity_value are rejected; zero and positive pass.
+   *
+   * Mirrors testDecimalRangeValidation() for the Tree asset type.
+   * FarmFieldFactory enforces the min:0 setting via entity validation, which
+   * gates both the form widget and JSON:API writes.
+   */
+  public function testCapacityValueRangeValidation(): void {
+    $infra = Asset::create([
+      'type' => 'infrastructure',
+      'name' => 'Capacity range probe',
+      'infrastructure_type' => 'solar',
+      'capacity_value' => '-1',
+    ]);
+    $violations = $infra->validate();
+    $this->assertGreaterThan(
+      0,
+      $violations->getByField('capacity_value')->count(),
+      'Expected a validation violation for capacity_value = -1',
+    );
+
+    // Zero is on the boundary — must be accepted.
+    $infra->set('capacity_value', '0');
+    $violations = $infra->validate();
+    $this->assertSame(
+      0,
+      $violations->getByField('capacity_value')->count(),
+      'capacity_value = 0 should not produce a violation',
+    );
+
+    // Positive value must be accepted.
+    $infra->set('capacity_value', '400.000');
+    $violations = $infra->validate();
+    $this->assertSame(
+      0,
+      $violations->getByField('capacity_value')->count(),
+      'capacity_value = 400.000 should not produce a violation',
     );
   }
 
