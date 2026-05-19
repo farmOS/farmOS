@@ -46,16 +46,37 @@ class Infrastructure extends FarmAssetType {
           'view' => -50,
         ],
       ],
-      // TODO(phase-2): Split capacity into a decimal value field plus a unit
-      // string field (or a list_string of units) so values are queryable and
-      // unit-aware. Free-text mixes "400W" / "15 GPM" / "200 gal" in one column.
-      'capacity' => [
-        'type' => 'string',
-        'label' => $this->t('Capacity'),
-        'description' => $this->t('Capacity specification (wattage, GPM, etc.).'),
+      'capacity_value' => [
+        'type' => 'decimal',
+        'label' => $this->t('Capacity value'),
+        'description' => $this->t('Numeric magnitude (e.g. 400 for a 400 W panel).'),
+        'precision' => 10,
+        'scale' => 3,
+        'min' => 0,
         'weight' => [
-          'form' => -45,
-          'view' => -45,
+          'form' => -47,
+          'view' => -47,
+        ],
+      ],
+      'capacity_unit' => [
+        'type' => 'list_string',
+        'label' => $this->t('Capacity unit'),
+        'description' => $this->t('Unit of measure for the capacity value.'),
+        'allowed_values' => [
+          'watts' => 'Watts (W)',
+          'kilowatts' => 'Kilowatts (kW)',
+          'gpm' => 'Gallons per minute (GPM)',
+          'lpm' => 'Litres per minute (LPM)',
+          'gallons' => 'Gallons (gal)',
+          'litres' => 'Litres (L)',
+          'amps' => 'Amps (A)',
+          'volts' => 'Volts (V)',
+          'linear_feet' => 'Linear feet (ft)',
+          'linear_meters' => 'Linear meters (m)',
+        ],
+        'weight' => [
+          'form' => -46,
+          'view' => -46,
         ],
       ],
       'installation_date' => [
