@@ -104,18 +104,18 @@ class FarmSyntropicFieldSchemaTest extends KernelTestBase {
   }
 
   /**
-   * Both custom asset bundles register from config/install.
+   * All three custom asset bundles register from config/install.
    */
   public function testAssetBundlesRegistered(): void {
     $storage = \Drupal::entityTypeManager()->getStorage('asset_type');
-    foreach (['tree', 'infrastructure'] as $bundle_id) {
+    foreach (['tree', 'infrastructure', 'tree_planting'] as $bundle_id) {
       $bundle = $storage->load($bundle_id);
       $this->assertNotNull($bundle, "Asset bundle '$bundle_id' should be registered");
     }
   }
 
   /**
-   * All 13 Tree custom fields exist.
+   * All 14 Tree custom fields exist.
    *
    * If you add or rename a field on the Tree asset type plugin, update
    * this list. The intent of the test is to make field-name changes
@@ -136,6 +136,8 @@ class FarmSyntropicFieldSchemaTest extends KernelTestBase {
       'planting_date',
       'source',
       'odoo_lot',
+      // Reverse navigation to tree_planting assets.
+      'parent_planting',
     ];
     $actual = array_keys($this->fieldManager->getFieldDefinitions('asset', 'tree'));
     $missing = array_diff($expected, $actual);
