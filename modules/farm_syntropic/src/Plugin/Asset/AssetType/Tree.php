@@ -178,6 +178,20 @@ class Tree extends FarmAssetType {
           'view' => -5,
         ],
       ],
+      // Parent planting: typed reference to a tree_planting asset.
+      // FarmFieldFactory::modifyEntityReferenceField() case 'asset' (lines
+      // 354-367 of FarmFieldFactory.php) honors 'target_bundle' for asset
+      // targets the same way it does for taxonomy_term targets. No
+      // config/install override is needed.
+      'parent_planting' => [
+        'type' => 'entity_reference',
+        'label' => $this->t('Tree Planting'),
+        'description' => $this->t('The grouped planting this tree belongs to.'),
+        'target_type' => 'asset',
+        'target_bundle' => 'tree_planting',
+        'multiple' => FALSE,
+        'weight' => ['form' => -80, 'view' => -80],
+      ],
     ];
 
     foreach ($field_info as $name => $info) {
