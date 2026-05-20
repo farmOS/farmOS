@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- AgriforestryOS fork: `tree_planting` asset bundle — records a row or block of same-species trees with species, variety, tree count (min 1), spacing, planting date, source, notes, and geometry fields. Shipped via `TreePlanting.php` plugin and `asset.type.tree_planting.yml` config entity.
+- AgriforestryOS fork: `parent_planting` entity-reference field on the Tree asset type — typed to accept only `tree_planting` assets (via `FarmFieldFactory` `target_bundle` shorthand for `target_type: asset`). Tree custom-field count goes 13 → 14.
+- AgriforestryOS fork: Drupal View `tree_planting_trees` — embedded on the Tree Planting asset page, lists all Tree assets linked via `parent_planting`. Shipped in `config/install/views.view.tree_planting_trees.yml`.
+- AgriforestryOS fork: 4 new kernel test methods in `FarmSyntropicFieldSchemaTest` — `testTreePlantingBundleRegistered`, `testTreePlantingFieldsRegistered`, `testTreeParentPlantingFieldRegistered`, and `testTreePlantingTreeCountValidation`. Class now has 12 test methods, all green.
 - AgriforestryOS fork: 3 implementation plans for upcoming Phase 2 work [#6](https://github.com/Goldberry-Playground/AgriforestryOS/pull/6) — capacity-field split, Tree Planting asset type, and farmOS MCP server v1.
 - AgriforestryOS fork: docker-compose override (`docker/docker-compose.farm-syntropic.yml`) that bind-mounts the repo-root `modules/farm_syntropic/` directory into the running farmOS container for a live dev loop.
 - AgriforestryOS fork: kernel test (`FarmSyntropicFieldSchemaTest`) that asserts asset bundles register, all custom fields exist on each bundle, taxonomies install, and decimal range constraints actually reject out-of-range values.
@@ -18,6 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- AgriforestryOS fork: `docs/workflows/tree-inventory-data-entry.md` — added "When to use Tree Planting first" section as the recommended path for rows and blocks; demoted the per-tree workflow to a secondary path used only when individual tracking matters (dead trees, grafts, sensor-mounted specimens).
+- AgriforestryOS fork: smoke test workflow extended — `tree_planting` added to bundle verification; new steps validate planting creation, Tree↔Planting bidirectional link, bundle-constraint enforcement (parent_planting rejects non-tree_planting targets), and JSON:API exposure of the new bundle.
 - AgriforestryOS fork: Extracted `Infrastructure::capacityFieldOptions()` static method — eliminates duplication of the capacity field definitions between `Infrastructure.php` and `farm_syntropic.install`. Added `testCapacityUnitAllowedValues` kernel test guarding against list truncation.
 - AgriforestryOS fork: Tree asset type `dbh_cm`, `height_m`, and `canopy_radius_m` now have min/max range constraints (0–1000 cm, 0–200 m, 0–100 m respectively) that gate both the form widget and JSON:API writes via Drupal entity validation.
 - AgriforestryOS fork: **JSON:API breaking change** — the `capacity` attribute is removed from the `/jsonapi/asset/infrastructure` endpoint and replaced by `capacity_value` and `capacity_unit`. The field carried a `TODO(phase-2)` comment since its initial commit and has no confirmed external consumers. Run `drush updb` after deploying to apply `farm_syntropic_update_8001()`.
