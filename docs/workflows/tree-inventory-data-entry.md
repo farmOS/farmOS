@@ -15,8 +15,6 @@
 
 ---
 
----
-
 ## When to use Tree Planting first (recommended for new rows or blocks)
 
 Use this path when you are recording a batch of same-species trees planted together — a row, a block, or any group where the trees share species, variety, spacing, and planting date. A single Tree Planting asset is the inventory record for the whole batch.
@@ -61,7 +59,9 @@ Tap **Save**. The Tree Planting is your inventory record for the batch.
 
 ### Step 6: Link individual trees (optional)
 
-Create individual Tree assets only for trees that need individual tracking (a dead tree, a grafted variant, a sensor-mounted specimen). On each Tree asset, set the **Tree Planting** field to point back to this planting. The planting page will then show a "Trees in this Planting" list of all linked trees.
+Create individual Tree assets only for trees that need individual tracking (a dead tree, a grafted variant, a sensor-mounted specimen). On each Tree asset, set the **Tree Planting** field to point back to this planting.
+
+A "Trees in this Planting" Drupal View is installed (`tree_planting_trees`). It can be placed as a block on the Tree Planting asset page via Drupal's Structure → Block Layout UI — the block is not auto-placed in v1.
 
 You do not need to create individual Tree assets for every tree in a batch — the planting itself is the record.
 
