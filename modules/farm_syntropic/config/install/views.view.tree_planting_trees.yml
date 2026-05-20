@@ -1,0 +1,107 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - asset.type.tree
+    - asset.type.tree_planting
+  enforced:
+    module:
+      - farm_syntropic
+  module:
+    - asset
+    - views
+id: tree_planting_trees
+label: 'Trees in this Planting'
+module: views
+description: 'Lists individual Tree assets linked to a given Tree Planting via the parent_planting field.'
+tag: ''
+base_table: asset_field_data
+base_field: id
+display:
+  default:
+    id: default
+    display_plugin: default
+    display_title: Default
+    position: 0
+    display_options:
+      title: 'Trees in this Planting'
+      use_ajax: false
+      use_pager: false
+      items_per_page: 200
+      fields:
+        name:
+          id: name
+          table: asset_field_data
+          field: name
+          relationship: none
+          label: Tree
+          plugin_id: field
+      filters:
+        type:
+          id: type
+          table: asset_field_data
+          field: type
+          value:
+            tree: tree
+          plugin_id: bundle
+        status:
+          id: status
+          table: asset_field_data
+          field: status
+          value: '1'
+          plugin_id: boolean
+      arguments:
+        parent_planting_target_id:
+          id: parent_planting_target_id
+          table: asset__parent_planting
+          field: parent_planting_target_id
+          relationship: none
+          default_action: empty
+          exception:
+            value: all
+          default_argument_type: fixed
+          default_argument_options:
+            argument: ''
+          plugin_id: numeric
+      style:
+        type: table
+        options:
+          row_class: ''
+          default_row_class: true
+          columns:
+            name: name
+          info:
+            name:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          default: '-1'
+          empty_table: false
+      row:
+        type: fields
+      empty:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          content: 'No individual trees are linked to this planting yet.'
+          plugin_id: text_custom
+      access:
+        type: none
+        options: {}
+      cache:
+        type: tag
+        options: {}
+  page_embed:
+    id: page_embed
+    display_plugin: embed
+    display_title: 'Planting page embed'
+    position: 1
+    display_options:
+      display_extenders: {}
+      title: 'Trees in this Planting'
+      defaults:
+        title: false

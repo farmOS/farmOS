@@ -115,7 +115,7 @@ jobs:
           # away from the shell parser (defense in depth - the value is a
           # static literal here, but we use the safe pattern habitually).
           ASSERT_SCRIPT: |
-            $expected_bundles = ['tree', 'infrastructure'];
+            $expected_bundles = ['tree', 'infrastructure', 'tree_planting'];
             $storage = \Drupal::entityTypeManager()->getStorage('asset_type');
             foreach ($expected_bundles as $id) {
               $bundle = $storage->load($id);
@@ -159,6 +159,7 @@ jobs:
               'species', 'variety', 'dbh_cm', 'height_m', 'canopy_radius_m',
               'stratum', 'succession_stage', 'health_status',
               'rootstock', 'graft_variety', 'planting_date', 'source', 'odoo_lot',
+              'parent_planting',
             ];
             $fields = \Drupal::service('entity_field.manager')
               ->getFieldDefinitions('asset', 'tree');
@@ -166,7 +167,7 @@ jobs:
             if (!empty($missing)) {
               throw new \Exception("FAIL: missing Tree fields: " . implode(', ', $missing));
             }
-            print "OK: all 13 Tree custom fields are registered\n";
+            print "OK: all 14 Tree custom fields are registered\n";
         run: |
           docker compose -f docker-compose.smoke.yml exec -T -e ASSERT_SCRIPT="$ASSERT_SCRIPT" www \
             drush php:eval "$ASSERT_SCRIPT"
@@ -226,6 +227,87 @@ jobs:
         run: |
           docker compose -f docker-compose.smoke.yml exec -T -e ASSERT_SCRIPT="$ASSERT_SCRIPT" www \
             drush php:eval "$ASSERT_SCRIPT"
+
+      - name: Create Tree Planting and link Tree — verify bidirectionality
+        env:
+          ASSERT_SCRIPT: |
+            $planting = \Drupal::entityTypeManager()->getStorage('asset')->create([
+              'type' => 'tree_planting',
+              'name' => 'CI smoke planting - Row A',
+              'tree_count' => 5,
+              'spacing_m' => '3.00',
+            ]);
+            $planting->save();
+            $planting_id = $planting->id();
+            print "OK: created tree_planting asset id=$planting_id\n";
+
+            $tree = \Drupal::entityTypeManager()->getStorage('asset')->create([
+              'type' => 'tree',
+              'name' => 'CI smoke tree - linked to planting',
+              'parent_planting' => [['target_id' => $planting_id]],
+            ]);
+            $tree->save();
+            $tree_id = $tree->id();
+
+            $reloaded_tree = \Drupal::entityTypeManager()->getStorage('asset')->load($tree_id);
+            $resolved_id = (int) $reloaded_tree->get('parent_planting')->target_id;
+            if ($resolved_id !== (int) $planting_id) {
+              throw new \Exception(
+                "FAIL: parent_planting target_id is $resolved_id, expected $planting_id"
+              );
+            }
+            print "OK: Tree id=$tree_id correctly references tree_planting id=$planting_id\n";
+
+            $reloaded_planting = \Drupal::entityTypeManager()->getStorage('asset')->load($planting_id);
+            if ((int) $reloaded_planting->get('tree_count')->value !== 5) {
+              throw new \Exception("FAIL: tree_count did not persist (got '" . $reloaded_planting->get('tree_count')->value . "')");
+            }
+            print "OK: tree_planting tree_count=5 persists correctly\n";
+
+            // Bundle constraint: assigning a non-tree_planting to parent_planting must violate.
+            $infra = \Drupal::entityTypeManager()->getStorage('asset')->create([
+              'type' => 'infrastructure',
+              'name' => 'CI infra probe',
+            ]);
+            $infra->save();
+            $bad_tree = \Drupal::entityTypeManager()->getStorage('asset')->create([
+              'type' => 'tree',
+              'name' => 'CI bad tree',
+              'parent_planting' => [['target_id' => $infra->id()]],
+            ]);
+            $violations = $bad_tree->validate();
+            $field_violations = $violations->getByField('parent_planting');
+            if ($field_violations->count() === 0) {
+              throw new \Exception(
+                "FAIL: assigning an infrastructure asset to parent_planting should produce a violation"
+              );
+            }
+            print "OK: bundle constraint rejects non-tree_planting target on parent_planting\n";
+        run: |
+          docker compose -f docker-compose.smoke.yml exec -T -e ASSERT_SCRIPT="$ASSERT_SCRIPT" www \
+            drush php:eval "$ASSERT_SCRIPT"
+
+      - name: Verify JSON:API exposes tree_planting
+        run: |
+          docker compose -f docker-compose.smoke.yml exec -T www \
+            curl -fsS -u admin:admin \
+              -H 'Accept: application/vnd.api+json' \
+              'http://localhost/jsonapi/asset/tree_planting' \
+            | python3 -c "
+          import json, sys
+          data = json.load(sys.stdin)
+          if 'data' not in data:
+              sys.exit('FAIL: JSON:API response missing data field')
+          if len(data['data']) < 1:
+              sys.exit('FAIL: expected at least 1 tree_planting asset in JSON:API response')
+          planting = data['data'][0]
+          for f in ['tree_count', 'spacing_m']:
+              if f not in planting['attributes']:
+                  sys.exit(f'FAIL: JSON:API tree_planting asset missing attribute \"{f}\"')
+          if planting['attributes']['tree_count'] != 5:
+              sys.exit('FAIL: tree_count should be 5, got ' + str(planting['attributes']['tree_count']))
+          print('OK: JSON:API exposes tree_planting asset with tree_count and spacing_m attributes')
+          "
 
       - name: Verify JSON:API exposes the tree asset
         run: |

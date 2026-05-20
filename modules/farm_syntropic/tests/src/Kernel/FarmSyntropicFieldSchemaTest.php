@@ -104,18 +104,18 @@ class FarmSyntropicFieldSchemaTest extends KernelTestBase {
   }
 
   /**
-   * Both custom asset bundles register from config/install.
+   * All three custom asset bundles register from config/install.
    */
   public function testAssetBundlesRegistered(): void {
     $storage = \Drupal::entityTypeManager()->getStorage('asset_type');
-    foreach (['tree', 'infrastructure'] as $bundle_id) {
+    foreach (['tree', 'infrastructure', 'tree_planting'] as $bundle_id) {
       $bundle = $storage->load($bundle_id);
       $this->assertNotNull($bundle, "Asset bundle '$bundle_id' should be registered");
     }
   }
 
   /**
-   * All 13 Tree custom fields exist.
+   * All 14 Tree custom fields exist.
    *
    * If you add or rename a field on the Tree asset type plugin, update
    * this list. The intent of the test is to make field-name changes
@@ -136,6 +136,8 @@ class FarmSyntropicFieldSchemaTest extends KernelTestBase {
       'planting_date',
       'source',
       'odoo_lot',
+      // Reverse navigation to tree_planting assets.
+      'parent_planting',
     ];
     $actual = array_keys($this->fieldManager->getFieldDefinitions('asset', 'tree'));
     $missing = array_diff($expected, $actual);
@@ -305,6 +307,82 @@ class FarmSyntropicFieldSchemaTest extends KernelTestBase {
         "Field '$f' should not produce a validation violation on valid input",
       );
     }
+  }
+
+  /**
+   * tree_planting bundle registers from config/install.
+   */
+  public function testTreePlantingBundleRegistered(): void {
+    $storage = \Drupal::entityTypeManager()->getStorage('asset_type');
+    $bundle = $storage->load('tree_planting');
+    $this->assertNotNull($bundle, "Asset bundle 'tree_planting' should be registered");
+    $this->assertSame('Tree Planting', $bundle->label());
+  }
+
+  /**
+   * All 8 TreePlanting custom fields exist.
+   */
+  public function testTreePlantingFieldsRegistered(): void {
+    $expected = [
+      'species', 'variety', 'tree_count', 'spacing_m',
+      'geometry', 'planting_date', 'source', 'notes',
+    ];
+    $actual = array_keys($this->fieldManager->getFieldDefinitions('asset', 'tree_planting'));
+    $missing = array_diff($expected, $actual);
+    $this->assertEmpty(
+      $missing,
+      'Missing TreePlanting fields: ' . implode(', ', $missing),
+    );
+  }
+
+  /**
+   * The parent_planting field exists on the Tree bundle and is bundle-constrained.
+   */
+  public function testTreeParentPlantingFieldRegistered(): void {
+    $fields = $this->fieldManager->getFieldDefinitions('asset', 'tree');
+    $this->assertArrayHasKey(
+      'parent_planting',
+      $fields,
+      "Tree bundle should have a 'parent_planting' field",
+    );
+    $definition = $fields['parent_planting'];
+    $this->assertSame('asset', $definition->getSetting('target_type'));
+    $handler_settings = $definition->getSetting('handler_settings');
+    $this->assertArrayHasKey('target_bundles', $handler_settings);
+    $this->assertSame(
+      ['tree_planting' => 'tree_planting'],
+      $handler_settings['target_bundles'],
+      'parent_planting handler_settings must constrain to tree_planting bundle',
+    );
+  }
+
+  /**
+   * tree_count = 0 produces a violation; tree_count = 1 passes.
+   */
+  public function testTreePlantingTreeCountValidation(): void {
+    $planting_zero = Asset::create([
+      'type' => 'tree_planting',
+      'name' => 'Validation probe - zero count',
+      'tree_count' => 0,
+    ]);
+    $violations = $planting_zero->validate();
+    $this->assertGreaterThan(
+      0,
+      $violations->getByField('tree_count')->count(),
+      'tree_count = 0 should produce a validation violation (min is 1)',
+    );
+
+    $planting_one = Asset::create([
+      'type' => 'tree_planting',
+      'name' => 'Validation probe - valid count',
+      'tree_count' => 1,
+    ]);
+    $violations = $planting_one->validate();
+    $this->assertSame(
+      0,
+      $violations->getByField('tree_count')->count(),
+      'tree_count = 1 should not produce a validation violation',
+    );
   }
 
 }

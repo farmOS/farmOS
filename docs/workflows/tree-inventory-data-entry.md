@@ -15,6 +15,58 @@
 
 ---
 
+## When to use Tree Planting first (recommended for new rows or blocks)
+
+Use this path when you are recording a batch of same-species trees planted together — a row, a block, or any group where the trees share species, variety, spacing, and planting date. A single Tree Planting asset is the inventory record for the whole batch.
+
+### Step 1: Navigate to Add Tree Planting
+
+Go to `/asset/add/tree_planting` or tap **+ Add Asset** and choose **Tree Planting**.
+
+### Step 2: Name the planting
+
+Use a name that identifies the row or block:
+
+- `Row A - American Chestnut`
+- `Orchard North - Block 2 - Dunstan Chestnut`
+
+### Step 3: Fill in batch fields
+
+| Field | What to enter | Example |
+|-------|--------------|---------|
+| **Species** | Pick from autocomplete (same vocabulary as Tree species) | `American Chestnut` |
+| **Variety** | Cultivar name for the batch | `Dunstan` |
+| **Tree count** | Total trees installed in this batch | `12` |
+| **Spacing (m)** | On-center spacing in meters (rows only; leave blank for blocks) | `3.00` |
+| **Planting date** | Date the batch went in | `2025-03-15` |
+| **Source** | Nursery or seed source | `At the Grove Nursery` |
+| **Notes** | Any planting-event notes | `Planted on contour, healthy at install` |
+
+> **Tip:** Tree count is a declared value — it reflects how many trees you planted, not how many are alive today. Update it manually if trees die or are removed.
+
+### Step 4: Draw the geometry
+
+1. Click the **Location** tab on the left sidebar.
+2. Toggle **Is fixed** to ON.
+3. For a **row**: use the line tool (polyline icon) and tap two or more endpoints along the row.
+4. For a **block**: use the polygon tool and trace the block boundary.
+
+Geometry is open-ended — a row is a `LineString`, a block is a `Polygon`. You can also paste WKT directly into the text area.
+
+### Step 5: Save
+
+Tap **Save**. The Tree Planting is your inventory record for the batch.
+
+### Step 6: Link individual trees (optional)
+
+Create individual Tree assets only for trees that need individual tracking (a dead tree, a grafted variant, a sensor-mounted specimen). On each Tree asset, set the **Tree Planting** field to point back to this planting.
+
+A "Trees in this Planting" Drupal View is installed (`tree_planting_trees`). It can be placed as a block on the Tree Planting asset page via Drupal's Structure → Block Layout UI — the block is not auto-placed in v1.
+
+You do not need to create individual Tree assets for every tree in a batch — the planting itself is the record.
+
+---
+
 ## For Each Tree
 
 ### Step 1: Navigate to the tree
@@ -100,10 +152,11 @@ Tap **Save**. The tree is now recorded with its GPS position.
 - Set **Health status** to `Dead` or `Removed`
 - Still record GPS coordinates — the location data is valuable for replanting plans
 
-### Group of trees (same species in a row)
-- Create one Tree asset per individual tree
-- Use consistent naming: `Row A - Tree 1`, `Row A - Tree 2`, etc.
-- For Phase 2: grouped plantings will use the Tree Planting asset type
+### Group of trees (same species in a row or block)
+
+Use the **Tree Planting** path described in "When to use Tree Planting first" above. A single Tree Planting asset records the species, count, spacing, and geometry for the entire batch.
+
+If you have already entered individual trees without a parent planting, you can retroactively link them: open each Tree asset and set the **Tree Planting** field. The data model supports this; no migration is required.
 
 ---
 
