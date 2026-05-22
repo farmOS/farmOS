@@ -1,7 +1,8 @@
-name: Log categories vocabulary
-description: Provides a Log categories vocabulary.
+name: Asset categories vocabulary
+description: Provides a Asset categories vocabulary.
 type: module
 package: farmOS Taxonomies
 core_version_requirement: ^11
 dependencies:
   - drupal:taxonomy
+  - farm:asset

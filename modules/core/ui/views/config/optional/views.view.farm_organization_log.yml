@@ -628,7 +628,7 @@ display:
           entity_type: log
           entity_field: category
           plugin_id: field
-          label: 'Log category'
+          label: Category
           exclude: false
           alter:
             alter_text: false
@@ -980,7 +980,7 @@ display:
           exposed: true
           expose:
             operator_id: category_target_id_op
-            label: 'Log category'
+            label: Category
             description: ''
             use_operator: false
             operator: category_target_id_op

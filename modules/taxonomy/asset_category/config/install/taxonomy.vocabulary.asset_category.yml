@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_asset_category
+name: 'Asset category'
+vid: asset_category
+description: 'A list of asset categories.'
+weight: 0
+new_revision: false

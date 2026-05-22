@@ -1,5 +1,10 @@
 # API Changes
 
+## 4.1.0
+
+- A new `category` field has been added to assets, which references terms in a
+  new `asset_category` taxonomy, similar to the existing `log_category`.
+
 ## 4.x vs 3.x
 
 - Assets no longer have a `status` attribute. The `archived` attribute has been

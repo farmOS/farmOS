@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Drupal\farm_log_category\Form;
+namespace Drupal\farm_category\Form;
 
+use Drupal\Component\Plugin\Exception\PluginException;
 use Drupal\Core\DependencyInjection\AutowireTrait;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfirmFormBase;
@@ -15,9 +16,9 @@ use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
- * Provides a categorize log confirmation form.
+ * Provides a confirmation form for categorizing entities.
  */
-class LogCategorizeActionForm extends ConfirmFormBase {
+class CategorizeActionForm extends ConfirmFormBase {
 
   use AutowireTrait;
 
@@ -29,9 +30,9 @@ class LogCategorizeActionForm extends ConfirmFormBase {
   protected $entityType;
 
   /**
-   * The logs to categorize.
+   * The entities to categorize.
    *
-   * @var \Drupal\log\Entity\LogInterface[]
+   * @var \Drupal\Core\Entity\ContentEntityInterface[]
    */
   protected $entities;
 
@@ -45,7 +46,7 @@ class LogCategorizeActionForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'log_categorize_action_confirm_form';
+    return 'categorize_action_confirm_form';
   }
 
   /**
@@ -80,10 +81,29 @@ class LogCategorizeActionForm extends ConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state): array|RedirectResponse {
-    $this->entityType = $this->entityTypeManager->getDefinition('log', FALSE);
-    $this->entities = $this->tempStoreFactory->get('log_categorize_confirm')->get((string) $this->user->id());
+  public function buildForm(array $form, FormStateInterface $form_state, ?string $entity_type = NULL, ?string $taxonomy = NULL): array|RedirectResponse {
+
+    // Only allow asset and log entities.
+    if (!in_array($entity_type, ['asset', 'log'])) {
+      throw new PluginException('Unsupported entity type given when building form to categorize entity');
+    }
+
+    // Load the entity type definition.
+    $this->entityType = $this->entityTypeManager->getDefinition($entity_type, FALSE);
+
+    // Load saved entities.
+    $this->entities = $this->tempStoreFactory->get('entity_categorize_confirm')->get((string) $this->user->id());
+
+    // If there are no entities, or if the entity type definition didn't load,
+    // redirect the user to the cancel URL.
     if (!$this->entityType || empty($this->entities)) {
+      return new RedirectResponse($this->getCancelUrl()
+        ->setAbsolute()
+        ->toString());
+    }
+
+    // If a taxonomy was not defined, redirect to the cancel URL.
+    if (empty($taxonomy)) {
       return new RedirectResponse($this->getCancelUrl()
         ->setAbsolute()
         ->toString());
@@ -92,7 +112,7 @@ class LogCategorizeActionForm extends ConfirmFormBase {
     // Load terms.
     /** @var \Drupal\taxonomy\TermStorageInterface $term_storage */
     $term_storage = $this->entityTypeManager->getSTorage('taxonomy_term');
-    $terms = $term_storage->loadTree('log_category', 0, NULL, TRUE);
+    $terms = $term_storage->loadTree($taxonomy, 0, NULL, TRUE);
 
     // Filter to active terms.
     $active_terms = array_filter($terms, function ($term) {
@@ -110,7 +130,7 @@ class LogCategorizeActionForm extends ConfirmFormBase {
     $form['category'] = [
       '#type' => 'select',
       '#title' => $this->t('Log category'),
-      '#description' => $this->t('Use this to organize your logs into categories for easier searching and filtering later.'),
+      '#description' => $this->t('Use this to organize your records into categories for easier searching and filtering later.'),
       '#options' => $options,
       '#multiple' => TRUE,
     ];
@@ -118,7 +138,7 @@ class LogCategorizeActionForm extends ConfirmFormBase {
     $form['operation'] = [
       '#type' => 'radios',
       '#title' => $this->t('Append or replace'),
-      '#description' => $this->t('Select "Append" if you want to add a category, but keep the existing log categories. Select "Replace" if you want to replace the existing log categories with the ones specified above.'),
+      '#description' => $this->t('Select "Append" if you want to add new categories alongside existing ones. Select "Replace" if you want to replace the existing categories with the ones specified.'),
       '#options' => [
         'append' => $this->t('Append'),
         'replace' => $this->t('Replace'),
@@ -196,7 +216,7 @@ class LogCategorizeActionForm extends ConfirmFormBase {
       ]));
     }
 
-    $this->tempStoreFactory->get('log_categorize_confirm')->delete($this->currentUser()->id() . ':' . $this->entityType->id());
+    $this->tempStoreFactory->get('entity_categorize_confirm')->delete($this->currentUser()->id() . ':' . $this->entityType->id());
     $form_state->setRedirectUrl($this->getCancelUrl());
   }
 

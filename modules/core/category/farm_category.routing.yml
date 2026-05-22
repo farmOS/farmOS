@@ -1,0 +1,16 @@
+farm_category.asset_categorize_action_form:
+  path: '/asset/categorize'
+  defaults:
+    _form: 'Drupal\farm_category\Form\CategorizeActionForm'
+    entity_type: 'asset'
+    taxonomy: 'asset_category'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+farm_category.log_categorize_action_form:
+  path: '/log/categorize'
+  defaults:
+    _form: 'Drupal\farm_category\Form\CategorizeActionForm'
+    entity_type: 'log'
+    taxonomy: 'log_category'
+  requirements:
+    _user_is_logged_in: 'TRUE'

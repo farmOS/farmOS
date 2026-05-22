@@ -2,26 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Drupal\farm_log_category\Plugin\Action;
+namespace Drupal\farm_category\Plugin\Action;
 
-use Drupal\Core\Action\Attribute\Action;
 use Drupal\Core\Action\Plugin\Action\EntityActionBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TempStore\PrivateTempStoreFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Redirects to a form to add categories to a log.
+ * Action that assigns categories to entities.
  */
-#[Action(
-  id: 'log_categorize_action',
-  action_label: new TranslatableMarkup('Categorize log'),
-  confirm_form_route_name: 'farm_log_category.log_categorize_action_form',
-  type: 'log',
-)]
-class LogCategorize extends EntityActionBase {
+abstract class CategorizeBase extends EntityActionBase {
 
   public function __construct(
     array $configuration,
@@ -55,7 +47,7 @@ class LogCategorize extends EntityActionBase {
    */
   public function executeMultiple(array $entities) {
     /** @var \Drupal\Core\Entity\EntityInterface[] $entities */
-    $this->tempStoreFactory->get('log_categorize_confirm')->set((string) $this->currentUser->id(), $entities);
+    $this->tempStoreFactory->get('entity_categorize_confirm')->set((string) $this->currentUser->id(), $entities);
   }
 
   /**
