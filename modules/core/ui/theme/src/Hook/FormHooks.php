@@ -46,14 +46,6 @@ class FormHooks {
   }
 
   /**
-   * Implements hook_form_BASE_FORM_ID_alter().
-   */
-  #[Hook('form_quick_form_alter')]
-  public function formQuickFormAlter(&$form, FormStateInterface $form_state, $form_id) {
-    $form['#attached']['library'][] = 'farm_ui_theme/quick';
-  }
-
-  /**
    * Implements hook_form_FORM_ID_alter().
    */
   #[Hook('form_farm_modules_form_alter')]

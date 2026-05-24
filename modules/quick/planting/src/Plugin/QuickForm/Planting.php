@@ -12,10 +12,10 @@ use Drupal\Core\Render\Markup;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\State\StateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\farm_form\Traits\FarmFormInlineContainerTrait;
 use Drupal\farm_quick\Attribute\QuickForm;
 use Drupal\farm_quick\Plugin\QuickForm\QuickFormBase;
 use Drupal\farm_quick\Traits\QuickAssetTrait;
-use Drupal\farm_quick\Traits\QuickFormElementsTrait;
 use Drupal\farm_quick\Traits\QuickLogTrait;
 use Drupal\farm_quick\Traits\QuickStringTrait;
 use Drupal\quantity\QuantityHelper;
@@ -37,10 +37,10 @@ use Drupal\taxonomy\TermInterface;
 )]
 class Planting extends QuickFormBase {
 
+  use FarmFormInlineContainerTrait;
   use QuickAssetTrait;
   use QuickLogTrait;
   use QuickStringTrait;
-  use QuickFormElementsTrait;
 
   public function __construct(
     array $configuration,

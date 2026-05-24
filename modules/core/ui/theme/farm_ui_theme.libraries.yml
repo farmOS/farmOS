@@ -48,10 +48,6 @@ menu_local_task:
   css:
     theme:
       css/menu-local-task.css: { }
-quick:
-  css:
-    theme:
-      css/quick.css: { }
 regions:
   css:
     theme:
