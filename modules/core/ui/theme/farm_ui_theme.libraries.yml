@@ -22,6 +22,10 @@ footer:
   css:
     theme:
       css/footer.css: { }
+form:
+  css:
+    theme:
+      css/form.css: { }
 help:
   css:
     theme:
