@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- AgriforestryOS fork: disabled the inherited `Tests and delivery` workflow (`.github/workflows/deliver.yml`). It had been failing nightly since farmOS upstream pinned `drupal/core 11.3.8`, which is blocked by composer security advisory [SA-CORE-2026-004](https://www.drupal.org/sa-core-2026-004). The workflow now uses `on: workflow_dispatch:` only — no automatic runs. Our own `ci-farm-syntropic`, `phpstan-farm-syntropic`, and `smoke-farm-syntropic` workflows continue to cover the code we author. Original 467-line file recoverable from git history.
 - [Fork-scope CI linters and remove CodeQL workflow #3](https://github.com/Goldberry-Playground/AgriforestryOS/pull/3) (AgriforestryOS fork) — fixes CI runs that were failing on inherited upstream paths since the Sprint 3.5 foundation merge.
 - [Fix dashboard block title access #1075](https://github.com/farmOS/farmOS/pull/1075)
 
