@@ -35,3 +35,25 @@ function farm_log_post_update_move_asset_add_log_action(&$sandbox) {
     }
   }
 }
+
+/**
+ * Add 'Mark As Abandoned' option to actions.
+ */
+function farm_log_post_update_add_abandoned_status_action(&$sandbox) {
+
+  // Create action for assigning abandoned status to logs.
+  $action = Action::create([
+    'id' => 'log_mark_as_abandoned_action',
+    'label' => t('Mark as abandoned'),
+    'type' => 'log',
+    'plugin' => 'log_mark_as_abandoned_action',
+    'configuration' => [],
+    'dependencies' => [
+      'module' => [
+        'farm_log',
+        'log',
+      ],
+    ],
+  ]);
+  $action->save();
+}

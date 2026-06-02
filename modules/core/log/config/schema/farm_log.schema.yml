@@ -1,0 +1,3 @@
+action.configuration.log_mark_as_abandoned_action:
+  type: action_configuration_default
+  label: 'Configuration for the log mark as abandoned action'
