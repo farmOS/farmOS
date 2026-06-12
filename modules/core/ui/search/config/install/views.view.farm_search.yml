@@ -752,17 +752,7 @@ display:
           query_tags: {  }
       relationships: {  }
       header: {  }
-      footer:
-        result:
-          id: result
-          table: views
-          field: result
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: result
-          empty: false
-          content: 'Displaying @start - @end of @total'
+      footer: {  }
       display_extenders: {  }
     cache_metadata:
       max-age: -1
