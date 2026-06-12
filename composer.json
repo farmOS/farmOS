@@ -23,6 +23,7 @@
         "drupal/consumers": "^1.22",
         "drupal/csv_serialization": "^4.0.1",
         "drupal/date_popup": "^2.0",
+        "drupal/diff": "^2.1.0",
         "drupal/entity": "1.6",
         "drupal/entity_browser": "^2.12",
         "drupal/entity_reference_integrity": "^2.0",
