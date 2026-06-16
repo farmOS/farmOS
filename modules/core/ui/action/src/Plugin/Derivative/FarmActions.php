@@ -129,6 +129,11 @@ class FarmActions extends DeriverBase implements ContainerDeriverInterface {
         ];
         $this->derivatives[$name]['appears_on'][] = 'entity.' . $type . '.canonical';
         $this->derivatives[$name]['weight'] = 10;
+
+        // Add the config:action_list and config:core.extension cache tags so
+        // action links are recreated after action config entities and/or
+        // modules are installed/uninstalled.
+        $this->derivatives[$name]['cache_tags'] = ['config:action_list', 'config:core.extension'];
       }
     }
 
