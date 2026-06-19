@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- [Update entity type definitions in key_value store #1091](https://github.com/farmOS/farmOS/pull/1091)
+
 ## [4.0.3] 2026-06-18
 
 ### Changed
