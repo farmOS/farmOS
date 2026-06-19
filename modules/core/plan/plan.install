@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the plan module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
+
+/**
+ * Update the plan entity storage handler class.
+ */
+function plan_update_11400() {
+
+  // This updates the plan entity type definition's storage handler class to
+  // SqlContentEntityStorage, since we no longer provide a custom PlanStorage
+  // class. This should have been done when this change was originally made, but
+  // it was not, so this is added as a hook_update_N() implementation to ensure
+  // that it runs before other related hook_post_update_NAME() implementations
+  // that make changes to the plan entity type definition. Otherwise, those
+  // updates fail because the old plan storage handler class is cached in the
+  // key_value table.
+  // @see https://github.com/farmOS/farmOS/issues/1090
+  // @see https://github.com/farmOS/farmOS/pull/986
+  // @see https://github.com/farmOS/farmOS/commit/f63a165e2a5254e2bf2a8c4c7a07d9ecec577471
+  /** @var \Drupal\Core\Entity\EntityDefinitionUpdateManagerInterface $manager */
+  $manager = \Drupal::service('entity.definition_update_manager');
+  $entity_type = $manager->getEntityType('plan');
+  $entity_type->setHandlerClass('storage', SqlContentEntityStorage::class);
+  $manager->updateEntityType($entity_type);
+}

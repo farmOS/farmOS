@@ -36,6 +36,10 @@ the abandoned `oomphinc/composer-installers-extender` project:
 
 - [Issue #3576633: Deprecate asset/organization/quantity entity events](https://www.drupal.org/project/farm/issues/3576633)
 
+### Fixed
+
+- [Update entity type definitions in key_value store #1091](https://github.com/farmOS/farmOS/pull/1091)
+
 ## [4.0.7] 2026-10-09
 
 ### Fixed

@@ -7,7 +7,10 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Entity\Form\RevisionRevertForm;
+use Drupal\Core\Entity\Routing\RevisionHtmlRouteProvider;
 use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\entity\QueryAccess\UncacheableQueryAccessHandler;
 use Drupal\system\Entity\Action;
 use Drupal\views\Entity\View;
 
@@ -85,6 +88,49 @@ function plan_post_update_revision_data_table(&$sandbox) {
   $manager = \Drupal::service('entity.definition_update_manager');
   $entity_type = $manager->getEntityType('plan');
   $entity_type->set('revision_data_table', 'plan_field_revision');
+  $manager->updateEntityType($entity_type);
+}
+
+/**
+ * Update plan entity type definition.
+ */
+function plan_post_update_query_entity_type_definition(&$sandbox) {
+
+  // This applies updates to the plan entity type definition that is stored in
+  // the key_value database table. These should have been applied as individual
+  // update hooks when the changes were made, but they were not, so this ensures
+  // the updates are applied. Specific commit hashes are referenced for each
+  // change below.
+  // @see https://github.com/farmOS/farmOS/issues/1090
+  /** @var \Drupal\Core\Entity\EntityDefinitionUpdateManagerInterface $manager */
+  $manager = \Drupal::service('entity.definition_update_manager');
+  $entity_type = $manager->getEntityType('plan');
+
+  // Remove collection link.
+  // @see https://github.com/farmOS/farmOS/commit/d23951ac3e4658d5c6bcefc2f09cb9d6519ddcc3
+  $links = $entity_type->getLinkTemplates();
+  if (isset($links['collection'])) {
+    unset($links['collection']);
+    $entity_type->set('links', $links);
+  }
+
+  // Set the query_access handler class.
+  // @see https://github.com/farmOS/farmOS/commit/cbd33c3bd6e10327a48a0871b93991799a3f1a82
+  $entity_type->setHandlerClass('query_access', UncacheableQueryAccessHandler::class);
+
+  // Set the entity collection_permission.
+  // @see https://github.com/farmOS/farmOS/commit/c41ac8ea4bd801b9330ff6423220e6a8b0471c19
+  $entity_type->set('collection_permission', 'access plan collection');
+
+  // Use Drupal core's RevisionHtmlRouteProvider, and define the revision-revert
+  // form class.
+  // @see https://github.com/farmOS/farmOS/commit/25c3a66514cdc357a575a13bafbf6349c994be53
+  $route_providers = $entity_type->getRouteProviderClasses();
+  $route_providers['revision'] = RevisionHtmlRouteProvider::class;
+  $entity_type->setHandlerClass('route_provider', $route_providers);
+  $entity_type->setFormClass('revision-revert', RevisionRevertForm::class);
+
+  // Update the entity type definition.
   $manager->updateEntityType($entity_type);
 }
 
