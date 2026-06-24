@@ -76,6 +76,7 @@ class PlanRecord extends ContentEntityBase implements PlanRecordInterface {
       ->setDescription(t('Associate this plan record relationship with a plan entity.'))
       ->setTranslatable(FALSE)
       ->setCardinality(1)
+      ->setRequired(TRUE)
       ->setSetting('target_type', 'plan')
       ->setDisplayOptions('form', [
         'type' => 'entity_reference',

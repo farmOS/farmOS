@@ -29,6 +29,7 @@ the abandoned `oomphinc/composer-installers-extender` project:
 ### Changed
 
 - [Update Drupal core to 11.4 #1096](https://github.com/farmOS/farmOS/pull/1096)
+- [Require plan records to reference a plan #1094](https://github.com/farmOS/farmOS/pull/1094)
 
 ### Deprecated
 
