@@ -25,34 +25,6 @@ abstract class QuickFormTestBase extends KernelTestBase {
   protected $quickFormId;
 
   /**
-   * Asset entity storage.
-   *
-   * @var \Drupal\asset\AssetStorage
-   */
-  protected $assetStorage;
-
-  /**
-   * Log entity storage.
-   *
-   * @var \Drupal\log\LogStorage
-   */
-  protected $logStorage;
-
-  /**
-   * Taxonomy term entity storage.
-   *
-   * @var \Drupal\taxonomy\TermStorageInterface
-   */
-  protected $termStorage;
-
-  /**
-   * Quantity entity storage.
-   *
-   * @var \Drupal\Core\Entity\EntityStorageInterface
-   */
-  protected $quantityStorage;
-
-  /**
    * {@inheritdoc}
    */
   protected static $modules = [
@@ -96,10 +68,6 @@ abstract class QuickFormTestBase extends KernelTestBase {
   protected function setUp(): void {
     parent::setUp();
     $this->setUpCurrentUser([], [], TRUE);
-    $this->assetStorage = \Drupal::entityTypeManager()->getStorage('asset');
-    $this->logStorage = \Drupal::entityTypeManager()->getStorage('log');
-    $this->termStorage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
-    $this->quantityStorage = \Drupal::entityTypeManager()->getStorage('quantity');
     $this->installEntitySchema('asset');
     $this->installEntitySchema('log');
     $this->installEntitySchema('taxonomy_term');

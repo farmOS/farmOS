@@ -63,6 +63,7 @@ class QuickPlantingTest extends QuickFormTestBase {
    * Test simple planting quick form submission.
    */
   public function testQuickPlantingSimple() {
+    $asset_storage = \Drupal::entityTypeManager()->getStorage('asset');
 
     // Create a season and crop to reference.
     $season = Term::create([
@@ -85,7 +86,7 @@ class QuickPlantingTest extends QuickFormTestBase {
     ]);
 
     // Confirm that one asset was created.
-    $assets = $this->assetStorage->loadMultiple();
+    $assets = $asset_storage->loadMultiple();
     $this->assertCount(1, $assets);
 
     // Check that the asset's fields were populated correctly.
@@ -120,7 +121,7 @@ class QuickPlantingTest extends QuickFormTestBase {
     ]);
 
     // Confirm that a second asset was created.
-    $assets = $this->assetStorage->loadMultiple();
+    $assets = $asset_storage->loadMultiple();
     $this->assertCount(2, $assets);
 
     // Check that the asset has multiple crops and is named correctly.
@@ -143,7 +144,7 @@ class QuickPlantingTest extends QuickFormTestBase {
     ]);
 
     // Confirm that a third asset was created.
-    $assets = $this->assetStorage->loadMultiple();
+    $assets = $asset_storage->loadMultiple();
     $this->assertCount(3, $assets);
 
     // Check that the asset name was overridden.
@@ -155,6 +156,8 @@ class QuickPlantingTest extends QuickFormTestBase {
    * Test planting with logs.
    */
   public function testQuickPlantingLogs() {
+    $asset_storage = \Drupal::entityTypeManager()->getStorage('asset');
+    $log_storage = \Drupal::entityTypeManager()->getStorage('log');
 
     // Create a season, crop, and two land assets to reference.
     $season = Term::create([
@@ -215,8 +218,8 @@ class QuickPlantingTest extends QuickFormTestBase {
     ]);
 
     // Load assets and logs.
-    $assets = $this->assetStorage->loadMultiple();
-    $logs = $this->logStorage->loadMultiple();
+    $assets = $asset_storage->loadMultiple();
+    $logs = $log_storage->loadMultiple();
 
     // Confirm that three assets (land + plant) and one log exists.
     $this->assertCount(3, $assets);
@@ -285,8 +288,8 @@ class QuickPlantingTest extends QuickFormTestBase {
     ]);
 
     // Confirm that another asset and 3 more logs were created.
-    $assets = $this->assetStorage->loadMultiple();
-    $logs = $this->logStorage->loadMultiple();
+    $assets = $asset_storage->loadMultiple();
+    $logs = $log_storage->loadMultiple();
     $this->assertCount(4, $assets);
     $this->assertCount(4, $logs);
 
@@ -324,7 +327,7 @@ class QuickPlantingTest extends QuickFormTestBase {
     ]);
 
     // Confirm that another log was created and it references both locations.
-    $logs = $this->logStorage->loadMultiple();
+    $logs = $log_storage->loadMultiple();
     $this->assertCount(5, $logs);
     $log = $logs[5];
     $this->assertEquals($land1->id(), $log->get('location')->referencedEntities()[0]->id());
