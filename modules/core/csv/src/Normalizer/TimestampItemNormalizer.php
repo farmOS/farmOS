@@ -19,12 +19,12 @@ class TimestampItemNormalizer extends CoreTimestampItemNormalizer {
   /**
    * {@inheritdoc}
    */
-  public function normalize($object, $format = NULL, array $context = []): array|string|int|float|bool|\ArrayObject|null {
+  public function normalize($object, $format = NULL, array $context = []): array {
     $data = parent::normalize($object, $format, $context);
 
     // Return the RFC3339 formatted date, if desired.
     if (isset($context['rfc3339_dates']) && $context['rfc3339_dates'] === TRUE) {
-      return $data['value'];
+      return ['value' => $data['value']];
     }
 
     return $data;

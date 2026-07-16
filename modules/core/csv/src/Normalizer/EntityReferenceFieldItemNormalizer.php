@@ -22,19 +22,19 @@ class EntityReferenceFieldItemNormalizer extends CoreEntityReferenceFieldItemNor
   /**
    * {@inheritdoc}
    */
-  public function normalize($field_item, $format = NULL, array $context = []): array|string|int|float|bool|\ArrayObject|null {
+  public function normalize($field_item, $format = NULL, array $context = []): array {
 
     // Attempt to load the referenced entity.
     if ($entity = $field_item->get('entity')->getValue()) {
 
       // Return content entity labels, if desired.
       if ($entity instanceof ContentEntityInterface && isset($context['content_entity_labels']) && $context['content_entity_labels'] === TRUE) {
-        return $entity->label();
+        return ['value' => $entity->label()];
       }
 
       // Return config entity IDs, if desired.
       if ($entity instanceof ConfigEntityInterface && isset($context['config_entity_ids']) && $context['config_entity_ids'] === TRUE) {
-        return $entity->id();
+        return ['value' => $entity->id()];
       }
     }
 
