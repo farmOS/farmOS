@@ -192,8 +192,8 @@ class QuickBirthTest extends QuickFormTestBase {
     ]);
 
     // Load assets and logs.
-    $assets = $this->assetStorage->loadMultiple();
-    $logs = $this->logStorage->loadMultiple();
+    $assets = \Drupal::entityTypeManager()->getStorage('asset')->loadMultiple();
+    $logs = \Drupal::entityTypeManager()->getStorage('log')->loadMultiple();
 
     // Confirm that seven assets (5 animals + 1 land + 1 group) and three logs
     // (1 birth + 2 observations) exists.

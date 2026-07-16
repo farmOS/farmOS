@@ -19,20 +19,6 @@ use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 class LogQuantityTest extends KernelTestBase {
 
   /**
-   * The log storage.
-   *
-   * @var \Drupal\log\LogStorage
-   */
-  protected $logStorage;
-
-  /**
-   * The quantity storage.
-   *
-   * @var \Drupal\Core\Entity\Sql\SqlContentEntityStorage
-   */
-  protected $quantityStorage;
-
-  /**
    * {@inheritdoc}
    */
   protected static $modules = [
@@ -65,14 +51,14 @@ class LogQuantityTest extends KernelTestBase {
       'farm_log_quantity_test',
       'farm_unit',
     ]);
-    $this->logStorage = \Drupal::entityTypeManager()->getStorage('log');
-    $this->quantityStorage = \Drupal::entityTypeManager()->getStorage('quantity');
   }
 
   /**
    * Test log quantity events.
    */
   public function testLogQuantityEvents() {
+    $log_storage = \Drupal::entityTypeManager()->getStorage('log');
+    $quantity_storage = \Drupal::entityTypeManager()->getStorage('quantity');
 
     // Create a test log with a test quantity.
     $quantity = Quantity::create([
@@ -97,22 +83,22 @@ class LogQuantityTest extends KernelTestBase {
     $event = new LogEvent($cloned_log);
     \Drupal::service('event_dispatcher')->dispatch($event, LogEvent::CLONE);
     $event->log->save();
-    $logs = $this->logStorage->loadMultiple();
-    $quantities = $this->quantityStorage->loadMultiple();
+    $logs = $log_storage->loadMultiple();
+    $quantities = $quantity_storage->loadMultiple();
     $this->assertCount(2, $logs);
     $this->assertCount(2, $quantities);
     $this->assertEquals($quantities[1]->get('value')->value, $quantities[2]->get('value')->value);
 
     // Test that deleting a log deletes its quantities.
     $logs[2]->delete();
-    $logs = $this->logStorage->loadMultiple();
-    $quantities = $this->quantityStorage->loadMultiple();
+    $logs = $log_storage->loadMultiple();
+    $quantities = $quantity_storage->loadMultiple();
     $this->assertCount(1, $logs);
     $this->assertCount(1, $quantities);
 
     // Test that deleting a quantity cleans up the log's reference to it.
     $quantity->delete();
-    $logs = $this->logStorage->loadMultiple();
+    $logs = $log_storage->loadMultiple();
     $this->assertEmpty($logs[1]->get('quantity')->getValue());
   }
 

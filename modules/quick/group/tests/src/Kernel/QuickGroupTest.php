@@ -102,7 +102,7 @@ class QuickGroupTest extends QuickFormTestBase {
     $this->submitQuickForm($form_values);
 
     // Load logs.
-    $logs = $this->logStorage->loadMultiple();
+    $logs = \Drupal::entityTypeManager()->getStorage('log')->loadMultiple();
 
     // Confirm that one log exists.
     $this->assertCount(1, $logs);

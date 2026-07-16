@@ -24,19 +24,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 )]
 class CSVFile extends CSV implements ContainerFactoryPluginInterface {
 
-  /**
-   * The file storage service.
-   *
-   * @var \Drupal\file\FileStorageInterface
-   */
-  protected $fileStorage;
-
   public function __construct(
     array $configuration,
     $plugin_id,
     $plugin_definition,
     MigrationInterface $migration,
-    EntityTypeManagerInterface $entity_type_manager,
+    protected EntityTypeManagerInterface $entityTypeManager,
   ) {
 
     // Uniqueness of rows will be determined by file ID + row number, so we
@@ -47,9 +40,6 @@ class CSVFile extends CSV implements ContainerFactoryPluginInterface {
 
     // Delegate to the parent for everything else.
     parent::__construct($configuration, $plugin_id, $plugin_definition, $migration);
-
-    // Load the file storage service.
-    $this->fileStorage = $entity_type_manager->getStorage('file');
   }
 
   /**
@@ -75,7 +65,7 @@ class CSVFile extends CSV implements ContainerFactoryPluginInterface {
     // Attempt to look up the file entity ID from the file path and assign it
     // to a "file_id" column on every record, which will be used as one of the
     // migration source IDs (alongside row number).
-    $files = $this->fileStorage->loadByProperties(['uri' => $this->configuration['path']]);
+    $files = $this->entityTypeManager->getStorage('file')->loadByProperties(['uri' => $this->configuration['path']]);
     if (empty($files)) {
       throw new MigrateException('Could not find the uploaded CSV file.');
     }

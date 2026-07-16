@@ -53,6 +53,7 @@ class QuickMovementTest extends QuickFormTestBase {
    * Test movement quick form submission.
    */
   public function testQuickMovement() {
+    $log_storage = \Drupal::entityTypeManager()->getStorage('log');
 
     // Get today's date.
     $today = new DrupalDateTime('midnight');
@@ -110,7 +111,7 @@ class QuickMovementTest extends QuickFormTestBase {
     $this->submitQuickForm($form_values);
 
     // Load logs.
-    $logs = $this->logStorage->loadMultiple();
+    $logs = $log_storage->loadMultiple();
 
     // Confirm that one log exists.
     $this->assertCount(1, $logs);
@@ -134,7 +135,7 @@ class QuickMovementTest extends QuickFormTestBase {
     $this->submitQuickForm($form_values);
 
     // Load logs.
-    $logs = $this->logStorage->loadMultiple();
+    $logs = $log_storage->loadMultiple();
 
     // Confirm that two logs exist.
     $this->assertCount(2, $logs);
@@ -150,7 +151,7 @@ class QuickMovementTest extends QuickFormTestBase {
     $this->submitQuickForm($form_values);
 
     // Load logs.
-    $logs = $this->logStorage->loadMultiple();
+    $logs = $log_storage->loadMultiple();
 
     // Confirm that only two logs still exist.
     $this->assertCount(2, $logs);

@@ -58,6 +58,7 @@ class QuickInventoryTest extends QuickFormTestBase {
    * Test inventory quick form submission.
    */
   public function testQuickInventory() {
+    $log_storage = \Drupal::entityTypeManager()->getStorage('log');
 
     // Get today's date.
     $today = new DrupalDateTime('midnight');
@@ -94,7 +95,7 @@ class QuickInventoryTest extends QuickFormTestBase {
     $this->submitQuickForm($form_values);
 
     // Load logs.
-    $logs = $this->logStorage->loadMultiple();
+    $logs = $log_storage->loadMultiple();
 
     // Confirm that one log exists.
     $this->assertCount(1, $logs);
@@ -141,7 +142,7 @@ class QuickInventoryTest extends QuickFormTestBase {
     $this->submitQuickForm($form_values);
 
     // Confirm that two logs exists.
-    $logs = $this->logStorage->loadMultiple();
+    $logs = $log_storage->loadMultiple();
     $this->assertCount(2, $logs);
 
     // Check that the log is an activity and that the name was populated
@@ -178,7 +179,7 @@ class QuickInventoryTest extends QuickFormTestBase {
     $this->submitQuickForm($form_values);
 
     // Confirm that three logs exists.
-    $logs = $this->logStorage->loadMultiple();
+    $logs = $log_storage->loadMultiple();
     $this->assertCount(3, $logs);
 
     // Check that the log name was populated correctly.
@@ -222,7 +223,7 @@ class QuickInventoryTest extends QuickFormTestBase {
     $this->submitQuickForm($form_values);
 
     // Confirm that four logs exists.
-    $logs = $this->logStorage->loadMultiple();
+    $logs = $log_storage->loadMultiple();
     $this->assertCount(4, $logs);
 
     // Check that the log's name and quantity measure and units were populated.
@@ -264,7 +265,7 @@ class QuickInventoryTest extends QuickFormTestBase {
     $this->submitQuickForm($form_values);
 
     // Confirm that five logs exists.
-    $logs = $this->logStorage->loadMultiple();
+    $logs = $log_storage->loadMultiple();
     $this->assertCount(5, $logs);
 
     // Check that the log name was populated correctly.
