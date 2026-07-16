@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\farm_quick;
 
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
@@ -122,7 +123,7 @@ class QuickFormListBuilder extends ConfigEntityListBuilder {
   /**
    * {@inheritdoc}
    */
-  public function getDefaultOperations(EntityInterface $entity) {
+  public function getDefaultOperations(EntityInterface $entity, ?CacheableMetadata $cacheability = NULL) {
     $operations = parent::getDefaultOperations($entity);
 
     // Override operations for default quick form instances.

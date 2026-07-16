@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\data_stream_notification;
 
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
 use Drupal\Core\Entity\EntityInterface;
 
@@ -63,7 +64,7 @@ class DataStreamNotificationListBuilder extends ConfigEntityListBuilder {
   /**
    * {@inheritdoc}
    */
-  public function getDefaultOperations(EntityInterface $entity) {
+  public function getDefaultOperations(EntityInterface $entity, ?CacheableMetadata $cacheability = NULL) {
     $operations = parent::getDefaultOperations($entity);
 
     // Add AJAX functionality to enable/disable operations.
