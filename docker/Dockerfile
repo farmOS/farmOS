@@ -1,7 +1,7 @@
 ##
 # Alias the Drupal base image for use in other build stages.
 # We do this so that the Drupal image version only needs to be updated here.
-FROM drupal:11.3-php8.4-apache-trixie AS baseimage
+FROM drupal:11.4-php8.4-apache-trixie AS baseimage
 
 # Define common paths.
 # BUILD_PATH is where the farmOS codebase will be built.
