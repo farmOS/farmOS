@@ -31,6 +31,12 @@ class FarmViewsMenuLink extends ViewsMenuLink {
   protected string $viewId;
 
   public function __construct(
+    // PHPStan throws the following error on the next line:
+    // Direct injection of entity storage via $storage is not recommended.
+    // Inject Drupal\Core\Entity\EntityTypeManagerInterface and call
+    // getStorage() at the call-site instead.
+    // We ignore this because we are extending a Drupal core class.
+    // @phpstan-ignore drupal.entityStorageDirectInjection
     EntityStorageInterface $view_storage,
     protected EntityTypeManagerInterface $entityTypeManager,
   ) {

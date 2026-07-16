@@ -19,6 +19,12 @@ class QuickFormListBuilder extends ConfigEntityListBuilder {
 
   public function __construct(
     EntityTypeInterface $entity_type,
+    // PHPStan throws the following error on the next line:
+    // Direct injection of entity storage via $storage is not recommended.
+    // Inject Drupal\Core\Entity\EntityTypeManagerInterface and call
+    // getStorage() at the call-site instead.
+    // We ignore this because we are extending a Drupal core class.
+    // @phpstan-ignore drupal.entityStorageDirectInjection
     EntityStorageInterface $storage,
     protected QuickFormInstanceManagerInterface $quickFormInstanceManager,
   ) {
