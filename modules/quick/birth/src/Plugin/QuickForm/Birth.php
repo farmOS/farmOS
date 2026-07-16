@@ -412,11 +412,6 @@ class Birth extends QuickFormBase {
       if (!empty($group)) {
         $group = [$this->entityTypeManager->getStorage('asset')->load($group)];
       }
-      // PHPStan throws the following error on the next line:
-      // Right side of && is always true.
-      // We ignore this because we need to check that the group.membership
-      // container service exists before we use it.
-      // @phpstan-ignore booleanAnd.rightAlwaysTrue
       if (empty($group) && $this->container->has('group.membership')) {
         $group = $this->container->get('group.membership')->getGroup($birth_mother, $birthdate->getTimestamp());
       }
