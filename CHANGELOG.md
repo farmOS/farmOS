@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Security
+
+- Update Drupal core to
+  [11.3.14](https://www.drupal.org/project/drupal/releases/11.3.14) for
+  [SA-CORE-2026-010](https://www.drupal.org/sa-core-2026-010),
+  [SA-CORE-2026-011](https://www.drupal.org/sa-core-2026-011), and
+  [SA-CORE-2026-012](https://www.drupal.org/sa-core-2026-012).
+
 ## [4.0.3] 2026-06-18
 
 ### Changed
