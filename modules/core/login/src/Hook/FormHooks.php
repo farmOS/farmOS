@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\farm_login\Hook;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Render\Element\Email;
@@ -19,6 +20,7 @@ class FormHooks {
 
   public function __construct(
     protected ConfigFactoryInterface $configFactory,
+    protected EntityTypeManagerInterface $entityTypeManager,
   ) {}
 
   /**
@@ -55,7 +57,9 @@ class FormHooks {
 
       // If the email address is associated with a user, use their account name
       // for later validation.
-      if ($user = user_load_by_mail($mail)) {
+      $users = \Drupal::entityTypeManager()->getStorage('user')->loadByProperties(['mail' => $mail]);
+      if (!empty($users)) {
+        $user = reset($users);
         $form_state->setValue('name', $user->getAccountName());
       }
     }
