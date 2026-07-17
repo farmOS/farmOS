@@ -9,9 +9,10 @@ use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
 use Drupal\views\Attribute\ViewsArgument;
+use Drupal\views\Plugin\ViewsHandlerManager;
 use Drupal\views\Plugin\views\argument\NumericArgument;
 use Drupal\views\Plugin\views\query\Sql;
-use Drupal\views\Views;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 /**
  * Argument handler for taxonomy term references from an arbitrary entity field.
@@ -28,6 +29,8 @@ class EntityTaxonomyTermReferenceArgument extends NumericArgument {
     protected EntityTypeManagerInterface $entityTypeManager,
     protected EntityTypeBundleInfoInterface $entityTypeBundleInfo,
     protected EntityFieldManagerInterface $entityFieldManager,
+    #[Autowire(service: 'plugin.manager.views.join')]
+    protected ViewsHandlerManager $viewsJoinPluginManager,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
@@ -106,7 +109,7 @@ class EntityTaxonomyTermReferenceArgument extends NumericArgument {
 
               // Join the taxonomy reference field table with the entity.
               /** @var \Drupal\views\Plugin\views\join\JoinPluginBase $join */
-              $join = Views::pluginManager('join')->createInstance('standard', [
+              $join = $this->viewsJoinPluginManager->createInstance('standard', [
                 'table' => $field_table_name,
                 'field' => 'entity_id',
                 'left_table' => $entity_data_table,
