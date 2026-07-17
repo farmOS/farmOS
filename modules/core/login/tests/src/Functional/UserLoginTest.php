@@ -7,7 +7,6 @@ namespace Drupal\Tests\farm_login\Functional;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
 use Drupal\Tests\farm_test\Functional\FarmBrowserTestBase;
-use Drupal\user\Entity\User;
 use Drupal\user\UserInterface;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
@@ -144,7 +143,7 @@ class UserLoginTest extends FarmBrowserTestBase {
    *
    * A copy of the core assertFailedLogin() method, but that uses email instead.
    *
-   * @param \Drupal\user\Entity\User $account
+   * @param \Drupal\user\UserInterface $account
    *   A user object with name and passRaw attributes for the login attempt.
    * @param mixed $flood_trigger
    *   (optional) Whether or not to expect that the flood control mechanism
@@ -158,7 +157,7 @@ class UserLoginTest extends FarmBrowserTestBase {
    *
    * @see UserLoginTest::assertFailedLogin()
    */
-  public function assertFailedLoginUsingEmail(User $account, $flood_trigger = NULL) {
+  public function assertFailedLoginUsingEmail(UserInterface $account, $flood_trigger = NULL) {
     $database = \Drupal::database();
     $this->drupalGet(Url::fromRoute('user.login'));
     $this->submitForm([
