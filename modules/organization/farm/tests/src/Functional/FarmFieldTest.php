@@ -21,7 +21,7 @@ class FarmFieldTest extends FarmBrowserTestBase {
   /**
    * Test user.
    *
-   * @var \Drupal\user\Entity\User|bool
+   * @var \Drupal\user\UserInterface|bool
    */
   protected $user;
 
