@@ -47,12 +47,15 @@ class LocationAPITest extends FarmBrowserTestBase {
     // Setup the request.
     $request_options[RequestOptions::HEADERS]['Accept'] = 'application/vnd.api+json';
     $request_options[RequestOptions::HEADERS]['Content-Type'] = 'application/vnd.api+json';
-    // PHPStan level 2+ throws the following error on the next line:
-    // Binary operation "." between non-falsy-string and
-    // Drupal\Core\Field\FieldItemListInterface results in an error.
+    // PHPStan throws the following errors on the next lines:
+    // Cannot access property $name on bool|Drupal\user\UserInterface.
+    // Cannot access property $passRaw on bool|Drupal\user\UserInterface.
     // We ignore this because we are following Drupal core's pattern.
-    // @phpstan-ignore binaryOp.invalid
-    $request_options[RequestOptions::HEADERS]['Authorization'] = 'Basic ' . base64_encode($this->user->name->value . ':' . $this->user->passRaw);
+    // @phpstan-ignore property.nonObject
+    $user_name = $this->user->name->value;
+    // @phpstan-ignore property.nonObject
+    $user_pass = $this->user->passRaw;
+    $request_options[RequestOptions::HEADERS]['Authorization'] = 'Basic ' . base64_encode($user_name . ':' . $user_pass);
     $asset_uri = "base://api/asset/object";
 
     // Create an asset with no intrinsic geometry.
