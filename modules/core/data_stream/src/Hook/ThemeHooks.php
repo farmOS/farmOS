@@ -88,7 +88,12 @@ class ThemeHooks {
     }
 
     // Add the basic data block view.
-    $build['views']['data'] = views_embed_view('data_stream_basic_data', 'block', $data_stream->id());
+    $build['views']['data'] = [
+      '#type' => 'view',
+      '#name' => 'data_stream_basic_data',
+      '#display_id' => 'block',
+      '#arguments' => [$data_stream->id()],
+    ];
   }
 
 }
