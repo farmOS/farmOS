@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- [Update Drupal core to 11.4 #1096](https://github.com/farmOS/farmOS/pull/1096)
+
 ## [4.0.6] 2026-09-16
 
 ### Fixed
