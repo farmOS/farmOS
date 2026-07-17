@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+This release updates Drupal core to 11.4, which introduces a change to some
+normalization method signatures. If you maintain a module that extends any of
+the Drupal core or farmOS normalization classes, you may need to update your
+method signatures and declare compatibility with Drupal <11.4 or >=11.4
+accordingly. Drupal core's
+[backwards compatibility policy](https://www.drupal.org/about/core/policies/core-change-policies/bc-policy)
+does not consider this a breaking change, and farmOS follows this upstream
+pattern. farmOS core's CSV normalization methods were updated to make them
+compatible with Drupal 11.4+.
+
 ### Changed
 
 - [Update Drupal core to 11.4 #1096](https://github.com/farmOS/farmOS/pull/1096)
