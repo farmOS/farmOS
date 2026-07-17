@@ -183,7 +183,12 @@ class CsvImportController extends ControllerBase {
         '#open' => TRUE,
         '#weight' => 100,
       ];
-      $build['imported']['view'] = views_embed_view('farm_import_csv_' . $entity_type, 'default', $migration_id);
+      $build['imported']['view'] = [
+        '#type' => 'view',
+        '#name' => 'farm_import_csv_' . $entity_type,
+        '#display_id' => 'default',
+        '#arguments' => [$migration_id],
+      ];
     }
 
     return $build;
