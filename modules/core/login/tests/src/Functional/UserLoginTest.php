@@ -7,7 +7,6 @@ namespace Drupal\Tests\farm_login\Functional;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
 use Drupal\Tests\farm_test\Functional\FarmBrowserTestBase;
-use Drupal\user\Entity\User;
 use Drupal\user\UserInterface;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
@@ -53,6 +52,10 @@ class UserLoginTest extends FarmBrowserTestBase {
     // 2. Login the user using their username.
     $user = $this->drupalCreateUser([]);
     $this->drupalGet('user/login', ['query' => ['destination' => 'foo']]);
+    // PHPStan throws the following errors on the next line:
+    // Cannot access property $passRaw on bool|Drupal\user\UserInterface.
+    // We ignore this because we are following Drupal core's pattern.
+    // @phpstan-ignore property.notFound
     $edit = ['name' => $user->getAccountName(), 'pass' => $user->passRaw];
     $this->submitForm($edit, 'Log in');
     $this->assertSession()->addressEquals('foo');
@@ -61,6 +64,10 @@ class UserLoginTest extends FarmBrowserTestBase {
     // 3. Login the user using their email.
     $user = $this->drupalCreateUser([]);
     $this->drupalGet('user/login', ['query' => ['destination' => 'foo']]);
+    // PHPStan throws the following errors on the next line:
+    // Cannot access property $passRaw on bool|Drupal\user\UserInterface.
+    // We ignore this because we are following Drupal core's pattern.
+    // @phpstan-ignore property.notFound
     $edit = ['name' => $user->getEmail(), 'pass' => $user->passRaw];
     $this->submitForm($edit, 'Log in');
     $this->assertSession()->addressEquals('foo');
@@ -69,6 +76,10 @@ class UserLoginTest extends FarmBrowserTestBase {
     // 4. Login with an invalid username/email.
     $user = $this->drupalCreateUser([]);
     $this->drupalGet('user/login', ['query' => ['destination' => 'foo']]);
+    // PHPStan throws the following errors on the next line:
+    // Cannot access property $passRaw on bool|Drupal\user\UserInterface.
+    // We ignore this because we are following Drupal core's pattern.
+    // @phpstan-ignore property.notFound
     $edit = ['name' => 'invalid@email.com', 'pass' => $user->passRaw];
     $this->submitForm($edit, 'Log in');
     $this->assertSession()->statusCodeEquals(200);
@@ -95,11 +106,10 @@ class UserLoginTest extends FarmBrowserTestBase {
 
     $user1 = $this->drupalCreateUser([]);
     $incorrect_user1 = clone $user1;
-    // PHPStan level 2+ throws the following error on the next line:
-    // Binary operation ".=" between Drupal\Core\Field\FieldItemListInterface
-    // and 'incorrect' results in an error.
+    // PHPStan throws the following error on the next line:
+    // Access to an undefined property Drupal\user\UserInterface::$passRaw.
     // We ignore this because we are following Drupal core's pattern.
-    // @phpstan-ignore assignOp.invalid
+    // @phpstan-ignore property.notFound
     $incorrect_user1->passRaw .= 'incorrect';
 
     $user2 = $this->drupalCreateUser([]);
@@ -133,7 +143,7 @@ class UserLoginTest extends FarmBrowserTestBase {
    *
    * A copy of the core assertFailedLogin() method, but that uses email instead.
    *
-   * @param \Drupal\user\Entity\User $account
+   * @param \Drupal\user\UserInterface $account
    *   A user object with name and passRaw attributes for the login attempt.
    * @param mixed $flood_trigger
    *   (optional) Whether or not to expect that the flood control mechanism
@@ -147,11 +157,15 @@ class UserLoginTest extends FarmBrowserTestBase {
    *
    * @see UserLoginTest::assertFailedLogin()
    */
-  public function assertFailedLoginUsingEmail(User $account, $flood_trigger = NULL) {
+  public function assertFailedLoginUsingEmail(UserInterface $account, $flood_trigger = NULL) {
     $database = \Drupal::database();
     $this->drupalGet(Url::fromRoute('user.login'));
     $this->submitForm([
       'name' => $account->getEmail(),
+      // PHPStan throws the following error on the next line:
+      // Access to an undefined property Drupal\user\UserInterface::$passRaw.
+      // We ignore this because we are following Drupal core's pattern.
+      // @phpstan-ignore property.notFound
       'pass' => $account->passRaw,
     ], 'Log in');
     if (isset($flood_trigger)) {
