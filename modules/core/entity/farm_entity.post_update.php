@@ -37,6 +37,15 @@ function farm_entity_post_update_revision_translations_affected(&$sandbox) {
 }
 
 /**
+ * Install the diff module.
+ */
+function farm_entity_post_update_install_diff(&$sandbox) {
+  if (!\Drupal::service('module_handler')->moduleExists('diff')) {
+    \Drupal::service('module_installer')->install(['diff']);
+  }
+}
+
+/**
  * Implements hook_removed_post_updates().
  */
 function farm_entity_removed_post_updates() {
