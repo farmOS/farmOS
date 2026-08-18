@@ -18,6 +18,7 @@
         "phpstan/phpstan-deprecation-rules": "^2.0",
         "phpunit/phpunit": "^11.5.3",
         "phpspec/prophecy-phpunit": "^2",
+        "rector/rector": "2.5.9",
         "sebastian/diff": "^6.0.2"
     },
     "conflict": {
