@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Security
+
+- Update Entity API module to
+  [1.8](https://www.drupal.org/project/entity/releases/8.x-1.8) for
+  [SA-CONTRIB-2026-113](https://www.drupal.org/sa-contrib-2026-113),
+
 ## [4.0.4] 2026-07-16
 
 ### Security
