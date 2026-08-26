@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.0.5] 2026-08-26
+
 ### Security
 
 - Update Entity API module to
@@ -280,7 +282,8 @@ farmOS 2.x release notes are available in the 2.x branch's
 farmOS 1.x release notes are available in the
 [farmOS releases on Drupal.org](https://www.drupal.org/project/farm/releases?version=7.x-1).
 
-[Unreleased]: https://github.com/farmOS/farmOS/compare/4.0.3...4.x
+[Unreleased]: https://github.com/farmOS/farmOS/compare/4.0.5...4.x
+[4.0.5]: https://github.com/farmOS/farmOS/releases/tag/4.0.5
 [4.0.4]: https://github.com/farmOS/farmOS/releases/tag/4.0.4
 [4.0.3]: https://github.com/farmOS/farmOS/releases/tag/4.0.3
 [4.0.2]: https://github.com/farmOS/farmOS/releases/tag/4.0.2
