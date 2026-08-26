@@ -65,7 +65,7 @@
                 "Issue #2909128: Autocomplete not working on Chrome Android": "https://www.drupal.org/files/issues/2023-07-11/2909128-92.patch"
             },
             "drupal/entity": {
-                "Issue #3206703: Provide reverse relationships for bundle plugin entity_reference fields.": "https://www.drupal.org/files/issues/2024-08-30/3206703-12.patch"
+                "Issue #3206703: Provide reverse relationships for bundle plugin entity_reference fields.": "https://www.drupal.org/files/issues/2026-08-26/3206703-13.patch"
             },
             "drupal/entity_reference_revisions": {
                 "Issue #3267304: Infer target_revision_id to be default revision when only a target_id is provided": "https://git.drupalcode.org/issue/entity_reference_revisions-3267304/-/commit/73856bea172fc78a3f4f9636a8917c9216867a9a.patch"
