@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Import KML placemarks with a name or description that contains CDATA
+
 ## [4.0.5] 2026-08-26
 
 ### Security
