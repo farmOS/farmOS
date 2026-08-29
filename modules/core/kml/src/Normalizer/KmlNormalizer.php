@@ -107,10 +107,17 @@ class KmlNormalizer implements NormalizerInterface, DenormalizerInterface {
       }
 
       // Add standard KML properties if included.
+      // Elements that contain a CDATA section, and elements that contain no
+      // text at all, are decoded into SimpleXMLElement objects. Cast them to
+      // strings, otherwise they cannot be serialized (eg: into form state).
       $keys = $this->supportedProperties();
       foreach ($keys as $property_name) {
         if (isset($placemark[$property_name])) {
-          $properties[$property_name] = $placemark[$property_name];
+          $value = $placemark[$property_name];
+          if ($value instanceof \SimpleXMLElement) {
+            $value = (string) $value;
+          }
+          $properties[$property_name] = $value;
         }
       }
 
