@@ -87,6 +87,26 @@ class KmlTest extends KernelTestBase {
         'name' => 'Empty description',
         'description' => '',
       ],
+      // An element only keeps the text that is directly inside it. Text that
+      // is inside child elements is dropped. This is a known limitation. All
+      // supported properties are plain scalar values in practice.
+      'nested child elements' => [
+        'kml' => '<name>Nested</name><description>Hello <b>world</b> and more</description>',
+        'name' => 'Nested',
+        // The text of the <b> element is dropped. Two spaces remain.
+        'description' => 'Hello  and more',
+      ],
+      'nested child element only' => [
+        'kml' => '<name>Nested only</name><description><b>world</b></description>',
+        'name' => 'Nested only',
+        // The element holds no direct text, so the result is an empty string.
+        'description' => '',
+      ],
+      'nested child elements in name' => [
+        'kml' => '<name>Field <b>A</b> north</name><description>Nested name</description>',
+        'name' => 'Field  north',
+        'description' => 'Nested name',
+      ],
     ];
 
     foreach ($placemarks as $label => $placemark) {
