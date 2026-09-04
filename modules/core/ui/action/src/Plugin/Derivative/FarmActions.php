@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Drupal\farm_ui_action\Plugin\Derivative;
 
 use Drupal\Component\Plugin\Derivative\DeriverBase;
+use Drupal\Core\Action\Plugin\Action\EntityActionBase;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\farm_ui_action\Plugin\Menu\LocalAction\AddEntity;
+use Drupal\farm_ui_action\Plugin\Menu\LocalAction\EntityAction;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -80,29 +82,38 @@ class FarmActions extends DeriverBase implements ContainerDeriverInterface {
         $this->derivatives[$name]['bundle_parameter'] = 'arg_0';
       }
 
-      // Generate links to /log/add/[bundle]?asset=[id] on asset pages.
-      if ($type == 'log') {
-        $bundles = $this->entityTypeBundleInfo->getBundleInfo('log');
-        foreach ($bundles as $bundle => $bundle_info) {
-          $name = 'farm.asset.add.' . $type . '.' . $bundle;
-          $this->derivatives[$name] = $base_plugin_definition;
-          $this->derivatives[$name]['route_name'] = 'entity.' . $type . '.add_form';
-          $this->derivatives[$name]['class'] = AddEntity::class;
-          $this->derivatives[$name]['entity_type'] = $type;
-          $this->derivatives[$name]['bundle'] = $bundle;
-          $this->derivatives[$name]['appears_on'][] = 'entity.asset.canonical';
-          $this->derivatives[$name]['prepopulate'] = [
-            'asset' => [
-              'route_parameter' => 'asset',
-            ],
-          ];
-          $this->derivatives[$name]['cache_tags'] = ['entity_bundles'];
+      // Generate action links for exposed entity action.
+      $exposed_action_ids = $this->moduleHandler->invokeAll('farm_exposed_entity_actions');
+      $this->moduleHandler->alter('farm_exposed_entity_actions', $exposed_action_ids);
+      /** @var \Drupal\system\Entity\Action[] $entity_actions */
+      $entity_actions = $this->entityTypeManager->getStorage('action')->loadMultiple(array_filter($exposed_action_ids, function ($id) {
+        return is_string($id);
+      }));
+      foreach ($entity_actions as $action) {
+        if (!($action->getPlugin() instanceof EntityActionBase && $action->getPluginDefinition()['type'] == $type)) {
+          continue;
+        }
+        $name = 'farm.action.' . $type . '.' . $action->id();
+        $this->derivatives[$name] = $base_plugin_definition;
+        $this->derivatives[$name]['title'] = $action->label();
+        $this->derivatives[$name]['route_name'] = 'farm.action.' . $type;
+        $this->derivatives[$name]['class'] = EntityAction::class;
+        $this->derivatives[$name]['route_parameters'] = [
+          'action' => $action->id(),
+        ];
+        $this->derivatives[$name]['appears_on'][] = 'entity.' . $type . '.canonical';
+        $this->derivatives[$name]['weight'] = 10;
 
-          // Add it to the /asset/%asset/logs/%log_type View, if the
-          // farm_ui_views module is enabled.
-          if ($this->moduleHandler->moduleExists('farm_ui_views')) {
-            $this->derivatives[$name]['appears_on'][] = 'view.farm_log.page_asset';
-          }
+        // Add the config:action_list and config:core.extension cache tags so
+        // action links are recreated after action config entities and/or
+        // modules are installed/uninstalled.
+        $this->derivatives[$name]['cache_tags'] = ['config:action_list', 'config:core.extension'];
+
+        // If this is the asset_add_log_action, and the farm_ui_views module is
+        // installed, add the action button on the view.farm_log.page_asset
+        // display (/asset/%asset/logs and /asset/%asset/logs/%log_type).
+        if ($action->id() == 'asset_add_log_action' && $this->moduleHandler->moduleExists('farm_ui_views')) {
+          $this->derivatives[$name]['appears_on'][] = 'view.farm_log.page_asset';
         }
       }
     }

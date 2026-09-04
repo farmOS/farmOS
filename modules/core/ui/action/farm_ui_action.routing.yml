@@ -1,0 +1,59 @@
+farm.action.asset:
+  path: '/asset/{entity}/action/{action}'
+  defaults:
+    _controller: \Drupal\farm_ui_action\Controller\EntityActionController::execute
+  requirements:
+    _custom_access: \Drupal\farm_ui_action\Controller\EntityActionController::access
+    _module_dependencies: asset
+    entity: \d+
+  options:
+    parameters:
+      entity:
+        type: entity:asset
+      action:
+        type: entity:action
+
+farm.action.log:
+  path: '/log/{entity}/action/{action}'
+  defaults:
+    _controller: \Drupal\farm_ui_action\Controller\EntityActionController::execute
+  requirements:
+    _custom_access: \Drupal\farm_ui_action\Controller\EntityActionController::access
+    _module_dependencies: asset
+    entity: \d+
+  options:
+    parameters:
+      entity:
+        type: entity:log
+      action:
+        type: entity:action
+
+farm.action.organization:
+  path: '/organization/{entity}/action/{action}'
+  defaults:
+    _controller: \Drupal\farm_ui_action\Controller\EntityActionController::execute
+  requirements:
+    _custom_access: \Drupal\farm_ui_action\Controller\EntityActionController::access
+    _module_dependencies: organization
+    entity: \d+
+  options:
+    parameters:
+      entity:
+        type: entity:organization
+      action:
+        type: entity:action
+
+farm.action.plan:
+  path: '/plan/{entity}/action/{action}'
+  defaults:
+    _controller: \Drupal\farm_ui_action\Controller\EntityActionController::execute
+  requirements:
+    _custom_access: \Drupal\farm_ui_action\Controller\EntityActionController::access
+    _module_dependencies: plan
+    entity: \d+
+  options:
+    parameters:
+      entity:
+        type: entity:plan
+      action:
+        type: entity:action

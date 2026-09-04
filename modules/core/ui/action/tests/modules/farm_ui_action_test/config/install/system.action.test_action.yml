@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: test_action
+label: 'Test action'
+type: asset
+plugin: 'test_action'
+configuration: {  }
