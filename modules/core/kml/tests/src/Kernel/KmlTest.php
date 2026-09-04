@@ -110,8 +110,7 @@ class KmlTest extends KernelTestBase {
       $this->assertEquals($placemark['name'], $geometries[0]->properties['name'], $label);
       $this->assertEquals($placemark['description'], $geometries[0]->properties['description'], $label);
 
-      // Confirm that the properties can be serialized. The KML importer form
-      // puts them into form state, which Drupal serializes.
+      // Confirm that the properties can be serialized.
       // @see \Drupal\farm_import_kml\Form\KmlImporter
       $serialized = PhpSerialize::encode($geometries[0]->properties);
       $this->assertEquals($geometries[0]->properties, PhpSerialize::decode($serialized), $label);
