@@ -12,12 +12,12 @@ use Drupal\Core\Render\Markup;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\asset\Entity\AssetInterface;
+use Drupal\farm_form\Traits\FarmFormInlineContainerTrait;
 use Drupal\farm_inventory\AssetInventoryInterface;
 use Drupal\farm_quick\Attribute\QuickForm;
 use Drupal\farm_quick\Plugin\QuickForm\ConfigurableQuickFormInterface;
 use Drupal\farm_quick\Plugin\QuickForm\QuickFormBase;
 use Drupal\farm_quick\Traits\ConfigurableQuickFormTrait;
-use Drupal\farm_quick\Traits\QuickFormElementsTrait;
 use Drupal\farm_quick\Traits\QuickLogTrait;
 use Drupal\farm_quick\Traits\QuickTermTrait;
 use Drupal\log\Entity\Log;
@@ -36,9 +36,9 @@ use Drupal\taxonomy\TermInterface;
 )]
 class Inventory extends QuickFormBase implements ConfigurableQuickFormInterface {
 
+  use FarmFormInlineContainerTrait;
   use ConfigurableQuickFormTrait;
   use QuickLogTrait;
-  use QuickFormElementsTrait;
   use QuickTermTrait;
 
   public function __construct(

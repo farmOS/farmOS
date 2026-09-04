@@ -11,12 +11,12 @@ use Drupal\Core\Render\Markup;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\asset\Entity\AssetInterface;
+use Drupal\farm_form\Traits\FarmFormInlineContainerTrait;
 use Drupal\farm_geo\Traits\WktTrait;
 use Drupal\farm_location\AssetLocationInterface;
 use Drupal\farm_quick\Attribute\QuickForm;
 use Drupal\farm_quick\Plugin\QuickForm\QuickFormBase;
 use Drupal\farm_quick\Plugin\QuickForm\QuickFormInterface;
-use Drupal\farm_quick\Traits\QuickFormElementsTrait;
 use Drupal\farm_quick\Traits\QuickLogTrait;
 use Drupal\farm_quick\Traits\QuickPrepopulateTrait;
 use Drupal\farm_quick\Traits\QuickStringTrait;
@@ -35,8 +35,8 @@ use Drupal\farm_quick\Traits\QuickStringTrait;
 )]
 class Movement extends QuickFormBase implements QuickFormInterface {
 
+  use FarmFormInlineContainerTrait;
   use QuickLogTrait;
-  use QuickFormElementsTrait;
   use QuickPrepopulateTrait;
   use QuickStringTrait;
   use WktTrait;
