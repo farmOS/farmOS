@@ -34,6 +34,13 @@ For example, if you were to build a module that adds a new log type called
 this module is made to work with farmOS, and is not designed to be installed in
 other Drupal sites more generally.
 
+Since future versions of farmOS may include new modules (as a normal process of
+its development - maintenance or adding features), it is also important to consider
+whether your module name is likely to conflict and whether you want to avoid that
+upfront. External contrib modules may use the module name prefix `farm_ext_` to
+avoid such future conflicts. farmOS will never include a module named with that
+prefix to reserve it for external contrib modules.
+
 ## File structure
 
 A farmOS (Drupal) module only requires one file for it to be recognized as a
