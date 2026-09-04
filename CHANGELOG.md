@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- [Fix KML import crash on placemarks containing CDATA #1100](https://github.com/farmOS/farmOS/pull/1100)
+
 ## [4.0.5] 2026-08-26
 
 ### Security
