@@ -10,7 +10,6 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\asset\Entity\AssetInterface;
 use Drupal\farm_group\GroupMembershipInterface;
 use Drupal\farm_quick\Attribute\QuickForm;
 use Drupal\farm_quick\Plugin\QuickForm\QuickFormBase;
@@ -155,31 +154,6 @@ class Group extends QuickFormBase implements QuickFormInterface {
 
     // Create the log.
     $this->createLog($log);
-  }
-
-  /**
-   * Load assets from entity_autocomplete values.
-   *
-   * @param array|null $values
-   *   The value from $form_state->getValue().
-   *
-   * @return \Drupal\asset\Entity\AssetInterface[]
-   *   Returns an array of assets.
-   */
-  protected function loadEntityAutocompleteAssets($values) {
-    $entities = [];
-    if (empty($values)) {
-      return $entities;
-    }
-    foreach ($values as $value) {
-      if (is_array($value) && !empty($value['target_id'])) {
-        $value = $this->entityTypeManager->getStorage('asset')->load($value['target_id']);
-      }
-      if ($value instanceof AssetInterface) {
-        $entities[] = $value;
-      }
-    }
-    return $entities;
   }
 
 }
