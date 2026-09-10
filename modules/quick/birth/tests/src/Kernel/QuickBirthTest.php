@@ -122,6 +122,15 @@ class QuickBirthTest extends QuickFormTestBase {
     ]);
     $genetic_father->save();
 
+    // Create a  second possible genetic father, to test referencing multiple.
+    $genetic_father2 = Asset::create([
+      'name' => 'Genetic Father 2',
+      'type' => 'animal',
+      'animal_type' => $breed2,
+      'sex' => 'M',
+    ]);
+    $genetic_father2->save();
+
     // Create a location asset and move the birth mother there via a log with
     // a timestamp of yesterday.
     $location = Asset::create([
@@ -183,7 +192,10 @@ class QuickBirthTest extends QuickFormTestBase {
       ],
       'birth_mother' => $birth_mother->label(),
       'genetic_mother' => $genetic_mother->label(),
-      'genetic_father' => $genetic_father->label(),
+      'genetic_father' => [
+        ['target_id' => $genetic_father->id()],
+        ['target_id' => $genetic_father2->id()],
+      ],
       'group' => $group->label(),
       'notes' => [
         'value' => 'Birth notes',
@@ -195,13 +207,13 @@ class QuickBirthTest extends QuickFormTestBase {
     $assets = \Drupal::entityTypeManager()->getStorage('asset')->loadMultiple();
     $logs = \Drupal::entityTypeManager()->getStorage('log')->loadMultiple();
 
-    // Confirm that seven assets (5 animals + 1 land + 1 group) and three logs
+    // Confirm that eight assets (6 animals + 1 land + 1 group) and three logs
     // (1 birth + 2 observations) exists.
-    $this->assertCount(7, $assets);
+    $this->assertCount(8, $assets);
     $this->assertCount(3, $logs);
 
     // Confirm that the first child animal asset contains all the expected data.
-    $child1 = $assets[6];
+    $child1 = $assets[7];
     $this->assertEquals("Suzie's child", $child1->label());
     $this->assertEquals($breed2->id(), $child1->get('animal_type')->target_id);
     $this->assertEquals($today->getTimestamp(), $child1->get('birthdate')->value);
@@ -212,9 +224,10 @@ class QuickBirthTest extends QuickFormTestBase {
     $this->assertEquals('123', $id_tag->id);
     $this->assertEquals('Left ear', $id_tag->location);
     $parents = $child1->get('parent')->referencedEntities();
-    $this->assertCount(2, $parents);
+    $this->assertCount(3, $parents);
     $this->assertEquals($genetic_mother->id(), $parents[0]->id());
     $this->assertEquals($genetic_father->id(), $parents[1]->id());
+    $this->assertEquals($genetic_father2->id(), $parents[2]->id());
     $this->assertEquals('Child 1 notes', $child1->get('notes')->value);
     $this->assertEmpty($child1->get('archived')->value);
     $child_location = $this->assetLocation->getLocation($child1);
@@ -224,15 +237,16 @@ class QuickBirthTest extends QuickFormTestBase {
 
     // Confirm that the second child animal asset contains all the expected
     // data.
-    $child2 = $assets[7];
+    $child2 = $assets[8];
     $this->assertEquals('Child 2', $child2->label());
     $this->assertEquals($breed2->id(), $child2->get('animal_type')->target_id);
     $this->assertEquals($today->getTimestamp(), $child2->get('birthdate')->value);
     $this->assertEquals('', $child2->get('sex')->value);
     $parents = $child2->get('parent')->referencedEntities();
-    $this->assertCount(2, $parents);
+    $this->assertCount(3, $parents);
     $this->assertEquals($genetic_mother->id(), $parents[0]->id());
     $this->assertEquals($genetic_father->id(), $parents[1]->id());
+    $this->assertEquals($genetic_father2->id(), $parents[2]->id());
     $this->assertNotEmpty($child2->get('archived')->value);
     $child_location = $this->assetLocation->getLocation($child2);
     $this->assertEquals($location->id(), reset($child_location)->id());

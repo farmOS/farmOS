@@ -18,6 +18,7 @@ use Drupal\farm_location\AssetLocationInterface;
 use Drupal\farm_quick\Attribute\QuickForm;
 use Drupal\farm_quick\Plugin\QuickForm\QuickFormBase;
 use Drupal\farm_quick\Traits\QuickAssetTrait;
+use Drupal\farm_quick\Traits\QuickFormElementsTrait;
 use Drupal\farm_quick\Traits\QuickLogTrait;
 use Drupal\farm_quick\Traits\QuickStringTrait;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -39,6 +40,7 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 class Birth extends QuickFormBase {
 
   use QuickAssetTrait;
+  use QuickFormElementsTrait;
   use QuickLogTrait;
   use QuickStringTrait;
 
@@ -212,7 +214,7 @@ class Birth extends QuickFormBase {
     $form['lineage']['genetic_father'] = [
       '#type' => 'entity_autocomplete',
       '#title' => $this->t('Genetic father'),
-      '#description' => $this->t("This will be referenced as the child's parent."),
+      '#description' => $this->t("This will be referenced as the child's parent. If the genetic father is uncertain, multiple genetic fathers can be referenced (comma-separated). All of them will be saved as the child's parents. If the true genetic father is later determined, the other one(s) can be removed."),
       '#target_type' => 'asset',
       '#selection_settings' => [
         'target_bundles' => ['animal'],
@@ -221,6 +223,7 @@ class Birth extends QuickFormBase {
           'direction' => 'DESC',
         ],
       ],
+      '#tags' => TRUE,
     ];
 
     // If the group module is enabled, add an entity autocomplete field for
@@ -301,11 +304,8 @@ class Birth extends QuickFormBase {
     if ($form_state->getValue('genetic_mother')) {
       $genetic_mother = $this->entityTypeManager->getStorage('asset')->load($form_state->getValue('genetic_mother'));
     }
-    /** @var \Drupal\asset\Entity\AssetInterface|null $genetic_father */
-    $genetic_father = NULL;
-    if ($form_state->getValue('genetic_father')) {
-      $genetic_father = $this->entityTypeManager->getStorage('asset')->load($form_state->getValue('genetic_father'));
-    }
+    /** @var \Drupal\asset\Entity\AssetInterface[] $genetic_fathers */
+    $genetic_fathers = $this->loadEntityAutocompleteAssets($form_state->getValue('genetic_father'));
 
     // If there is no birth mother, assume that the genetic mother is the birth
     // mother. Likewise, if there is no genetic mother, assume that the birth
@@ -318,11 +318,12 @@ class Birth extends QuickFormBase {
       $genetic_mother = $birth_mother;
     }
 
-    // Assemble the list of genetic parents.
-    $parents = [$genetic_mother];
-    if (!empty($genetic_father)) {
-      $parents[] = $genetic_father;
+    // Assemble the list of genetic parents, de-duplicating by entity ID.
+    $parents = [];
+    foreach (array_merge([$genetic_mother], $genetic_fathers) as $parent) {
+      $parents[$parent->id()] = $parent;
     }
+    $parents = array_values($parents);
 
     // Iterate over the children and create an asset for each.
     $children = [];
