@@ -6,11 +6,13 @@ on:
     branches:
       - '4.x'
       - '4.x-**'
+      - '4.[0-9]+.x'
     tags:
       - '4.*'
   pull_request:
     branches:
       - '4.x'
+      - '4.[0-9]+.x'
 
 env:
   FARMOS_DEV_BRANCH: 4.x

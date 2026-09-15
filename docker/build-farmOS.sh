@@ -38,9 +38,10 @@ if [ "${IS_TAGGED_RELEASE}" = false ]; then
 fi
 
 # Require the correct farmOS version in composer.json.
-# If FARMOS_VERSION is 4.x, we will require 4.x-dev.
-if [ "${FARMOS_VERSION}" = "4.x" ]; then
-  FARMOS_COMPOSER_VERSION="4.x-dev"
+# If FARMOS_VERSION looks like a dev branch (e.g. 4.x or 4.1.x), we will
+# require that branch with a -dev suffix (e.g. 4.x-dev or 4.1.x-dev).
+if [[ "${FARMOS_VERSION}" =~ ^([0-9]+\.)*[0-9]+\.x$ ]]; then
+  FARMOS_COMPOSER_VERSION="${FARMOS_VERSION}-dev"
 # Or, if this is a tagged release, require the tag version.
 elif [ "${IS_TAGGED_RELEASE}" = true ]; then
   FARMOS_COMPOSER_VERSION="${FARMOS_VERSION}"
