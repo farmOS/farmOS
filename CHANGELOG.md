@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Fix KML import crash on placemarks containing CDATA #1100](https://github.com/farmOS/farmOS/pull/1100)
 
+### Security
+
+- Update Drupal core to
+  [11.3.17](https://www.drupal.org/project/drupal/releases/11.3.17) for
+  [SA-CORE-2026-013](https://www.drupal.org/sa-core-2026-013)
+
 ## [4.0.5] 2026-08-26
 
 ### Security
