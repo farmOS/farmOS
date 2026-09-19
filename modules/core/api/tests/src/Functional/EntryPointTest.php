@@ -74,14 +74,7 @@ class EntryPointTest extends FarmBrowserTestBase {
 
     // A `me` link must be present for authenticated users.
     $user = $this->createUser();
-    // PHPStan level 2+ throws the following errors when we try to use
-    // $user->name and $user->passRaw:
-    // Cannot access property $name on Drupal\user\UserInterface|false.
-    // Cannot access property $passRaw on Drupal\user\UserInterface|false.
-    // We ignore these because we are following Drupal core's pattern.
-    // @phpstan-ignore property.nonObject
     $username = $user->name->value;
-    // @phpstan-ignore property.nonObject
     $userpass = $user->passRaw;
     $request_options[RequestOptions::HEADERS]['Authorization'] = 'Basic ' . base64_encode($username . ':' . $userpass);
     $response = $this->request('GET', Url::fromUri('base://api'), $request_options);

@@ -198,20 +198,9 @@ class UserLoginTest extends FarmBrowserTestBase {
     $this->drupalGet(Url::fromRoute('user.login'));
     $this->submitForm([
       'name' => $user->getEmail(),
-      // PHPStan level 2+ throws the following error on the next line:
-      // Access to an undefined property
-      // Drupal\Core\Session\AccountInterface::$passRaw.
-      // We ignore this because we are following Drupal core's pattern.
-      // @phpstan-ignore property.notFound
       'pass' => $user->passRaw,
     ], 'Log in');
 
-    // PHPStan level 2+ throws the following error on the next line:
-    // Access to an undefined property
-    // Drupal\Core\Session\AccountInterface::$sessionId.
-    // We ignore this because we are following Drupal core's pattern.
-    // @see ::drupalUserIsLoggedIn()
-    // @phpstan-ignore property.notFound
     $user->sessionId = $this->getSession()->getCookie(\Drupal::service('session_configuration')->getOptions(\Drupal::request())['name']);
     $this->assertTrue($this->drupalUserIsLoggedIn($user), 'User ' . $user->getAccountName() . ' successfully logged in.');
 
