@@ -17,6 +17,15 @@ does not consider this a breaking change, and farmOS follows this upstream
 pattern. farmOS core's CSV normalization methods were updated to make them
 compatible with Drupal 11.4+.
 
+**Manual `composer.json` cleanup**
+
+If you are managing your own deployment with Composer, and you track your own
+`composer.json` file in source control, run the following commands to remove
+the abandoned `oomphinc/composer-installers-extender` project:
+
+    composer require composer/installers
+    composer remove oomphinc/composer-installers-extender
+
 ### Changed
 
 - [Update Drupal core to 11.4 #1096](https://github.com/farmOS/farmOS/pull/1096)

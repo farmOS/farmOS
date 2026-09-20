@@ -57,7 +57,6 @@ allowedPlugins=(
   "cweagans/composer-patches"
   "dealerdirect/phpcodesniffer-composer-installer"
   "drupal/core-composer-scaffold"
-  "oomphinc/composer-installers-extender"
   "phpstan/extension-installer"
   "symfony/runtime"
   "wikimedia/composer-merge-plugin"
