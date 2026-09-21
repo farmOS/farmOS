@@ -76,6 +76,12 @@ class EntryPointTest extends FarmBrowserTestBase {
     $user = $this->createUser();
     $username = $user->name->value;
     $userpass = $user->passRaw;
+    // PHPStan throws the following error on the next line:
+    // Binary operation "." between non-falsy-string and
+    // Drupal\Core\Field\FieldItemListInterface results in an error.
+    // We ignore this because we are following Drupal core's pattern.
+    // @see \Drupal\Tests\jsonapi\Functional\EntryPointTest::testEntryPoint()
+    // @phpstan-ignore binaryOp.invalid
     $request_options[RequestOptions::HEADERS]['Authorization'] = 'Basic ' . base64_encode($username . ':' . $userpass);
     $response = $this->request('GET', Url::fromUri('base://api'), $request_options);
     $document = Json::decode((string) $response->getBody());

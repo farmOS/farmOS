@@ -201,6 +201,12 @@ class UserLoginTest extends FarmBrowserTestBase {
       'pass' => $user->passRaw,
     ], 'Log in');
 
+    // PHPStan throws the following error on the next line:
+    // Property Drupal\user\UserInterface::$sessionId
+    // (Drupal\Core\Field\FieldItemListInterface) does not accept string|null.
+    // We ignore this because we are following Drupal core's pattern.
+    // @see \Drupal\Tests\UiHelperTrait::drupalUserIsLoggedIn()
+    // @phpstan-ignore assign.propertyType
     $user->sessionId = $this->getSession()->getCookie(\Drupal::service('session_configuration')->getOptions(\Drupal::request())['name']);
     $this->assertTrue($this->drupalUserIsLoggedIn($user), 'User ' . $user->getAccountName() . ' successfully logged in.');
 
