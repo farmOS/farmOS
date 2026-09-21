@@ -17,7 +17,7 @@ use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
  *
  * These tests are based on the core UserLoginTests.
  *
- * @see \Drupal\Tests\farm_login\Functional\UserLoginTest
+ * @see \Drupal\Tests\user\Functional\UserLoginTest
  */
 #[Group('farm')]
 #[RunTestsInSeparateProcesses]
