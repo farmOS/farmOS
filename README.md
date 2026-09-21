@@ -23,6 +23,10 @@ documentation on farmOS.org: https://farmOS.org/hosting/install
 If you would like to pay for hosting, [Farmier](https://farmier.com) provides
 affordable options for individual farms and organizations.
 
+If you'd rather not manage the Docker container yourself, [Easypanel](https://easypanel.io) is a self-hosted deployment platform with a one-click farmOS template:
+
+[![Deploy on Easypanel](https://easypanel.io/img/deploy-on-easypanel-40.svg)](https://easypanel.io/templates/farmos)
+
 ## MAINTAINERS
 
 Current maintainers:
