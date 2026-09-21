@@ -20,7 +20,7 @@ class ContentEntityNormalizer extends CoreContentEntityNormalizer {
   /**
    * {@inheritdoc}
    */
-  public function normalize($entity, $format = NULL, array $context = []): array|string|int|float|bool|\ArrayObject|null {
+  public function normalize($entity, $format = NULL, array $context = []): array {
     $data = parent::normalize($entity, $format, $context);
 
     // If columns were explicitly included, remove others.

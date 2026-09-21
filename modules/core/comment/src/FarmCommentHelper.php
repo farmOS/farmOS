@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\farm_comment;
 
-use Drupal\comment\Plugin\Field\FieldType\CommentItemInterface;
+use Drupal\comment\CommentingStatus;
 use Drupal\entity\BundleFieldDefinition;
 
 /**
@@ -27,8 +27,8 @@ class FarmCommentHelper {
     // We use BundleFieldDefinition instead of BaseFieldDefinition to force
     // Drupal to create a separate database table for this field. Otherwise, if
     // it is added to the base table then the comment field default value is
-    // always 0 (CommentItemInterface::HIDDEN) instead of 2
-    // (CommentItemInterface::OPEN), because the
+    // always 0 (CommentingStatus::Hidden->value) instead of 2
+    // (CommentingStatus::Open->value), because the
     // Drupal\comment\Plugin\Field\FieldType\CommentItem::schema() default is 0.
     $field = BundleFieldDefinition::create('comment');
 
@@ -45,7 +45,7 @@ class FarmCommentHelper {
     // Enable comments on entities by default.
     $default_value = [
       [
-        'status' => CommentItemInterface::OPEN,
+        'status' => CommentingStatus::Open->value,
         'cid' => 0,
         'last_comment_timestamp' => 0,
         'last_comment_name' => '',

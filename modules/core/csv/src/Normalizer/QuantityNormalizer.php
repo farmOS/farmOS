@@ -14,7 +14,7 @@ class QuantityNormalizer extends ContentEntityNormalizer {
   /**
    * {@inheritdoc}
    */
-  public function normalize($entity, $format = NULL, array $context = []): array|string|int|float|bool|\ArrayObject|null {
+  public function normalize($entity, $format = NULL, array $context = []): array {
     $data = parent::normalize($entity, $format, $context);
 
     // Query the log associated with the quantity.

@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - organization.type.farm
+    - taxonomy.vocabulary.log_category
   module:
     - entity_reference_revisions
     - farm_entity_access
@@ -10,6 +11,7 @@ dependencies:
     - log
     - options
     - state_machine
+    - taxonomy
   enforced:
     module:
       - farm_ui_views

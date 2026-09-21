@@ -5,15 +5,26 @@ declare(strict_types=1);
 namespace Drupal\farm_ui_views\Plugin\views\argument;
 
 use Drupal\views\Attribute\ViewsArgument;
+use Drupal\views\Plugin\ViewsHandlerManager;
 use Drupal\views\Plugin\views\argument\ArgumentPluginBase;
 use Drupal\views\Plugin\views\query\Sql;
-use Drupal\views\Views;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 /**
  * Argument handler for both the asset and location fields on logs.
  */
 #[ViewsArgument("asset_or_location")]
 class AssetOrLocationArgument extends ArgumentPluginBase {
+
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    #[Autowire(service: 'plugin.manager.views.join')]
+    protected ViewsHandlerManager $viewsJoinPluginManager,
+  ) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+  }
 
   /**
    * {@inheritdoc}
@@ -28,7 +39,7 @@ class AssetOrLocationArgument extends ArgumentPluginBase {
     // Join the log__asset table with a condition to match the asset ID.
     $this->ensureMyTable();
     /** @var \Drupal\views\Plugin\views\join\JoinPluginBase $join */
-    $join = Views::pluginManager('join')->createInstance('standard', [
+    $join = $this->viewsJoinPluginManager->createInstance('standard', [
       'table' => 'log__asset',
       'field' => 'entity_id',
       'left_table' => $this->table,
@@ -48,7 +59,7 @@ class AssetOrLocationArgument extends ArgumentPluginBase {
 
     // Join the log__location table with a condition to match the asset ID.
     /** @var \Drupal\views\Plugin\views\join\JoinPluginBase $join */
-    $join = Views::pluginManager('join')->createInstance('standard', [
+    $join = $this->viewsJoinPluginManager->createInstance('standard', [
       'table' => 'log__location',
       'field' => 'entity_id',
       'left_table' => $this->table,

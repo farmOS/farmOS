@@ -20,7 +20,7 @@ class TextLongFieldItemNormalizer extends FieldItemNormalizer {
   /**
    * {@inheritdoc}
    */
-  public function normalize($field_item, $format = NULL, array $context = []): array|string|int|float|bool|\ArrayObject|null {
+  public function normalize($field_item, $format = NULL, array $context = []): array {
     /** @var \Drupal\text\Plugin\Field\FieldType\TextLongItem $field_item */
 
     // If processed_text is explicitly set, return processed or raw user input
@@ -29,10 +29,10 @@ class TextLongFieldItemNormalizer extends FieldItemNormalizer {
       if ($context['processed_text']) {
         /** @var \Drupal\filter\Render\FilteredMarkup $processed_text */
         $processed_text = $field_item->get('processed')->getValue();
-        return (string) $processed_text;
+        return ['value' => (string) $processed_text];
       }
       else {
-        return $field_item->get('value')->getValue();
+        return ['value' => $field_item->get('value')->getValue()];
       }
     }
 
