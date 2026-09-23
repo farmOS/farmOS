@@ -59,6 +59,13 @@ class ApiHooks {
     ])) {
       return [];
     }
+
+    // Only allow authenticated users to filter.
+    if ($account->isAnonymous()) {
+      return [];
+    }
+
+    // Allow filtering.
     return [JsonApiFilter::AMONG_ALL => AccessResult::allowed()];
   }
 
