@@ -52,10 +52,11 @@ class ApiHooks {
   #[Hook('jsonapi_entity_filter_access')]
   public function jsonapiEntityFilterAccess(EntityTypeInterface $entity_type, AccountInterface $account) {
 
-    // Only allow JSON:API filtering for assets and logs.
+    // Only allow JSON:API filtering for core farmOS entities.
     if (!in_array($entity_type->id(), [
       'asset',
       'log',
+      'quantity',
     ])) {
       return [];
     }
