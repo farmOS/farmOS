@@ -35,22 +35,29 @@ class FarmApiTest extends KernelTestBase {
   protected static $modules = [
     'asset',
     'entity',
+    'entity_reference_revisions',
     'farm_api',
     'farm_api_test',
     'farm_entity',
     'farm_entity_access',
     'farm_field',
     'farm_log_asset',
+    'farm_log_quantity',
     'farm_manager',
     'farm_role',
+    'farm_unit',
     'file',
+    'fraction',
     'image',
     'jsonapi',
     'log',
     'options',
+    'quantity',
     'serialization',
     'state_machine',
     'system',
+    'taxonomy',
+    'text',
     'user',
     'views',
   ];
@@ -63,10 +70,12 @@ class FarmApiTest extends KernelTestBase {
     $this->installEntitySchema('asset');
     $this->installEntitySchema('file');
     $this->installEntitySchema('log');
+    $this->installEntitySchema('quantity');
     $this->installConfig([
       'farm_api_test',
       'farm_log_asset',
       'farm_manager',
+      'farm_unit',
       'jsonapi',
       'system',
     ]);
@@ -292,32 +301,42 @@ class FarmApiTest extends KernelTestBase {
     // Get entity storage.
     $asset_storage = \Drupal::entityTypeManager()->getStorage('asset');
     $log_storage = \Drupal::entityTypeManager()->getStorage('log');
+    $quantity_storage = \Drupal::entityTypeManager()->getStorage('quantity');
 
-    // Create test asset and log entities.
+    // Create test entities.
     $asset = $asset_storage->create([
       'type' => 'test',
       'name' => 'test',
     ]);
     $asset->save();
+    $quantity = $quantity_storage->create([
+      'type' => 'test',
+      'label' => 'test',
+    ]);
+    $quantity->save();
     $log = $log_storage->create([
       'type' => 'test',
       'name' => 'test',
+      'quantity' => [$quantity],
     ]);
     $log->save();
 
     // Confirm that unfiltered queries work.
     $this->assertApiFilter('asset', 'test', [], 1);
     $this->assertApiFilter('log', 'test', [], 1);
+    $this->assertApiFilter('quantity', 'test', [], 1);
 
     // Confirm that filtered queries work.
     $this->assertApiFilter('asset', 'test', ['name' => 'test'], 1);
     $this->assertApiFilter('log', 'test', ['name' => 'test'], 1);
+    $this->assertApiFilter('quantity', 'test', ['label' => 'test'], 1);
 
     // Log out and confirm that filtered queries return empty results.
     $user = new AnonymousUserSession();
     $this->setCurrentUser($user);
     $this->assertApiFilter('asset', 'test', ['name' => 'test'], 0);
     $this->assertApiFilter('log', 'test', ['name' => 'test'], 0);
+    $this->assertApiFilter('quantity', 'test', ['label' => 'test'], 0);
   }
 
   /**
