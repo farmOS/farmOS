@@ -262,6 +262,28 @@ class FarmApiTest extends KernelTestBase {
   }
 
   /**
+   * Loads all revision IDs of an entity sorted by revision ID descending.
+   *
+   * This is copied+modified from RevisionControllerTrait::revisionIds().
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity.
+   *
+   * @return mixed[]
+   *   Returns a list of revision IDs.
+   */
+  protected function revisionIds(EntityInterface $entity) {
+    $entity_type = $entity->getEntityType();
+    $result = \Drupal::entityTypeManager()->getStorage($entity_type->id())->getQuery()
+      ->allRevisions()
+      ->condition($entity_type->getKey('id'), $entity->id())
+      ->sort($entity_type->getKey('revision'), 'DESC')
+      ->accessCheck(TRUE)
+      ->execute();
+    return array_keys($result);
+  }
+
+  /**
    * Helper function for performing an API request.
    *
    * @param string $endpoint
@@ -300,28 +322,6 @@ class FarmApiTest extends KernelTestBase {
     }
     $this->assertEquals($expected_response, $response->getStatusCode());
     return Json::decode($response->getContent());
-  }
-
-  /**
-   * Loads all revision IDs of an entity sorted by revision ID descending.
-   *
-   * This is copied+modified from RevisionControllerTrait::revisionIds().
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   The entity.
-   *
-   * @return mixed[]
-   *   Returns a list of revision IDs.
-   */
-  protected function revisionIds(EntityInterface $entity) {
-    $entity_type = $entity->getEntityType();
-    $result = \Drupal::entityTypeManager()->getStorage($entity_type->id())->getQuery()
-      ->allRevisions()
-      ->condition($entity_type->getKey('id'), $entity->id())
-      ->sort($entity_type->getKey('revision'), 'DESC')
-      ->accessCheck(TRUE)
-      ->execute();
-    return array_keys($result);
   }
 
 }
