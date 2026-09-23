@@ -6,6 +6,7 @@ namespace Drupal\farm_api\Hook;
 
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\jsonapi\JsonApiFilter;
@@ -14,6 +15,10 @@ use Drupal\jsonapi\JsonApiFilter;
  * Api hook implementations for farm_api.
  */
 class ApiHooks {
+
+  public function __construct(
+    protected EntityTypeManagerInterface $entityTypeManager,
+  ) {}
 
   /**
    * Implements hook_farm_api_allow_resource_types().
@@ -69,8 +74,22 @@ class ApiHooks {
       return [];
     }
 
+    // Skip entities that do not use the Entity API query access handler.
+    if (!$entity_type->hasHandlerClass('query_access')) {
+      return [];
+    }
+
+    // Load the query access handler and check view access to build a set of
+    // query conditions. If they are always false, then skip this entity type.
+    /** @var \Drupal\entity\QueryAccess\QueryAccessHandlerInterface $query_access */
+    $query_access = $this->entityTypeManager->getHandler($entity_type->id(), 'query_access');
+    $conditions = $query_access->getConditions('view', $account);
+    if ($conditions->isAlwaysFalse()) {
+      return [];
+    }
+
     // Allow filtering.
-    return [JsonApiFilter::AMONG_ALL => AccessResult::allowed()];
+    return [JsonApiFilter::AMONG_ALL => AccessResult::allowed()->addCacheableDependency($conditions)];
   }
 
 }
