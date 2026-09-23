@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\farm_api\Hook;
 
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Hook\Attribute\Hook;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\jsonapi\JsonApiFilter;
 
 /**
  * Api hook implementations for farm_api.
@@ -40,6 +44,22 @@ class ApiHooks {
       'user',
       'user_role',
     ];
+  }
+
+  /**
+   * Implements hook_jsonapi_entity_filter_access().
+   */
+  #[Hook('jsonapi_entity_filter_access')]
+  public function jsonapiEntityFilterAccess(EntityTypeInterface $entity_type, AccountInterface $account) {
+
+    // Only allow JSON:API filtering for assets and logs.
+    if (!in_array($entity_type->id(), [
+      'asset',
+      'log',
+    ])) {
+      return [];
+    }
+    return [JsonApiFilter::AMONG_ALL => AccessResult::allowed()];
   }
 
 }
