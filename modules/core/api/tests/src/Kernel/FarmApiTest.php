@@ -52,6 +52,8 @@ class FarmApiTest extends KernelTestBase {
     'jsonapi',
     'log',
     'options',
+    'organization',
+    'plan',
     'quantity',
     'serialization',
     'state_machine',
@@ -70,6 +72,8 @@ class FarmApiTest extends KernelTestBase {
     $this->installEntitySchema('asset');
     $this->installEntitySchema('file');
     $this->installEntitySchema('log');
+    $this->installEntitySchema('organization');
+    $this->installEntitySchema('plan');
     $this->installEntitySchema('quantity');
     $this->installConfig([
       'farm_api_test',
@@ -301,6 +305,8 @@ class FarmApiTest extends KernelTestBase {
     // Get entity storage.
     $asset_storage = \Drupal::entityTypeManager()->getStorage('asset');
     $log_storage = \Drupal::entityTypeManager()->getStorage('log');
+    $organization_storage = \Drupal::entityTypeManager()->getStorage('organization');
+    $plan_storage = \Drupal::entityTypeManager()->getStorage('plan');
     $quantity_storage = \Drupal::entityTypeManager()->getStorage('quantity');
 
     // Create test entities.
@@ -320,16 +326,30 @@ class FarmApiTest extends KernelTestBase {
       'quantity' => [$quantity],
     ]);
     $log->save();
+    $organization = $organization_storage->create([
+      'type' => 'test',
+      'name' => 'test',
+    ]);
+    $organization->save();
+    $plan = $plan_storage->create([
+      'type' => 'test',
+      'name' => 'test',
+    ]);
+    $plan->save();
 
     // Confirm that unfiltered queries work.
     $this->assertApiFilter('asset', 'test', [], 1);
     $this->assertApiFilter('log', 'test', [], 1);
     $this->assertApiFilter('quantity', 'test', [], 1);
+    $this->assertApiFilter('organization', 'test', [], 1);
+    $this->assertApiFilter('plan', 'test', [], 1);
 
     // Confirm that filtered queries work.
     $this->assertApiFilter('asset', 'test', ['name' => 'test'], 1);
     $this->assertApiFilter('log', 'test', ['name' => 'test'], 1);
     $this->assertApiFilter('quantity', 'test', ['label' => 'test'], 1);
+    $this->assertApiFilter('organization', 'test', ['name' => 'test'], 1);
+    $this->assertApiFilter('plan', 'test', ['name' => 'test'], 1);
 
     // Log out and confirm that filtered queries return empty results.
     $user = new AnonymousUserSession();
@@ -337,6 +357,8 @@ class FarmApiTest extends KernelTestBase {
     $this->assertApiFilter('asset', 'test', ['name' => 'test'], 0);
     $this->assertApiFilter('log', 'test', ['name' => 'test'], 0);
     $this->assertApiFilter('quantity', 'test', ['label' => 'test'], 0);
+    $this->assertApiFilter('organization', 'test', ['name' => 'test'], 0);
+    $this->assertApiFilter('plan', 'test', ['name' => 'test'], 0);
   }
 
   /**
