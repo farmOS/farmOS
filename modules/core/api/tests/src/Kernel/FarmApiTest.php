@@ -306,28 +306,45 @@ class FarmApiTest extends KernelTestBase {
     $log->save();
 
     // Confirm that unfiltered queries work.
-    $data = $this->assertApiRequest('/api/asset/test');
-    $this->assertNotEmpty($data['data']);
-    $this->assertEquals('test', $data['data'][0]['attributes']['name']);
-    $data = $this->assertApiRequest('/api/log/test');
-    $this->assertNotEmpty($data['data']);
-    $this->assertEquals('test', $data['data'][0]['attributes']['name']);
+    $this->assertApiFilter('asset', 'test', [], 1);
+    $this->assertApiFilter('log', 'test', [], 1);
 
     // Confirm that filtered queries work.
-    $data = $this->assertApiRequest('/api/asset/test?filter[name]=test');
-    $this->assertNotEmpty($data['data']);
-    $this->assertEquals('test', $data['data'][0]['attributes']['name']);
-    $data = $this->assertApiRequest('/api/log/test?filter[name]=test');
-    $this->assertNotEmpty($data['data']);
-    $this->assertEquals('test', $data['data'][0]['attributes']['name']);
+    $this->assertApiFilter('asset', 'test', ['name' => 'test'], 1);
+    $this->assertApiFilter('log', 'test', ['name' => 'test'], 1);
 
     // Log out and confirm that filtered queries return empty results.
     $user = new AnonymousUserSession();
     $this->setCurrentUser($user);
-    $data = $this->assertApiRequest('/api/asset/test?filter[name]=test');
-    $this->assertEmpty($data['data']);
-    $data = $this->assertApiRequest('/api/log/test?filter[name]=test');
-    $this->assertEmpty($data['data']);
+    $this->assertApiFilter('asset', 'test', ['name' => 'test'], 0);
+    $this->assertApiFilter('log', 'test', ['name' => 'test'], 0);
+  }
+
+  /**
+   * Helper function for testing filtered JSON:API queries.
+   *
+   * @param string $entity_type
+   *   The entity type.
+   * @param string $bundle
+   *   The bundle.
+   * @param array $filters
+   *   Array of filter key/values. These will be appended as ?filter= params
+   *   and checked for in the returned data.
+   * @param int $expected_count
+   *   The expected count of results.
+   */
+  protected function assertApiFilter(string $entity_type, string $bundle, array $filters, int $expected_count) {
+    $endpoint = '/api/' . $entity_type . '/' . $bundle;
+    if (!empty($filters)) {
+      $endpoint .= '?' . http_build_query(['filter' => $filters]);
+    }
+    $data = $this->assertApiRequest($endpoint);
+    $this->assertCount($expected_count, $data['data']);
+    foreach ($data['data'] as $item) {
+      foreach ($filters as $key => $value) {
+        $this->assertEquals($value, $item['attributes'][$key]);
+      }
+    }
   }
 
   /**
