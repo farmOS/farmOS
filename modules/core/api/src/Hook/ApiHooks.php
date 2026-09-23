@@ -56,6 +56,8 @@ class ApiHooks {
     if (!in_array($entity_type->id(), [
       'asset',
       'log',
+      'organization',
+      'plan',
       'quantity',
     ])) {
       return [];
