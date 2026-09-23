@@ -284,6 +284,44 @@ class FarmApiTest extends KernelTestBase {
   }
 
   /**
+   * Test filtered JSON:API requests.
+   */
+  public function testJsonApiEntityFilterAccess() {
+
+    // Get entity storage.
+    $asset_storage = \Drupal::entityTypeManager()->getStorage('asset');
+    $log_storage = \Drupal::entityTypeManager()->getStorage('log');
+
+    // Create test asset and log entities.
+    $asset = $asset_storage->create([
+      'type' => 'test',
+      'name' => 'test',
+    ]);
+    $asset->save();
+    $log = $log_storage->create([
+      'type' => 'test',
+      'name' => 'test',
+    ]);
+    $log->save();
+
+    // Confirm that unfiltered queries work.
+    $data = $this->assertApiRequest('/api/asset/test');
+    $this->assertNotEmpty($data['data']);
+    $this->assertEquals('test', $data['data'][0]['attributes']['name']);
+    $data = $this->assertApiRequest('/api/log/test');
+    $this->assertNotEmpty($data['data']);
+    $this->assertEquals('test', $data['data'][0]['attributes']['name']);
+
+    // Confirm that filtered queries work.
+    $data = $this->assertApiRequest('/api/asset/test?filter[name]=test');
+    $this->assertNotEmpty($data['data']);
+    $this->assertEquals('test', $data['data'][0]['attributes']['name']);
+    $data = $this->assertApiRequest('/api/log/test?filter[name]=test');
+    $this->assertNotEmpty($data['data']);
+    $this->assertEquals('test', $data['data'][0]['attributes']['name']);
+  }
+
+  /**
    * Helper function for performing an API request.
    *
    * @param string $endpoint
