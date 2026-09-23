@@ -6,6 +6,7 @@ namespace Drupal\Tests\farm_api\Kernel;
 
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Session\AnonymousUserSession;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\Tests\user\Traits\UserCreationTrait;
 use Drupal\asset\Entity\AssetInterface;
@@ -319,6 +320,14 @@ class FarmApiTest extends KernelTestBase {
     $data = $this->assertApiRequest('/api/log/test?filter[name]=test');
     $this->assertNotEmpty($data['data']);
     $this->assertEquals('test', $data['data'][0]['attributes']['name']);
+
+    // Log out and confirm that filtered queries return empty results.
+    $user = new AnonymousUserSession();
+    $this->setCurrentUser($user);
+    $data = $this->assertApiRequest('/api/asset/test?filter[name]=test');
+    $this->assertEmpty($data['data']);
+    $data = $this->assertApiRequest('/api/log/test?filter[name]=test');
+    $this->assertEmpty($data['data']);
   }
 
   /**
