@@ -1,0 +1,5 @@
+id: test
+label: test
+description: 'Test organization type'
+langcode: en
+new_revision: TRUE
