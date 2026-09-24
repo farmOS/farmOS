@@ -131,7 +131,7 @@ RUN cp -p ${BUILD_PATH}/web/core/phpunit.xml.dist ${BUILD_PATH}/phpunit.xml \
   && sed -i 's|name="SIMPLETEST_BASE_URL" value=""|name="SIMPLETEST_BASE_URL" value="http://www"|g' ${BUILD_PATH}/phpunit.xml \
   && sed -i 's|name="SIMPLETEST_DB" value=""|name="SIMPLETEST_DB" value="pgsql://farm:farm@db/farm"|g' ${BUILD_PATH}/phpunit.xml \
   && sed -i 's|value="sites/simpletest/browser_output"|value="web/sites/simpletest/browser_output"|g' ${BUILD_PATH}/phpunit.xml \
-  && sed -i 's|name="MINK_DRIVER_ARGS_WEBDRIVER" value=""|name="MINK_DRIVER_ARGS_WEBDRIVER" value='\''["chrome", { "goog:chromeOptions": { "w3c": false, "args": ["--disable-gpu","--headless", "--no-sandbox"] } }, "http://chrome:4444/wd/hub"]'\''|g' ${BUILD_PATH}/phpunit.xml \
+  && sed -i 's|name="MINK_DRIVER_ARGS_WEBDRIVER" value=""|name="MINK_DRIVER_ARGS_WEBDRIVER" value='\''["chrome", { "goog:chromeOptions": { "w3c": true, "args": ["--disable-gpu","--headless", "--no-sandbox"] } }, "http://selenium:4444"]'\''|g' ${BUILD_PATH}/phpunit.xml \
   && sed -i 's|\./|\./web/core/|g' ${BUILD_PATH}/phpunit.xml \
   && sed -i 's|\.\./web/core/|\./web/|g' ${BUILD_PATH}/phpunit.xml \
   && sed -i 's|  </php>|    <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>'"\n"'  </php>|g' ${BUILD_PATH}/phpunit.xml \

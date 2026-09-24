@@ -27,8 +27,5 @@ services:
       PHP_IDE_CONFIG: serverName=localhost
 
   # Enable this service when executing javascript tests.
-#  chrome:
-
-      # Tests are failing on later versions of this image.
-      # See https://github.com/farmOS/farmOS/issues/514
-#      image: selenium/standalone-chrome:4.1.2-20220217
+#  selenium:
+#    image: selenium/standalone-chrome
