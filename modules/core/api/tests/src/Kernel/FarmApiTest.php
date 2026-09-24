@@ -6,6 +6,7 @@ namespace Drupal\Tests\farm_api\Kernel;
 
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Session\AnonymousUserSession;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\Tests\user\Traits\UserCreationTrait;
 use Drupal\asset\Entity\AssetInterface;
@@ -33,23 +34,33 @@ class FarmApiTest extends KernelTestBase {
    */
   protected static $modules = [
     'asset',
+    'data_stream',
     'entity',
+    'entity_reference_revisions',
     'farm_api',
     'farm_api_test',
     'farm_entity',
     'farm_entity_access',
     'farm_field',
     'farm_log_asset',
+    'farm_log_quantity',
     'farm_manager',
     'farm_role',
+    'farm_unit',
     'file',
+    'fraction',
     'image',
     'jsonapi',
     'log',
     'options',
+    'organization',
+    'plan',
+    'quantity',
     'serialization',
     'state_machine',
     'system',
+    'taxonomy',
+    'text',
     'user',
     'views',
   ];
@@ -60,12 +71,18 @@ class FarmApiTest extends KernelTestBase {
   public function setUp(): void {
     parent::setUp();
     $this->installEntitySchema('asset');
+    $this->installEntitySchema('data_stream');
     $this->installEntitySchema('file');
     $this->installEntitySchema('log');
+    $this->installEntitySchema('organization');
+    $this->installEntitySchema('plan');
+    $this->installEntitySchema('quantity');
     $this->installConfig([
+      'data_stream',
       'farm_api_test',
       'farm_log_asset',
       'farm_manager',
+      'farm_unit',
       'jsonapi',
       'system',
     ]);
@@ -281,6 +298,106 @@ class FarmApiTest extends KernelTestBase {
       ->accessCheck(TRUE)
       ->execute();
     return array_keys($result);
+  }
+
+  /**
+   * Test filtered JSON:API requests.
+   */
+  public function testJsonApiEntityFilterAccess() {
+
+    // Get entity storage.
+    $asset_storage = \Drupal::entityTypeManager()->getStorage('asset');
+    $data_stream_storage = \Drupal::entityTypeManager()->getStorage('data_stream');
+    $log_storage = \Drupal::entityTypeManager()->getStorage('log');
+    $organization_storage = \Drupal::entityTypeManager()->getStorage('organization');
+    $plan_storage = \Drupal::entityTypeManager()->getStorage('plan');
+    $quantity_storage = \Drupal::entityTypeManager()->getStorage('quantity');
+
+    // Create test entities.
+    $asset = $asset_storage->create([
+      'type' => 'test',
+      'name' => 'test',
+    ]);
+    $asset->save();
+    $quantity = $quantity_storage->create([
+      'type' => 'test',
+      'label' => 'test',
+    ]);
+    $quantity->save();
+    $log = $log_storage->create([
+      'type' => 'test',
+      'name' => 'test',
+      'quantity' => [$quantity],
+    ]);
+    $log->save();
+    $organization = $organization_storage->create([
+      'type' => 'test',
+      'name' => 'test',
+    ]);
+    $organization->save();
+    $plan = $plan_storage->create([
+      'type' => 'test',
+      'name' => 'test',
+    ]);
+    $plan->save();
+    $data_stream = $data_stream_storage->create([
+      'type' => 'basic',
+      'name' => 'test',
+    ]);
+    $data_stream->save();
+
+    // Confirm that unfiltered queries work.
+    $this->assertApiFilter('asset', 'test', [], 1);
+    $this->assertApiFilter('log', 'test', [], 1);
+    $this->assertApiFilter('quantity', 'test', [], 1);
+    $this->assertApiFilter('organization', 'test', [], 1);
+    $this->assertApiFilter('plan', 'test', [], 1);
+    $this->assertApiFilter('data_stream', 'basic', [], 1);
+
+    // Confirm that filtered queries work.
+    $this->assertApiFilter('asset', 'test', ['name' => 'test'], 1);
+    $this->assertApiFilter('log', 'test', ['name' => 'test'], 1);
+    $this->assertApiFilter('quantity', 'test', ['label' => 'test'], 1);
+    $this->assertApiFilter('organization', 'test', ['name' => 'test'], 1);
+    $this->assertApiFilter('plan', 'test', ['name' => 'test'], 1);
+    $this->assertApiFilter('data_stream', 'basic', ['name' => 'test'], 1);
+
+    // Log out and confirm that filtered queries return empty results.
+    $user = new AnonymousUserSession();
+    $this->setCurrentUser($user);
+    $this->assertApiFilter('asset', 'test', ['name' => 'test'], 0);
+    $this->assertApiFilter('log', 'test', ['name' => 'test'], 0);
+    $this->assertApiFilter('quantity', 'test', ['label' => 'test'], 0);
+    $this->assertApiFilter('organization', 'test', ['name' => 'test'], 0);
+    $this->assertApiFilter('plan', 'test', ['name' => 'test'], 0);
+    $this->assertApiFilter('data_stream', 'basic', ['name' => 'test'], 0);
+  }
+
+  /**
+   * Helper function for testing filtered JSON:API queries.
+   *
+   * @param string $entity_type
+   *   The entity type.
+   * @param string $bundle
+   *   The bundle.
+   * @param array $filters
+   *   Array of filter key/values. These will be appended as ?filter= params
+   *   and checked for in the returned data.
+   * @param int $expected_count
+   *   The expected count of results.
+   */
+  protected function assertApiFilter(string $entity_type, string $bundle, array $filters, int $expected_count) {
+    $endpoint = '/api/' . $entity_type . '/' . $bundle;
+    if (!empty($filters)) {
+      $endpoint .= '?' . http_build_query(['filter' => $filters]);
+    }
+    $data = $this->assertApiRequest($endpoint);
+    $this->assertCount($expected_count, $data['data']);
+    foreach ($data['data'] as $item) {
+      foreach ($filters as $key => $value) {
+        $this->assertEquals($value, $item['attributes'][$key]);
+      }
+    }
   }
 
   /**
