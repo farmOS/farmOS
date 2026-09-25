@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\farm_api\Hook;
 
 use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Hook\Attribute\Hook;
@@ -18,6 +19,7 @@ class ApiHooks {
 
   public function __construct(
     protected EntityTypeManagerInterface $entityTypeManager,
+    protected EntityTypeBundleInfoInterface $entityTypeBundleInfo,
   ) {}
 
   /**
@@ -69,27 +71,23 @@ class ApiHooks {
       return [];
     }
 
-    // Only allow authenticated users to filter.
-    if ($account->isAnonymous()) {
-      return [];
+    // Allow filtering among all if the user has a "view any" permission for
+    // the entity type and/or bundle. Entity API handles the "view own" permission.
+    $access = FALSE;
+    if ($account->hasPermission('view any ' . $entity_type->id())) {
+      $access = TRUE;
+    }
+    $bundles = array_keys($this->entityTypeBundleInfo->getBundleInfo($entity_type->id()));
+    foreach ($bundles as $bundle) {
+      if ($account->hasPermission('view any ' . $bundle . ' ' . $entity_type->id())) {
+        $access = TRUE;
+      }
     }
 
-    // Skip entities that do not use the Entity API query access handler.
-    if (!$entity_type->hasHandlerClass('query_access')) {
-      return [];
-    }
-
-    // Load the query access handler and check view access to build a set of
-    // query conditions. If they are always false, then skip this entity type.
-    /** @var \Drupal\entity\QueryAccess\QueryAccessHandlerInterface $query_access */
-    $query_access = $this->entityTypeManager->getHandler($entity_type->id(), 'query_access');
-    $conditions = $query_access->getConditions('view', $account);
-    if ($conditions->isAlwaysFalse()) {
-      return [];
-    }
-
-    // Allow filtering.
-    return [JsonApiFilter::AMONG_ALL => AccessResult::allowed()->addCacheableDependency($conditions)];
+    // Allow filtering among all if user has access.
+    return $access ?
+      [JsonApiFilter::AMONG_ALL => AccessResult::allowed()] :
+      [];
   }
 
 }
