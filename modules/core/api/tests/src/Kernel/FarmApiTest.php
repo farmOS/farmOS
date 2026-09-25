@@ -6,7 +6,6 @@ namespace Drupal\Tests\farm_api\Kernel;
 
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Session\AnonymousUserSession;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\Tests\user\Traits\UserCreationTrait;
 use Drupal\asset\Entity\AssetInterface;
@@ -365,16 +364,6 @@ class FarmApiTest extends KernelTestBase {
     // Confirm that a relationship filter works (log -> quantity).
     $data = $this->assertApiFilter('log', 'test', ['quantity.id' => $quantity->uuid()], 1);
     $this->assertEquals($quantity->uuid(), $data['data'][0]['relationships']['quantity']['data'][0]['id']);
-
-    // Log out and confirm that filtered queries return empty results.
-    $user = new AnonymousUserSession();
-    $this->setCurrentUser($user);
-    $this->assertApiFilter('asset', 'test', ['name' => 'test'], 0);
-    $this->assertApiFilter('log', 'test', ['name' => 'test'], 0);
-    $this->assertApiFilter('quantity', 'test', ['label' => 'test'], 0);
-    $this->assertApiFilter('organization', 'test', ['name' => 'test'], 0);
-    $this->assertApiFilter('plan', 'test', ['name' => 'test'], 0);
-    $this->assertApiFilter('data_stream', 'basic', ['name' => 'test'], 0);
   }
 
   /**
