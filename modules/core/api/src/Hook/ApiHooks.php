@@ -71,23 +71,19 @@ class ApiHooks {
       return [];
     }
 
-    // Allow filtering among all if the user has a "view any" permission for
-    // the entity type and/or bundle. Entity API handles the "view own" permission.
-    $access = FALSE;
-    if ($account->hasPermission('view any ' . $entity_type->id())) {
-      $access = TRUE;
-    }
+    // Collect the "view any" permissions for the entity type and its bundles.
+    // Entity API handles the "view own" permissions.
+    $permissions = ['view any ' . $entity_type->id()];
     $bundles = array_keys($this->entityTypeBundleInfo->getBundleInfo($entity_type->id()));
     foreach ($bundles as $bundle) {
-      if ($account->hasPermission('view any ' . $bundle . ' ' . $entity_type->id())) {
-        $access = TRUE;
-      }
+      $permissions[] = 'view any ' . $bundle . ' ' . $entity_type->id();
     }
 
-    // Allow filtering among all if user has access.
-    return $access ?
-      [JsonApiFilter::AMONG_ALL => AccessResult::allowed()] :
-      [];
+    // Allow filtering among all if the user has any of the permissions. The
+    // AccessResult includes the "user.permissions" cache context.
+    return [
+      JsonApiFilter::AMONG_ALL => AccessResult::allowedIfHasPermissions($account, $permissions, 'OR'),
+    ];
   }
 
 }
