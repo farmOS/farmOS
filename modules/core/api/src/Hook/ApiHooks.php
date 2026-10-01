@@ -10,6 +10,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\entity\EntityPermissionProvider;
 use Drupal\jsonapi\JsonApiFilter;
 
 /**
@@ -68,6 +69,12 @@ class ApiHooks {
       'plan',
       'quantity',
     ])) {
+      return [];
+    }
+
+    // Only allow entity types that use Entity API's permission provider.
+    // This ensures that the entity has permissions we check for below.
+    if ($entity_type->getHandlerClass('permission_provider') == EntityPermissionProvider::class) {
       return [];
     }
 
