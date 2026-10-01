@@ -63,7 +63,6 @@ class ApiHooks {
     // Only allow JSON:API filtering for core farmOS entities.
     if (!in_array($entity_type->id(), [
       'asset',
-      'data_stream',
       'log',
       'organization',
       'plan',
