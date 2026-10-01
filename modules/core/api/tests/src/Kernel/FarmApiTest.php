@@ -43,6 +43,7 @@ class FarmApiTest extends KernelTestBase {
     'farm_log_asset',
     'farm_log_quantity',
     'farm_manager',
+    'farm_owner',
     'farm_role',
     'farm_unit',
     'file',
@@ -74,6 +75,7 @@ class FarmApiTest extends KernelTestBase {
     $this->installEntitySchema('organization');
     $this->installEntitySchema('plan');
     $this->installEntitySchema('quantity');
+    $this->installEntitySchema('taxonomy_term');
     $this->installConfig([
       'farm_api_test',
       'farm_log_asset',
@@ -307,6 +309,7 @@ class FarmApiTest extends KernelTestBase {
     $organization_storage = \Drupal::entityTypeManager()->getStorage('organization');
     $plan_storage = \Drupal::entityTypeManager()->getStorage('plan');
     $quantity_storage = \Drupal::entityTypeManager()->getStorage('quantity');
+    $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
 
     // Create test entities.
     $asset = $asset_storage->create([
@@ -314,9 +317,15 @@ class FarmApiTest extends KernelTestBase {
       'name' => 'test',
     ]);
     $asset->save();
+    $term = $term_storage->create([
+      'vid' => 'unit',
+      'name' => 'test',
+    ]);
+    $term->save();
     $quantity = $quantity_storage->create([
       'type' => 'test',
       'label' => 'test',
+      'units' => [$term],
     ]);
     $quantity->save();
     $log = $log_storage->create([
@@ -353,6 +362,20 @@ class FarmApiTest extends KernelTestBase {
     // Confirm that a relationship filter works (log -> quantity).
     $data = $this->assertApiFilter('log', 'test', ['quantity.id' => $quantity->uuid()], 1);
     $this->assertEquals($quantity->uuid(), $data['data'][0]['relationships']['quantity']['data'][0]['id']);
+
+    // Confirm that a nested relationship filter works
+    // (log -> quantity -> unit term).
+    $this->assertApiFilter('log', 'test', ['quantity.units.id' => $term->uuid()], 1);
+
+    // Confirm that a filter on a user field works (log -> owner -> name).
+    // First check that there are no logs owned by a user named "Mike".
+    // Then, create a user named "Mike" and assign them as owner of the log and
+    // confirm that the filter works as expected.
+    $this->assertApiFilter('log', 'test', ['owner.name' => 'Mike'], 0);
+    $mike_user = $this->createUser([], 'mike');
+    $log->set('owner', $mike_user);
+    $log->save();
+    $this->assertApiFilter('log', 'test', ['owner.name' => 'Mike'], 1);
   }
 
   /**
