@@ -362,6 +362,10 @@ class FarmApiTest extends KernelTestBase {
     $this->assertApiFilter('plan', 'test', ['name' => 'test'], 1);
     $this->assertApiFilter('data_stream', 'basic', ['name' => 'test'], 1);
 
+    // Confirm that a relationship filter works (log -> quantity).
+    $data = $this->assertApiFilter('log', 'test', ['quantity.id' => $quantity->uuid()], 1);
+    $this->assertEquals($quantity->uuid(), $data['data'][0]['relationships']['quantity']['data'][0]['id']);
+
     // Log out and confirm that filtered queries return empty results.
     $user = new AnonymousUserSession();
     $this->setCurrentUser($user);
@@ -385,6 +389,9 @@ class FarmApiTest extends KernelTestBase {
    *   and checked for in the returned data.
    * @param int $expected_count
    *   The expected count of results.
+   *
+   * @return array
+   *   An array of JSON-decoded data returned by the request.
    */
   protected function assertApiFilter(string $entity_type, string $bundle, array $filters, int $expected_count) {
     $endpoint = '/api/' . $entity_type . '/' . $bundle;
@@ -395,9 +402,15 @@ class FarmApiTest extends KernelTestBase {
     $this->assertCount($expected_count, $data['data']);
     foreach ($data['data'] as $item) {
       foreach ($filters as $key => $value) {
+        // Relationship (dotted) filters can't be checked against attributes.
+        // Callers should use the returned $data to check the results directly.
+        if (str_contains($key, '.')) {
+          continue;
+        }
         $this->assertEquals($value, $item['attributes'][$key]);
       }
     }
+    return $data;
   }
 
   /**
