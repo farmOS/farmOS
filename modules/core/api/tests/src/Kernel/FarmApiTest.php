@@ -29,6 +29,13 @@ class FarmApiTest extends KernelTestBase {
   protected $profile = 'farm';
 
   /**
+   * The user.
+   *
+   * @var \Drupal\user\UserInterface
+   */
+  protected $user;
+
+  /**
    * {@inheritdoc}
    */
   protected static $modules = [
@@ -99,16 +106,31 @@ class FarmApiTest extends KernelTestBase {
     // This would normally be done by farm_api_install(), which does not run
     // in Kernel tests (it also does other things we don't need).
     \Drupal::configFactory()->getEditable('jsonapi.settings')->set('read_only', FALSE)->save();
+  }
 
-    // Set up a user with the farm_manager role.
-    $user = $this->setUpCurrentUser([], [], FALSE);
-    $user->addRole('farm_manager');
+  /**
+   * Provide a helper method for setting up the current API user.
+   *
+   * This allows downstream tests that inherit from this to modify the way that
+   * this user authentication mechanism works (eg: for OAuth2 token-based
+   * authentication testing).
+   *
+   * @param string $role
+   *   A role to grant the user.
+   */
+  protected function setApiUser(string $role) {
+    $this->user = $this->setUpCurrentUser([], [], FALSE);
+    $this->user->addRole($role);
+    $this->user->save();
   }
 
   /**
    * Test common farmOS API requests.
    */
   public function testApi() {
+
+    // Set up a user with the farm_manager role.
+    $this->setApiUser('farm_manager');
 
     // Test that the API root path is /api and it contains meta.farm info.
     $data = $this->assertApiRequest('/api');
@@ -206,6 +228,9 @@ class FarmApiTest extends KernelTestBase {
    */
   public function testAllowedApiResources() {
 
+    // Set up a user with the farm_manager role.
+    $this->setApiUser('farm_manager');
+
     // Test that core entity type resources are available.
     $this->assertApiRequest('/api/asset/test');
     $this->assertApiRequest('/api/file/file');
@@ -231,6 +256,9 @@ class FarmApiTest extends KernelTestBase {
    * Test that entity revisions are created with PATCH requests.
    */
   public function testEntityRevisions() {
+
+    // Set up a user with the farm_manager role.
+    $this->setApiUser('farm_manager');
 
     // Test creating an asset.
     $asset_type = 'asset--test';
@@ -302,6 +330,9 @@ class FarmApiTest extends KernelTestBase {
    * Test filtered JSON:API requests.
    */
   public function testJsonApiEntityFilterAccess() {
+
+    // Set up a user with the farm_manager role.
+    $this->setApiUser('farm_manager');
 
     // Get entity storage.
     $asset_storage = \Drupal::entityTypeManager()->getStorage('asset');
