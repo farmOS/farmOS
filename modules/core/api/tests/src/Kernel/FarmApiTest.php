@@ -407,6 +407,11 @@ class FarmApiTest extends KernelTestBase {
     $log->set('owner', $mike_user);
     $log->save();
     $this->assertApiFilter('log', 'test', ['owner.name' => 'Mike'], 1);
+
+    // Confirm that a lower-privileged user can filter logs but not assets.
+    $this->setApiUser('limited_filter_test');
+    $this->assertApiFilter('asset', 'test', ['name' => 'test'], 0);
+    $this->assertApiFilter('log', 'test', ['name' => 'test'], 1);
   }
 
   /**
