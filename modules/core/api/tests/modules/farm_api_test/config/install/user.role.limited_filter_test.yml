@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies: {  }
+id: limited_filter_test
+label: 'Limited Filter Test'
+weight: 0
+is_admin: false
+permissions:
+  - view own asset
+  - view any log

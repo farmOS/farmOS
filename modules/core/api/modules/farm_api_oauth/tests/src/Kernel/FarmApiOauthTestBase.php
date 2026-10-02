@@ -55,6 +55,7 @@ abstract class FarmApiOauthTestBase extends FarmApiTest {
   protected static $modules = [
     'consumers',
     'farm_api_oauth',
+    'farm_api_oauth_test',
     'simple_oauth',
     'simple_oauth_password_grant',
     'simple_oauth_static_scope',
