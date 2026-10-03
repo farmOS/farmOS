@@ -6,8 +6,8 @@ namespace Drupal\Tests\farm_group\Kernel;
 
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\KernelTests\KernelTestBase;
-use Drupal\Tests\farm_test\Kernel\FarmAssetTestTrait;
-use Drupal\Tests\farm_test\Kernel\FarmEntityCacheTestTrait;
+use Drupal\Tests\farm_test\Traits\FarmAssetTestTrait;
+use Drupal\Tests\farm_test\Traits\FarmEntityCacheTestTrait;
 use Drupal\Tests\user\Traits\UserCreationTrait;
 use Drupal\asset\Entity\Asset;
 use Drupal\farm_geo\Traits\WktTrait;

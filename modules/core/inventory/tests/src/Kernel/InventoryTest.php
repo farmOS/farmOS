@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Drupal\Tests\farm_inventory\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
-use Drupal\Tests\farm_test\Kernel\FarmEntityCacheTestTrait;
+use Drupal\Tests\farm_test\Traits\FarmEntityCacheTestTrait;
 use Drupal\asset\Entity\Asset;
 use Drupal\asset\Entity\AssetInterface;
 use Drupal\fraction\Fraction;
