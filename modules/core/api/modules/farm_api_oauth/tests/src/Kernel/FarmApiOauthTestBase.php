@@ -50,13 +50,6 @@ abstract class FarmApiOauthTestBase extends FarmApiTest {
   protected $url;
 
   /**
-   * The user.
-   *
-   * @var \Drupal\user\UserInterface
-   */
-  protected $user;
-
-  /**
    * {@inheritdoc}
    */
   protected static $modules = [
@@ -107,16 +100,6 @@ abstract class FarmApiOauthTestBase extends FarmApiTest {
       'secret' => $this->clientSecret,
     ]);
     $this->client->save();
-
-    // Create a new user to ensure we are not using user id 1.
-    $this->user = $this->createUser();
-    $this->assertNotEquals(1, $this->user->id());
-    $this->setCurrentUser($this->user);
-
-    // Test using the farm_manager role.
-    $this->scope = 'farm_manager';
-    $this->user->addRole('farm_manager');
-    $this->user->save();
   }
 
   /**
@@ -128,6 +111,16 @@ abstract class FarmApiOauthTestBase extends FarmApiTest {
     // Register the private:// stream wrapper.
     $container->register('stream_wrapper.private', 'Drupal\Core\StreamWrapper\PrivateStream')
       ->addTag('stream_wrapper', ['scheme' => 'private']);
+  }
+
+  /**
+   * {@inheritdoc}
+   *
+   * This extends FarmApiTest::setApiUser() to set the scope for OAuth2 tests.
+   */
+  protected function setApiUser(string $role) {
+    $this->scope = $role;
+    parent::setApiUser($role);
   }
 
   /**
