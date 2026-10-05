@@ -38,13 +38,10 @@ class FarmApiOauthRoleTest extends FarmApiOauthTestBase {
    */
   public function testApiRolePermissions() {
 
-    // Test using the farm_viewer role.
+    // Test using the farm_viewer role+scope.
     // The standard apiTest() case already tests standard API operations with
     // the farm_manager role.
-    $this->scope = 'farm_viewer';
-    $this->user = $this->createUser();
-    $this->user->addRole('farm_viewer');
-    $this->user->save();
+    $this->setApiUser('farm_viewer');
 
     // Test that the API root path is /api and it contains meta.farm info.
     $data = $this->assertApiRequest('/api');
