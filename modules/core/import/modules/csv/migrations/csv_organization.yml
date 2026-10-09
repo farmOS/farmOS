@@ -1,0 +1,28 @@
+id: csv_organization
+label: farmOS Organization CSV Importers
+migration_group: farm_import_csv
+source:
+  plugin: csv_file
+destination:
+  plugin: entity:organization
+process:
+
+  # Organization name.
+  name: name
+
+  # Organization notes with default format.
+  notes/0/value: notes
+  notes/0/format:
+    plugin: default_value
+    default_value: default
+
+# Describe the base columns.
+third_party_settings:
+  farm_import_csv:
+    columns:
+      - name: name
+        description: Name of the organization. Required.
+      - name: notes
+        description: Notes about the organization.
+
+deriver: \Drupal\farm_import_csv\Plugin\Derivative\CsvImportMigrationOrganization
