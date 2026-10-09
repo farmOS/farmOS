@@ -36,6 +36,8 @@ the abandoned `oomphinc/composer-installers-extender` project:
 
 - [Issue #3576633: Deprecate asset/organization/quantity entity events](https://www.drupal.org/project/farm/issues/3576633)
 
+## [4.0.7] 2026-10-09
+
 ### Fixed
 
 - [Fix JSON:API entity filter access #1104](https://github.com/farmOS/farmOS/pull/1104)
@@ -327,7 +329,8 @@ farmOS 2.x release notes are available in the 2.x branch's
 farmOS 1.x release notes are available in the
 [farmOS releases on Drupal.org](https://www.drupal.org/project/farm/releases?version=7.x-1).
 
-[Unreleased]: https://github.com/farmOS/farmOS/compare/4.0.6...4.x
+[Unreleased]: https://github.com/farmOS/farmOS/compare/4.0.7...4.x
+[4.0.7]: https://github.com/farmOS/farmOS/releases/tag/4.0.7
 [4.0.6]: https://github.com/farmOS/farmOS/releases/tag/4.0.6
 [4.0.5]: https://github.com/farmOS/farmOS/releases/tag/4.0.5
 [4.0.4]: https://github.com/farmOS/farmOS/releases/tag/4.0.4
