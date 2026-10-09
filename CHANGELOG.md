@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- [Fix JSON:API entity filter access #1104](https://github.com/farmOS/farmOS/pull/1104)
+
 ## [4.0.6] 2026-09-16
 
 ### Fixed

@@ -4,12 +4,24 @@ declare(strict_types=1);
 
 namespace Drupal\farm_api\Hook;
 
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Hook\Attribute\Hook;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\entity\EntityPermissionProvider;
+use Drupal\jsonapi\JsonApiFilter;
 
 /**
  * Api hook implementations for farm_api.
  */
 class ApiHooks {
+
+  public function __construct(
+    protected EntityTypeManagerInterface $entityTypeManager,
+    protected EntityTypeBundleInfoInterface $entityTypeBundleInfo,
+  ) {}
 
   /**
    * Implements hook_farm_api_allow_resource_types().
@@ -39,6 +51,44 @@ class ApiHooks {
       'taxonomy_vocabulary',
       'user',
       'user_role',
+    ];
+  }
+
+  /**
+   * Implements hook_jsonapi_entity_filter_access().
+   */
+  #[Hook('jsonapi_entity_filter_access')]
+  public function jsonapiEntityFilterAccess(EntityTypeInterface $entity_type, AccountInterface $account) {
+
+    // Only allow JSON:API filtering for core farmOS entities.
+    if (!in_array($entity_type->id(), [
+      'asset',
+      'log',
+      'organization',
+      'plan',
+      'quantity',
+    ])) {
+      return [];
+    }
+
+    // Only allow entity types that use Entity API's permission provider.
+    // This ensures that the entity has permissions we check for below.
+    if ($entity_type->getHandlerClass('permission_provider') == EntityPermissionProvider::class) {
+      return [];
+    }
+
+    // Collect the "view any" permissions for the entity type and its bundles.
+    // Entity API handles the "view own" permissions.
+    $permissions = ['view any ' . $entity_type->id()];
+    $bundles = array_keys($this->entityTypeBundleInfo->getBundleInfo($entity_type->id()));
+    foreach ($bundles as $bundle) {
+      $permissions[] = 'view any ' . $bundle . ' ' . $entity_type->id();
+    }
+
+    // Allow filtering among all if the user has any of the permissions. The
+    // AccessResult includes the "user.permissions" cache context.
+    return [
+      JsonApiFilter::AMONG_ALL => AccessResult::allowedIfHasPermissions($account, $permissions, 'OR'),
     ];
   }
 

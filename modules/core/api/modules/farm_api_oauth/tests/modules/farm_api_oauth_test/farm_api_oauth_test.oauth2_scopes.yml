@@ -1,0 +1,9 @@
+limited_filter_test:
+  description: 'Grants access to the Limited Filter Test role.'
+  umbrella: false
+  grant_types:
+    password:
+      status: true
+  granularity_id: 'role'
+  granularity_configuration:
+    role: 'limited_filter_test'
