@@ -144,10 +144,12 @@ See [Methods](#methods) and [Traits](#traits) below for more information about
 the available methods, or examine the `QuickFormBase` class to understand the
 internal workings.
 
-### Annotation
+### Class Attribute
 
-The `@QuickForm` annotation comment above the class declaration is required,
-and provides import metadata about the quick form.
+The `#[QuickForm(...)]`
+[class attribute](https://www.php.net/manual/en/language.attributes.overview.php)
+above the class declaration is required, and provides import metadata about the
+quick form.
 
 - `id` - The quick form's unique ID.
 - `label` - The translated label of the quick form displayed at the top of the
@@ -170,9 +172,9 @@ Available methods include:
 
 - `access()` - Checks to see if the current use has access to the quick form.
   If omitted, then the `QuickFormBase::access()` parent method will check to
-  see if the user has all of the permissions specified in the list of
-  `permissions` in the `@QuickForm` annotation. Overriding this method allows
-  a quick form to implement more customized access control logic.
+  see if the user has all the permissions specified in the list of
+  `permissions` in the `@[QuickForm(...)]` class attribute. Overriding this
+  method allows a quick form to implement more customized access control logic.
 - `buildForm()` - Build the quick form as an array using the
   [Drupal Form API](https://www.drupal.org/docs/drupal-apis/form-api/introduction-to-form-api).
 - `validateForm()` - Perform validation on the user input.
