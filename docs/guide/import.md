@@ -6,10 +6,15 @@
 way to import data into farmOS.
 
 The *CSV Import* module adds simple importers for each Asset type, Log type,
-and Taxonomy term type provided by farmOS modules. Template CSV files can be
-downloaded, filled in, and re-uploaded to create new records in the system.
-You can also see a list of all records that were created by each importer,
-and easily review/modify/delete them after import.
+and Taxonomy term type provided by farmOS modules.
+
+Template CSV files can be downloaded, filled in, and re-uploaded to create new
+records in the system. These templates contain all the required (and optional)
+CSV columns. Required fields vary by importer. Refer to the "CSV Columns"
+overview in the importer UI for a description of each field.
+
+You can also see a list of all records that were created by each importer, and
+easily review/modify/delete them after import.
 
 farmOS also provides a framework for developing more specialized importers with
 custom CSV column headers. See [CSV importers](/development/module/csv) in the
