@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   [SA-CORE-2026-014](https://www.drupal.org/sa-core-2026-014),
   [SA-CORE-2026-015](https://www.drupal.org/sa-core-2026-015), and
   [SA-CORE-2026-016](https://www.drupal.org/sa-core-2026-016)
+- Update Gin to [5.0.16](https://www.drupal.org/project/gin/releases/5.0.16)
+  for [SA-CONTRIB-2026-219](https://www.drupal.org/sa-contrib-2026-219).
 
 ## [4.0.7] 2026-10-09
 

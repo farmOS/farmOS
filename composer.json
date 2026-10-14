@@ -30,7 +30,7 @@
         "drupal/entity_reference_validators": "^2.0",
         "drupal/fraction": "^3.0",
         "drupal/geofield": "^1.66",
-        "drupal/gin": "5.0.15",
+        "drupal/gin": "5.0.16",
         "drupal/inline_entity_form": "^3.0@RC",
         "drupal/inspire_tree": "^1.0.6",
         "drupal/jsonapi_schema": "^1.0",
