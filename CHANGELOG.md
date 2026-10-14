@@ -491,7 +491,7 @@ farmOS 1.x release notes are available in the
 [farmOS releases on Drupal.org](https://www.drupal.org/project/farm/releases?version=7.x-1).
 
 [Unreleased]: https://github.com/farmOS/farmOS/compare/3.5.6...3.x
-[3.5.5]: https://github.com/farmOS/farmOS/releases/tag/3.5.6
+[3.5.6]: https://github.com/farmOS/farmOS/releases/tag/3.5.6
 [3.5.5]: https://github.com/farmOS/farmOS/releases/tag/3.5.5
 [3.5.3]: https://github.com/farmOS/farmOS/releases/tag/3.5.4
 [3.5.3]: https://github.com/farmOS/farmOS/releases/tag/3.5.3
