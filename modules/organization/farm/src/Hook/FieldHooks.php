@@ -29,20 +29,22 @@ class FieldHooks {
   public function entityBaseFieldInfo(EntityTypeInterface $entity_type) {
     $fields = [];
 
+    // Define common Farm reference field options.
+    $options = [
+      'type' => 'entity_reference',
+      'label' => $this->t('Farm'),
+      'description' => $this->t('What farm is this associated with?'),
+      'target_type' => 'organization',
+      'target_bundle' => 'farm',
+      'multiple' => FALSE,
+      'weight' => [
+        'form' => 55,
+        'view' => -5,
+      ],
+    ];
+
     // Add a Farm reference field to assets.
     if ($entity_type->id() == 'asset') {
-      $options = [
-        'type' => 'entity_reference',
-        'label' => $this->t('Farm'),
-        'description' => $this->t('What farm is this associated with?'),
-        'target_type' => 'organization',
-        'target_bundle' => 'farm',
-        'multiple' => FALSE,
-        'weight' => [
-          'form' => 55,
-          'view' => -5,
-        ],
-      ];
       $fields['farm'] = $this->farmFieldFactory->baseFieldDefinition($options);
 
       // Add a constraint to ensure that assets are in the same farm as their
@@ -61,6 +63,12 @@ class FieldHooks {
         $fields['farm']->addConstraint('AssetGroupAssignmentFarm');
       }
     }
+
+    // Add a Farm reference field to plans.
+    elseif ($entity_type->id() == 'plan') {
+      $fields['farm'] = $this->farmFieldFactory->baseFieldDefinition($options);
+    }
+
     return $fields;
   }
 
