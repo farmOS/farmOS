@@ -45,6 +45,7 @@ class CorsResponseEventSubscriberTest extends FarmBrowserTestBase {
     // Create a consumer for testing.
     $this->consumer = Consumer::create([
       'label' => $this->getRandomGenerator()->name(),
+      'client_id' => 'test_client',
     ]);
     $this->consumer->save();
   }
