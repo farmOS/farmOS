@@ -974,7 +974,7 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
       'weight' => $options['weight']['form'] ?? 0,
     ]);
     $field->setDisplayOptions('view', [
-      'label' => 'inline',
+      'label' => $options['type'] == 'text_long' ? 'above' : 'inline',
       'type' => 'text_default',
       'weight' => $options['weight']['view'] ?? 0,
     ]);
