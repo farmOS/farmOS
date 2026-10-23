@@ -1,0 +1,21 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Grants the sign-in permission to farm managers.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function farm_oauth_client_install(): void {
+  foreach (['farm_manager', 'administrator'] as $role_id) {
+    $role = \Drupal\user\Entity\Role::load($role_id);
+    if ($role && !$role->hasPermission('use farm oauth client')) {
+      $role->grantPermission('use farm oauth client');
+      $role->save();
+    }
+  }
+}

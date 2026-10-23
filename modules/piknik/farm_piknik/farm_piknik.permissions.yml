@@ -1,0 +1,4 @@
+manage farm piknik:
+  title: 'Post harvests to Piknik'
+  description: 'Connect this farm to your local food system'
+  restrict access: true

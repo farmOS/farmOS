@@ -1,0 +1,11 @@
+name: Piknik.Spot
+description: 'Connect your farm to Piknik, a local food marketplace.'
+type: module
+# farmOS Contrib = appears on setup "Community modules" as an opt-in checkbox.
+# Not listed in the farm profile install/dependencies arrays.
+package: farmOS Contrib
+core_version_requirement: ^11
+dependencies:
+  - farm_oauth_client:farm_oauth_client
+  - farm:farm_harvest
+  - log:log

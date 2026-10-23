@@ -1,0 +1,12 @@
+services:
+  farm_oauth_client.secrets:
+    class: Drupal\farm_oauth_client\SecretBox
+  farm_oauth_client.connection:
+    class: Drupal\farm_oauth_client\Connection
+    arguments: ['@state', '@farm_oauth_client.secrets']
+  farm_oauth_client.http:
+    class: Drupal\farm_oauth_client\PinnedRequest
+    arguments: ['@http_client']
+  farm_oauth_client.flow:
+    class: Drupal\farm_oauth_client\OAuthFlow
+    arguments: ['@farm_oauth_client.connection', '@farm_oauth_client.http', '@tempstore.private', '@farm_oauth_client.secrets']

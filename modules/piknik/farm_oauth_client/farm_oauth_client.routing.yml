@@ -1,0 +1,20 @@
+farm_oauth_client.connect:
+  path: '/farm/oauth/{provider}/connect'
+  defaults:
+    _controller: '\Drupal\farm_oauth_client\Controller\FlowController::connect'
+  options:
+    no_cache: TRUE
+  requirements:
+    _permission: 'use farm oauth client'
+    _csrf_token: 'TRUE'
+    provider: '[a-z]+'
+
+farm_oauth_client.callback:
+  path: '/farm/oauth/{provider}/callback'
+  defaults:
+    _controller: '\Drupal\farm_oauth_client\Controller\FlowController::callback'
+  options:
+    no_cache: TRUE
+  requirements:
+    _permission: 'use farm oauth client'
+    provider: '[a-z]+'

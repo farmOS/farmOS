@@ -1,0 +1,200 @@
+.farm-piknik-settings-page .region-sticky,
+.farm-piknik-settings-page .sticky-shadow {
+  display: none;
+}
+
+.farm-piknik-wordmark {
+  margin: 0 0 0.75rem;
+}
+
+.farm-piknik-intro {
+  margin: 0 0 2rem;
+  max-width: 40rem;
+}
+
+.farm-piknik-intro p {
+  margin: 0 0 0.75rem;
+}
+
+.farm-piknik-intro ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.farm-piknik-wordmark img {
+  height: 2.625rem; /* 42px — modest step up from 36px */
+  width: auto;
+}
+
+.farm-piknik-wordmark__on-dark {
+  display: none;
+}
+
+.gin--dark-mode .farm-piknik-wordmark__on-light {
+  display: none;
+}
+
+.gin--dark-mode .farm-piknik-wordmark__on-dark {
+  display: inline;
+}
+
+/* Spacing only — keep Gin h2 size/weight (do not override font-size). */
+.farm-piknik-section {
+  margin: 0 0 0.75rem;
+}
+
+.farm-piknik-connect {
+  display: flex;
+  gap: 0.75rem;
+  margin: 0 0 1.25rem;
+}
+
+.farm-piknik-settings .form-item {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.farm-piknik-board__section {
+  margin: 0 0 2rem;
+  max-width: 48rem;
+}
+
+.farm-piknik-marketplace {
+  margin: 0 0 2.5rem;
+  max-width: 48rem;
+  padding: 1.25rem 1.35rem 0.5rem;
+  border: 1px solid var(--gin-border-color, #d4d4d8);
+  border-radius: 0.35rem;
+  background: var(--gin-bg-layer2, var(--gin-bg-layer, transparent));
+}
+
+/* Section heading under the wordmark (2.625rem): Gin h3 size, bold title. */
+.farm-piknik-marketplace h2.farm-piknik-marketplace__title {
+  margin-block: 0 0.5rem;
+  font-size: var(--gin-font-size-h3);
+  font-weight: var(--gin-font-weight-bold);
+  line-height: normal;
+  color: var(--gin-color-title);
+}
+
+.farm-piknik-marketplace__intro {
+  margin: 0 0 1.25rem;
+  max-width: 40rem;
+  color: var(--gin-color-text);
+}
+
+.farm-piknik-marketplace__block {
+  margin: 0 0 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--gin-border-color, #e4e4e7);
+}
+
+.farm-piknik-marketplace__block:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.farm-piknik-subsection {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.farm-piknik-board__table {
+  margin-top: 0.5rem;
+}
+
+.farm-piknik-board__summary {
+  margin: 0 0 1.5rem;
+  max-width: 40rem;
+  color: var(--gin-color-text);
+}
+
+.farm-piknik-board__create-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0.5rem 0 0;
+}
+
+.farm-piknik-board__primary {
+  margin: 0 0 2.25rem;
+  max-width: 48rem;
+  padding: 1.25rem 1.35rem;
+  border: 1px solid var(--gin-border-color, #d4d4d8);
+  border-radius: var(--gin-border-m, 0.5rem);
+  background: var(--gin-bg-layer2, transparent);
+}
+
+.farm-piknik-board__primary-title {
+  margin: 0 0 0.5rem;
+  font-size: var(--gin-font-size-h3);
+  font-weight: var(--gin-font-weight-bold);
+  color: var(--gin-color-title);
+}
+
+.farm-piknik-board__primary-help {
+  margin: 0 0 1rem;
+  max-width: 40rem;
+  color: var(--gin-color-text);
+  line-height: 1.5;
+}
+
+.farm-piknik-board__radius {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.5rem 0.65rem;
+  margin: 0 0 1.25rem;
+}
+
+.farm-piknik-board__radius .form-item {
+  margin: 0;
+  max-width: 14rem;
+}
+
+.farm-piknik-board__radius .button.farm-piknik-board__radius-apply {
+  margin-block: 0; margin-inline: 0;
+  align-self: flex-end;
+  min-height: 2.5rem;
+  height: 2.5rem;
+  padding: 0 0.85rem;
+  line-height: 1.2;
+}
+
+.farm-piknik-board__fold {
+  margin: 1.5rem 0 0;
+}
+
+.farm-piknik-board__prompt,
+.farm-piknik-board__empty {
+  max-width: 40rem;
+}
+
+/* Listing status toggle on Your listings. */
+.farm-piknik-board a.farm-piknik-status-badge--toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.75rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.farm-piknik-board a.farm-piknik-status-badge--active {
+  color: var(--gin-color-primary-text, #fff);
+  background: var(--gin-color-green, var(--gin-color-primary, #059669));
+}
+
+.farm-piknik-board a.farm-piknik-status-badge--inactive {
+  color: var(--gin-color-text);
+  background: var(--gin-bg-layer3, #e4e4e7);
+}

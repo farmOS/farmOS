@@ -1,0 +1,10 @@
+name: OAuth client
+description: Signs this farm in to another service with the authorization-code flow.
+type: module
+# Site/integration helper — not a farmOS core module. Installed when a
+# dependent module (e.g. Piknik.Spot) is opted in; hidden from the setup
+# "Community modules" checklist (that list is package: farmOS Contrib only).
+package: farmOS Custom
+core_version_requirement: ^11
+dependencies:
+  - drupal:user

@@ -1,0 +1,4 @@
+use farm oauth client:
+  title: 'Sign this farm in to another service'
+  description: 'Start the sign-in flow and receive the callback on this farm.'
+  restrict access: true

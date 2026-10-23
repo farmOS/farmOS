@@ -1,0 +1,40 @@
+farm_piknik.board:
+  path: '/piknik'
+  defaults:
+    _form: '\Drupal\farm_piknik\Form\BoardForm'
+    _title: 'Piknik'
+  requirements:
+    _permission: 'manage farm piknik'
+
+farm_piknik.create_from_crop:
+  path: '/piknik/create/from-crop'
+  defaults:
+    _form: '\Drupal\farm_piknik\Form\CreateFromCropForm'
+    _title: 'List from a harvest'
+  requirements:
+    _permission: 'manage farm piknik'
+
+farm_piknik.create_adhoc:
+  path: '/piknik/create/adhoc'
+  defaults:
+    _form: '\Drupal\farm_piknik\Form\CreateAdHocForm'
+    _title: 'New listing'
+  requirements:
+    _permission: 'manage farm piknik'
+
+farm_piknik.settings:
+  path: '/farm/settings/piknik'
+  defaults:
+    _form: '\Drupal\farm_piknik\Form\SettingsForm'
+    _title: 'Piknik'
+  requirements:
+    _permission: 'manage farm piknik'
+
+farm_piknik.listing_toggle:
+  path: '/piknik/listing/{listing_id}/toggle'
+  defaults:
+    _controller: '\Drupal\farm_piknik\Controller\ListingStatusController::toggle'
+  requirements:
+    _permission: 'manage farm piknik'
+    _csrf_token: 'TRUE'
+    listing_id: '[A-Za-z0-9_-]{8,40}'

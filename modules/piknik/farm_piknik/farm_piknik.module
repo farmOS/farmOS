@@ -1,0 +1,54 @@
+<?php
+
+declare(strict_types=1);
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * @file
+ * Posts a done harvest log when the farmer has opted in.
+ */
+
+/**
+ * Implements hook_entity_insert().
+ */
+function farm_piknik_entity_insert(EntityInterface $entity): void {
+  farm_piknik_maybe_post($entity);
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function farm_piknik_entity_update(EntityInterface $entity): void {
+  farm_piknik_maybe_post($entity);
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function farm_piknik_preprocess_html(array &$variables): void {
+  $route = \Drupal::routeMatch()->getRouteName();
+  if (in_array($route, ['farm_piknik.settings', 'farm_piknik.board'], TRUE)) {
+    $variables['attributes']['class'][] = 'farm-piknik-settings-page';
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for toolbar (farmOS menu icon convention).
+ */
+function farm_piknik_preprocess_toolbar(array &$variables): void {
+  $variables['#attached']['library'][] = 'farm_piknik/toolbar';
+}
+
+/**
+ * Posts a completed harvest once.
+ */
+function farm_piknik_maybe_post(EntityInterface $entity): void {
+  if ($entity->getEntityTypeId() !== 'log' || $entity->bundle() !== 'harvest') {
+    return;
+  }
+  if ($entity->get('status')->value !== 'done') {
+    return;
+  }
+  \Drupal::service('farm_piknik.poster')->post($entity);
+}

@@ -1,0 +1,25 @@
+services:
+  farm_piknik.places:
+    class: Drupal\farm_piknik\PlaceDirectory
+    arguments: ['@farm_oauth_client.flow', '@farm_oauth_client.http', '@farm_oauth_client.connection']
+  farm_piknik.listing_client:
+    class: Drupal\farm_piknik\ListingClient
+    arguments: ['@farm_oauth_client.flow', '@farm_oauth_client.http', '@farm_oauth_client.connection']
+  farm_piknik.listing_status:
+    class: Drupal\farm_piknik\ListingStatusApi
+    arguments: ['@farm_oauth_client.flow', '@farm_oauth_client.http', '@farm_oauth_client.connection']
+  farm_piknik.listings:
+    class: Drupal\farm_piknik\ListingDirectory
+    arguments: ['@farm_piknik.listing_client', '@farm_oauth_client.connection']
+  farm_piknik.farm_goods:
+    class: Drupal\farm_piknik\FarmGoods
+    arguments: ['@entity_type.manager']
+  # Alias kept so any leftover farm_piknik.crops injections still resolve.
+  farm_piknik.crops:
+    alias: farm_piknik.farm_goods
+  farm_piknik.finished_harvests:
+    class: Drupal\farm_piknik\FinishedHarvests
+    arguments: ['@entity_type.manager']
+  farm_piknik.poster:
+    class: Drupal\farm_piknik\HarvestPoster
+    arguments: ['@farm_oauth_client.flow', '@farm_oauth_client.http', '@farm_oauth_client.connection', '@state', '@database', '@messenger']

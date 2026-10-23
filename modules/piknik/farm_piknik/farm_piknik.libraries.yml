@@ -1,0 +1,10 @@
+wordmark:
+  css:
+    theme:
+      css/wordmark.css: {}
+      css/triggers.css: {}
+
+toolbar:
+  css:
+    theme:
+      css/toolbar.css: {}

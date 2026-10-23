@@ -1,0 +1,14 @@
+farm_piknik.board:
+  title: Piknik
+  description: 'Connect your farm to Piknik, a local food marketplace.'
+  parent: farm.base
+  route_name: farm_piknik.board
+  # Below Administration (system.admin is weight 100 under farm.base).
+  weight: 101
+
+farm_piknik.settings:
+  title: Piknik.Spot
+  description: Connect this farm to your local food system
+  parent: farm.setup
+  route_name: farm_piknik.settings
+  weight: 110

@@ -1,0 +1,59 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Schema and role grant for harvest listing posts.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function farm_piknik_schema(): array {
+  return [
+    'farm_piknik_post' => [
+      'description' => 'Harvest logs already sent to Piknik.',
+      'fields' => [
+        'log_uuid' => ['type' => 'varchar', 'length' => 36, 'not null' => TRUE],
+        'listing_id' => ['type' => 'varchar', 'length' => 64, 'not null' => TRUE],
+        'posted' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+      ],
+      'primary key' => ['log_uuid'],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_install().
+ */
+function farm_piknik_install(): void {
+  foreach (['farm_manager', 'administrator'] as $role_id) {
+    $role = \Drupal\user\Entity\Role::load($role_id);
+    if ($role) {
+      $role->grantPermission('manage farm piknik');
+      $role->grantPermission('use farm oauth client');
+      $role->save();
+    }
+  }
+}
+
+/**
+ * Drops the pasted marketplace token. Sign-in replaces it.
+ */
+function farm_piknik_update_9001(): void {
+  $state = \Drupal::state();
+  $state->delete('farm_piknik.token');
+  $base = $state->get('farm_piknik.base_url');
+  if (is_string($base) && $base !== '' && !is_string($state->get('farm_oauth_client.piknik.base_url'))) {
+    $state->set('farm_oauth_client.piknik.base_url', $base);
+  }
+  $state->delete('farm_piknik.base_url');
+  foreach (['farm_manager', 'administrator'] as $role_id) {
+    $role = \Drupal\user\Entity\Role::load($role_id);
+    if ($role && !$role->hasPermission('use farm oauth client')) {
+      $role->grantPermission('use farm oauth client');
+      $role->save();
+    }
+  }
+}
