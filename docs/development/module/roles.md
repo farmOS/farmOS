@@ -152,6 +152,8 @@ Example implementation of a `permission_callback`:
 ```php
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\my_module;
 
 use Drupal\user\RoleInterface;

@@ -43,6 +43,8 @@ addition to the "Quick form" module (`farm:farm_quick`).
 ```php
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\farm_quick_harvest\Plugin\QuickForm;
 
 use Drupal\Core\Datetime\DrupalDateTime;
@@ -255,6 +257,8 @@ above, followed by the schema file that describes the settings.
 
 ```php
 <?php
+
+declare(strict_types=1);
 
 namespace Drupal\farm_quick_harvest\Plugin\QuickForm;
 
@@ -477,6 +481,8 @@ for prepopulating the "Asset" field would be provided as follows:
 ```php
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\farm_quick_harvest\Plugin\Action;
 
 use Drupal\Core\Action\Attribute\Action;
@@ -555,6 +561,8 @@ The following is the same "Harvest" example as above, with two additions:
 
 ```php
 <?php
+
+declare(strict_types=1);
 
 namespace Drupal\farm_quick_harvest\Plugin\QuickForm;
 

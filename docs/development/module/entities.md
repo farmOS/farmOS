@@ -38,6 +38,8 @@ new_revision: true
 ```php
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\farm_activity\Plugin\Log\LogType;
 
 use Drupal\Core\StringTranslation\TranslatableMarkup;

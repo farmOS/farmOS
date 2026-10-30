@@ -325,6 +325,8 @@ services:
 ```php
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\my_module\EventSubscriber;
 
 use Drupal\farm_map\Event\MapRenderEvent;
