@@ -71,8 +71,8 @@ This configuration is most easily demonstrated with
   role: string (required: if umbrella is FALSE and granularity set to role)
 ```
 
-An example of the static `farm_manager` scope provided by the farmOS Role
-Roles module:
+An example of the static `farm_manager` scope provided by the farmOS Manager
+Role module:
 ```yaml
 farm_manager:
   description: 'Grants access to the Farm Manager role.'
