@@ -72,7 +72,7 @@ This configuration is most easily demonstrated with
 ```
 
 An example of the static `farm_manager` scope provided by the farmOS Role
-Roles mdoule:
+Roles module:
 ```yaml
 farm_manager:
   description: 'Grants access to the Farm Manager role.'
