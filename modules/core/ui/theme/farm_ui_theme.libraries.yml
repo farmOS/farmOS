@@ -10,6 +10,14 @@ content_form:
   css:
     theme:
       css/content-form.css: { }
+number_validation:
+  js:
+    js/number-validation.js: { }
+  dependencies:
+    - core/drupal
+    - core/drupal.vertical-tabs
+    - core/jquery
+    - core/once
 dashboard:
   css:
     theme:

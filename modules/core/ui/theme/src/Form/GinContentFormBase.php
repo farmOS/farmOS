@@ -115,6 +115,10 @@ class GinContentFormBase extends ContentEntityForm implements RenderCallbackInte
       // with vertical tabs.
       $form['#attributes']['novalidate'] = 'novalidate';
 
+      // Guard malformed numeric input that browsers would submit as empty.
+      $form['#attributes']['class'][] = 'farm-number-validation';
+      $form['#attached']['library'][] = 'farm_ui_theme/number_validation';
+
       // Create parent for all tabs.
       $form['tabs'] = [
         '#type' => 'vertical_tabs',

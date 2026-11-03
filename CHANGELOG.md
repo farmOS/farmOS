@@ -38,6 +38,9 @@ the abandoned `oomphinc/composer-installers-extender` project:
 
 ### Fixed
 
+- Prevent malformed number input from being silently saved as empty in grouped
+  entity forms, while preserving optional fields and validation in hidden tabs.
+
 - [Update entity type definitions in key_value store #1091](https://github.com/farmOS/farmOS/pull/1091)
 
 ## [4.0.8] 2026-10-14
