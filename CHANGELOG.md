@@ -38,6 +38,8 @@ the abandoned `oomphinc/composer-installers-extender` project:
 
 ### Fixed
 
+- Prepopulate log owners when adding logs from another user's assigned logs page.
+
 - [Update entity type definitions in key_value store #1091](https://github.com/farmOS/farmOS/pull/1091)
 
 ## [4.0.8] 2026-10-14
