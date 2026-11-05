@@ -11,6 +11,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Routing\RouteProviderInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\asset\Entity\AssetInterface;
+use Drupal\user\UserInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -114,6 +115,15 @@ class AddEntity extends LocalActionDefault {
         // Build a query param to prepopulate the asset field in the log form.
         $param = 'asset';
         $options['query'][$param] = $asset_id;
+      }
+    }
+
+    // Prepopulate log owners from the user whose logs are being viewed.
+    if (!empty($this->pluginDefinition['prepopulate']['owner']['route_parameter'])) {
+      $account = $route_match->getParameter($this->pluginDefinition['prepopulate']['owner']['route_parameter']);
+      $owner_id = $account instanceof UserInterface ? $account->id() : $account;
+      if (!empty($owner_id)) {
+        $options['query']['owner'] = $owner_id;
       }
     }
 

@@ -102,6 +102,19 @@ class FarmActions extends DeriverBase implements ContainerDeriverInterface {
           // farm_ui_views module is enabled.
           if ($this->moduleHandler->moduleExists('farm_ui_views')) {
             $this->derivatives[$name]['appears_on'][] = 'view.farm_log.page_asset';
+
+            // Prepopulate owners when adding logs from a user's log list.
+            $name = 'farm.user.add.' . $type . '.' . $bundle;
+            $this->derivatives[$name] = $base_plugin_definition;
+            $this->derivatives[$name]['route_name'] = 'entity.log.add_form';
+            $this->derivatives[$name]['class'] = AddEntity::class;
+            $this->derivatives[$name]['entity_type'] = 'log';
+            $this->derivatives[$name]['bundle'] = $bundle;
+            $this->derivatives[$name]['appears_on'][] = 'view.farm_log.page_user';
+            $this->derivatives[$name]['prepopulate'] = [
+              'owner' => ['route_parameter' => 'user'],
+            ];
+            $this->derivatives[$name]['cache_tags'] = ['entity_bundles'];
           }
         }
       }
