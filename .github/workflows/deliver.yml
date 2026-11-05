@@ -46,7 +46,7 @@ jobs:
       # farmOS Composer project dev branch is always used.
       - name: Build and save the farmOS Docker image
         run: |
-          COMMON_BUILD_ARGS="--build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION}"
+          COMMON_BUILD_ARGS="--build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION} --provenance false"
           PROD_IMG_NAME=${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-amd64
           DEV_IMG_NAME=${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-amd64
           docker build ${COMMON_BUILD_ARGS} -t ${PROD_IMG_NAME} docker
@@ -93,7 +93,7 @@ jobs:
       # farmOS Composer project dev branch is always used.
       - name: Build and save the farmOS Docker image
         run: |
-          COMMON_BUILD_ARGS="--build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION}"
+          COMMON_BUILD_ARGS="--build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION} --provenance false"
           PROD_IMG_NAME=${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-arm64v8
           DEV_IMG_NAME=${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-arm64v8
           docker build ${COMMON_BUILD_ARGS} -t ${PROD_IMG_NAME} docker
@@ -145,7 +145,7 @@ jobs:
       # farmOS Composer project dev branch is always used.
       - name: Build and save the farmOS Docker image
         run: |
-          COMMON_BUILD_ARGS="--load --build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION} --platform linux/arm/v7"
+          COMMON_BUILD_ARGS="--load --build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION} --platform linux/arm/v7 --provenance false"
           PROD_IMG_NAME=${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-arm32v7
           DEV_IMG_NAME=${DOCKER_IMG_PREFIX}:${FARMOS_DEV_BRANCH}-dev-arm32v7
           docker buildx build ${COMMON_BUILD_ARGS} -t ${PROD_IMG_NAME} docker
