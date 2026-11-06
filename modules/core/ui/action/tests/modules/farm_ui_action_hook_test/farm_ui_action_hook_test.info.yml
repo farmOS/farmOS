@@ -1,0 +1,7 @@
+name: farmOS UI Action Hook Test
+description: Module for testing farmOS UI Action hooks.
+type: module
+package: Testing
+core_version_requirement: ^11
+dependencies:
+  - farm:farm_ui_action_test
