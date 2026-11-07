@@ -38,6 +38,7 @@ the abandoned `oomphinc/composer-installers-extender` project:
 
 ### Fixed
 
+- [Fix archived asset conditions that match nothing on SQLite #1111](https://github.com/farmOS/farmOS/pull/1111)
 - [Update entity type definitions in key_value store #1091](https://github.com/farmOS/farmOS/pull/1091)
 
 ## [4.0.8] 2026-10-14

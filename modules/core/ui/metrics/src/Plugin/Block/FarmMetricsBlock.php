@@ -103,7 +103,7 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
 
       // Exclude archived assets.
       if ($entity_type == 'asset') {
-        $query->condition('archived', FALSE);
+        $query->condition('archived', 0);
       }
 
       $count = $query->count()->execute();

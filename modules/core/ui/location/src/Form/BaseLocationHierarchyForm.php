@@ -187,7 +187,7 @@ abstract class BaseLocationHierarchyForm extends FormBase {
       ->getQuery()
       ->accessCheck(TRUE)
       ->condition('is_location', TRUE)
-      ->condition('archived', FALSE);
+      ->condition('archived', 0);
     if ($parent) {
       $query->condition('parent', $parent->id());
     }
