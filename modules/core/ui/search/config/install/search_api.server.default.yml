@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - search_api_db
+  enforced:
+    module:
+      - farm_ui_search
+id: default
+name: Default
+description: ''
+backend: search_api_db
+backend_config:
+  database: 'default:default'
+  min_chars: 3
+  matching: partial
+  phrase: bigram

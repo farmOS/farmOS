@@ -1,0 +1,8 @@
+name: farmOS UI Search
+description: Adds a dashboard pane with search features.
+type: module
+package: farmOS UI
+core_version_requirement: ^11
+dependencies:
+  - farm:farm_ui_dashboard
+  - search_api:search_api_db
