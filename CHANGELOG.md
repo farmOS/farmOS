@@ -26,6 +26,10 @@ the abandoned `oomphinc/composer-installers-extender` project:
     composer require composer/installers
     composer remove oomphinc/composer-installers-extender
 
+### Added
+
+- [Add support for Markdown in default text format #1072](https://github.com/farmOS/farmOS/pull/1072)
+
 ### Changed
 
 - [Update Drupal core to 11.4 #1096](https://github.com/farmOS/farmOS/pull/1096)
