@@ -40,6 +40,29 @@ the abandoned `oomphinc/composer-installers-extender` project:
 
 - [Update entity type definitions in key_value store #1091](https://github.com/farmOS/farmOS/pull/1091)
 
+## [4.0.10] + [4.0.11] 2026-11-18
+
+- Update Drupal core to
+  [11.3.22](https://www.drupal.org/project/drupal/releases/11.3.22) for
+  [SA-CORE-2026-017](https://www.drupal.org/sa-core-2026-017) and
+  [SA-CORE-2026-018](https://www.drupal.org/sa-core-2026-018).
+
+**Note:** [4.0.11] was tagged because the [4.0.10] delivery pipeline failed.
+They are otherwise identical.
+
+## [4.0.9] 2026-10-21
+
+Note: this updates PHP in the official Docker image for the security update
+linked below. If you are not using the farmOS Docker image, you do not need
+this update, but you should update your PHP version immediately.
+
+### Security
+
+- Update PHP to [8.4.27](https://www.php.net/ChangeLog-8.php#8.4.27) for
+  [CVE-2026-109618](https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w)
+  and
+  [CVE-2026-109619](https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp).
+
 ## [4.0.8] 2026-10-14
 
 ### Security
@@ -345,7 +368,10 @@ farmOS 2.x release notes are available in the 2.x branch's
 farmOS 1.x release notes are available in the
 [farmOS releases on Drupal.org](https://www.drupal.org/project/farm/releases?version=7.x-1).
 
-[Unreleased]: https://github.com/farmOS/farmOS/compare/4.0.8...4.x
+[Unreleased]: https://github.com/farmOS/farmOS/compare/4.0.11...4.x
+[4.0.11]: https://github.com/farmOS/farmOS/releases/tag/4.0.11
+[4.0.10]: https://github.com/farmOS/farmOS/releases/tag/4.0.10
+[4.0.9]: https://github.com/farmOS/farmOS/releases/tag/4.0.9
 [4.0.8]: https://github.com/farmOS/farmOS/releases/tag/4.0.8
 [4.0.7]: https://github.com/farmOS/farmOS/releases/tag/4.0.7
 [4.0.6]: https://github.com/farmOS/farmOS/releases/tag/4.0.6
