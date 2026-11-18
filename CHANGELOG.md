@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.5.10] 2026-11-18
+
 - Update Drupal core to
   [10.6.22](https://www.drupal.org/project/drupal/releases/10.6.22) for
   [SA-CORE-2026-017](https://www.drupal.org/sa-core-2026-017) and
@@ -512,7 +514,8 @@ farmOS 2.x release notes are available in the 2.x branch's
 farmOS 1.x release notes are available in the
 [farmOS releases on Drupal.org](https://www.drupal.org/project/farm/releases?version=7.x-1).
 
-[Unreleased]: https://github.com/farmOS/farmOS/compare/3.5.9...3.x
+[Unreleased]: https://github.com/farmOS/farmOS/compare/3.5.10...3.x
+[3.5.10]: https://github.com/farmOS/farmOS/releases/tag/3.5.10
 [3.5.9]: https://github.com/farmOS/farmOS/releases/tag/3.5.9
 [3.5.8]: https://github.com/farmOS/farmOS/releases/tag/3.5.8
 [3.5.7]: https://github.com/farmOS/farmOS/releases/tag/3.5.7
