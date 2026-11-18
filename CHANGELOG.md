@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Update Drupal core to
+  [11.3.22](https://www.drupal.org/project/drupal/releases/11.3.22) for
+  [SA-CORE-2026-017](https://www.drupal.org/sa-core-2026-017) and
+  [SA-CORE-2026-018](https://www.drupal.org/sa-core-2026-018).
+
 ## [4.0.9] 2026-10-21
 
 Note: this updates PHP in the official Docker image for the security update
