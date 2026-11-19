@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.5.11] 2026-11-19
+
+Note: this updates PHP in the official Docker image for the security update
+linked below. If you are not using the farmOS Docker image, you do not need
+this update, but you should update your PHP version immediately.
+
+### Security
+
+- Update PHP to [8.4.28](https://www.php.net/ChangeLog-8.php#8.4.28) for
+  [CVE-2026-129496](https://github.com/php/php-src/security/advisories/GHSA-gr4f-wgx5-jpfv).
+
 ## [3.5.10] 2026-11-18
 
 - Update Drupal core to
@@ -514,7 +525,8 @@ farmOS 2.x release notes are available in the 2.x branch's
 farmOS 1.x release notes are available in the
 [farmOS releases on Drupal.org](https://www.drupal.org/project/farm/releases?version=7.x-1).
 
-[Unreleased]: https://github.com/farmOS/farmOS/compare/3.5.10...3.x
+[Unreleased]: https://github.com/farmOS/farmOS/compare/3.5.11...3.x
+[3.5.11]: https://github.com/farmOS/farmOS/releases/tag/3.5.11
 [3.5.10]: https://github.com/farmOS/farmOS/releases/tag/3.5.10
 [3.5.9]: https://github.com/farmOS/farmOS/releases/tag/3.5.9
 [3.5.8]: https://github.com/farmOS/farmOS/releases/tag/3.5.8
