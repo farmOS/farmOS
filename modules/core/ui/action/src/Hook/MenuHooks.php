@@ -38,11 +38,6 @@ class MenuHooks {
         if ($this->moduleHandler->moduleExists('farm_ui_dashboard')) {
           $local_actions[$action_key]['appears_on'][] = 'farm.dashboard';
         }
-
-        // Show the "Add Log" action link on /user/%/logs, if available.
-        if ($entity_type == 'log' && $this->moduleHandler->moduleExists('farm_ui_views')) {
-          $local_actions[$action_key]['appears_on'][] = 'view.farm_log.page_user';
-        }
       }
     }
   }
