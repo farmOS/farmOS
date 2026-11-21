@@ -20,6 +20,7 @@ class ThemeHooks {
       'setup' => [
         'block' => 'farm_setup',
         'region' => 'top',
+        'weight' => -100,
       ],
     ];
   }
