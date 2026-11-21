@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: test_action_confirm
+label: 'Test action confirm'
+type: asset
+plugin: 'test_action_confirm'
+configuration: {  }

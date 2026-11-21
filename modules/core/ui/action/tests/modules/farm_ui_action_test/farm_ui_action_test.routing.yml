@@ -1,0 +1,6 @@
+farm_ui_action_test.confirm_form:
+  path: '/asset/test_action_confirm'
+  defaults:
+    _form: 'Drupal\farm_ui_action_test\Form\TestActionConfirmForm'
+  requirements:
+    _user_is_logged_in: 'TRUE'
