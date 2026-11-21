@@ -49,6 +49,7 @@ abstract class QuickFormTestBase extends KernelTestBase {
     'geofield',
     'image',
     'log',
+    'markdown',
     'options',
     'quantity',
     'rest',
