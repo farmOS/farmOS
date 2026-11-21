@@ -14,7 +14,7 @@
         "palantirnet/drupal-rector": "^0.21.0",
         "phpstan/extension-installer": "^1.4.3",
         "phpcompatibility/php-compatibility": "^9",
-        "phpstan/phpstan": "2.3.3",
+        "phpstan/phpstan": "^2.1.17",
         "phpstan/phpstan-deprecation-rules": "^2.0",
         "phpunit/phpunit": "^11.5.3",
         "phpspec/prophecy-phpunit": "^2",
