@@ -217,6 +217,9 @@ Example `Dockerfile`:
 # Inherit from the upsteam farmOS 4.x image.
 FROM farmos/farmos:4.x
 
+# The farmOS image runs as www-data but we need root for further setup.
+USER root
+
 # Install `jq` to help in extracting the farmOS version below.
 RUN apt-get update && apt-get install -y jq
 
@@ -238,6 +241,9 @@ RUN sed -i "s|version: 4.x|version: $(jq -r '.packages[] | select(.name == "farm
 
 # Copy the farmOS codebase into /opt/drupal.
 RUN rm -r /opt/drupal && cp -rp /var/farmOS /opt/drupal
+
+# Fall back to safer user for running the image.
+USER www-data
 ```
 
 With the above example `Dockerfile` in your project's root directory, the
