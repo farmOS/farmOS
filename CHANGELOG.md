@@ -39,6 +39,7 @@ the abandoned `oomphinc/composer-installers-extender` project:
 ### Fixed
 
 - [Update entity type definitions in key_value store #1091](https://github.com/farmOS/farmOS/pull/1091)
+- [Fix user permissions issue for Dockerfile example in docs #1123](https://github.com/farmOS/farmOS/pull/1123)
 
 ## [4.0.12] 2026-11-19
 
