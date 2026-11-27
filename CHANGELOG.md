@@ -40,6 +40,14 @@ the abandoned `oomphinc/composer-installers-extender` project:
 
 - [Update entity type definitions in key_value store #1091](https://github.com/farmOS/farmOS/pull/1091)
 
+## [4.0.13] 2026-11-27
+
+### Security
+
+- Update Drupal core to
+  [11.3.23](https://www.drupal.org/project/drupal/releases/11.3.23) for
+  [SA-CORE-2026-019](https://www.drupal.org/sa-core-2026-019).
+
 ## [4.0.12] 2026-11-19
 
 Note: this updates PHP in the official Docker image for the security update
@@ -379,7 +387,8 @@ farmOS 2.x release notes are available in the 2.x branch's
 farmOS 1.x release notes are available in the
 [farmOS releases on Drupal.org](https://www.drupal.org/project/farm/releases?version=7.x-1).
 
-[Unreleased]: https://github.com/farmOS/farmOS/compare/4.0.12...4.x
+[Unreleased]: https://github.com/farmOS/farmOS/compare/4.0.13...4.x
+[4.0.13]: https://github.com/farmOS/farmOS/releases/tag/4.0.13
 [4.0.12]: https://github.com/farmOS/farmOS/releases/tag/4.0.12
 [4.0.11]: https://github.com/farmOS/farmOS/releases/tag/4.0.11
 [4.0.10]: https://github.com/farmOS/farmOS/releases/tag/4.0.10
